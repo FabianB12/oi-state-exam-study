@@ -100,6 +100,75 @@ code {
   color: var(--ink-soft);
 }
 
+.math-inline,
+code.math-code {
+  display: inline;
+  padding: 0.02em 0.18em;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--surface-3) 70%, transparent);
+  border: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.02em;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+code.math-code .math-inline {
+  padding: 0;
+  background: transparent;
+}
+
+.math-operator,
+.math-punctuation,
+.math-number {
+  font-style: normal;
+}
+
+.math-inline sub,
+.math-inline sup,
+code.math-code sub,
+code.math-code sup,
+.math-display sub,
+.math-display sup {
+  position: relative;
+  font-size: 0.68em;
+  line-height: 0;
+}
+
+.math-inline sub,
+code.math-code sub,
+.math-display sub {
+  bottom: -0.18em;
+}
+
+.math-inline sup,
+code.math-code sup,
+.math-display sup {
+  top: -0.35em;
+}
+
+.math-display {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.12em;
+  max-width: 100%;
+  margin: 0.2rem 0 0.45rem;
+  padding: 0.52rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  font-style: italic;
+  font-weight: 700;
+  overflow-x: auto;
+}
+
 pre {
   margin: 0.6rem 0 0;
   padding: 0.75rem;

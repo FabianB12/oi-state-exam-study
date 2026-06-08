@@ -6065,6 +6065,192 @@ function initProgressSyncPanel() {
   });
 }
 
+const MATH_GREEK = {
+  alpha: "α",
+  beta: "β",
+  gamma: "γ",
+  delta: "δ",
+  epsilon: "ε",
+  theta: "θ",
+  lambda: "λ",
+  mu: "μ",
+  pi: "π",
+  sigma: "σ",
+  Delta: "Δ",
+  Gamma: "Γ",
+  Lambda: "Λ",
+  Omega: "Ω",
+  Sigma: "Σ",
+  Theta: "Θ",
+  infinity: "∞"
+};
+
+const MATH_OPERATORS = new Set(["argmax", "argmin", "cos", "E", "exp", "log", "ln", "max", "min", "Pr", "sin", "sqrt", "sum"]);
+const MATH_TEXT_PATTERN = /\b[A-Za-z][A-Za-z0-9]*(?:(?:_\{[^}]+\}|_[A-Za-z0-9'()+\-]+|\^\{[^}]+\}|\^[A-Za-z0-9'()+\-*]+)+)(?:\([A-Za-z0-9_,|'+\-/* ]+\))?/g;
+const MATH_CODE_HINT = /[_^]|<=|>=|->|!=|\bsum\b|\bmax\b|\bmin\b|\bPr\b|\bE\b|\bsqrt\b|\blog\b|\bln\b|\bepsilon\b|\bdelta\b|\bgamma\b|\btheta\b|\bmu\b|\bpi\b|\bSigma\b|\bDelta\b|\bOmega\b|\bTheta\b|\binfinity\b/;
+const MATH_SKIP_SELECTOR = "script, style, textarea, template, pre, svg, .material-symbols-rounded, .math-inline, .math-display, .math-code, [data-no-math]";
+
+function mathText(text) {
+  return MATH_GREEK[text] || text;
+}
+
+function mathAppendText(parent, text, className = "math-punctuation") {
+  if (!text) return;
+  const span = document.createElement("span");
+  span.className = className;
+  span.textContent = text;
+  parent.appendChild(span);
+}
+
+function mathReadScript(text, index) {
+  if (text[index] === "{") {
+    const end = text.indexOf("}", index + 1);
+    if (end !== -1) return { value: text.slice(index + 1, end), next: end + 1 };
+  }
+  const match = text.slice(index).match(/^[A-Za-z0-9'()+\-*]+/);
+  if (match) return { value: match[0], next: index + match[0].length };
+  return { value: text[index] || "", next: index + 1 };
+}
+
+function mathFormatScriptText(text) {
+  return String(text || "")
+    .replace(/<=/g, "≤")
+    .replace(/>=/g, "≥")
+    .replace(/->/g, "→")
+    .replace(/!=/g, "≠")
+    .replace(/\binfinity\b/g, "∞")
+    .replace(/\b(alpha|beta|gamma|delta|epsilon|theta|lambda|mu|pi|sigma|Delta|Gamma|Lambda|Omega|Sigma|Theta)\b/g, (word) => mathText(word));
+}
+
+function appendMathAtom(parent, text, start) {
+  const token = text.slice(start).match(/^[A-Za-z][A-Za-z0-9]*|^[0-9]+/);
+  if (!token) return null;
+  const raw = token[0];
+  const atom = document.createElement("span");
+  atom.className = /^[0-9]+$/.test(raw) ? "math-number" : MATH_OPERATORS.has(raw) ? "math-operator" : "math-symbol";
+  atom.textContent = mathText(raw);
+  parent.appendChild(atom);
+
+  let index = start + raw.length;
+  while (text[index] === "_" || text[index] === "^") {
+    const tag = text[index] === "_" ? "sub" : "sup";
+    const parsed = mathReadScript(text, index + 1);
+    const script = document.createElement(tag);
+    script.textContent = mathFormatScriptText(parsed.value);
+    parent.appendChild(script);
+    index = parsed.next;
+  }
+  return index;
+}
+
+function renderMathExpression(text) {
+  const wrapper = document.createElement("span");
+  wrapper.className = "math-inline";
+  let index = 0;
+  while (index < text.length) {
+    if (text.startsWith("<=", index)) {
+      mathAppendText(wrapper, "≤");
+      index += 2;
+    } else if (text.startsWith(">=", index)) {
+      mathAppendText(wrapper, "≥");
+      index += 2;
+    } else if (text.startsWith("->", index)) {
+      mathAppendText(wrapper, "→");
+      index += 2;
+    } else if (text.startsWith("!=", index)) {
+      mathAppendText(wrapper, "≠");
+      index += 2;
+    } else if (/^[A-Za-z0-9]/.test(text[index])) {
+      const next = appendMathAtom(wrapper, text, index);
+      if (next) index = next;
+      else {
+        mathAppendText(wrapper, text[index]);
+        index += 1;
+      }
+    } else {
+      mathAppendText(wrapper, text[index]);
+      index += 1;
+    }
+  }
+  return wrapper;
+}
+
+function shouldFormatMathNode(node) {
+  const parent = node.parentElement;
+  return Boolean(parent && !parent.closest(MATH_SKIP_SELECTOR));
+}
+
+function hasMathTextPattern(text) {
+  MATH_TEXT_PATTERN.lastIndex = 0;
+  const found = MATH_TEXT_PATTERN.test(text || "");
+  MATH_TEXT_PATTERN.lastIndex = 0;
+  return found;
+}
+
+function formatMathTextNode(node) {
+  const text = node.nodeValue || "";
+  if (!hasMathTextPattern(text) || !shouldFormatMathNode(node)) return;
+  MATH_TEXT_PATTERN.lastIndex = 0;
+  const fragment = document.createDocumentFragment();
+  let last = 0;
+  for (const match of text.matchAll(MATH_TEXT_PATTERN)) {
+    if (match.index > last) fragment.appendChild(document.createTextNode(text.slice(last, match.index)));
+    fragment.appendChild(renderMathExpression(match[0]));
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) fragment.appendChild(document.createTextNode(text.slice(last)));
+  node.replaceWith(fragment);
+}
+
+function formatMathCodeElement(code) {
+  if (code.dataset.mathFormatted === "true") return;
+  const text = code.textContent || "";
+  if (!MATH_CODE_HINT.test(text) || text.length > 180 || text.includes("\n")) return;
+  code.dataset.mathFormatted = "true";
+  code.classList.add("math-code");
+  code.textContent = "";
+  code.appendChild(renderMathExpression(text));
+}
+
+function formatMathNotation(root = document.body) {
+  if (!root) return;
+  if (root.nodeType === Node.TEXT_NODE) {
+    formatMathTextNode(root);
+    return;
+  }
+  if (root.nodeType !== Node.ELEMENT_NODE) return;
+  if (root.matches?.(MATH_SKIP_SELECTOR) && !root.matches("code")) return;
+  if (root.matches?.("code")) formatMathCodeElement(root);
+  root.querySelectorAll?.("code").forEach(formatMathCodeElement);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return shouldFormatMathNode(node) && hasMathTextPattern(node.nodeValue || "")
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(formatMathTextNode);
+}
+
+function initMathNotation() {
+  formatMathNotation(document.body);
+  let pending = false;
+  const observer = new MutationObserver((mutations) => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => formatMathNotation(node));
+      });
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  window.formatMathNotation = formatMathNotation;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initIcons();
   initModuleDonePlacement();
@@ -6110,4 +6296,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initLupFolStepper();
   initLupEqualityTabs();
   initLupModelStepper();
+  initMathNotation();
 });

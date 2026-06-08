@@ -270,7 +270,10 @@
           <div class="block">
             <p class="block-label recall">Plain meaning</p>
             <article class="recall-card">
-              <h3>What <code>(N, (A_i), (u_i))</code> actually means</h3>
+              <h3>What the normal-form tuple actually means</h3>
+              <p class="math-display" aria-label="G equals N, action sets indexed by i in N, and utility functions indexed by i in N">
+                G = (N, (A<sub>i</sub>)<sub>i&isin;N</sub>, (u<sub>i</sub>)<sub>i&isin;N</sub>)
+              </p>
               <p>A normal-form game is just a payoff table written formally. <code>N</code> is the set of players. <code>A_i</code> is the action set for player <code>i</code>. An action profile is one chosen action from every player, such as <code>(C, D)</code>. The utility function <code>u_i</code> tells you player <code>i</code>'s payoff for each action profile.</p>
               <p class="step-note"><strong>Example:</strong> in a two-player matrix game, rows are player 1 actions, columns are player 2 actions, and each cell <code>(3,1)</code> means utility 3 for player 1 and utility 1 for player 2.</p>
             </article>
@@ -281,7 +284,7 @@
             <article class="recall-card">
               <h3>What you must be able to say</h3>
               <ul>
-                <li>A normal-form game is <code>(N, (A_i), (u_i))</code>: players, action sets, and utility functions over action profiles.</li>
+                <li>A normal-form game is <code>G=(N,(A_i),(u_i))</code>: players, action sets, and utility functions over action profiles.</li>
                 <li>A pure strategy is a single action; a mixed strategy is a probability distribution over actions.</li>
                 <li>Expected utility sums payoff times the product of independent mixed-strategy probabilities.</li>
                 <li>Strict dominance means another strategy is better against every opponent action; weak dominance allows ties and at least one strict improvement.</li>
