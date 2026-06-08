@@ -2713,12 +2713,27 @@ p.fallback-link { margin-top: 0.5rem; }
   stroke-width: 2.6;
 }
 
+.tree-svg-node.is-red circle {
+  fill: #c23b3b;
+  stroke: #8f2727;
+}
+
+.tree-svg-node.is-black circle {
+  fill: #1f2937;
+  stroke: #111827;
+}
+
 .tree-svg-node text {
   fill: var(--ink);
   font-size: 0.43rem;
   font-weight: 850;
   text-anchor: middle;
   dominant-baseline: middle;
+}
+
+.tree-svg-node.is-red text,
+.tree-svg-node.is-black text {
+  fill: #fff;
 }
 
 .tree-drill-placeholder {
@@ -2775,6 +2790,12 @@ p.fallback-link { margin-top: 0.5rem; }
   color: var(--bad);
 }
 
+.tree-choice.is-active {
+  border-color: var(--brand);
+  background: var(--brand-tint);
+  color: var(--brand-strong);
+}
+
 .tree-feedback {
   margin: 0;
   padding: 0.7rem 0.8rem;
@@ -2810,6 +2831,175 @@ p.fallback-link { margin-top: 0.5rem; }
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.5rem;
+}
+
+.tree-op-instruction {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.tree-op-rotation-area,
+.tree-op-btree-area {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tree-op-rotation-area[hidden],
+.tree-op-btree-area[hidden] {
+  display: none;
+}
+
+.tree-snap-board {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.tree-snap-slots {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "root root"
+    "left right";
+  gap: 1.2rem 1rem;
+  min-height: 13rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.tree-snap-slots::before,
+.tree-snap-slots::after {
+  content: "";
+  position: absolute;
+  top: 5.25rem;
+  width: 29%;
+  height: 2px;
+  background: var(--line-strong);
+  transform-origin: center;
+}
+
+.tree-snap-slots::before {
+  left: 25%;
+  transform: rotate(27deg);
+}
+
+.tree-snap-slots::after {
+  right: 25%;
+  transform: rotate(-27deg);
+}
+
+.tree-snap-slot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 5rem;
+  padding: 0.45rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-2) 65%, var(--surface));
+}
+
+.tree-snap-slot.is-root { grid-area: root; width: min(10rem, 100%); justify-self: center; }
+.tree-snap-slot.is-left { grid-area: left; }
+.tree-snap-slot.is-right { grid-area: right; }
+
+.tree-snap-slot > span {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.45rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tree-snap-slot.is-filled {
+  border-style: solid;
+  background: var(--surface);
+}
+
+.tree-snap-slot.is-correct {
+  border-color: var(--good);
+  background: var(--good-tint);
+}
+
+.tree-snap-slot.is-wrong {
+  border-color: var(--bad);
+  background: var(--bad-tint);
+}
+
+.tree-node-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  min-height: 3.4rem;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.tree-drag-node {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 2px solid var(--lab);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+  cursor: grab;
+  box-shadow: var(--shadow-sm);
+}
+
+.tree-drag-node:active {
+  cursor: grabbing;
+}
+
+.tree-drag-node.is-selected {
+  box-shadow: var(--ring), var(--shadow-sm);
+}
+
+.tree-drag-node.is-red {
+  border-color: #8f2727;
+  background: #c23b3b;
+  color: #fff;
+}
+
+.tree-drag-node.is-black {
+  border-color: #111827;
+  background: #1f2937;
+  color: #fff;
+}
+
+.tree-color-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.tree-color-tools[hidden] {
+  display: none;
+}
+
+.tree-color-tools span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
 }
 
 .btree-overflow-node {

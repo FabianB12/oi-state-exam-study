@@ -1543,6 +1543,32 @@ const rbRepairDrillCases = [
   }
 ];
 
+const rbInsertionDragCases = avlRotationDrillCases.map((item) => {
+  const rootId = item.before.nodes[0].id;
+  return {
+    ...item,
+    title: `RB insertion repair: ${item.answer}`,
+    before: {
+      nodes: item.before.nodes.map((node) => ({
+        ...node,
+        color: node.id === rootId ? "black" : "red"
+      })),
+      edges: item.before.edges
+    },
+    after: {
+      nodes: item.after.nodes.map((node) => ({
+        ...node,
+        color: node.id === "20" ? "black" : "red"
+      })),
+      edges: item.after.edges
+    },
+    fix: item.answer === "LL" || item.answer === "RR"
+      ? "Black uncle and outside shape: rotate once at the grandparent, then recolor the new root black and children red."
+      : "Black uncle and inside shape: rotate at the parent first, then at the grandparent; recolor the new root black and children red.",
+    why: "Red-black insertion starts like BST insertion with a red node. If parent and inserted node are both red and the uncle is black/null, rotations repair the red-red violation."
+  };
+});
+
 const mstNodes = {
   A: [18, 22],
   B: [48, 14],
@@ -3930,7 +3956,7 @@ function renderSimpleTreeSvg(tree, options = {}) {
     return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" class="tree-svg-edge"></line>`;
   }).join("");
   const nodeCircles = nodes.map((node) => `
-    <g class="tree-svg-node" transform="translate(${node.x} ${node.y})">
+    <g class="tree-svg-node ${node.color ? `is-${node.color}` : ""}" transform="translate(${node.x} ${node.y})">
       <circle r="${nodeRadius}"></circle>
       <text y="0.6">${escapeFeedbackText(node.id)}</text>
     </g>
@@ -4201,6 +4227,301 @@ function initRbRepairDrill() {
       render();
     });
   }
+  render();
+}
+
+function treeSlotsFromAfter(after, mode) {
+  const nodes = after.nodes || [];
+  const byY = [...nodes].sort((a, b) => a.y - b.y);
+  const root = byY[0];
+  const children = byY.slice(1).sort((a, b) => a.x - b.x);
+  const shape = {
+    root: { id: root?.id || "", color: root?.color || "" },
+    left: { id: children[0]?.id || "", color: children[0]?.color || "" },
+    right: { id: children[1]?.id || "", color: children[1]?.color || "" }
+  };
+  if (mode !== "rb") {
+    Object.values(shape).forEach((slot) => { slot.color = ""; });
+  }
+  return shape;
+}
+
+function initTreeOperationLab() {
+  const root = document.querySelector("[data-tree-operation-lab]");
+  if (!root) return;
+
+  const state = {
+    mode: "avl",
+    index: { avl: 0, rb: 0, btree: 0 },
+    score: { avl: 0, rb: 0, btree: 0 },
+    selectedNode: null,
+    btreeChoice: null,
+    answered: false
+  };
+
+  const dataForMode = {
+    avl: avlRotationDrillCases,
+    rb: rbInsertionDragCases,
+    btree: btreeSplitDrillCases
+  };
+
+  const title = root.querySelector("[data-tree-op-title]");
+  const kicker = root.querySelector("[data-tree-op-kicker]");
+  const count = root.querySelector("[data-tree-op-count]");
+  const instruction = root.querySelector("[data-tree-op-instruction]");
+  const rotationArea = root.querySelector("[data-tree-op-rotation-area]");
+  const btreeArea = root.querySelector("[data-tree-op-btree-area]");
+  const before = root.querySelector("[data-tree-op-before]");
+  const tray = root.querySelector("[data-tree-node-tray]");
+  const colorTools = root.querySelector("[data-tree-color-tools]");
+  const feedback = root.querySelector("[data-tree-op-feedback]");
+  const btreeNode = root.querySelector("[data-tree-op-btree-node]");
+  const btreeChoices = root.querySelector("[data-tree-op-btree-choices]");
+  const btreeResult = root.querySelector("[data-tree-op-btree-result]");
+  const validate = root.querySelector("[data-tree-op-validate]");
+  const reset = root.querySelector("[data-tree-op-reset]");
+  const next = root.querySelector("[data-tree-op-next]");
+  const slots = [...root.querySelectorAll("[data-tree-slot]")];
+
+  const currentItems = () => dataForMode[state.mode] || [];
+  const currentItem = () => currentItems()[state.index[state.mode]];
+
+  const setFeedback = (kind, html) => {
+    if (!feedback) return;
+    feedback.className = `tree-feedback ${kind ? `is-${kind}` : ""}`;
+    feedback.innerHTML = html;
+  };
+
+  const selectNode = (node) => {
+    root.querySelectorAll(".tree-drag-node").forEach((item) => item.classList.toggle("is-selected", item === node));
+    state.selectedNode = node;
+  };
+
+  const updateSlotFill = () => {
+    slots.forEach((slot) => slot.classList.toggle("is-filled", Boolean(slot.querySelector(".tree-drag-node"))));
+  };
+
+  const findDragNode = (id) => {
+    return [...root.querySelectorAll(".tree-drag-node")].find((node) => node.dataset.node === id);
+  };
+
+  const clearSlots = () => {
+    slots.forEach((slot) => {
+      const node = slot.querySelector(".tree-drag-node");
+      if (node) tray?.appendChild(node);
+      slot.classList.remove("is-filled", "is-correct", "is-wrong");
+    });
+  };
+
+  const placeNode = (slot, node) => {
+    if (!slot || !node) return;
+    const existing = slot.querySelector(".tree-drag-node");
+    if (existing && existing !== node) tray?.appendChild(existing);
+    slot.appendChild(node);
+    updateSlotFill();
+    selectNode(node);
+  };
+
+  const makeDragNode = (node) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `tree-drag-node ${node.color ? `is-${node.color}` : ""}`;
+    button.draggable = true;
+    button.dataset.node = node.id;
+    button.dataset.color = node.color || "";
+    button.textContent = node.id;
+    button.title = state.mode === "rb" ? "Drag into position. Select and use color buttons if recoloring is needed." : "Drag into the repaired-tree position.";
+    button.addEventListener("dragstart", (event) => {
+      event.dataTransfer?.setData("text/plain", node.id);
+      selectNode(button);
+    });
+    button.addEventListener("click", () => selectNode(button));
+    return button;
+  };
+
+  const markSlotStates = (expected) => {
+    slots.forEach((slot) => {
+      const expectedNode = expected[slot.dataset.treeSlot];
+      const node = slot.querySelector(".tree-drag-node");
+      const idOk = node?.dataset.node === expectedNode?.id;
+      const colorOk = !expectedNode?.color || node?.dataset.color === expectedNode.color;
+      const ok = Boolean(idOk && colorOk);
+      slot.classList.toggle("is-correct", ok);
+      slot.classList.toggle("is-wrong", Boolean(node) && !ok);
+    });
+  };
+
+  const renderRotationMode = () => {
+    const item = currentItem();
+    const expected = treeSlotsFromAfter(item.after, state.mode);
+    if (before) before.innerHTML = renderSimpleTreeSvg(item.before, { label: `${state.mode.toUpperCase()} tree before repair` });
+    clearSlots();
+    if (tray) {
+      tray.innerHTML = "";
+      item.before.nodes.forEach((node) => tray.appendChild(makeDragNode(node)));
+    }
+    slots.forEach((slot) => {
+      slot.dataset.expectedNode = expected[slot.dataset.treeSlot]?.id || "";
+      slot.dataset.expectedColor = expected[slot.dataset.treeSlot]?.color || "";
+    });
+    if (colorTools) colorTools.hidden = state.mode !== "rb";
+    if (instruction) {
+      instruction.textContent = state.mode === "rb"
+        ? "Drag nodes, or click a node then a slot, into the final rotated shape. Then select placed nodes and set final colors: new root black, children red."
+        : "Drag nodes, or click a node then a slot, into the final shape after the AVL rotation. The slots snap into root, left child, and right child positions.";
+    }
+    setFeedback("", "Build the repaired tree, then validate.");
+  };
+
+  const renderBtreeMode = () => {
+    const item = currentItem();
+    state.btreeChoice = null;
+    if (btreeNode) btreeNode.innerHTML = renderBtreeNode(item.keys);
+    if (btreeChoices) {
+      btreeChoices.innerHTML = item.keys.map((key) => `<button type="button" class="tree-choice" data-tree-op-btree-answer="${key}">Promote ${key}</button>`).join("");
+      btreeChoices.querySelectorAll("[data-tree-op-btree-answer]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.btreeChoice = Number(button.dataset.treeOpBtreeAnswer);
+          btreeChoices.querySelectorAll("[data-tree-op-btree-answer]").forEach((choice) => choice.classList.toggle("is-active", choice === button));
+          setFeedback("", `Selected ${state.btreeChoice}. Validate when ready.`);
+        });
+      });
+    }
+    if (btreeResult) btreeResult.innerHTML = `<div class="tree-drill-placeholder">Choose the promoted middle key, then validate.</div>`;
+    if (instruction) instruction.textContent = "Split the overflowing node by promoting the middle key. This is the B-tree insertion step exam reports explicitly mention.";
+    setFeedback("", "Pick the promoted key, then validate.");
+  };
+
+  const render = () => {
+    const items = currentItems();
+    const item = currentItem();
+    state.answered = false;
+    if (title) title.textContent = item.title;
+    if (kicker) kicker.textContent = state.mode === "btree" ? "Overflow" : state.mode.toUpperCase();
+    if (count) count.textContent = `${state.index[state.mode] + 1} / ${items.length}`;
+    root.querySelectorAll("[data-tree-op-mode]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.treeOpMode === state.mode);
+    });
+    if (rotationArea) rotationArea.hidden = state.mode === "btree";
+    if (btreeArea) btreeArea.hidden = state.mode !== "btree";
+    state.selectedNode = null;
+    if (state.mode === "btree") renderBtreeMode();
+    else renderRotationMode();
+  };
+
+  const validateRotation = () => {
+    const item = currentItem();
+    const expected = treeSlotsFromAfter(item.after, state.mode);
+    const misses = [];
+    slots.forEach((slot) => {
+      const slotName = slot.dataset.treeSlot;
+      const expectedNode = expected[slotName];
+      const node = slot.querySelector(".tree-drag-node");
+      if (!node) {
+        misses.push(`${slotName}: missing ${expectedNode.id}`);
+        return;
+      }
+      if (node.dataset.node !== expectedNode.id) {
+        misses.push(`${slotName}: should be ${expectedNode.id}, not ${node.dataset.node}`);
+      } else if (expectedNode.color && node.dataset.color !== expectedNode.color) {
+        misses.push(`${slotName}: ${expectedNode.id} should be ${expectedNode.color}`);
+      }
+    });
+    markSlotStates(expected);
+    if (misses.length) {
+      setFeedback("wrong", `<strong>Not yet.</strong> ${escapeFeedbackText(misses.join("; "))}. <span>${escapeFeedbackText(item.why)}</span>`);
+      return;
+    }
+    if (!state.answered) state.score[state.mode] += 1;
+    state.answered = true;
+    setFeedback("correct", `<strong>Correct.</strong> ${escapeFeedbackText(item.fix)} <span>${escapeFeedbackText(item.why)}</span>`);
+  };
+
+  const validateBtree = () => {
+    const item = currentItem();
+    const correct = state.btreeChoice === item.answer;
+    btreeChoices?.querySelectorAll("[data-tree-op-btree-answer]").forEach((button) => {
+      const isAnswer = Number(button.dataset.treeOpBtreeAnswer) === item.answer;
+      button.classList.toggle("is-correct", isAnswer);
+      button.classList.toggle("is-wrong", button.classList.contains("is-active") && !isAnswer);
+    });
+    if (btreeResult) {
+      btreeResult.innerHTML = `
+        <div class="btree-split-visual">
+          <div><span class="tree-drill-label">Left child</span>${renderBtreeNode(item.left)}</div>
+          <div class="btree-promoted"><span class="tree-drill-label">Promote</span><strong>${item.answer}</strong></div>
+          <div><span class="tree-drill-label">Right child</span>${renderBtreeNode(item.right)}</div>
+        </div>
+      `;
+    }
+    if (!correct) {
+      setFeedback("wrong", `<strong>Not quite.</strong> The promoted key is the middle key: ${item.answer}.`);
+      return;
+    }
+    if (!state.answered) state.score.btree += 1;
+    state.answered = true;
+    setFeedback("correct", `<strong>Correct.</strong> Promote ${item.answer}; smaller keys stay left, larger keys stay right.`);
+  };
+
+  slots.forEach((slot) => {
+    slot.addEventListener("dragover", (event) => event.preventDefault());
+    slot.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const id = event.dataTransfer?.getData("text/plain");
+      const node = findDragNode(id);
+      placeNode(slot, node);
+    });
+    slot.addEventListener("click", () => {
+      if (state.selectedNode) placeNode(slot, state.selectedNode);
+    });
+  });
+
+  tray?.addEventListener("dragover", (event) => event.preventDefault());
+  tray?.addEventListener("drop", (event) => {
+    event.preventDefault();
+    const id = event.dataTransfer?.getData("text/plain");
+    const node = findDragNode(id);
+    if (node) {
+      tray.appendChild(node);
+      updateSlotFill();
+      selectNode(node);
+    }
+  });
+
+  root.querySelectorAll("[data-tree-op-mode]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.mode = button.dataset.treeOpMode;
+      render();
+    });
+  });
+
+  colorTools?.querySelectorAll("[data-tree-set-color]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!state.selectedNode || state.mode !== "rb") return;
+      const color = button.dataset.treeSetColor;
+      state.selectedNode.dataset.color = color;
+      state.selectedNode.classList.toggle("is-red", color === "red");
+      state.selectedNode.classList.toggle("is-black", color === "black");
+    });
+  });
+
+  validate?.addEventListener("click", () => {
+    if (state.mode === "btree") validateBtree();
+    else validateRotation();
+  });
+
+  reset?.addEventListener("click", () => render());
+
+  next?.addEventListener("click", () => {
+    const items = currentItems();
+    if (state.index[state.mode] >= items.length - 1) {
+      setFeedback("correct", `<strong>Round complete.</strong> Score: ${state.score[state.mode]} / ${items.length}. Switch mode or restart this mode for another pass.`);
+      return;
+    }
+    state.index[state.mode] += 1;
+    render();
+  });
+
   render();
 }
 
@@ -5124,9 +5445,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initGraphPreview();
   initDirectedGraphLab();
   initTreeTabs();
-  initAvlRotationDrill();
-  initBtreeSplitDrill();
-  initRbRepairDrill();
+  initTreeOperationLab();
   initTextPreviews();
   initTalProofTabs();
   initTmStepper();
