@@ -33,12 +33,19 @@ Durations were checked against live YouTube page metadata on 2026-06-04 where di
 | Hierholzer | [Eulerian Path/Circuit algorithm](https://www.youtube.com/watch?v=8MpoO2zA2l4) | William Fiset | 15:34 | 0:00-15:34 | Construction algorithm for Euler trails/circuits. |
 | Permutations | [String Permutation Algorithm](https://www.youtube.com/watch?v=nYFd7VHKyWQ) | Tushar Roy | 25:09 | 0:00-15:00, then stop | Longer than ideal but useful backtracking intuition. |
 | Sieve | [Infinite Data Structures: To Infinity & Beyond!](https://www.youtube.com/watch?v=bnRNiE_OVWA) | Computerphile | not directly fetched here | 2:00-8:00 | Optional conceptual sieve angle; notes are enough for exam detail. |
-| AVL | [AVL Tree Insertion](https://www.youtube.com/watch?v=rbg7Qf8GkQ4) | Tushar Roy | 20:00 | 0:00-15:00, then stop | Good rotations/balance explanation. |
-| Red-black | [Red-black trees in 4 minutes](https://www.youtube.com/watch?v=qvZGUFHWChY) | Michael Sambol | 3:53 | 0:00-3:53 | Very short conceptual overview. |
+| AVL intro/search | [AVL trees in 5 minutes - Intro & Search](https://www.youtube.com/watch?v=DB1HFCEdLxA) | Michael Sambol | about 5 min | 0:00-end | Shorter AVL overview than the old 20-minute fallback. |
+| AVL insertion | [AVL trees in 9 minutes - Insertions](https://www.youtube.com/watch?v=JPI-DPizQYk) | Michael Sambol | about 9 min | 0:00-end | Directly supports the rotation drill. |
+| AVL deletion optional | [AVL trees in 5 minutes - Deletions](https://www.youtube.com/watch?v=PBkXmhiCP1M) | Michael Sambol | about 5 min | Optional | Use only if AVL deletion repair feels unclear. |
+| Red-black intro | [Red-black trees in 4 minutes - Intro](https://www.youtube.com/watch?v=qvZGUFHWChY) | Michael Sambol | 3:53 | 0:00-3:53 | Very short conceptual overview. |
+| Red-black rotations | [Red-black trees in 3 minutes - Rotations](https://www.youtube.com/watch?v=95s3ndZRGbk) | Michael Sambol | about 3 min | 0:00-end | Rotation mechanics used by RB insert/delete fixes. |
+| Red-black insertion | [Red-black trees in 5 minutes - Insertions strategy](https://www.youtube.com/watch?v=5IBxA-bZZH8) and [examples](https://www.youtube.com/watch?v=A3JZinzkMpk) | Michael Sambol | about 10 min total | 0:00-end for both | Exam-relevant if asked how RB repair works after insertion. |
+| Red-black deletion optional | [Red-black trees in 8 minutes - Deletions](https://www.youtube.com/watch?v=lU99loSvD8s) and [Delete Fixes](https://www.youtube.com/watch?v=iw8N1_keEWA) | Michael Sambol | about 14 min total | Optional | Only if the examiner pushes beyond properties and insertion repair. |
 | B-tree intro | [B-trees in 4 minutes](https://www.youtube.com/watch?v=FgWbADOG44s) | Michael Sambol | 3:57 | 0:00-3:57 | Quick external-memory intuition. |
 | B-tree properties | [B-trees in 6 minutes](https://www.youtube.com/watch?v=fAfuZiFDpRo) | Michael Sambol | 5:38 | 0:00-5:38 | Adds formal properties. |
+| B-tree search | [B-trees in 4 minutes - Search](https://www.youtube.com/watch?v=jLEhJqNVauc) | Michael Sambol | about 4 min | 0:00-end | Directly supports the reported B-tree find prompt. |
+| B-tree insertion | [B-trees in 6 minutes - Insertions](https://www.youtube.com/watch?v=tT2DT9Z4H-0) | Michael Sambol | about 6 min | 0:00-end | Directly supports the reported insertion/split prompt. |
 | k-d tree | [K-d Trees](https://www.youtube.com/watch?v=BK5x7IUTIyU) | Computerphile | 13:20 | 0:00-13:20 | Visual nearest-neighbor intuition. |
-| Skip list optional | [Randomization: Skip Lists](https://www.youtube.com/watch?v=2g9OSRKJuzM) | MIT OpenCourseWare | 1:20:55 | 0:00-20:00 only if needed | University lecture; optional because PAL needs only basic idea. |
+| Skip list | no required video | Notes/lab only | - | - | PAL likely needs definition, expected `O(log n)`, random levels, and concurrent ordered-set motivation, not an 80-minute lecture. |
 | Regular expressions | [Regular Expressions](https://www.youtube.com/watch?v=528Jc3q86F8) | Computerphile | 17:18 | 0:00-17:18 | Good bridge from regex to automata. |
 | KMP | [KMP Pattern Matching](https://www.youtube.com/watch?v=GTJr8OvyEVQ) | Tushar Roy | 12:49 | 0:00-12:49 | Direct prefix-table explanation. |
 | Levenshtein | [Edit Distance Between 2 Strings](https://www.youtube.com/watch?v=MiqoA-yF-0M) | Back To Back SWE | 16:15 | 0:00-16:15 | Slightly over 15 minutes but high value. |
@@ -200,12 +207,11 @@ Memory hook: all search trees are fighting height.
 
 Videos:
 
-- [AVL tree insertion, Tushar Roy](https://www.youtube.com/watch?v=rbg7Qf8GkQ4).
-- [Red-black tree intro, Michael Sambol](https://www.youtube.com/watch?v=qvZGUFHWChY) - about 4 minutes.
-- [B-tree intro, Michael Sambol](https://www.youtube.com/watch?v=FgWbADOG44s) - about 4 minutes.
-- [B-tree properties, Michael Sambol](https://www.youtube.com/watch?v=fAfuZiFDpRo) - about 6 minutes.
+- AVL: [intro/search](https://www.youtube.com/watch?v=DB1HFCEdLxA), [insertions](https://www.youtube.com/watch?v=JPI-DPizQYk), optional [deletions](https://www.youtube.com/watch?v=PBkXmhiCP1M), all Michael Sambol.
+- Red-black: [intro](https://www.youtube.com/watch?v=qvZGUFHWChY), [rotations](https://www.youtube.com/watch?v=95s3ndZRGbk), [insertion strategy](https://www.youtube.com/watch?v=5IBxA-bZZH8), [insertion examples](https://www.youtube.com/watch?v=A3JZinzkMpk), optional [deletions](https://www.youtube.com/watch?v=lU99loSvD8s) and [delete fixes](https://www.youtube.com/watch?v=iw8N1_keEWA), all Michael Sambol.
+- B-tree: [intro](https://www.youtube.com/watch?v=FgWbADOG44s), [properties](https://www.youtube.com/watch?v=fAfuZiFDpRo), [search](https://www.youtube.com/watch?v=jLEhJqNVauc), [insertions](https://www.youtube.com/watch?v=tT2DT9Z4H-0), all Michael Sambol.
 - [k-d trees, Computerphile](https://www.youtube.com/watch?v=BK5x7IUTIyU) - nearest-neighbor intuition.
-- Optional: [MIT randomized algorithms lecture on skip lists](https://www.youtube.com/watch?v=2g9OSRKJuzM&index=10&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp) - longer, use only if skip lists remain confusing.
+- Skip lists: no required video; memorize random levels and expected logarithmic search/insert/delete.
 
 Comparison table to memorize:
 

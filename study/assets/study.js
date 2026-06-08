@@ -2413,17 +2413,26 @@ function youtubeWatchUrl(id, start = 0) {
 
 const VIDEO_METADATA = {
   "09_LlHjoEiY": { duration: "6:44:39" },
-  "2g9OSRKJuzM": { duration: "1:20:55" },
+  "5IBxA-bZZH8": { duration: "~5m" },
   "6R179MBYMhY": { duration: "5:47" },
   "8MpoO2zA2l4": { duration: "15:34" },
+  "95s3ndZRGbk": { duration: "~3m" },
+  "A3JZinzkMpk": { duration: "~5m" },
   "BK5x7IUTIyU": { duration: "13:20" },
   "BZb-ozM2PWo": { duration: "9:50" },
+  "DB1HFCEdLxA": { duration: "~5m" },
   "FgWbADOG44s": { duration: "3:57" },
+  "JPI-DPizQYk": { duration: "~9m" },
+  "PBkXmhiCP1M": { duration: "~5m" },
   "RpgcYiky7uw": { duration: "24:29" },
   "bQga6WqLUvs": { duration: "4:51" },
   "cwg3yNq-y5Y": { duration: "8:59" },
   "fAfuZiFDpRo": { duration: "5:38" },
+  "iw8N1_keEWA": { duration: "~6m" },
+  "jLEhJqNVauc": { duration: "~4m" },
+  "lU99loSvD8s": { duration: "8:13" },
   "qvZGUFHWChY": { duration: "3:53" },
+  "tT2DT9Z4H-0": { duration: "~6m" },
   "xR4sGgwtR2I": { duration: "9:41" }
 };
 
