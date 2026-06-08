@@ -97,6 +97,49 @@
     }
     .uir-route-table th { background: var(--surface-3); color: var(--ink-soft); }
     .uir-route-table tr.keep td { background: var(--good-tint); }
+    .uir-route-table tr.pick td { background: var(--brand-tint); }
+    .uir-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    .uir-choice {
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink-soft);
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 750;
+      padding: 0.5rem 0.7rem;
+      cursor: pointer;
+    }
+    .uir-choice:hover { border-color: var(--brand); background: var(--brand-tint); }
+    .uir-choice.is-selected {
+      border-color: var(--brand);
+      background: var(--brand-tint);
+      color: var(--brand-strong);
+    }
+    .uir-choice.is-correct {
+      border-color: var(--good);
+      background: var(--good-tint);
+      color: var(--good);
+    }
+    .uir-choice.is-wrong {
+      border-color: var(--panic);
+      background: var(--panic-tint);
+      color: var(--panic);
+    }
+    .uir-lab-feedback {
+      margin-top: 0.8rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+    }
+    .uir-lab-feedback.good { border-color: var(--good); background: var(--good-tint); }
+    .uir-lab-feedback.warn { border-color: var(--recall); background: var(--recall-tint); }
     .uir-visual {
       width: 100%;
       max-width: 780px;
@@ -553,7 +596,7 @@
                   <input id="uir-frontier-lambda" type="range" min="0" max="2" step="0.1" value="0.8">
                 </label>
               </div>
-              <p class="step-note"><strong>Use this when:</strong> increasing lambda makes far frontiers less attractive even if they reveal more.</p>
+              <p class="step-note"><strong>Task:</strong> compute <code>utility = gain - lambda * travel</code>, select the best frontier, then check yourself.</p>
               <div id="uir-frontier-output" class="preview-box"></div>
             </article>
           </div>
@@ -611,44 +654,24 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid triple">
               <article class="video-card">
-                <h3>Coding a Dubins Car Optimal Path Planner - Aaron Becker (8:05)</h3>
+                <h3>Dubins, TSPN, and profit-routing video set</h3>
+                <p>Watch this as one route-planning chain: bounded-curvature motion, route constraints, neighborhoods, then profit/budget variants.</p>
                 <div class="video-frame" title="Coding a Dubins car optimal path planner" data-video-id="tjUVE3jto98"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="tjUVE3jto98" data-start="0">0:00 Dubins car</button>
+                  <button type="button" data-video-target="tjUVE3jto98" data-start="0">Dubins car</button>
                   <button type="button" data-video-target="tjUVE3jto98" data-start="135">2:15 path types</button>
                   <button type="button" data-video-target="tjUVE3jto98" data-start="330">5:30 planner</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=tjUVE3jto98" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Finding Time-efficient Trajectories for Dubins Vehicle - AI Center FEE CTU (16:30)</h3>
-                <div class="video-frame" title="Finding time efficient trajectories for Dubins vehicle" data-video-id="UEv-9MqBijg"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="UEv-9MqBijg" data-start="0">0:00 problem frame</button>
+                  <button type="button" data-video-target="UEv-9MqBijg" data-start="0">Time-efficient Dubins route</button>
                   <button type="button" data-video-target="UEv-9MqBijg" data-start="250">4:10 constraints</button>
                   <button type="button" data-video-target="UEv-9MqBijg" data-start="650">10:50 route idea</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=UEv-9MqBijg" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Dubins TSP with Neighborhoods in 3D - ICRA 2018 (3:00)</h3>
-                <div class="video-frame" title="Dubins TSP with neighborhoods" data-video-id="m5hwgP1PxMw"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="m5hwgP1PxMw" data-start="0">0:00 neighborhoods</button>
+                  <button type="button" data-video-target="m5hwgP1PxMw" data-start="0">Dubins TSPN</button>
                   <button type="button" data-video-target="m5hwgP1PxMw" data-start="75">1:15 sampling headings</button>
                   <button type="button" data-video-target="m5hwgP1PxMw" data-start="135">2:15 route result</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=m5hwgP1PxMw" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Close Enough Orienteering Problem - CTU Computational Robotics Lab (13:14)</h3>
-                <div class="video-frame" title="Close enough orienteering problem CTU" data-video-id="ek6mfGX73kg"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="ek6mfGX73kg" data-start="0">0:00 route with neighborhoods</button>
+                  <button type="button" data-video-target="ek6mfGX73kg" data-start="0">Close-enough orienteering</button>
                   <button type="button" data-video-target="ek6mfGX73kg" data-start="245">4:05 profit/route idea</button>
                   <button type="button" data-video-target="ek6mfGX73kg" data-start="520">8:40 algorithm preview</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=ek6mfGX73kg" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=tjUVE3jto98" target="_blank" rel="noreferrer">Open current video on YouTube</a>
               </article>
             </div>
           </div>
@@ -679,7 +702,7 @@
                   <input id="uir-route-budget" type="range" min="8" max="24" step="1" value="15">
                 </label>
               </div>
-              <p class="step-note"><strong>Why:</strong> a budget can make skipping a target better than visiting everything.</p>
+              <p class="step-note"><strong>Task:</strong> select the target subset with the highest total profit without exceeding the budget.</p>
               <div id="uir-route-output" class="preview-box"></div>
             </article>
           </div>
@@ -1063,6 +1086,8 @@
       { name: "F2", gain: 30, cost: 20 },
       { name: "F3", gain: 16, cost: 3 }
     ];
+    let selectedFrontier = "";
+    let frontierChecked = false;
 
     function renderFrontier() {
       const output = document.getElementById("uir-frontier-output");
@@ -1071,7 +1096,25 @@
       const lambda = Number(slider.value);
       const rows = frontierTargets.map((f) => ({ ...f, score: f.gain - lambda * f.cost }));
       const best = rows.reduce((a, b) => a.score > b.score ? a : b);
-      output.innerHTML = `<h4>Choose ${best.name}</h4><p>With lambda = ${lambda.toFixed(1)}, the best frontier balances information gain against travel effort.</p><table class="uir-route-table"><thead><tr><th>Frontier</th><th>Gain</th><th>Travel</th><th>Utility</th></tr></thead><tbody>${rows.map((r) => `<tr class="${r.name === best.name ? "keep" : ""}"><td>${r.name}</td><td>${r.gain}</td><td>${r.cost}</td><td>${r.score.toFixed(1)}</td></tr>`).join("")}</tbody></table><p class="step-note"><strong>Remember:</strong> choose the highest utility score, not just the highest information gain.</p>`;
+      const isCorrect = frontierChecked && selectedFrontier === best.name;
+      const feedback = !frontierChecked ? "" : `<div class="uir-lab-feedback ${isCorrect ? "good" : "warn"}"><strong>${isCorrect ? "Correct." : "Not quite."}</strong><p>With lambda = ${lambda.toFixed(1)}, utilities are ${rows.map((r) => `${r.name}: ${r.score.toFixed(1)}`).join(", ")}. Choose ${best.name} because it has the highest utility, not necessarily the highest raw information gain.</p></div>`;
+      output.innerHTML = `<h4>Pick the frontier target</h4><p>Higher gain is good; higher travel is bad. Lambda controls how much travel hurts.</p><table class="uir-route-table"><thead><tr><th>Frontier</th><th>Gain</th><th>Travel</th><th>Utility</th></tr></thead><tbody>${rows.map((r) => `<tr class="${selectedFrontier === r.name ? "pick" : ""}"><td>${r.name}</td><td>${r.gain}</td><td>${r.cost}</td><td>${r.score.toFixed(1)}</td></tr>`).join("")}</tbody></table><div class="uir-choice-row">${rows.map((r) => `<button type="button" class="uir-choice ${selectedFrontier === r.name ? "is-selected" : ""} ${frontierChecked && r.name === selectedFrontier ? (r.name === best.name ? "is-correct" : "is-wrong") : ""}" data-uir-frontier-pick="${r.name}">Choose ${r.name}</button>`).join("")}<button type="button" data-uir-frontier-check>Check</button><button type="button" data-uir-frontier-reset>Reset</button></div>${feedback}<p class="step-note"><strong>Remember:</strong> frontier utility is usually an exam-friendly way to say information gain minus travel cost.</p>`;
+      output.querySelectorAll("[data-uir-frontier-pick]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedFrontier = button.dataset.uirFrontierPick;
+          frontierChecked = false;
+          renderFrontier();
+        });
+      });
+      output.querySelector("[data-uir-frontier-check]")?.addEventListener("click", () => {
+        frontierChecked = true;
+        renderFrontier();
+      });
+      output.querySelector("[data-uir-frontier-reset]")?.addEventListener("click", () => {
+        selectedFrontier = "";
+        frontierChecked = false;
+        renderFrontier();
+      });
     }
 
     const routeTargets = [
@@ -1081,6 +1124,8 @@
       { name: "D", profit: 4, cost: 3 },
       { name: "E", profit: 8, cost: 7 }
     ];
+    let selectedRouteTargets = new Set();
+    let routeChecked = false;
 
     function bestProfitRoute(budget) {
       let best = { profit: 0, cost: 0, chosen: [] };
@@ -1100,22 +1145,82 @@
       const budget = Number(slider.value);
       const best = bestProfitRoute(budget);
       const keep = new Set(best.chosen.map((item) => item.name));
-      output.innerHTML = `<h4>Budget ${budget}: collect ${best.profit} profit</h4><p>This toy route ignores heading and order, so it is a profit-routing preview. Real robotic versions add sequence-dependent motion costs and neighborhoods.</p><table class="uir-route-table"><thead><tr><th>Target</th><th>Profit</th><th>Cost</th><th>Decision</th></tr></thead><tbody>${routeTargets.map((t) => `<tr class="${keep.has(t.name) ? "keep" : ""}"><td>${t.name}</td><td>${t.profit}</td><td>${t.cost}</td><td>${keep.has(t.name) ? "visit" : "skip"}</td></tr>`).join("")}</tbody></table><p><strong>Chosen:</strong> ${best.chosen.map((t) => t.name).join(" -> ") || "none"}; travel cost ${best.cost}.</p><p class="step-note"><strong>Remember:</strong> profit routing rewards the best subset, not necessarily the longest tour.</p>`;
+      const selected = routeTargets.filter((t) => selectedRouteTargets.has(t.name));
+      const selectedCost = selected.reduce((sum, item) => sum + item.cost, 0);
+      const selectedProfit = selected.reduce((sum, item) => sum + item.profit, 0);
+      const selectedNames = new Set(selected.map((item) => item.name));
+      const isSame = selectedNames.size === keep.size && [...selectedNames].every((name) => keep.has(name));
+      const isCorrect = routeChecked && isSame;
+      const feedback = !routeChecked ? "" : `<div class="uir-lab-feedback ${isCorrect ? "good" : "warn"}"><strong>${isCorrect ? "Correct." : "Not quite."}</strong><p>Your subset has profit ${selectedProfit} and cost ${selectedCost}. The best feasible subset is ${best.chosen.map((t) => t.name).join(", ") || "none"} with profit ${best.profit} and cost ${best.cost}. ${selectedCost > budget ? "Your selected route exceeds the budget, so it is infeasible." : "If a higher-profit feasible subset exists, the route is not optimal."}</p></div>`;
+      output.innerHTML = `<h4>Budget ${budget}: choose the best reward subset</h4><p>This toy version ignores heading/order to isolate the orienteering idea. Real robotic versions add Dubins costs, neighborhoods, and sequence-dependent travel.</p><table class="uir-route-table"><thead><tr><th>Target</th><th>Profit</th><th>Cost</th><th>Your decision</th></tr></thead><tbody>${routeTargets.map((t) => `<tr class="${selectedRouteTargets.has(t.name) ? "pick" : ""}"><td>${t.name}</td><td>${t.profit}</td><td>${t.cost}</td><td>${selectedRouteTargets.has(t.name) ? "visit" : "skip"}</td></tr>`).join("")}</tbody></table><div class="uir-choice-row">${routeTargets.map((t) => `<button type="button" class="uir-choice ${selectedRouteTargets.has(t.name) ? "is-selected" : ""}" data-uir-route-pick="${t.name}">${selectedRouteTargets.has(t.name) ? "Remove" : "Visit"} ${t.name}</button>`).join("")}<button type="button" data-uir-route-check>Check</button><button type="button" data-uir-route-reset>Reset</button></div><p><strong>Your route:</strong> ${selected.map((t) => t.name).join(" -> ") || "none"}; profit ${selectedProfit}; cost ${selectedCost}/${budget}.</p>${feedback}<p class="step-note"><strong>Remember:</strong> orienteering maximizes reward under a budget, so visiting everything is often not optimal or feasible.</p>`;
+      output.querySelectorAll("[data-uir-route-pick]").forEach((button) => {
+        button.addEventListener("click", () => {
+          routeChecked = false;
+          const name = button.dataset.uirRoutePick;
+          selectedRouteTargets.has(name) ? selectedRouteTargets.delete(name) : selectedRouteTargets.add(name);
+          renderRoute();
+        });
+      });
+      output.querySelector("[data-uir-route-check]")?.addEventListener("click", () => {
+        routeChecked = true;
+        renderRoute();
+      });
+      output.querySelector("[data-uir-route-reset]")?.addEventListener("click", () => {
+        selectedRouteTargets = new Set();
+        routeChecked = false;
+        renderRoute();
+      });
     }
 
     const rrtSteps = [
-      "<p><strong>Start tree:</strong> begin at <code>q_start</code>. The planner only knows the collision checker and a steering rule.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">q_start</span></div>",
-      "<p><strong>Sample:</strong> draw <code>q_rand</code>. Find nearest existing node <code>q_near</code>.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">q_start</span><span class=\"uir-chip\">q_rand</span><span class=\"uir-chip warn\">nearest</span></div>",
-      "<p><strong>Extend:</strong> steer a short step from <code>q_near</code> toward <code>q_rand</code>. If the local segment is collision-free, add the new node.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">node 1</span><span class=\"uir-chip good\">node 2</span><span class=\"uir-chip\">collision check</span></div>",
-      "<p><strong>Spread:</strong> repeating this quickly fills unexplored regions because large Voronoi cells attract more samples.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">rapid exploration</span><span class=\"uir-chip\">goal bias optional</span><span class=\"uir-chip\">post-smoothing common</span></div>",
-      "<p><strong>RRT* difference:</strong> choose the cheapest parent among neighbors and rewire nearby nodes through the new node if cost improves.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">best parent</span><span class=\"uir-chip good\">rewire</span><span class=\"uir-chip warn\">asymptotic optimality</span></div><p class=\"step-note\"><strong>Remember:</strong> rewiring is the part that lets cost improve over time.</p>"
+      {
+        title: "Start",
+        prompt: "The planner begins with only q_start, a collision checker, and a steering rule. What is the next conceptual step?",
+        options: ["Sample q_rand", "Rewire neighbors", "Compute all-pairs shortest paths"],
+        correct: 0,
+        why: "RRT grows by repeatedly sampling q_rand, then connecting from the nearest existing node if the local motion is feasible.",
+        chips: ["q_start", "collision checker", "steer"]
+      },
+      {
+        title: "Nearest node",
+        prompt: "A random configuration q_rand is drawn. Which existing node should RRT extend from?",
+        options: ["The nearest node q_near", "The cheapest node in the whole tree", "The node with highest information gain"],
+        correct: 0,
+        why: "Basic RRT finds q_near by a distance metric, then steers from q_near toward q_rand.",
+        chips: ["q_rand", "q_near", "nearest"]
+      },
+      {
+        title: "Extension",
+        prompt: "The segment from q_near toward q_rand hits an obstacle. What should the planner do?",
+        options: ["Reject that extension", "Add the node anyway", "Delete q_near from the tree"],
+        correct: 0,
+        why: "The local segment must be collision-free. If collision checking fails, that candidate extension is rejected.",
+        chips: ["collision check", "local planner", "C_free"]
+      },
+      {
+        title: "RRT* improvement",
+        prompt: "A new collision-free node is added in RRT*. What extra step creates asymptotic optimality?",
+        options: ["Choose cheaper parent and rewire neighbors", "Always connect to the closest node only", "Stop once any feasible route appears"],
+        correct: 0,
+        why: "RRT* improves path cost by choosing the best feasible parent and rewiring nearby nodes when the new node gives cheaper paths.",
+        chips: ["best parent", "rewire", "cost improves"]
+      }
     ];
     let rrtIndex = 0;
+    let rrtChoice = null;
 
     function renderRrt() {
       const output = document.getElementById("uir-rrt-output");
       if (!output) return;
-      output.innerHTML = rrtSteps[rrtIndex];
+      const step = rrtSteps[rrtIndex];
+      const feedback = rrtChoice === null ? "" : `<div class="uir-lab-feedback ${rrtChoice === step.correct ? "good" : "warn"}"><strong>${rrtChoice === step.correct ? "Correct." : "Not quite."}</strong><p>${step.why}</p></div>`;
+      output.innerHTML = `<h4>${step.title}</h4><p>${step.prompt}</p><div class="uir-chip-row">${step.chips.map((chip, index) => `<span class="uir-chip ${index === 0 ? "good" : ""}">${chip}</span>`).join("")}</div><div class="uir-choice-row">${step.options.map((option, index) => `<button type="button" class="uir-choice ${rrtChoice === index ? (index === step.correct ? "is-correct" : "is-wrong") : ""}" data-uir-rrt-choice="${index}">${option}</button>`).join("")}</div>${feedback}<p class="step-note"><strong>Remember:</strong> PRM builds reusable roadmaps; RRT grows one query tree; RRT* adds cost improvement by rewiring.</p>`;
+      output.querySelectorAll("[data-uir-rrt-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+          rrtChoice = Number(button.dataset.uirRrtChoice);
+          renderRrt();
+        });
+      });
     }
 
     function initUirArch() {
@@ -1146,22 +1251,32 @@
     }
 
     function initUirFrontier() {
-      document.getElementById("uir-frontier-lambda")?.addEventListener("input", renderFrontier);
+      document.getElementById("uir-frontier-lambda")?.addEventListener("input", () => {
+        selectedFrontier = "";
+        frontierChecked = false;
+        renderFrontier();
+      });
       renderFrontier();
     }
 
     function initUirRoute() {
-      document.getElementById("uir-route-budget")?.addEventListener("input", renderRoute);
+      document.getElementById("uir-route-budget")?.addEventListener("input", () => {
+        selectedRouteTargets = new Set();
+        routeChecked = false;
+        renderRoute();
+      });
       renderRoute();
     }
 
     function initUirRrt() {
       document.querySelector("[data-uir-rrt-prev]")?.addEventListener("click", () => {
         rrtIndex = Math.max(0, rrtIndex - 1);
+        rrtChoice = null;
         renderRrt();
       });
       document.querySelector("[data-uir-rrt-next]")?.addEventListener("click", () => {
         rrtIndex = Math.min(rrtSteps.length - 1, rrtIndex + 1);
+        rrtChoice = null;
         renderRrt();
       });
       renderRrt();

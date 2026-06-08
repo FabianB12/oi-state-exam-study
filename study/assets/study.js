@@ -2712,6 +2712,7 @@ const VIDEO_METADATA = {
   "RY1MmecU1FY": { duration: "9:50" },
   "RppuJYwlcI8": { duration: "9:35" },
   "SUEaaMOuEcM": { duration: "9:17" },
+  "UEv-9MqBijg": { duration: "16:30" },
   "VUN-k_nfDts": { duration: "6:49" },
   "VYZGlgzr_As": { duration: "1:22:57" },
   "VuDutyTs_r8": { duration: "8:24" },
@@ -2738,15 +2739,18 @@ const VIDEO_METADATA = {
   "lU99loSvD8s": { duration: "8:13" },
   "m1uBcxoopNA": { duration: "18:44" },
   "mCZQ_ZEM7XQ": { duration: "3:55" },
+  "m5hwgP1PxMw": { duration: "3:00" },
   "pyLKkN5HpDY": { duration: "4:49" },
   "qvZGUFHWChY": { duration: "3:53" },
   "rKe6HO8LDu0": { duration: "3:12" },
   "sQOrIpARr5E": { duration: "5:08" },
   "tT2DT9Z4H-0": { duration: "~6m" },
+  "tjUVE3jto98": { duration: "8:05" },
   "w9O0fkfMkx0": { duration: "2:27" },
   "wxi_9LKe78M": { duration: "11:10" },
   "yXycgBDhSME": { duration: "12:00" },
   "ygDt_AumPr0": { duration: "41:43" },
+  "ek6mfGX73kg": { duration: "13:14" },
   "xR4sGgwtR2I": { duration: "9:41" }
 };
 
