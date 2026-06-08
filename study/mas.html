@@ -24,6 +24,59 @@
     }
     .mas-payoff-matrix th { background: var(--surface-3); color: var(--ink-soft); }
     .mas-payoff-matrix td.best { background: var(--good-tint); color: var(--good); font-weight: 800; }
+    .mas-game-cell {
+      width: 100%;
+      min-height: 3.3rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+      cursor: pointer;
+      display: grid;
+      gap: 0.2rem;
+      place-items: center;
+      transition: border-color 0.12s ease, background 0.12s ease, transform 0.12s ease;
+    }
+    .mas-game-cell:hover { border-color: var(--brand); background: var(--brand-tint); }
+    .mas-game-cell.is-selected {
+      border-color: var(--brand);
+      background: var(--brand-tint);
+      box-shadow: inset 0 0 0 1px var(--brand);
+    }
+    .mas-game-cell.is-correct { border-color: var(--good); background: var(--good-tint); }
+    .mas-game-cell.is-wrong { border-color: var(--panic); background: var(--panic-tint); }
+    .mas-game-cell.is-missed {
+      border-color: var(--recall);
+      background: var(--recall-tint);
+      box-shadow: inset 0 0 0 1px var(--recall);
+    }
+    .mas-game-cell strong { font-size: 1rem; }
+    .mas-game-cell span { color: var(--muted); font-size: 0.76rem; font-weight: 700; }
+    .mas-lab-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+    .mas-no-nash {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .mas-lab-feedback {
+      margin-top: 0.8rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+    }
+    .mas-lab-feedback.good { border-color: var(--good); background: var(--good-tint); }
+    .mas-lab-feedback.warn { border-color: var(--recall); background: var(--recall-tint); }
     .mas-lab-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -215,6 +268,15 @@
           </div>
 
           <div class="block">
+            <p class="block-label recall">Plain meaning</p>
+            <article class="recall-card">
+              <h3>What <code>(N, (A_i), (u_i))</code> actually means</h3>
+              <p>A normal-form game is just a payoff table written formally. <code>N</code> is the set of players. <code>A_i</code> is the action set for player <code>i</code>. An action profile is one chosen action from every player, such as <code>(C, D)</code>. The utility function <code>u_i</code> tells you player <code>i</code>'s payoff for each action profile.</p>
+              <p class="step-note"><strong>Example:</strong> in a two-player matrix game, rows are player 1 actions, columns are player 2 actions, and each cell <code>(3,1)</code> means utility 3 for player 1 and utility 1 for player 2.</p>
+            </article>
+          </div>
+
+          <div class="block">
             <p class="block-label recall">Say this out loud</p>
             <article class="recall-card">
               <h3>What you must be able to say</h3>
@@ -245,13 +307,13 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="mas-normal-game-lab">
-              <h3>Dominance and Nash selector</h3>
+              <h3>Find the pure Nash equilibria</h3>
               <div class="mini-tabs">
                 <button type="button" data-mas-normal-tab="pd">Prisoner's dilemma</button>
+                <button type="button" data-mas-normal-tab="stag">Stag hunt</button>
                 <button type="button" data-mas-normal-tab="matching">Matching pennies</button>
-                <button type="button" data-mas-normal-tab="properties">Nash traps</button>
               </div>
-              <p class="step-note"><strong>Use this when:</strong> look at one player at a time and ask whether changing only their action improves payoff.</p>
+              <p class="step-note"><strong>Task:</strong> click every cell that is a pure Nash equilibrium. A cell is Nash only if player 1 is best-responding to the column and player 2 is best-responding to the row.</p>
               <div id="mas-normal-output" class="preview-box"></div>
             </article>
           </div>
@@ -922,11 +984,147 @@
       { q: "VCG payments charge each winner...", a: ["The value others lose because of their allocation", "Their submitted bid for the allocated bundle", "A fixed reserve price for each item"], correct: 0, why: "VCG aligns truthful reporting with welfare maximization by externality payments." }
     ];
 
-    const masNormalData = {
-      pd: `<h4>Prisoner's dilemma</h4><p>Defect strictly dominates cooperate for both players, so <code>(D,D)</code> is Nash even though <code>(C,C)</code> would give higher total welfare.</p><table class="mas-payoff-matrix"><tr><th></th><th>C</th><th>D</th></tr><tr><th>C</th><td>3,3</td><td>0,5</td></tr><tr><th>D</th><td>5,0</td><td class="best">1,1</td></tr></table><p class="step-note"><strong>Remember:</strong> the highlighted cell is stable because neither player alone wants to move.</p>`,
-      matching: `<h4>Matching pennies</h4><p>No pure Nash equilibrium: each pure outcome gives one player a profitable deviation. The mixed equilibrium is each player choosing heads/tails with probability <code>1/2</code>.</p><p class="step-note"><strong>Remember:</strong> mixing works by making the opponent indifferent between their pure actions.</p>`,
-      properties: `<h4>Nash traps</h4><ul><li>Equilibrium can be inefficient.</li><li>There can be several equilibria.</li><li>A finite game always has a mixed equilibrium, but may have no pure equilibrium.</li><li>Nash checks unilateral deviations, not coalitional deviations.</li></ul>`
+    const masNormalGames = {
+      pd: {
+        title: "Prisoner's dilemma",
+        rows: ["C", "D"],
+        cols: ["C", "D"],
+        payoffs: [
+          [[3, 3], [0, 5]],
+          [[5, 0], [1, 1]]
+        ],
+        nash: ["1-1"],
+        note: "Defect strictly dominates cooperate for both players, so the only pure Nash equilibrium is (D,D). The trap is that (C,C) is better for both, but it is not stable against unilateral deviation.",
+        reasoning: [
+          "If player 2 chooses C, player 1 prefers D because 5 > 3. If player 2 chooses D, player 1 still prefers D because 1 > 0.",
+          "If player 1 chooses C, player 2 prefers D because 5 > 3. If player 1 chooses D, player 2 still prefers D because 1 > 0."
+        ]
+      },
+      stag: {
+        title: "Stag hunt",
+        rows: ["Stag", "Hare"],
+        cols: ["Stag", "Hare"],
+        payoffs: [
+          [[4, 4], [0, 3]],
+          [[3, 0], [2, 2]]
+        ],
+        nash: ["0-0", "1-1"],
+        note: "There are two pure Nash equilibria. (Stag,Stag) is payoff-dominant, while (Hare,Hare) is safer if you fear the other player will not cooperate.",
+        reasoning: [
+          "Against Stag, player 1 prefers Stag because 4 > 3. Against Hare, player 1 prefers Hare because 2 > 0.",
+          "Against Stag, player 2 prefers Stag because 4 > 3. Against Hare, player 2 prefers Hare because 2 > 0."
+        ]
+      },
+      matching: {
+        title: "Matching pennies",
+        rows: ["H", "T"],
+        cols: ["H", "T"],
+        payoffs: [
+          [[1, -1], [-1, 1]],
+          [[-1, 1], [1, -1]]
+        ],
+        nash: [],
+        mixed: "No pure Nash equilibrium. The mixed Nash equilibrium is each player randomizing H/T with probability 1/2.",
+        note: "Every pure cell gives exactly one player a profitable deviation, so you should select 'No pure Nash equilibrium'.",
+        reasoning: [
+          "When the pennies match, player 2 wants to switch. When they do not match, player 1 wants to switch.",
+          "Because some player always wants to move, no pure cell is stable. This is why the equilibrium is mixed."
+        ]
+      }
     };
+
+    function initMasNormalExercise() {
+      const output = document.getElementById("mas-normal-output");
+      if (!output) return;
+      let current = "pd";
+      let selected = new Set();
+      let checked = false;
+
+      const keyFor = (row, col) => `${row}-${col}`;
+      const sameSets = (a, b) => a.size === b.size && [...a].every((item) => b.has(item));
+      const currentGame = () => masNormalGames[current];
+
+      const render = () => {
+        const game = currentGame();
+        const answer = new Set(game.nash);
+        const rows = game.rows.map((rowLabel, rowIndex) => {
+          const cells = game.cols.map((colLabel, colIndex) => {
+            const key = keyFor(rowIndex, colIndex);
+            const payoff = game.payoffs[rowIndex][colIndex];
+            const selectedClass = selected.has(key) ? " is-selected" : "";
+            const resultClass = checked
+              ? answer.has(key) && selected.has(key) ? " is-correct"
+                : answer.has(key) ? " is-missed"
+                : selected.has(key) ? " is-wrong"
+                : ""
+              : "";
+            const label = `${rowLabel}, ${colLabel}: payoff ${payoff[0]}, ${payoff[1]}`;
+            return `<td><button type="button" class="mas-game-cell${selectedClass}${resultClass}" data-mas-cell="${key}" aria-pressed="${selected.has(key)}" aria-label="${label}"><strong>${payoff[0]}, ${payoff[1]}</strong><span>${rowLabel}, ${colLabel}</span></button></td>`;
+          }).join("");
+          return `<tr><th>${rowLabel}</th>${cells}</tr>`;
+        }).join("");
+        const noPureChecked = selected.has("none");
+        const isCorrect = checked && sameSets(selected, answer.size ? answer : new Set(["none"]));
+        const feedback = !checked ? "" : `
+          <div class="mas-lab-feedback ${isCorrect ? "good" : "warn"}">
+            <strong>${isCorrect ? "Correct." : "Not quite yet."}</strong>
+            <p>${game.note}</p>
+            <ul>${game.reasoning.map((item) => `<li>${item}</li>`).join("")}</ul>
+            ${game.mixed ? `<p class="step-note"><strong>Mixed note:</strong> ${game.mixed}</p>` : ""}
+          </div>`;
+        output.innerHTML = `
+          <h4>${game.title}</h4>
+          <p>Rows are player 1 actions, columns are player 2 actions, and each cell is <code>(payoff to player 1, payoff to player 2)</code>. Click the pure Nash equilibrium cells.</p>
+          <table class="mas-payoff-matrix">
+            <tr><th></th>${game.cols.map((col) => `<th>${col}</th>`).join("")}</tr>
+            ${rows}
+          </table>
+          <div class="mas-lab-toolbar">
+            <label class="mas-no-nash"><input type="checkbox" data-mas-no-pure ${noPureChecked ? "checked" : ""}> No pure Nash equilibrium</label>
+            <button type="button" data-mas-check-nash>Check answer</button>
+            <button type="button" data-mas-reset-nash>Reset</button>
+          </div>
+          ${feedback}`;
+
+        output.querySelectorAll("[data-mas-cell]").forEach((cell) => {
+          cell.addEventListener("click", () => {
+            checked = false;
+            selected.delete("none");
+            const key = cell.dataset.masCell;
+            selected.has(key) ? selected.delete(key) : selected.add(key);
+            render();
+          });
+        });
+        output.querySelector("[data-mas-no-pure]")?.addEventListener("change", (event) => {
+          checked = false;
+          selected = event.target.checked ? new Set(["none"]) : new Set();
+          render();
+        });
+        output.querySelector("[data-mas-check-nash]")?.addEventListener("click", () => {
+          checked = true;
+          render();
+        });
+        output.querySelector("[data-mas-reset-nash]")?.addEventListener("click", () => {
+          selected = new Set();
+          checked = false;
+          render();
+        });
+
+        document.querySelectorAll("[data-mas-normal-tab]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.masNormalTab === current);
+        });
+      };
+
+      document.querySelectorAll("[data-mas-normal-tab]").forEach((button) => {
+        button.addEventListener("click", () => {
+          current = button.dataset.masNormalTab;
+          selected = new Set();
+          checked = false;
+          render();
+        });
+      });
+      render();
+    }
     const masZeroData = {
       lp: `<h4>Zero-sum LP</h4><p>For player 1, choose probabilities <code>x_i</code> and value <code>v</code>.</p><p class="step-note"><strong>Remember:</strong> every column constraint protects player 1 against one pure response by player 2.</p><pre>maximize v
 sum_i x_i A_ij >= v for every column j
@@ -1015,7 +1213,7 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2's minimization problem.</p>
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      initMasTabs("[data-mas-normal-tab]", "mas-normal-output", masNormalData, "pd");
+      initMasNormalExercise();
       initMasTabs("[data-mas-zero-tab]", "mas-zero-output", masZeroData, "lp");
       initMasEfgStepper();
       initMasShapley();

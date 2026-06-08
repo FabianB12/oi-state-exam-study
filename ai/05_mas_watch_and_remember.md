@@ -31,6 +31,9 @@ Use this guide as the video-first path for **AI question 05: Autonomous Agents a
 Say after watching:
 
 - A normal-form game is `(N, (A_i), (u_i))`.
+  - `N` is the set of players.
+  - `A_i` is player `i`'s action set.
+  - `u_i` maps each action profile to player `i`'s payoff.
 - Pure strategy = one action; mixed strategy = distribution over actions.
 - Strict dominance is better against every opponent action.
 - Best response = optimal reply to the other players' strategies.
