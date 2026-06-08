@@ -1,0 +1,23 @@
+flowchart LR
+  Formula["<b>Formula</b><br/>propositional logic<br/>or first-order logic"]
+  Normal["<b>Normal form</b><br/>NNF, CNF<br/>clauses"]
+  Search["<b>Search</b><br/>resolution<br/>DPLL / CDCL"]
+  Contradiction["<b>Contradiction</b><br/>empty clause<br/>UNSAT"]
+  Model["<b>Model</b><br/>satisfying assignment<br/>or grounded model"]
+  Note["<b>FOL detail</b><br/>Unification makes literals match.<br/>Finite domains can be grounded to SAT."]
+
+  Formula --> Normal --> Search
+  Search --> Contradiction
+  Search --> Model
+  Search --> Note
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class Formula,Model blue;
+  class Normal green;
+  class Search yellow;
+  class Contradiction red;
+  class Note neutral;

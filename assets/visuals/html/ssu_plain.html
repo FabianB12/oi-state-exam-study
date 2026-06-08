@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SSU Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>SSU in Plain English</h1>
+    <p class="lead">SSU is about learning a predictor from data. The big story is: define loss, minimize training loss, control generalization, and understand the main model families.</p>
+    <div class="routine"><div><strong>1. Define the objective.</strong><span>Risk, empirical risk, likelihood, or loss.</span></div><div><strong>2. Pick the model.</strong><span>SVM, probabilistic model, EM, neural network.</span></div><div><strong>3. Explain training.</strong><span>Optimization plus generalization.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>ERM and generalization</h2><p class="what">Training error is not the same as true error.</p><ul><li>Risk = expected loss on the real distribution.</li><li>Empirical risk = average loss on the sample.</li><li>Bounds explain when low training loss transfers.</li></ul></article>
+    <article class="card green"><h2>VC dimension</h2><p class="what">A capacity measure for hypothesis classes.</p><ul><li>High capacity can fit more patterns.</li><li>Too much capacity risks overfitting.</li><li>Consistency means convergence to optimal risk.</li></ul></article>
+    <article class="card amber"><h2>SVMs</h2><p class="what">Find a separating hyperplane with maximum margin.</p><ul><li>Hard margin: separable data.</li><li>Soft margin: allows violations with penalty.</li><li>Kernels make nonlinear boundaries via inner products.</li></ul></article>
+    <article class="card rose"><h2>MLE and EM</h2><p class="what">Fit probabilistic models by maximizing likelihood.</p><ul><li>MLE chooses parameters that make data likely.</li><li>EM handles hidden variables.</li><li>E-step estimates hidden assignments; M-step updates parameters.</li></ul></article>
+    <article class="card teal"><h2>Deep networks</h2><p class="what">Layered differentiable functions trained by gradients.</p><ul><li>Backprop computes gradients through layers.</li><li>SGD updates parameters from mini-batches.</li><li>CNNs use convolution for spatial structure.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Tie every method to loss and optimization.</p><ul><li>What is minimized or maximized?</li><li>What are the parameters?</li><li>How do we avoid overfitting?</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> ERM minimizes training loss, but learning theory asks when this also gives low true risk; VC dimension and concentration bounds control that gap.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>Empirical risk is measured on the sample; true risk is an expectation over the unknown distribution.</li><li>EM increases a likelihood lower bound, not by magic "guessing".</li><li>Backprop computes gradients; SGD is the optimizer using them.</li></ul></section>
+  <div class="footer">Use this page to connect formulas to the learning story.</div>
+</main></body></html>

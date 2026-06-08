@@ -1,0 +1,26 @@
+flowchart LR
+  q0(("q0<br/>start"))
+  qScan(("qscan"))
+  qBack(("qback"))
+  qAcc((("qacc")))
+  qRej((("qrej")))
+
+  q0 -->|"read 0<br/>write 0, R"| qScan
+  q0 -->|"read blank<br/>reject"| qRej
+  qScan -->|"read 0 or 1<br/>move R"| qScan
+  qScan -->|"read blank<br/>move L"| qBack
+  qBack -->|"condition ok"| qAcc
+  qBack -->|"condition fails"| qRej
+
+  Note["<b>Transition graph view</b><br/>nodes are states<br/>edge labels describe read/write/move rules<br/>a deterministic TM has at most one enabled edge<br/>for each state and tape symbol"]
+
+  Note -.-> q0
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class q0,qScan,qBack blue;
+  class qAcc green;
+  class qRej red;
+  class Note neutral;

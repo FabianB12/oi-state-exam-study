@@ -1,0 +1,23 @@
+flowchart TB
+  Config["<b>Configuration</b><br/>current state<br/>tape contents<br/>head position"]
+
+  DTM["<b>Deterministic TM</b><br/>one next move<br/>single computation path"]
+  Multi["<b>Multitape TM</b><br/>several tapes and heads<br/>same decidability power<br/>polynomially simulable"]
+  NTM["<b>Nondeterministic TM</b><br/>several possible next moves<br/>accepts if one branch accepts"]
+
+  Tree["<b>NTM computation tree</b><br/>root = start configuration<br/>children = possible moves<br/>yes-instance has accepting leaf"]
+
+  Config --> DTM
+  Config --> Multi
+  Config --> NTM
+  NTM --> Tree
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class Config neutral;
+  class DTM blue;
+  class Multi green;
+  class NTM yellow;
+  class Tree neutral;

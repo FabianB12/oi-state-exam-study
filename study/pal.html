@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAL Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+</head>
+<body data-page="pal">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../common/01_pal_graph_algorithms_and_data_structures.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../common/01_pal_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M33PAL &middot; Common question 1</p>
+      <h1>Polynomial graph algorithms &amp; data structures</h1>
+      <p class="lead">A few-hour path through the first common question: watch the right slices, learn the verbal skeleton, then prove to yourself that it stuck. Work top-to-bottom, or jump straight to a module from the rail.</p>
+      <div class="head-meta">
+        <span class="time-pill">4.5-5.5 hour full pass</span>
+        <a class="button primary" href="#module-complexity"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic-pass"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="pal-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="pal-progress-detail">0 of 5 modules checked.</p>
+          <button class="btn-ghost-sm" type="button" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="complexity" aria-label="Mark Complexity module complete">
+            <a href="#module-complexity"><span class="rail-num">1</span> Complexity &amp; representation</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="graphs" aria-label="Mark Graph algorithms module complete">
+            <a href="#module-graphs"><span class="rail-num">2</span> Core graph algorithms</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="generation" aria-label="Mark Generation module complete">
+            <a href="#module-generation"><span class="rail-num">3</span> Generation &amp; primes</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="trees" aria-label="Mark Search trees module complete">
+            <a href="#module-trees"><span class="rail-num">4</span> Search trees</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="automata" aria-label="Mark Automata module complete">
+            <a href="#module-automata"><span class="rail-num">5</span> Automata &amp; text search</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic-pass"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="module-complexity" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>Complexity &amp; graph representation</h2>
+              <p class="module-lead">Before any graph algorithm, you need two instincts: how the input size grows, and what representation makes the operations cheap. Not glamorous, but it prevents almost every later complexity mistake.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Useful common-core support for PAL answers, especially when reports ask for implementation memory and runtime tradeoffs.</p>
+                <ul class="priority-topics">
+                  <li>asymptotic notation and input-size reasoning</li>
+                  <li>adjacency matrix, list, and incidence matrix tradeoffs</li>
+                  <li>sparse versus dense graph algorithm choices</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">35-45 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="complexity"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Big O Notation</h3>
+                <p>HackerRank / Gayle Laakmann McDowell. Verified duration: 8:36. Watch all.</p>
+                <div class="video-frame" data-video-id="v4cd1O4zkGw" data-start="0" title="Big O Notation"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="v4cd1O4zkGw" data-start="0">Intro</button>
+                  <button type="button" data-video-target="v4cd1O4zkGw" data-start="307">Different inputs</button>
+                  <button type="button" data-video-target="v4cd1O4zkGw" data-start="427">Drop lower terms</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=v4cd1O4zkGw">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>Graphs: Representation</h3>
+                <p>Algorithms with Attitude. Verified duration: 8:53. Covers adjacency matrix/list tradeoffs.</p>
+                <div class="video-frame" data-video-id="WQ2Tzlxl_Xo" data-start="0" title="Graphs: Representation"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="WQ2Tzlxl_Xo" data-start="0">Representations</button>
+                  <button type="button" data-video-target="WQ2Tzlxl_Xo" data-start="90">Adjacency matrix</button>
+                  <button type="button" data-video-target="WQ2Tzlxl_Xo" data-start="270">Adjacency list</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=WQ2Tzlxl_Xo">Open fallback</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>Must be able to say</h3>
+              <ul>
+                <li>Big-O is an upper asymptotic bound: <code>f(n) &in; O(g(n))</code>; Omega is lower: <code>f(n) &in; &Omega;(g(n))</code>; Theta is tight: <code>f(n) &in; &Theta;(g(n))</code>.</li>
+                <li>For graph algorithms, use <code>n = |V|</code> and <code>m = |E|</code>.</li>
+                <li>Adjacency matrix: <code>O(n^2)</code> memory, <code>O(1)</code> edge lookup, good for dense graphs.</li>
+                <li>Adjacency list: <code>O(n + m)</code> memory, good for sparse traversal.</li>
+                <li>Distance matrix stores all-pairs shortest-path distances; it is often an output, not just an input representation.</li>
+                <li>Laplacian is degree matrix minus adjacency matrix: <code>L = D - A</code>. The diagonal stores vertex degrees, and neighbor links become <code>-1</code>.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Notation visual</p>
+            <div class="asymptotic-grid" aria-label="Visual comparison of Big-O, Omega, and Theta bounds">
+              <article class="bound-card">
+                <div>
+                  <h3>Big-O: upper bound</h3>
+                  <p><code>f(n) &in; O(g(n))</code> means there are constants <code>c &gt; 0</code> and <code>n0</code> such that <code>0 &le; f(n) &le; c g(n)</code> for every <code>n &ge; n0</code>.</p>
+                </div>
+                <svg class="bound-chart" viewBox="0 0 240 150" role="img" aria-label="Big-O chart where c times g of n stays above f of n after n zero">
+                  <line x1="28" y1="122" x2="220" y2="122"></line>
+                  <line x1="28" y1="122" x2="28" y2="18"></line>
+                  <line class="n0-line" x1="86" y1="122" x2="86" y2="24"></line>
+                  <text x="77" y="140">n0</text>
+                  <path class="bound-main" d="M32 113 C75 104, 104 87, 134 60 C160 37, 188 23, 215 16"></path>
+                  <path class="bound-f" d="M32 118 C73 113, 102 101, 132 79 C160 59, 188 49, 215 39"></path>
+                  <text class="chart-label bound" x="150" y="31">c g(n)</text>
+                  <text class="chart-label func" x="155" y="68">f(n)</text>
+                  <text class="chart-caption" x="92" y="114">after n0, f is below</text>
+                </svg>
+              </article>
+
+              <article class="bound-card">
+                <div>
+                  <h3>Omega: lower bound</h3>
+                  <p><code>f(n) &in; &Omega;(g(n))</code> means there are constants <code>c &gt; 0</code> and <code>n0</code> such that <code>0 &le; c g(n) &le; f(n)</code> for every <code>n &ge; n0</code>.</p>
+                </div>
+                <svg class="bound-chart" viewBox="0 0 240 150" role="img" aria-label="Omega chart where f of n stays above c times g of n after n zero">
+                  <line x1="28" y1="122" x2="220" y2="122"></line>
+                  <line x1="28" y1="122" x2="28" y2="18"></line>
+                  <line class="n0-line" x1="86" y1="122" x2="86" y2="24"></line>
+                  <text x="77" y="140">n0</text>
+                  <path class="bound-f" d="M32 113 C73 98, 102 78, 132 52 C160 31, 188 21, 215 16"></path>
+                  <path class="bound-main" d="M32 119 C75 114, 104 101, 134 80 C160 61, 188 50, 215 42"></path>
+                  <text class="chart-label func" x="160" y="33">f(n)</text>
+                  <text class="chart-label bound" x="150" y="74">c g(n)</text>
+                  <text class="chart-caption" x="92" y="114">after n0, f is above</text>
+                </svg>
+              </article>
+
+              <article class="bound-card">
+                <div>
+                  <h3>Theta: tight bound</h3>
+                  <p><code>f(n) &in; &Theta;(g(n))</code> means there are constants <code>c1,c2 &gt; 0</code> and <code>n0</code> such that <code>0 &le; c1 g(n) &le; f(n) &le; c2 g(n)</code> for every <code>n &ge; n0</code>.</p>
+                </div>
+                <svg class="bound-chart" viewBox="0 0 240 150" role="img" aria-label="Theta chart where f of n stays between c one g of n and c two g of n after n zero">
+                  <line x1="28" y1="122" x2="220" y2="122"></line>
+                  <line x1="28" y1="122" x2="28" y2="18"></line>
+                  <line class="n0-line" x1="86" y1="122" x2="86" y2="24"></line>
+                  <text x="77" y="140">n0</text>
+                  <path class="theta-upper" d="M32 112 C73 98, 103 78, 134 53 C162 32, 190 22, 215 17"></path>
+                  <path class="bound-f" d="M32 118 C74 109, 104 92, 134 68 C162 47, 190 37, 215 30"></path>
+                  <path class="theta-lower" d="M32 121 C75 116, 105 105, 134 87 C162 69, 190 58, 215 50"></path>
+                  <text class="chart-label bound" x="149" y="31">c2 g(n)</text>
+                  <text class="chart-label func" x="158" y="58">f(n)</text>
+                  <text class="chart-label lower" x="149" y="91">c1 g(n)</text>
+                  <text class="chart-caption" x="92" y="114">after n0, f is trapped</text>
+                </svg>
+              </article>
+            </div>
+            <p class="step-note"><strong>Remember:</strong> Big-O is a ceiling, Omega is a floor, Theta means the function is squeezed between both after some <code>n0</code>.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card">
+              <h3>How a graph becomes arrays</h3>
+              <p class="muted-note">Use this tiny undirected graph: <code>A-B</code>, <code>A-C</code>, <code>B-D</code>. The important exam distinction is: an adjacency list is usually an <strong>array indexed by vertex</strong>, where each cell stores that vertex's neighbors.</p>
+              <p class="step-note"><strong>Remember:</strong> the outer array chooses the vertex; the inner array/list stores only that vertex's outgoing neighbors.</p>
+              <div class="graph-storage-grid">
+                <div class="graph-mini">
+                  <svg class="graph-visual" viewBox="0 0 260 180" role="img" aria-labelledby="graph-array-title graph-array-desc">
+                    <title id="graph-array-title">Tiny graph with four vertices</title>
+                    <desc id="graph-array-desc">Undirected graph with edges A-B, A-C, and B-D.</desc>
+                    <g class="graph-edges">
+                      <line x1="72" y1="52" x2="188" y2="52"></line>
+                      <line x1="72" y1="52" x2="72" y2="136"></line>
+                      <line x1="188" y1="52" x2="188" y2="136"></line>
+                    </g>
+                    <g class="graph-vertices">
+                      <g class="graph-vertex" transform="translate(72 52)">
+                        <circle r="23"></circle>
+                        <text y="6">A</text>
+                      </g>
+                      <g class="graph-vertex" transform="translate(188 52)">
+                        <circle r="23"></circle>
+                        <text y="6">B</text>
+                      </g>
+                      <g class="graph-vertex" transform="translate(72 136)">
+                        <circle r="23"></circle>
+                        <text y="6">C</text>
+                      </g>
+                      <g class="graph-vertex" transform="translate(188 136)">
+                        <circle r="23"></circle>
+                        <text y="6">D</text>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+
+                <div class="storage-stack">
+                  <section class="storage-card">
+                    <h4>1. Edge list: one array of edges</h4>
+                    <pre>edges = [(A,B), (A,C), (B,D)]</pre>
+                    <p>Yes, this is a single array. It is simple, but finding all neighbors of <code>A</code> means scanning the whole edge array.</p>
+                  </section>
+
+                  <section class="storage-card">
+                    <h4>2. Adjacency list: array of neighbor arrays</h4>
+                    <div class="adj-array">
+                      <div><span class="array-index">0 / A</span><span class="arrow">&rarr;</span><span class="neighbor-list">B, C</span></div>
+                      <div><span class="array-index">1 / B</span><span class="arrow">&rarr;</span><span class="neighbor-list">A, D</span></div>
+                      <div><span class="array-index">2 / C</span><span class="arrow">&rarr;</span><span class="neighbor-list">A</span></div>
+                      <div><span class="array-index">3 / D</span><span class="arrow">&rarr;</span><span class="neighbor-list">B</span></div>
+                    </div>
+                    <p>This is what people usually mean by "adjacency list". In code it is often <code>vector&lt;vector&lt;int&gt;&gt; adj</code> or <code>List&lt;Integer&gt;[] adj</code>.</p>
+                  </section>
+
+                  <section class="storage-card">
+                    <h4>3. Compact form: offsets + one neighbor array</h4>
+                    <pre>neighbors = [B, C, A, D, A, B]
+offsets   = [0, 2, 4, 5, 6]</pre>
+                    <p>Neighbors of vertex <code>i</code> are in <code>neighbors[offsets[i] ... offsets[i+1]-1]</code>. So <code>A</code> uses positions <code>0..1</code>: <code>B, C</code>. This is a real "single big array" version, but it needs the offset array too.</p>
+                  </section>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card laplacian-demo" data-lab-key="pal-laplacian-demo">
+              <h3>Laplacian walkthrough</h3>
+              <p class="muted-note">Same graph again: <code>A-B</code>, <code>A-C</code>, <code>B-D</code>. Build the Laplacian by asking two questions: how many neighbors does each vertex have, and which other vertices is it connected to?</p>
+              <div class="segmented" data-laplacian-tabs>
+                <button type="button" data-laplacian-step="graph" class="active">Graph</button>
+                <button type="button" data-laplacian-step="adjacency">A</button>
+                <button type="button" data-laplacian-step="degree">D</button>
+                <button type="button" data-laplacian-step="laplacian">L = D - A</button>
+                <button type="button" data-laplacian-step="row">Row meaning</button>
+              </div>
+              <div id="laplacian-output" class="preview-box laplacian-output"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pal-representation-toggle">
+              <h3>Representation toggle</h3>
+              <div class="segmented" data-representation-tabs>
+                <button type="button" data-rep="matrix" class="active">Matrix</button>
+                <button type="button" data-rep="list">List</button>
+                <button type="button" data-rep="distance">Distance</button>
+                <button type="button" data-rep="incidence">Incidence</button>
+                <button type="button" data-rep="laplacian">Laplacian</button>
+              </div>
+              <div id="representation-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="complexity">
+                <h3>Flashcards</h3>
+              </section>
+              <section class="quiz" data-quiz="complexity">
+                <h3>Focused check</h3>
+              </section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define Big-O, Omega, Theta, little-o, and little-omega, then order the common growth rates.</span>
+              <textarea data-recall="pal-complexity-asymptotics" rows="4" placeholder="Constants, n0, upper/lower/tight bounds, growth ladder..."></textarea>
+            </label>
+            <template data-recall-reference="pal-complexity-asymptotics">
+Must say: O is an eventual upper bound f(n) <= c g(n); Omega is an eventual lower bound; Theta is both; little-o means f/g -> 0; little-omega means f/g -> infinity. Mention nonnegative functions, constants c > 0 and n0, and the growth order 1 < log n < n < n log n < n^2 < n^3 < 2^n < n!. Trap: Big-O is not necessarily a tight bound.
+            </template>
+            <label class="free-recall">
+              <span>Compare adjacency matrix, adjacency list, incidence matrix, distance matrix, and Laplacian matrix.</span>
+              <textarea data-recall="pal-complexity-representations" rows="5" placeholder="Memory, edge lookup, neighbor iteration, and what each matrix stores..."></textarea>
+            </label>
+            <template data-recall-reference="pal-complexity-representations">
+Must say: adjacency matrix uses O(n^2), O(1) edge query, O(n) neighbor scan, good for dense graphs; adjacency list uses O(n+m), O(deg v) edge query unless hashed, O(deg v) neighbor iteration, good for sparse traversal. Incidence matrix relates vertices to edges. Distance matrix stores all-pairs shortest-path distances and is often output. Laplacian is D-A, degree on diagonal, -1 for adjacent vertices, row sums zero in undirected unweighted graphs.
+            </template>
+            <label class="free-recall">
+              <span>An examiner gives a sparse graph with frequent traversals and occasional edge queries. Choose a representation and justify the complexity.</span>
+              <textarea data-recall="pal-complexity-choice" rows="4" placeholder="Use n=|V|, m=|E|, density, traversal cost, possible hashed neighbor sets..."></textarea>
+            </label>
+            <template data-recall-reference="pal-complexity-choice">
+Must say: for sparse graphs choose adjacency lists because memory is O(n+m) and traversing all vertices/edges is O(n+m), unlike O(n^2) matrix storage and neighbor scans. If edge-existence queries are frequent, store each neighbor list as a hash set or sorted list; plain lists give O(deg v), hashes expected O(1). Use n=|V| and m=|E| explicitly. Trap: a matrix may be justified for dense graphs or constant-time edge queries, but not as the default sparse representation.
+            </template>
+          </div>
+        </section>
+
+        <section id="module-graphs" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Core graph algorithms</h2>
+              <p class="module-lead">The heart of PAL. Separate the families: MSTs choose safe edges, union-find maintains components, SCCs compress directed cycles, Euler trails use degree conditions, and isomorphism asks whether two structures are secretly the same.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Student reports include SCC and MST prompts, so these core graph proofs and data structures deserve extra rehearsal.</p>
+                <ul class="priority-topics">
+                  <li>MST definitions, cut property, Kruskal, Prim, Boruvka</li>
+                  <li>union-find with path compression and rank or size</li>
+                  <li>SCCs, Kosaraju-Sharir, Tarjan, and condensation DAGs</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">75-95 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="graphs"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>MST Suite</h3>
+                <p>Algorithms with Attitude. Verified short videos: intro 8:59, Kruskal 5:47, Prim 9:50, Boruvka 4:51.</p>
+                <div class="video-frame" data-video-id="cwg3yNq-y5Y" data-start="0" title="Minimum Spanning Trees intro"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="cwg3yNq-y5Y" data-start="0">MST intro</button>
+                  <button type="button" data-video-target="6R179MBYMhY" data-start="0">Kruskal</button>
+                  <button type="button" data-video-target="BZb-ozM2PWo" data-start="0">Prim</button>
+                  <button type="button" data-video-target="bQga6WqLUvs" data-start="0">Boruvka</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=cwg3yNq-y5Y">Open intro fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>Union-Find</h3>
+                <p>Algorithms with Attitude. Verified duration: 13:33. Watch all.</p>
+                <div class="video-frame" data-video-id="axaOsCgpupk" data-start="0" title="Union-Find"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="axaOsCgpupk" data-start="0">Sets</button>
+                  <button type="button" data-video-target="axaOsCgpupk" data-start="285">Find/union</button>
+                  <button type="button" data-video-target="axaOsCgpupk" data-start="540">Compression</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=axaOsCgpupk">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>SCCs, Tarjan, Euler</h3>
+                <p>Kosaraju is 24:29, so use the first conceptual slice. Tarjan and Euler use William Fiset/freeCodeCamp timestamped course slices.</p>
+                <div class="video-frame" data-video-id="RpgcYiky7uw" data-start="0" title="Kosaraju SCC"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="RpgcYiky7uw" data-start="0">Kosaraju 0-18m</button>
+                  <button type="button" data-video-target="09_LlHjoEiY" data-start="10652">Tarjan slice</button>
+                  <button type="button" data-video-target="xR4sGgwtR2I" data-start="0">Euler conditions</button>
+                  <button type="button" data-video-target="8MpoO2zA2l4" data-start="0">Hierholzer</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=RpgcYiky7uw">Open Kosaraju fallback</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>Must be able to say</h3>
+              <ul>
+                <li>Prim grows one tree; Kruskal grows a forest; Boruvka merges many components per phase.</li>
+                <li>Cut and cycle properties are the correctness story for MSTs.</li>
+                <li>Union-find gives almost constant amortized component queries with path compression and union by rank/size.</li>
+                <li>Kosaraju uses two DFS passes and reversed edges; Tarjan uses one DFS with lowlink values.</li>
+                <li>Euler trail conditions are degree conditions plus connectedness.</li>
+                <li>Tree isomorphism is easy via centers and canonical forms; general graph isomorphism is special and harder.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <div class="two-col">
+              <article class="interactive-card" data-lab-key="pal-mst-stepper">
+                <h3>MST stepper</h3>
+                <div class="segmented" data-mst-mode>
+                  <button type="button" data-mode="kruskal" class="active">Kruskal</button>
+                  <button type="button" data-mode="prim">Prim</button>
+                  <button type="button" data-mode="boruvka">Boruvka</button>
+                </div>
+                <div id="mst-graph" class="graph-canvas" aria-label="MST graph preview"></div>
+                <div id="mst-state" class="mst-state-panel" aria-live="polite"></div>
+                <div class="step-controls">
+                  <button type="button" data-mst-prev>Back</button>
+                  <button type="button" data-mst-next>Next</button>
+                </div>
+                <p id="mst-step-text" class="preview-text"></p>
+              </article>
+              <article class="interactive-card" data-lab-key="pal-union-find-scc">
+                <h3>Union-find &amp; SCCs</h3>
+                <div class="mini-tabs">
+                  <button type="button" data-preview-tab="uf" class="active">Union-find</button>
+                  <button type="button" data-preview-tab="scc">SCC</button>
+                </div>
+                <div id="graph-preview-output" class="preview-box"></div>
+                <div class="step-controls">
+                  <button type="button" data-graph-prev>Back</button>
+                  <button type="button" data-graph-next>Next</button>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pal-directed-graph-lab">
+              <h3>Directed graph exam steppers</h3>
+              <div class="mini-tabs" data-directed-lab-tabs>
+                <button type="button" data-directed-mode="kosaraju" class="active">Kosaraju</button>
+                <button type="button" data-directed-mode="tarjan">Tarjan</button>
+                <button type="button" data-directed-mode="euler">Euler &amp; Hierholzer</button>
+              </div>
+              <div id="directed-lab-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-directed-prev>Back</button>
+                <button type="button" data-directed-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="graphs">
+                <h3>Flashcards</h3>
+              </section>
+              <section class="quiz" data-quiz="graphs">
+                <h3>Focused check</h3>
+              </section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Compare Prim-Jarnik, Kruskal, and Boruvka, including correctness ideas and complexities.</span>
+              <textarea data-recall="pal-graphs-mst" rows="5" placeholder="What each grows, safe edges, cut/cycle property, dense vs sparse choices..."></textarea>
+            </label>
+            <template data-recall-reference="pal-graphs-mst">
+Must say: MST is a minimum-weight spanning connected acyclic subgraph. Prim grows one tree by cheapest edge crossing from tree to outside; with adjacency list and binary heap O(m log n), matrix O(n^2) for dense graphs. Kruskal sorts edges and adds those connecting different components using union-find; O(m log m)=O(m log n). Boruvka lets every component add its cheapest outgoing edge in phases; O(log n) phases, simple O(m log n). Correctness uses cut property and cycle property; distinct weights imply unique MST.
+            </template>
+            <label class="free-recall">
+              <span>Explain union-find with path compression and union by rank/size, and why Kruskal needs it.</span>
+              <textarea data-recall="pal-graphs-union-find" rows="4" placeholder="make-set, find, union, representative, alpha(n), cycle detection..."></textarea>
+            </label>
+            <template data-recall-reference="pal-graphs-union-find">
+Must say: union-find maintains disjoint sets with make-set, find representative, and union. Tree implementation with union by rank/size attaches smaller/shallower tree under larger/deeper root. Path compression during find points visited nodes to the root. For q operations on n elements the amortized time is O((n+q) alpha(n)), effectively constant. Kruskal uses it to test whether an edge joins different components; if not, adding it would create a cycle.
+            </template>
+            <label class="free-recall">
+              <span>Give SCC algorithms, Euler trail conditions, and the graph-isomorphism trap answer.</span>
+              <textarea data-recall="pal-graphs-scc-euler-iso" rows="6" placeholder="Kosaraju, Tarjan, directed vs undirected Euler, tree vs general isomorphism..."></textarea>
+            </label>
+            <template data-recall-reference="pal-graphs-scc-euler-iso">
+Must say: SCC is a maximal mutually reachable set in a directed graph; condensation graph is a DAG. Kosaraju does DFS finish order, reverses edges, then DFS in decreasing finish order; O(n+m). Tarjan does one DFS with index, lowlink, stack, and pops when lowlink[v]=index[v]; O(n+m). Undirected Euler circuit: connected non-isolated part and all degrees even; open trail: exactly two odd vertices. Directed circuit: equal in/out degree and weak connectedness of nonzero-degree vertices; open trail has one start out=in+1 and one end in=out+1. General graph isomorphism is in NP, not known P or NP-complete; invariants can disprove but not prove. Tree isomorphism is easy by centers and canonical bottom-up codes.
+            </template>
+          </div>
+        </section>
+
+        <section id="module-generation" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Generation, primes &amp; pseudorandom numbers</h2>
+              <p class="module-lead">Mainly about output size and controlled enumeration. The algorithm can be simple while the number of generated objects is enormous.</p>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">35-45 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="generation"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Permutations</h3>
+                <p>Tushar Roy video is 25:09, so watch the first 15 minutes for backtracking intuition and skip deep variants.</p>
+                <div class="video-frame" data-video-id="nYFd7VHKyWQ" data-start="0" title="String Permutation Algorithm"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="nYFd7VHKyWQ" data-start="0">Idea</button>
+                  <button type="button" data-video-target="nYFd7VHKyWQ" data-start="360">Backtracking</button>
+                  <button type="button" data-video-target="nYFd7VHKyWQ" data-start="900">Stop here</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=nYFd7VHKyWQ">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>Sieve &amp; prime generation</h3>
+                <p>Computerphile uses an infinite-data-structures angle; watch only the sieve explanation slice if the written notes feel too abstract.</p>
+                <div class="video-frame" data-video-id="bnRNiE_OVWA" data-start="120" title="Infinite Data Structures and Sieve"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="bnRNiE_OVWA" data-start="120">Sieve idea</button>
+                  <button type="button" data-video-target="bnRNiE_OVWA" data-start="360">Prime stream</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=bnRNiE_OVWA">Open fallback</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>Must be able to say</h3>
+              <ul>
+                <li>All subsets: <code>2^n</code>; k-subsets: <code>C(n,k)</code>; permutations: <code>n!</code>.</li>
+                <li>Gray code changes one bit at a time; one formula is <code>i xor (i &gt;&gt; 1)</code>.</li>
+                <li>The sieve marks multiples and runs in about <code>O(N log log N)</code>.</li>
+                <li>An LCG is <code>x[i+1] = (a x[i] + c) mod m</code>; it is deterministic, so period and statistical quality matter.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="generation">
+                <h3>Flashcards</h3>
+              </section>
+              <section class="quiz" data-quiz="generation">
+                <h3>Focused check</h3>
+              </section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain why subset, k-subset, and permutation generation can be correct but necessarily huge.</span>
+              <textarea data-recall="pal-generation-output-size" rows="4" placeholder="Counts, output-sensitive lower bound, explicit printing cost..."></textarea>
+            </label>
+            <template data-recall-reference="pal-generation-output-size">
+Must say: output size dominates. There are 2^n subsets, binomial(n,k) k-subsets, and n! permutations, so any algorithm printing them all needs at least that many outputs. If each subset is printed explicitly, all subsets take Theta(n 2^n) output time. The algorithm may have polynomial delay per object but total time is exponential because the answer itself is exponential.
+            </template>
+            <label class="free-recall">
+              <span>Describe concrete generation methods for subsets, k-subsets, permutations, and Gray codes.</span>
+              <textarea data-recall="pal-generation-methods" rows="5" placeholder="Bit masks, include/exclude, next combination, next_permutation, one-bit changes..."></textarea>
+            </label>
+            <template data-recall-reference="pal-generation-methods">
+Must say: all subsets can be generated by bit masks 0..2^n-1 or include/exclude recursion. k-subsets can use recursive choice with pruning or lexicographic next-combination: find largest i with a_i < n-k+i, increment it, reset following positions. Permutations can use next_permutation: find non-increasing suffix, swap pivot with next larger suffix element, reverse suffix; also Heap's or Johnson-Trotter. Reflected Gray code lists bit strings differing in one bit; G(i)=i xor (i>>1).
+            </template>
+            <label class="free-recall">
+              <span>Explain the sieve of Eratosthenes, trial division, PRNG properties, and the LCG full-period trap.</span>
+              <textarea data-recall="pal-generation-primes-random" rows="5" placeholder="sqrt(n), p^2 marking, O(N log log N), LCG recurrence, Hull-Dobell..."></textarea>
+            </label>
+            <template data-recall-reference="pal-generation-primes-random">
+Must say: trial division tests divisors up to sqrt(n), O(sqrt n) divisions. Sieve marks 2..N, for each unmarked p <= sqrt(N) marks multiples from p^2, leaving primes; O(N log log N) time and O(N) memory. PRNGs are deterministic but should have long period, uniformity, low correlation, reproducibility; cryptography also needs unpredictability. LCG recurrence is X_{i+1}=(aX_i+c) mod m. Full period m for mixed LCG requires gcd(c,m)=1, every prime factor of m divides a-1, and if 4 divides m then 4 divides a-1.
+            </template>
+          </div>
+        </section>
+
+        <section id="module-trees" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>Search trees</h2>
+              <p class="module-lead">Every structure here is a different answer to the same question: how do we keep search from degenerating into a long chain?</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Radim Bača makes indexing and search-tree material especially likely, and reports directly ask for B-tree insertion and B+ tree comparison.</p>
+                <ul class="priority-topics">
+                  <li>B-tree find, insertion, split, and median promotion</li>
+                  <li>B+ tree records in linked leaves and range scans</li>
+                  <li>AVL, red-black, splay, skip list, and k-d tree contrasts</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">45-60 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="trees"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>AVL Trees</h3>
+                <p>Tushar Roy. Verified duration: 20:00. Watch 0-15m for balance and rotations.</p>
+                <div class="video-frame" data-video-id="rbg7Qf8GkQ4" data-start="0" title="AVL Tree Insertion"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="rbg7Qf8GkQ4" data-start="0">Balance</button>
+                  <button type="button" data-video-target="rbg7Qf8GkQ4" data-start="420">Rotations</button>
+                  <button type="button" data-video-target="rbg7Qf8GkQ4" data-start="900">Stop here</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=rbg7Qf8GkQ4">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>Red-black &amp; B-trees</h3>
+                <p>Michael Sambol. Verified durations: red-black 3:53, B-tree intro 3:57, properties 5:38.</p>
+                <div class="video-frame" data-video-id="qvZGUFHWChY" data-start="0" title="Red-black trees in 4 minutes"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="qvZGUFHWChY" data-start="0">Red-black</button>
+                  <button type="button" data-video-target="FgWbADOG44s" data-start="0">B-tree intro</button>
+                  <button type="button" data-video-target="fAfuZiFDpRo" data-start="0">B-tree props</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=qvZGUFHWChY">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>k-d trees &amp; skip lists</h3>
+                <p>Computerphile k-d tree is 13:20. MIT skip-list lecture is long, so use it only as optional 20-minute enrichment.</p>
+                <div class="video-frame" data-video-id="BK5x7IUTIyU" data-start="0" title="K-d Trees"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="BK5x7IUTIyU" data-start="0">k-d intuition</button>
+                  <button type="button" data-video-target="2g9OSRKJuzM" data-start="0">MIT skip lists</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=BK5x7IUTIyU">Open fallback</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>Comparison to memorize</h3>
+              <table class="compact-table">
+                <thead><tr><th>Structure</th><th>Point</th></tr></thead>
+                <tbody>
+                  <tr><td>AVL</td><td>Strict balance, more rotations.</td></tr>
+                  <tr><td>Red-black</td><td>Looser balance, common in libraries.</td></tr>
+                  <tr><td>B/B+</td><td>High branching for pages and range scans.</td></tr>
+                  <tr><td>Splay</td><td>Amortized, moves recent items up.</td></tr>
+                  <tr><td>k-d</td><td>Spatial points and nearest neighbor.</td></tr>
+                  <tr><td>Skip list</td><td>Random levels, expected logarithmic search.</td></tr>
+                </tbody>
+              </table>
+            </article>
+            <article class="recall-card">
+              <h3>B-tree insertion oral drill</h3>
+              <ul>
+                <li>Search down by separator keys until the target leaf.</li>
+                <li>Insert the key in sorted order; if the node overflows, split around the median separator.</li>
+                <li>Push the separator to the parent and repeat upward; splitting the root increases height by one.</li>
+                <li>B+ tree contrast: internal nodes guide search, records live in linked leaves for range scans.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pal-tree-mini-lab">
+              <h3>Tree mini lab</h3>
+              <div class="segmented" data-tree-tabs>
+                <button type="button" data-tree="bst" class="active">BST</button>
+                <button type="button" data-tree="avl">AVL</button>
+                <button type="button" data-tree="rb">RB</button>
+                <button type="button" data-tree="btree">B/B+</button>
+                <button type="button" data-tree="kd">k-d</button>
+                <button type="button" data-tree="skip">Skip</button>
+              </div>
+              <div id="tree-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="trees">
+                <h3>Flashcards</h3>
+              </section>
+              <section class="quiz" data-quiz="trees">
+                <h3>Focused check</h3>
+              </section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Compare BST, AVL, red-black, B-tree, and B+ tree as dictionary structures.</span>
+              <textarea data-recall="pal-trees-balanced" rows="5" placeholder="Invariant, operation cost, balancing strength, external-memory story..."></textarea>
+            </label>
+            <template data-recall-reference="pal-trees-balanced">
+Must say: BST keeps left < key < right; operations are O(h), worst O(n) if unbalanced. AVL keeps balance factor -1,0,1 and uses rotations; search/insert/delete O(log n), strict balance. Red-black uses color rules, no red-red edge, equal black height; height <= 2 log2(n+1), O(log n), looser and common in libraries. B-tree is multiway, all leaves same depth, O(log_t n) node visits and good for disk/cache pages. B+ tree stores records in linked leaves and separators internally, so it has high fanout and efficient range scans.
+            </template>
+            <label class="free-recall">
+              <span>Demonstrate B-tree find and insertion, then explain the B+ tree difference.</span>
+              <textarea data-recall="pal-trees-btree-insert" rows="5" placeholder="Search child interval, insert in leaf, split overflow, promote separator, records in leaves for B+..."></textarea>
+            </label>
+            <template data-recall-reference="pal-trees-btree-insert">
+Must say: B-tree find compares against sorted keys in a node and descends to the child interval containing the searched key until it is found or a leaf is reached. Insertion first searches to the target leaf, inserts the key in sorted order, and handles overflow by splitting the node around the median. The median separator is promoted to the parent; overflow can propagate upward, and root split increases height. In a B+ tree, internal nodes contain separators only, all records are in leaves, and linked leaves make range queries efficient.
+            </template>
+            <label class="free-recall">
+              <span>Explain splay trees, k-d trees with nearest-neighbor pruning, and skip lists.</span>
+              <textarea data-recall="pal-trees-specialized" rows="5" placeholder="Amortized vs worst-case, coordinate splits, bounding regions, random levels..."></textarea>
+            </label>
+            <template data-recall-reference="pal-trees-specialized">
+Must say: splay tree moves accessed nodes to the root with zig, zig-zig, zig-zag rotations; individual operation can be O(n), amortized O(log n), good for temporal locality. k-d tree stores k-dimensional points, splitting by coordinate depth mod k; nearest neighbor descends first, keeps best distance, and backtracks to the other side only if its region could contain a closer point; good in low dimensions, worst O(n), degrades in high dimensions. Skip list promotes elements randomly across levels, expected O(log n) search/insert/delete and O(n) expected space.
+            </template>
+            <label class="free-recall">
+              <span>An examiner asks which tree to use for a database index, a library map, recent-key locality, spatial nearest neighbor, and concurrent ordered set.</span>
+              <textarea data-recall="pal-trees-choice" rows="5" placeholder="Pick structures and justify with the property that matters..."></textarea>
+            </label>
+            <template data-recall-reference="pal-trees-choice">
+Must say: database index/range queries -> B+ tree because high fanout, page/block behavior, records in linked leaves. Library ordered map/set -> red-black tree often, because guaranteed O(log n) with moderate rotation cost; AVL if lookup-heavy and strict balance is desired. Recent-key locality -> splay tree due to self-adjustment and amortized guarantees. Spatial nearest-neighbor -> k-d tree in low dimensions, with pruning by bounding regions. Concurrent ordered set -> skip list is simple and common, expected logarithmic operations. Trap: plain BST has no worst-case guarantee without balancing.
+            </template>
+          </div>
+        </section>
+
+        <section id="module-automata" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>Automata &amp; text search</h2>
+              <p class="module-lead">Text search looks like a zoo until you see the pattern: keep enough memory about the prefix you have matched so you do not restart blindly.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Reports include automata and text-search prompts, especially exact search, damaged words, and dictionary automata.</p>
+                <ul class="priority-topics">
+                  <li>DFA, NFA, regular expressions, and subset construction</li>
+                  <li>KMP or automaton exact pattern matching</li>
+                  <li>Levenshtein matching and Aho-Corasick dictionary search</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">55-70 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="automata"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Regular expressions</h3>
+                <p>Computerphile. Verified duration: 17:18. Watch all if automata feel foggy.</p>
+                <div class="video-frame" data-video-id="528Jc3q86F8" data-start="0" title="Regular Expressions"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="528Jc3q86F8" data-start="0">Regex idea</button>
+                  <button type="button" data-video-target="528Jc3q86F8" data-start="420">Automata link</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=528Jc3q86F8">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>KMP pattern matching</h3>
+                <p>Tushar Roy. Verified duration: 12:49. Watch all.</p>
+                <div class="video-frame" data-video-id="GTJr8OvyEVQ" data-start="0" title="KMP Pattern Matching"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="GTJr8OvyEVQ" data-start="0">Problem</button>
+                  <button type="button" data-video-target="GTJr8OvyEVQ" data-start="240">Prefix table</button>
+                  <button type="button" data-video-target="GTJr8OvyEVQ" data-start="520">Search</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=GTJr8OvyEVQ">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>Levenshtein distance</h3>
+                <p>Back To Back SWE. Verified duration: 16:15. Watch all.</p>
+                <div class="video-frame" data-video-id="MiqoA-yF-0M" data-start="0" title="Levenshtein Distance"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="MiqoA-yF-0M" data-start="0">Operations</button>
+                  <button type="button" data-video-target="MiqoA-yF-0M" data-start="360">DP grid</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=MiqoA-yF-0M">Open fallback</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>Must be able to say</h3>
+              <ul>
+                <li>DFA has one active state; NFA can have many possible active states.</li>
+                <li>Regex, NFA, and DFA describe regular languages.</li>
+                <li>Bitset NFA simulation stores the active state set as bits and updates many states with word operations.</li>
+                <li>KMP uses a failure/prefix table and runs in <code>O(n + m)</code>.</li>
+                <li>Hamming distance allows substitutions on equal-length strings; Levenshtein allows insert/delete/substitute.</li>
+                <li>Levenshtein allows insert/delete/substitute and standard DP is <code>O(mn)</code>.</li>
+                <li>Aho-Corasick builds a trie with failure links for many-pattern matching.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <div class="two-col">
+              <article class="interactive-card">
+                <h3>KMP prefix table</h3>
+                <div id="kmp-output" class="preview-box"></div>
+              </article>
+              <article class="interactive-card">
+                <h3>Edit distance grid</h3>
+                <div id="edit-output" class="preview-box"></div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="automata">
+                <h3>Flashcards</h3>
+              </section>
+              <section class="quiz" data-quiz="automata">
+                <h3>Focused check</h3>
+              </section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define DFA, NFA, regular expressions, regular operations, and bitset NFA simulation.</span>
+              <textarea data-recall="pal-automata-regular" rows="5" placeholder="Tuple, active states, subset construction, closure, bit masks..."></textarea>
+            </label>
+            <template data-recall-reference="pal-automata-regular">
+Must say: DFA A=(Q,Sigma,delta,q0,F) has one active state and transition Q x Sigma -> Q. NFA allows multiple next states and epsilon transitions, delta maps to sets of states. DFA, NFA, and regular expressions describe exactly regular languages; NFA can be determinized by subset construction with up to 2^|Q| states. Regular languages are closed under union, intersection, complement, concatenation, star, difference, reversal, homomorphism. Bitset NFA stores active states as bits and updates masks per character, about O(ceil(m/w)) per character.
+            </template>
+            <label class="free-recall">
+              <span>Compare exact text-search algorithms: naive, KMP/automaton, Boyer-Moore, and Shift-And/Shift-Or.</span>
+              <textarea data-recall="pal-automata-exact-search" rows="5" placeholder="Problem, preprocessing, scan behavior, worst-case vs practical behavior..."></textarea>
+            </label>
+            <template data-recall-reference="pal-automata-exact-search">
+Must say: exact pattern matching has pattern length m and text length n. Naive tries every alignment, worst O(nm). KMP builds prefix/failure information, keeps length of matched prefix, preprocess O(m), scan O(n), total O(n+m). Automaton view uses states as prefix lengths. Boyer-Moore compares from pattern end and shifts using bad-character/good-suffix rules; variants have linear worst case and often sublinear practical behavior. Shift-And/Shift-Or are bit-parallel, precompute character masks and update a bit vector, O(n ceil(m/w)).
+            </template>
+            <label class="free-recall">
+              <span>Compare approximate matching with Hamming and Levenshtein distance, and dictionary matching with Aho-Corasick.</span>
+              <textarea data-recall="pal-automata-approx-dictionary" rows="5" placeholder="Allowed edits, DP recurrence, banding, automata states, trie plus failure links..."></textarea>
+            </label>
+            <template data-recall-reference="pal-automata-approx-dictionary">
+Must say: Hamming distance counts substitutions only and requires equal-length strings. Levenshtein distance allows insert, delete, substitute; DP has delete D[i-1,j]+1, insert D[i,j-1]+1, substitute/match D[i-1,j-1]+[P_i != T_j], O(mn). If only <=k matters, diagonal banding gives O(kn); automaton states can encode pattern position and errors, roughly O(mk). Aho-Corasick handles many dictionary patterns: build trie, failure links by BFS, output lists, then scan text in O(n+z) after construction.
+            </template>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>Automata for text search</h3></div>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Direct report evidence covers automata, damaged words, dictionary automata, and multiple-pattern search.</p>
+                <ul class="priority-topics">
+                  <li>KMP-style automaton search</li>
+                  <li>approximate matching with Hamming or Levenshtein distance</li>
+                  <li>Aho-Corasick for many patterns</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: OI HCI report asked about automata, text search, damaged words, dictionary automata, and searching multiple words at once.</p>
+              <label class="free-recall">
+                <span>Explain how automata support exact text search, approximate matching of damaged words, and dictionary matching for many words.</span>
+                <textarea rows="5" data-recall="pal-reported-automata-search" placeholder="DFA/NFA, KMP automaton, edit distance, Levenshtein automaton, Aho-Corasick..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>Exact one-pattern search can be viewed as a DFA over prefix lengths; KMP implements the same failure-transition idea in <code>O(n + m)</code>.</li>
+                    <li>A DFA has one active state; an NFA has a set of active states and can be simulated with bitsets or determinized by subset construction.</li>
+                    <li>Damaged words mean approximate matching: Hamming distance allows substitutions only; Levenshtein allows insert, delete, substitute and is handled by DP or bounded-error automata.</li>
+                    <li>Dictionary matching uses a trie plus failure links: Aho-Corasick scans once and reports all matched words in <code>O(n + z)</code> after construction.</li>
+                    <li>Multiple words can be searched at once by the dictionary automaton; outputs attached to states report which patterns ended there.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pal-reported-automata-search">Must say: exact search can be modeled by a DFA whose states are matched prefix lengths; KMP implements failure transitions and runs in O(n+m). DFA has one active state, NFA has a set of active states and may use bitset simulation or subset construction. Damaged words use approximate matching: Hamming permits substitutions on equal-length strings, Levenshtein permits insert/delete/substitute and is solved by DP or bounded-error automata. Dictionary/multiple-word search uses Aho-Corasick: trie, failure links, output lists, one scan in O(n+z) after construction.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>B-tree insertion</h3></div>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Directly matches the reported B-tree/B+ tree indexing prompt and the Bača-weighted tree emphasis.</p>
+                <ul class="priority-topics">
+                  <li>B-tree definition and height intuition</li>
+                  <li>find, insert, split, and promoted median</li>
+                  <li>B+ tree leaf records and range scans</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: OI Mgr Software Engineering common question asked to define B-trees, demonstrate find and insertion, compare B+ trees, and name other search trees.</p>
+              <label class="free-recall">
+                <span>Define a B-tree, walk through find and insertion, then compare B+ trees with other balanced search structures.</span>
+                <textarea rows="5" data-recall="pal-reported-btree" placeholder="Height, node capacity, split, promote median, leaves, range query, AVL/RB/splay/skip..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>A B-tree is a balanced multiway search tree optimized for disk/pages: each node stores several sorted keys and children, and all leaves are at the same depth.</li>
+                    <li>Find chooses the interval between keys inside a node and descends to the matching child; height is <code>O(log_t n)</code> for minimum degree <code>t</code>.</li>
+                    <li>Insert into the correct leaf; if a node overflows, split it and promote the median key upward, possibly cascading to a new root.</li>
+                    <li>A B+ tree keeps records, or all keys with payload pointers, in linked leaves; internal nodes are separators, so range scans are especially efficient.</li>
+                    <li>Other search trees: AVL and red-black trees keep binary height logarithmic; splay trees are amortized; skip lists use randomized levels.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pal-reported-btree">Must say: a B-tree is a balanced multiway search tree with sorted keys per node, many children, high fan-out, and all leaves at the same depth. Find compares within a node and descends to the interval child, giving logarithmic height. Insertion descends to a leaf, inserts the key, splits an overflowing node, promotes the median to the parent, and may split up to a new root. B+ trees store records in linked leaves and use internal nodes as separators, making range queries efficient. Related structures include AVL, red-black, splay trees, and skip lists.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>SCC algorithms</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Direct report evidence asks for SCC definitions, Kosaraju-Sharir, Tarjan, correctness, and complexity.</p>
+                <ul class="priority-topics">
+                  <li>maximal mutual reachability and condensation DAG</li>
+                  <li>Kosaraju-Sharir finish order and reversed graph</li>
+                  <li>Tarjan lowlink, stack, and linear time</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: MSZZ OI Data Science report asked about strongly connected components, Kosaraju-Sharir, Tarjan, correctness, and time complexity.</p>
+              <label class="free-recall">
+                <span>Explain SCCs and compare Kosaraju-Sharir with Tarjan, including why each is correct and its time complexity.</span>
+                <textarea rows="5" data-recall="pal-reported-scc" placeholder="Mutual reachability, condensation DAG, DFS finish order, reverse graph, lowlink, stack..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>An SCC is a maximal set of vertices mutually reachable in a directed graph; contracting SCCs gives an acyclic condensation graph.</li>
+                    <li>Kosaraju-Sharir: run DFS, order vertices by decreasing finish time, then DFS the reversed graph in that order; each second-pass tree is one SCC.</li>
+                    <li>Correctness uses the condensation DAG: finish-time order chooses a source/sink component in the reversed pass so DFS cannot leak into an unassigned different SCC.</li>
+                    <li>Tarjan uses one DFS with discovery indices, lowlink values, and a stack of active vertices; when <code>lowlink[v] = index[v]</code>, pop one SCC.</li>
+                    <li>Both run in <code>O(n + m)</code>; Kosaraju uses two passes and the reverse graph, Tarjan uses one pass plus stack bookkeeping.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pal-reported-scc">Must say: an SCC is a maximal mutually reachable vertex set in a directed graph, and the SCC condensation graph is a DAG. Kosaraju runs DFS, processes vertices by decreasing finish time, then DFSes the reversed graph; each tree in the second pass is one SCC because finish order isolates components in the condensation DAG. Tarjan performs one DFS, stores discovery index and lowlink, keeps active vertices on a stack, and pops an SCC when lowlink[v] equals index[v]. Both algorithms run in O(n+m).</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>MST definitions and algorithms</h3></div>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Reported MST prompts make this a high-yield graph-algorithm rehearsal, even with lower confidence on the source.</p>
+                <ul class="priority-topics">
+                  <li>tree equivalences and MST definition</li>
+                  <li>Kruskal with union-find and Boruvka phases</li>
+                  <li>cut property and runtime notes</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor-looking LGR report asked for tree definitions, cycles, MST, Kruskal/Boruvka, implementation, memory, and time complexity.</p>
+              <label class="free-recall">
+                <span>State equivalent definitions of trees and explain MST, Kruskal, and Boruvka with implementation and complexity notes.</span>
+                <textarea rows="5" data-recall="pal-reported-mst" placeholder="Connected acyclic, n-1 edges, cut property, union-find, phases, O(m log n)..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>For an undirected graph, a tree is connected and acyclic; equivalently it has <code>n - 1</code> edges and a unique simple path between every pair of vertices.</li>
+                    <li>An MST is a minimum-weight spanning tree of a connected weighted undirected graph.</li>
+                    <li>Kruskal sorts edges by weight and adds an edge if it connects two different components; union-find detects cycles. Time is dominated by sorting: <code>O(m log m)</code>.</li>
+                    <li>Boruvka repeatedly lets every component choose its lightest outgoing edge and contracts chosen edges; it finishes in <code>O(log n)</code> phases and about <code>O(m log n)</code> time.</li>
+                    <li>Correctness rests on the cut property: the lightest edge crossing a cut is safe for some MST.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pal-reported-mst">Must say: an undirected tree is connected and acyclic, equivalently has n-1 edges and unique simple paths. An MST is a minimum-weight spanning tree. Kruskal sorts edges and adds each edge whose endpoints are in different union-find components, so it avoids cycles; time is O(m log m) or O(m log n). Boruvka repeatedly chooses the cheapest outgoing edge of every component and contracts, using O(log n) phases and about O(m log n). The cut property justifies safe edge choices.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Directed components</h3></div>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Reported priority</span><strong>Normal focus</strong></div>
+                <p>Lower-confidence report, but it targets the same graph vocabulary as SCC questions: directions, weak components, strong components, and condensation.</p>
+                <ul class="priority-topics">
+                  <li>weak vs strong connectivity</li>
+                  <li>mutual reachability</li>
+                  <li>condensation graph intuition</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor-looking LGR report asked about directed graphs, connected components versus SCCs, examples, and rooted trees.</p>
+              <label class="free-recall">
+                <span>Compare weak connected components, strongly connected components, and rooted-tree structure in directed graphs.</span>
+                <textarea rows="5" data-recall="pal-reported-directed-components" placeholder="Ignore directions, mutual reachability, condensation, arborescence, examples..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>A directed graph has oriented edges; reachability must respect edge directions.</li>
+                    <li>Weak connected components ignore edge directions and compute ordinary components of the underlying undirected graph.</li>
+                    <li>SCCs require mutual directed reachability and are maximal under that property; every SCC lies inside one weak component.</li>
+                    <li>A directed cycle can make one SCC; a directed rooted tree with edges away from the root usually has singleton SCCs but one weak component.</li>
+                    <li>The condensation graph of SCCs is a DAG and is the right object for reasoning about directed-component structure.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pal-reported-directed-components">Must say: directed reachability follows edge orientation. Weak connected components ignore orientations and compute components in the underlying undirected graph. Strongly connected components require every pair of vertices to be mutually reachable by directed paths, and each SCC is contained in one weak component. A directed cycle can form one SCC; a rooted directed tree with edges away from the root is weakly connected but usually has singleton SCCs. Contracting SCCs gives a DAG.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic-pass" class="band compact panic-band">
+          <div class="section-heading">
+            <p class="eyebrow">Emergency route</p>
+            <h2>45-minute panic pass</h2>
+          </div>
+          <ol class="panic-list">
+            <li>Watch Big-O and graph representation at 1.25x.</li>
+            <li>Watch MST intro, Kruskal, and union-find.</li>
+            <li>Use the MST and union-find steppers once.</li>
+            <li>Read the search-tree comparison table.</li>
+            <li>Watch KMP and fill the prefix table preview.</li>
+            <li>Say the oral skeleton below out loud twice.</li>
+          </ol>
+        </section>
+
+        <section id="oral" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Rehearsal</p>
+            <h2>10-15 minute oral skeleton</h2>
+          </div>
+          <div class="oral-script">
+            <p>I describe graph algorithms using asymptotic notation with <code>n = |V|</code> and <code>m = |E|</code>. Representation matters: adjacency matrices are good for dense graphs and constant edge queries, while adjacency lists are compact for sparse traversal.</p>
+            <p>For MSTs, Prim grows one tree, Kruskal grows a forest using union-find, and Boruvka merges components in phases. Correctness comes from the cut and cycle properties.</p>
+            <p>For directed graphs, SCCs are maximal mutually reachable sets. Kosaraju uses two DFS passes and reversed edges, while Tarjan uses one DFS with lowlink values. Euler trails are decided by degree balance conditions and constructed by Hierholzer.</p>
+            <p>Generation algorithms are governed by output size: <code>2^n</code> subsets, <code>C(n,k)</code> k-subsets, and <code>n!</code> permutations. The sieve marks multiples for primes, and LCGs generate deterministic pseudorandom sequences.</p>
+            <p>Search trees fight height: AVL and red-black trees keep BSTs logarithmic, B/B+ trees are for pages and range queries, splay trees are amortized, k-d trees are spatial, and skip lists use random levels.</p>
+            <p>Automata connect to text search: regex, NFA, and DFA describe regular languages. KMP and Boyer-Moore are exact matching algorithms; edit distance handles approximate matching; Aho-Corasick handles dictionary matching.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    ["complexity", "graphs", "generation", "trees", "automata"].forEach((key) => {
+      flashcards[key] = [];
+    });
+
+    quizzes.complexity = [
+      { q: "Which statement is the precise Big-O claim?", a: ["f(n) <= c g(n) for all n >= n0, for some c > 0", "f(n) < g(n) for every n, with no constants hidden", "f(n)/g(n) must converge to exactly 1 as n grows"], correct: 0, why: "Big-O is an eventual asymptotic upper bound with constants c and n0." },
+      { q: "Which relation says f grows strictly slower than g?", a: ["f in o(g), so f(n)/g(n) tends to 0", "f in Omega(g), so f is eventually a lower bound", "f in Theta(g), so both functions bound each other"], correct: 0, why: "Little-o means f(n)/g(n) tends to 0." },
+      { q: "What is the usual graph-algorithm meaning of n and m?", a: ["n = |V| vertices and m = |E| edges", "n = |E| edges and m = |V| vertices", "n = components and m = adjacency matrices"], correct: 0, why: "PAL graph complexities are normally written with n vertices and m edges." },
+      { q: "A sparse graph has m = O(n). Which representation is the best default for traversal?", a: ["Adjacency list with O(n+m) storage", "Adjacency matrix with O(n^2) storage", "Distance matrix with all-pairs entries"], correct: 0, why: "Adjacency lists use O(n+m) memory and scan only existing edges." },
+      { q: "What is the cost of testing edge existence in a plain adjacency matrix?", a: ["O(1) by reading the cell A[u][v]", "O(deg u) by scanning u's neighbor list", "O(n+m) by traversing the whole graph"], correct: 0, why: "The matrix cell A[u][v] answers the query directly." },
+      { q: "What is the trap with iterating neighbors from an adjacency matrix?", a: ["It scans O(n) cells even for low degree", "It scans O(deg v) entries like a list", "It loses symmetry for undirected graphs"], correct: 0, why: "You must scan a whole row to find all present edges." },
+      { q: "A distance matrix primarily stores...", a: ["Shortest-path distances for all vertex pairs", "Direct edge presence for all vertex pairs", "Endpoint membership for each graph edge"], correct: 0, why: "It is often the output of all-pairs shortest paths, with infinity for unreachable pairs." },
+      { q: "For an unweighted undirected graph, the Laplacian is...", a: ["D - A, degree matrix minus adjacency", "A - D, adjacency minus degree matrix", "D + A, degree matrix plus adjacency"], correct: 0, why: "The degree matrix minus adjacency matrix gives degree diagonals and negative neighbor entries." },
+      { q: "What is true of every row in the Laplacian of an undirected unweighted graph?", a: ["It sums to zero over all columns", "It has one nonzero entry per component", "It stores a shortest-path distance row"], correct: 0, why: "The diagonal degree cancels the -1 entries for adjacent vertices." },
+      { q: "An incidence matrix for a directed graph has columns representing...", a: ["Edges, with signed tail and head entries", "Components, with one column per component", "Distances, with one column per target"], correct: 0, why: "A common convention is -1 at the tail, +1 at the head." },
+      { q: "Which representation is most attractive for a dense graph with many edge-existence queries?", a: ["Adjacency matrix with O(1) edge lookup", "Plain edge list with sequential edge scans", "Union-find over connected components only"], correct: 0, why: "The O(n^2) memory is acceptable for dense graphs and edge lookup is O(1)." },
+      { q: "Which answer is an oral-exam trap?", a: ["Big-O alone always gives a tight runtime", "Theta notation gives a tight asymptotic bound", "Adjacency lists stay compact on sparse graphs"], correct: 0, why: "Big-O may be loose; tightness requires Theta or a matching lower bound." }
+    ];
+
+    quizzes.graphs = [
+      { q: "An MST is defined for which input?", a: ["Connected undirected weighted graph", "Directed graph with arbitrary edge weights", "Unweighted graph with chosen root vertex"], correct: 0, why: "The standard MST problem spans all vertices in a connected undirected weighted graph." },
+      { q: "The cut property says...", a: ["A lightest edge crossing a cut is safe for some MST", "Every edge crossing a cut must appear in every MST", "The globally heaviest edge is always rejected first"], correct: 0, why: "Safe-edge reasoning for MST algorithms is based on cuts." },
+      { q: "The cycle property says...", a: ["A heaviest edge on a cycle is unnecessary for some MST", "Every cycle edge must be preserved until the end", "A spanning tree must keep one cycle as a witness"], correct: 0, why: "A spanning tree is acyclic, and the heaviest cycle edge can be excluded." },
+      { q: "Which MST algorithm sorts all edges first?", a: ["Kruskal, then scans edges by weight", "Prim-Jarnik, then grows from a start vertex", "Boruvka, then chooses edges per component"], correct: 0, why: "Kruskal scans edges in nondecreasing weight order." },
+      { q: "Which MST algorithm is naturally O(n^2) with an adjacency matrix and works well on dense graphs?", a: ["Prim-Jarnik with dense matrix scans", "Kosaraju-Sharir with reversed DFS passes", "Hierholzer with trail splicing"], correct: 0, why: "Prim can repeatedly choose the best outside vertex using matrix-style dense scans." },
+      { q: "What does Boruvka do in one phase?", a: ["Each component chooses its cheapest outgoing edge", "Each DFS tree reverses all outgoing directed edges", "Each accessed search-tree node is moved to root"], correct: 0, why: "Adding all selected cheapest outgoing edges merges many components simultaneously." },
+      { q: "With path compression and union by rank/size, union-find operations are...", a: ["Amortized almost constant, O(alpha(n))", "Worst-case factorial because all sets are permuted", "Exactly O(log log n) for every operation"], correct: 0, why: "The inverse Ackermann factor is effectively constant in practice." },
+      { q: "In Kruskal, an edge is skipped when...", a: ["Its endpoints already share a union-find set", "It is the lightest edge crossing some cut", "It has a weight distinct from all previous edges"], correct: 0, why: "Same component means adding the edge would create a cycle." },
+      { q: "A strongly connected component is...", a: ["A maximal set of mutually reachable vertices", "A weakly connected part after ignoring directions", "A spanning tree with the minimum total weight"], correct: 0, why: "SCCs are about mutual reachability in directed graphs." },
+      { q: "Kosaraju-Sharir requires...", a: ["Two DFS passes and the reversed graph", "One priority queue and decrease-key updates", "Only degree parity and connectivity tests"], correct: 0, why: "It records finish order in G, then explores G reversed in decreasing finish order." },
+      { q: "Tarjan's SCC algorithm identifies an SCC root when...", a: ["lowlink[v] equals index[v]", "outdegree[v] equals indegree[v]", "the edge from v is the cheapest outgoing edge"], correct: 0, why: "That condition means no stack vertex below v is reachable from v's DFS subtree." },
+      { q: "An undirected Euler circuit exists, ignoring isolated vertices, iff...", a: ["The non-isolated part is connected and all degrees are even", "The non-isolated part has exactly two even-degree vertices", "The graph is connected and acyclic after removing leaves"], correct: 0, why: "Even degree at every vertex is the closed-trail condition." },
+      { q: "A directed open Euler trail from s to t requires...", a: ["out(s)=in(s)+1, in(t)=out(t)+1, others balanced", "in(s)=out(s)+1, out(t)=in(t)+1, others balanced", "every vertex has equal total degree and one outgoing edge"], correct: 0, why: "Directed Euler conditions use in/out balance, with start and end exceptions." },
+      { q: "Which is the correct graph-isomorphism exam answer?", a: ["General GI is in NP; invariants disprove, not prove, in general", "Equal degree sequences are a complete isomorphism certificate", "General GI is solved by the same traversal routine as BFS"], correct: 0, why: "Simple invariants are necessary but incomplete; tree isomorphism is the easy special case." },
+      { q: "Tree isomorphism can be solved by...", a: ["Finding centers and comparing canonical bottom-up codes", "Sorting all graph edges and applying Kruskal twice", "Filling an edit-distance table between traversals"], correct: 0, why: "Root at center(s), encode sorted child codes, and compare." }
+    ];
+
+    quizzes.generation = [
+      { q: "How many subsets does an n-element set have?", a: ["2^n choices, include or exclude each element", "n^2 choices, one pair of positions per subset", "n! choices, one ordering for each subset"], correct: 0, why: "Each element is either included or excluded." },
+      { q: "If every subset is printed explicitly, the output-size time is...", a: ["Theta(n 2^n), counting elements printed", "Theta(2^n), assuming each subset is O(1)", "Theta(n^2), by visiting each element pair"], correct: 0, why: "There are 2^n subsets and each may contain up to n elements." },
+      { q: "How many k-element subsets are there?", a: ["binomial(n,k), choosing k of n elements", "n!, ordering all n elements in a sequence", "2k, choosing include/exclude for k slots"], correct: 0, why: "The count is n choose k." },
+      { q: "In lexicographic next-combination, the key step is to find...", a: ["The largest i with a_i < n-k+i", "The first suffix entry already at its maximum", "The smallest unused value anywhere in the set"], correct: 0, why: "That position can be incremented while preserving increasing indices." },
+      { q: "How many permutations of n distinct items are there?", a: ["n!, multiplying n choices down to 1", "2^n, choosing present or absent items", "binomial(n,2), choosing swap positions"], correct: 0, why: "There are n choices, then n-1, and so on." },
+      { q: "The usual next_permutation algorithm starts by finding...", a: ["The longest non-increasing suffix", "The first repeated value in the array", "The median element of the current order"], correct: 0, why: "Then it swaps the pivot with the next larger suffix element and reverses the suffix." },
+      { q: "Johnson-Trotter is notable because consecutive permutations differ by...", a: ["An adjacent transposition", "A full reversal of the entire array", "A random jump from an LCG recurrence"], correct: 0, why: "It generates permutations by adjacent swaps." },
+      { q: "A binary Gray code guarantees...", a: ["Consecutive bit strings differ in exactly one bit", "Every code word has the same number of set bits", "Each step flips all bits that are currently 1"], correct: 0, why: "That one-change property supports cheap incremental updates." },
+      { q: "The reflected Gray code formula is...", a: ["G(i) = i xor (i >> 1)", "G(i) = (a i + c) mod m", "G(i) = binomial(i, k) mod 2"], correct: 0, why: "The xor with the shifted value produces reflected binary Gray code." },
+      { q: "Trial division for primality only needs to test divisors up to...", a: ["sqrt(n), because factors pair around it", "n/2, because larger divisors cannot matter", "log n, because input length controls factors"], correct: 0, why: "A composite n has a factor at most sqrt(n)." },
+      { q: "The sieve of Eratosthenes starts marking multiples of p from p^2 because...", a: ["Smaller multiples already have a smaller prime factor", "p^2 is the first multiple that is always prime", "Values below p^2 are never divisible by p"], correct: 0, why: "Any smaller multiple kp with k < p was handled when k's prime factor was processed." },
+      { q: "The sieve finds all primes up to N in...", a: ["O(N log log N) time and O(N) memory", "O(N log N) time and O(log N) memory", "O(sqrt(N)) time and O(1) memory"], correct: 0, why: "That is the standard complexity of the Eratosthenes sieve." },
+      { q: "An LCG has recurrence...", a: ["X_{i+1} = (aX_i + c) mod m", "X_{i+1} = X_i xor (X_i >> 1)", "X_{i+1} = min(D[i-1,j], D[i,j-1])"], correct: 0, why: "It is deterministic modular linear recurrence." },
+      { q: "Which property is required for cryptographic randomness but not guaranteed by ordinary LCGs?", a: ["Unpredictability from observed outputs", "Reproducibility from a stored seed", "A deterministic cycle through states"], correct: 0, why: "LCGs are predictable and not cryptographically secure." },
+      { q: "For a mixed LCG to have full period m, Hull-Dobell requires...", a: ["gcd(c,m)=1, factors of m divide a-1, plus mod-4 condition", "c=0, a coprime to m, and m chosen as an odd prime", "a=1, c divisible by m, and any seed allowed"], correct: 0, why: "Those are the standard full-period conditions." }
+    ];
+
+    quizzes.trees = [
+      { q: "A plain BST operation costs...", a: ["O(h), where h is the current tree height", "O(1), because each node has at most two children", "O(log log n), because binary search is nested"], correct: 0, why: "Without balance guarantees, height controls search, insert, and delete." },
+      { q: "The worst case for an ordinary BST is...", a: ["O(n) height after unlucky insertion order", "O(log n) height because every level is half full", "O(1) height because each node stores one key"], correct: 0, why: "Sorted insertions can create a chain." },
+      { q: "An AVL tree maintains...", a: ["Balance factor in {-1,0,1}", "Red/black colors with equal black height", "Records only in linked leaf nodes"], correct: 0, why: "AVL balance is stricter than red-black balance." },
+      { q: "AVL rotations after updates are used to...", a: ["Restore logarithmic height after imbalance", "Build failure links after pattern mismatch", "Mark prime multiples during a sieve pass"], correct: 0, why: "Single and double rotations repair local imbalance." },
+      { q: "A red-black tree rule is...", a: ["No red node has a red child", "Every internal node has exactly t children", "Every accessed node immediately becomes root"], correct: 0, why: "Together with equal black height, this bounds tree height." },
+      { q: "Red-black trees are often preferred in libraries because they...", a: ["Guarantee O(log n) with relatively cheap updates", "Keep stricter height balance than AVL trees", "Store multidimensional points by alternating axes"], correct: 0, why: "They are looser than AVL trees but still logarithmic." },
+      { q: "A B-tree is optimized for...", a: ["Block/page storage with high branching factor", "Single-bit changes between generated codes", "Active-state bitsets during NFA simulation"], correct: 0, why: "Many keys per node reduce disk/cache page visits." },
+      { q: "When a B-tree insertion overflows a node, the standard step is to...", a: ["Split around the median and promote a separator", "Run DFS on the reversed child pointers", "Move all records to the root permanently"], correct: 0, why: "Splits preserve sorted multiway balance and may propagate upward." },
+      { q: "In a B+ tree, records are stored...", a: ["In linked leaves used for range scans", "Only in the root to minimize search height", "In failure links attached to internal nodes"], correct: 0, why: "Internal nodes store separators, and leaf links make range scans efficient." },
+      { q: "Splay trees guarantee...", a: ["Amortized O(log n), though one access can be O(n)", "Worst-case O(1) because the last access is cached", "No rotations, only color flips after insertion"], correct: 0, why: "Splaying exploits locality over sequences, not every individual operation." },
+      { q: "A zig-zag splay step happens when...", a: ["The node and parent are opposite-side children", "The node and parent are both left-side children", "The root and both children are colored red"], correct: 0, why: "Splay rotations depend on the relative directions of node, parent, and grandparent." },
+      { q: "A k-d tree splits by...", a: ["Coordinate axis chosen by depth mod k", "Edge weight chosen by parity of depth", "Regex operator chosen by star nesting depth"], correct: 0, why: "Each level uses a coordinate axis to partition points." },
+      { q: "Nearest-neighbor search in a k-d tree prunes the other side when...", a: ["Its region cannot beat the current best distance", "Its subtree contains fewer points than the current side", "Its split axis differs from the previous level's axis"], correct: 0, why: "Bounding-region distance gives the pruning test." },
+      { q: "The k-d tree high-dimensional trap is...", a: ["Performance can degrade toward linear scanning", "Splits become identical to B+ tree separators", "The structure can no longer store 2D points"], correct: 0, why: "Pruning becomes less effective in high dimensions." },
+      { q: "A skip list achieves logarithmic behavior by...", a: ["Randomly promoting elements to higher linked levels", "Keeping all leaves packed into one disk page", "Computing lowlink values for each list node"], correct: 0, why: "Random levels create express lanes over the sorted base list." },
+      { q: "Which structure is the best exam answer for database range queries?", a: ["B+ tree with linked leaves and high fanout", "Plain unbalanced BST built from insertion order", "Tarjan stack storing active DFS vertices"], correct: 0, why: "Linked leaves and high fanout make B+ trees strong for database indexes and scans." }
+    ];
+
+    quizzes.automata = [
+      { q: "A DFA transition function maps...", a: ["Q x Sigma to Q", "Q x Sigma to subsets of Q", "State pairs to weighted graph edges"], correct: 0, why: "A DFA has exactly one next state for each state-symbol pair." },
+      { q: "An NFA differs from a DFA because it can have...", a: ["Several active next states and epsilon transitions", "Exactly one active state for the entire input", "No accepting states in the transition system"], correct: 0, why: "Nondeterminism is modeled by sets of possible states." },
+      { q: "DFA, NFA, and regular expressions recognize...", a: ["Exactly the regular languages", "Exactly the context-free languages", "Exactly the finite acyclic graphs"], correct: 0, why: "They are equivalent models for regular languages." },
+      { q: "Subset construction can turn an NFA into a DFA but may create...", a: ["Up to 2^|Q| subset states", "At most |Q|/2 merged states", "Exactly |Q| + |Sigma| states"], correct: 0, why: "DFA states represent subsets of NFA states." },
+      { q: "Which operation are regular languages closed under?", a: ["Complement of a regular language", "Minimum spanning tree over accepted strings", "Union-find path compression on states"], correct: 0, why: "They are closed under complement as well as union, intersection, concatenation, star, and more." },
+      { q: "Bitset NFA simulation stores...", a: ["The active-state set as machine-word bits", "All shortest-path distances between states", "Only color bits from a red-black tree"], correct: 0, why: "Bit operations update many possible NFA states in parallel." },
+      { q: "Naive exact pattern matching has worst-case time...", a: ["O(nm), trying many alignments", "O(n+m) for every pattern and text", "O(log n), after binary searching the text"], correct: 0, why: "Trying every alignment can compare up to m characters each." },
+      { q: "KMP's state is best understood as...", a: ["The length of the longest matched pattern prefix", "The number of SCCs in the prefix automaton", "The current modulus in a linear generator"], correct: 0, why: "Failure links say how far that prefix length should fall back after mismatch." },
+      { q: "KMP preprocessing plus scanning costs...", a: ["O(m+n), prefix table plus text scan", "O(nm), because every mismatch restarts fully", "O(alpha(n)), using union-find compression"], correct: 0, why: "The prefix table is O(m) and the scan is O(n)." },
+      { q: "Boyer-Moore typically compares from...", a: ["The end of the pattern", "The start of every failure-link chain", "The middle key of each B-tree node"], correct: 0, why: "End comparison enables bad-character and good-suffix shifts." },
+      { q: "Shift-And/Shift-Or are examples of...", a: ["Bit-parallel exact matching", "Greedy minimum-spanning-tree algorithms", "Rotation schemes for balanced trees"], correct: 0, why: "They update a word-level bit vector per text character." },
+      { q: "Hamming distance applies to...", a: ["Equal-length strings with substitutions only", "Variable-length strings with insertions allowed", "Directed graphs with balanced Euler degrees"], correct: 0, why: "Hamming distance counts position mismatches." },
+      { q: "Levenshtein distance allows...", a: ["Insertions, deletions, and substitutions", "Substitutions only at aligned positions", "Adjacent swaps but no insertion or deletion"], correct: 0, why: "It is the standard edit distance with those three operations." },
+      { q: "Full dynamic programming for Levenshtein distance is...", a: ["O(mn), filling the full prefix table", "O(n+m), independent of allowed edits", "O(log n), after sorting both strings"], correct: 0, why: "The DP table has one cell per pattern/text prefix pair." },
+      { q: "If only Levenshtein distance <= k matters, a common speedup is...", a: ["Compute a diagonal band of width 2k+1", "Sort all text positions by edge weight", "Keep only vertices with odd total degree"], correct: 0, why: "Optimal alignments with at most k edits stay near the main diagonal." },
+      { q: "Aho-Corasick is for...", a: ["Searching many dictionary patterns in one text scan", "Building one MST from weighted undirected edges", "Testing full-period conditions for an LCG"], correct: 0, why: "It augments a trie with failure links and outputs all occurrences in O(n+z) search time." }
+    ];
+  </script>
+</body>
+</html>

@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UIR Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+  <style>
+    .uir-chip-row,
+    .uir-step-row,
+    .uir-score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.7rem;
+    }
+    .uir-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+    .uir-chip.good { border-color: #b9dfc5; background: var(--good-tint); color: var(--good); }
+    .uir-chip.warn { border-color: #f0d0a0; background: var(--recall-tint); color: var(--recall); }
+    .uir-lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+    }
+    .uir-lab-stat {
+      padding: 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+    }
+    .uir-lab-stat strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--ink);
+    }
+    .uir-score-row label {
+      display: grid;
+      gap: 0.25rem;
+      min-width: 8rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .uir-score-row input {
+      width: 100%;
+      accent-color: var(--brand);
+    }
+    .uir-map {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(1.8rem, 1fr));
+      gap: 0.18rem;
+      max-width: 25rem;
+      margin-top: 0.8rem;
+    }
+    .uir-cell {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .uir-cell.wall { background: #2f3646; border-color: #2f3646; color: #fff; }
+    .uir-cell.path { background: var(--brand-tint); border-color: #b7c6f7; color: var(--brand-strong); }
+    .uir-cell.frontier { background: var(--practice-tint); border-color: #9fd8cf; color: var(--practice); }
+    .uir-cell.robot { background: var(--panic-tint); border-color: #e9aaaa; color: var(--panic); }
+    .uir-route-table {
+      width: 100%;
+      margin-top: 0.75rem;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .uir-route-table th,
+    .uir-route-table td {
+      padding: 0.45rem 0.5rem;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+    .uir-route-table th { background: var(--surface-3); color: var(--ink-soft); }
+    .uir-route-table tr.keep td { background: var(--good-tint); }
+    .uir-visual {
+      width: 100%;
+      max-width: 780px;
+      display: block;
+      margin: 0.8rem auto 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .practice-grid .flashcards[hidden] + .quiz {
+      grid-column: 1 / -1;
+    }
+    .uir-written-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body data-page="uir">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../ai/06_uir_robot_decision_planning_coordination.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../ai/06_uir_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M36UIR &middot; AI specialization question 6</p>
+      <h1>Robot decision making, planning, and coordination</h1>
+      <p class="lead">UIR is where AI planning touches the floor. A robot is embodied, so every elegant graph search answer has to survive sensors, actuators, configuration space, collisions, replanning, and sometimes other robots trying to share the work.</p>
+      <div class="head-meta">
+        <span class="time-pill">5-6.5 hour full pass</span>
+        <a class="button primary" href="#robot"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="uir-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="uir-progress-detail">0 of 5 modules checked.</p>
+          <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="uir-robot" aria-label="Mark robot paradigms module complete">
+            <a href="#robot"><span class="rail-num">1</span> Robot paradigms</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="uir-path" aria-label="Mark path and motion planning module complete">
+            <a href="#path"><span class="rail-num">2</span> Path, C-space, D*</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="uir-explore" aria-label="Mark exploration module complete">
+            <a href="#explore"><span class="rail-num">3</span> Exploration &amp; MRTA</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="uir-multigoal" aria-label="Mark multi-goal planning module complete">
+            <a href="#multigoal"><span class="rail-num">4</span> Multi-goal data routes</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="uir-sampling" aria-label="Mark sampling-based planning module complete">
+            <a href="#sampling"><span class="rail-num">5</span> PRM, RRT, RRT*</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="robot" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>Robots, embodiment, and control paradigms</h2>
+              <p class="module-lead">Start the oral answer by grounding the agent in the physical world. Sensors observe, actuators change the world, and the control architecture decides how much reasoning happens before action.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Good oral framing for robotics, but committee evidence points more strongly at planning algorithms than architecture taxonomy.</p>
+                <ul class="priority-topics">
+                  <li>Embodied-agent definition and sensor classes</li>
+                  <li>Hierarchical, reactive, and hybrid paradigms</li>
+                  <li>Planner/executive/reactive-layer tradeoffs</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">55-70 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="uir-robot"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>04.00 Robot control architectures - Rico Picone, PhD (12:04)</h3>
+                <div class="video-frame" title="Robot control architectures" data-video-id="x12EFvoV_Gw"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="x12EFvoV_Gw" data-start="0">0:00 architecture frame</button>
+                  <button type="button" data-video-target="x12EFvoV_Gw" data-start="205">3:25 reactive vs deliberative</button>
+                  <button type="button" data-video-target="x12EFvoV_Gw" data-start="475">7:55 layers</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=x12EFvoV_Gw" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>04.02 Robot reactive control architectures - Rico Picone, PhD (17:05)</h3>
+                <div class="video-frame" title="Robot reactive control architectures" data-video-id="mZqagiVjBp4"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="mZqagiVjBp4" data-start="0">0:00 reactive idea</button>
+                  <button type="button" data-video-target="mZqagiVjBp4" data-start="270">4:30 behaviors</button>
+                  <button type="button" data-video-target="mZqagiVjBp4" data-start="690">11:30 pros and limits</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=mZqagiVjBp4" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>ECE425 Hybrid Deliberative/Reactive Paradigm - Rose-Hulman Online (9:35)</h3>
+                <div class="video-frame" title="Hybrid deliberative reactive paradigm" data-video-id="dnidauuaWYU"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="dnidauuaWYU" data-start="0">0:00 hybrid setup</button>
+                  <button type="button" data-video-target="dnidauuaWYU" data-start="250">4:10 coordination</button>
+                  <button type="button" data-video-target="dnidauuaWYU" data-start="430">7:10 tradeoffs</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=dnidauuaWYU" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A robot is an embodied agent: its body has geometry, dynamics, time, energy, uncertainty, and interaction constraints.</li>
+                <li>Sensors measure internal or external state; actuators/effectors cause motion or physical interaction.</li>
+                <li>Proprioceptive sensing is internal, such as encoders, IMU, battery, and joints; exteroceptive sensing observes the world, such as lidar, cameras, bumpers, GPS, and sonar.</li>
+                <li>Hierarchical control is <code>Sense -&gt; Plan -&gt; Act</code> with an explicit model and long-horizon planning, but it reacts slowly and is brittle under model error.</li>
+                <li>Reactive control is <code>Sense -&gt; Act</code>, often behavior-based or subsumption-like; it is fast and robust locally, but weak at global guarantees.</li>
+                <li>Hybrid control uses a planner, executive/sequencer, and reactive behaviors so the robot can pursue goals while still handling fast safety events.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> hierarchical thinks first, reactive acts fast, hybrid tries to keep both benefits.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="uir-robot-tabs">
+              <h3>Architecture selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-uir-arch="hierarchical">Hierarchical</button>
+                <button type="button" data-uir-arch="reactive">Reactive</button>
+                <button type="button" data-uir-arch="hybrid">Hybrid</button>
+                <button type="button" data-uir-arch="sensors">Body loop</button>
+              </div>
+              <p class="step-note"><strong>Use this when:</strong> classify an architecture by where planning happens before the actuator command.</p>
+              <div id="uir-arch-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="uir-robot"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="uir-robot"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <div class="uir-written-grid">
+              <label class="free-recall">
+                <span>Define a robot as an embodied agent and classify its sensors and actuators.</span>
+                <textarea rows="4" data-recall="uir-robot-embodiment-sensors" placeholder="Physical body, geometry/dynamics/time/uncertainty, proprioceptive vs exteroceptive examples, actuators/effectors..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Compare hierarchical, reactive, and hybrid paradigms with advantages and drawbacks.</span>
+                <textarea rows="5" data-recall="uir-robot-paradigms" placeholder="Sense-plan-act, sense-act, planner/executive/reactive layer, global reasoning, fast response, brittleness, local minima, integration complexity..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Sketch an exam-ready hybrid architecture for a delivery robot in a changing hallway.</span>
+                <textarea rows="4" data-recall="uir-robot-hybrid-example" placeholder="Global planner, map, executive/sequencer, obstacle avoidance, safety stop, sensor feedback, replanning trigger..."></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section id="path" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Path planning, motion planning, configuration space, and D*</h2>
+              <p class="module-lead">This is the core planning bucket. Keep the ladder straight: workspace geometry becomes configuration-space obstacles, continuous planning becomes graph search or sampling, and changing maps call for incremental replanning.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Planning in configuration space is the strongest UIR committee signal and matches reported robotics motion-planning questions.</p>
+                <ul class="priority-topics">
+                  <li>Path vs motion planning and C-space construction</li>
+                  <li>C_free, C_obst, roadmaps, grids, and A*</li>
+                  <li>D* Lite replanning with g/rhs consistency</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">85-110 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="uir-path"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Robot Motion Planning: Road Map and Configuration Spaces - Algorithms Lab (17:44)</h3>
+                <div class="video-frame" title="Robot motion planning configuration spaces" data-video-id="p8AzzvwV5M4"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="p8AzzvwV5M4" data-start="0">0:00 problem</button>
+                  <button type="button" data-video-target="p8AzzvwV5M4" data-start="285">4:45 C-space</button>
+                  <button type="button" data-video-target="p8AzzvwV5M4" data-start="690">11:30 roadmaps</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=p8AzzvwV5M4" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Path Planning with A* and RRT - MATLAB Autonomous Navigation (17:55)</h3>
+                <div class="video-frame" title="Path planning with A star and RRT" data-video-id="QR3U1dgc5RE"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="QR3U1dgc5RE" data-start="0">0:00 planning stack</button>
+                  <button type="button" data-video-target="QR3U1dgc5RE" data-start="230">3:50 A*</button>
+                  <button type="button" data-video-target="QR3U1dgc5RE" data-start="690">11:30 RRT contrast</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=QR3U1dgc5RE" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Advanced 1. Incremental Path Planning - MIT OCW (1:22:46, watch 34:00-54:00)</h3>
+                <div class="video-frame" title="MIT OCW incremental path planning" data-video-id="_4u9W1xOuts" data-start="2040"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="_4u9W1xOuts" data-start="1200">20:00 why incremental</button>
+                  <button type="button" data-video-target="_4u9W1xOuts" data-start="2040">34:00 D* Lite segment</button>
+                  <button type="button" data-video-target="_4u9W1xOuts" data-start="2700">45:00 example repair</button>
+                </div>
+                <a class="fallback-link" href="https://ocw.mit.edu/courses/16-412j-cognitive-robotics-spring-2016/resources/advanced-lecture-1/" target="_blank" rel="noreferrer">MIT OCW page</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Path planning finds a collision-free geometric path; motion planning finds a feasible trajectory with kinematics, dynamics, and often timing.</li>
+                <li>A configuration <code>q</code> fully describes the robot pose or joint state. <code>C_obs</code> are colliding configurations and <code>C_free = C \ C_obs</code>.</li>
+                <li>The planning problem is a continuous path <code>tau:[0,1]-&gt;C_free</code> from <code>q_start</code> to <code>q_goal</code>.</li>
+                <li>Roadmaps embed a graph in <code>C_free</code>: visibility graph, Voronoi diagram, PRM, grid, or lattice. Then run graph search.</li>
+                <li>Grid/graph planning uses BFS, Dijkstra, A*, any-angle variants like Theta*, weighted A*, and speedups such as better heuristics, bidirectional search, hierarchy, jump point search, and incremental replanning.</li>
+                <li>D* and D* Lite reuse previous shortest-path search when edge costs change. D* Lite tracks <code>g(s)</code> and one-step lookahead <code>rhs(s)</code>; local consistency means <code>g(s)=rhs(s)</code>.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> C-space turns robot shape into forbidden configurations; graph search then works on safe samples or cells.</p>
+              <img class="uir-visual" src="../assets/visuals/rendered/uir_motion_planning_pipeline.png" alt="Robot planning pipeline from workspace through configuration space to execution and replanning">
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="uir-path-planning-lab">
+              <h3>D* Lite consistency preview</h3>
+              <p class="step-note"><strong>Why:</strong> D* Lite is useful because it repairs changed parts of the old search instead of restarting.</p>
+              <div id="uir-dstar-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-uir-dstar-prev>Previous</button>
+                <button type="button" data-uir-dstar-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="uir-path"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="uir-path"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <div class="uir-written-grid">
+              <label class="free-recall">
+                <span>Define path planning, motion planning, configuration space, C_obs, and C_free.</span>
+                <textarea rows="5" data-recall="uir-path-cspace-roadmaps" placeholder="Path vs trajectory, q, C, C_obs, C_free, continuous tau, workspace obstacle inflation, roadmap graph in free space..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Explain roadmap/grid planning and when BFS, Dijkstra, A*, Theta*, or weighted A* is appropriate.</span>
+                <textarea rows="5" data-recall="uir-path-astar-speedups" placeholder="Graph construction, nonnegative costs, admissible heuristic, f=g+h, any-angle smoothing, speed vs optimality, bidirectional/hierarchical/JPS..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Explain D* Lite for a robot that discovers blocked edges while executing a path.</span>
+                <textarea rows="5" data-recall="uir-path-dstar-lite" placeholder="Incremental heuristic search, changing edge costs, reuse previous search, g and rhs, local consistency, update affected vertices, repair not restart..."></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section id="explore" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Informative path planning, exploration, and multi-robot allocation</h2>
+              <p class="module-lead">Unknown environments turn planning into an information problem. The robot is not only asking "how do I get there?", but "where should I go to learn the most useful thing next?"</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Exploration is useful robotics vocabulary, but the committee/report evidence is less direct than C-space and sampling planners.</p>
+                <ul class="priority-topics">
+                  <li>Frontier-based exploration and information gain</li>
+                  <li>Utility/cost tradeoffs for unknown maps</li>
+                  <li>Multi-robot task allocation basics</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="uir-explore"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>FrontierNet: Learning Visual Cues to Explore - ETH Zurich CVG (5:03)</h3>
+                <div class="video-frame" title="FrontierNet learning visual cues to explore" data-video-id="dFEvxGz_HP0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="dFEvxGz_HP0" data-start="0">0:00 frontier motivation</button>
+                  <button type="button" data-video-target="dFEvxGz_HP0" data-start="130">2:10 method idea</button>
+                  <button type="button" data-video-target="dFEvxGz_HP0" data-start="230">3:50 results</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=dFEvxGz_HP0" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>ICRA 2021 Terrain Aware Autonomous Exploration - VeRLab (12:00)</h3>
+                <div class="video-frame" title="Terrain aware autonomous exploration" data-video-id="yXycgBDhSME"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="yXycgBDhSME" data-start="0">0:00 exploration goal</button>
+                  <button type="button" data-video-target="yXycgBDhSME" data-start="240">4:00 map and frontiers</button>
+                  <button type="button" data-video-target="yXycgBDhSME" data-start="520">8:40 planning loop</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=yXycgBDhSME" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Decentralized Multi-Robot Task Allocation - People and Robots Lab (4:53)</h3>
+                <div class="video-frame" title="Decentralized multi-robot task allocation" data-video-id="8SiAhcRciR0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="8SiAhcRciR0" data-start="0">0:00 allocation problem</button>
+                  <button type="button" data-video-target="8SiAhcRciR0" data-start="115">1:55 decentralization</button>
+                  <button type="button" data-video-target="8SiAhcRciR0" data-start="210">3:30 constraints</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=8SiAhcRciR0" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Exploration usually decomposes into mapping, frontier or information target generation, utility scoring, task allocation, path planning, execution, and replanning.</li>
+                <li>A frontier is the boundary between known free space and unknown space in an occupancy grid.</li>
+                <li>Frontier utility can be <code>information_gain - lambda * travel_cost</code>; variants choose nearest frontier, largest gain, cost-utility score, or hierarchical frontiers.</li>
+                <li>Information-theoretic exploration uses entropy <code>H(X) = -sum p log p</code> and mutual information <code>I(X;Z)=H(X)-H(X|Z)</code>.</li>
+                <li>Informative path planning maximizes expected information gain along a path minus travel cost, but exact evaluation is expensive, so approximations and sampling are common.</li>
+                <li>Centralized MRTA can optimize globally but has communication/computation bottlenecks and a single point of failure; decentralized MRTA scales and is robust but may be suboptimal.</li>
+                <li>Task allocation tools include greedy assignment, Hungarian assignment, auctions, consensus-based bundle algorithms, and distributed frontier selection.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> frontier utility is a trade: learn more, but pay less travel cost.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="uir-frontier-utility-lab">
+              <h3>Frontier utility chooser</h3>
+              <div class="uir-score-row">
+                <label>Travel penalty lambda
+                  <input id="uir-frontier-lambda" type="range" min="0" max="2" step="0.1" value="0.8">
+                </label>
+              </div>
+              <p class="step-note"><strong>Use this when:</strong> increasing lambda makes far frontiers less attractive even if they reveal more.</p>
+              <div id="uir-frontier-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="uir-explore"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="uir-explore"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <div class="uir-written-grid">
+              <label class="free-recall">
+                <span>Describe the full frontier-based exploration loop for an unknown occupancy grid.</span>
+                <textarea rows="5" data-recall="uir-explore-frontiers" placeholder="Mapping, known free/unknown boundary, frontier detection and clustering, utility, path plan, execute, update map, replan..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Compare frontier utility with information-theoretic informative path planning.</span>
+                <textarea rows="5" data-recall="uir-explore-information" placeholder="Gain - lambda cost, entropy, mutual information, expected uncertainty reduction along a path, approximation/sampling cost..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Explain centralized and decentralized MRTA for multi-robot exploration.</span>
+                <textarea rows="5" data-recall="uir-explore-mrta" placeholder="One allocator vs local communication, global coordination, bottlenecks, robustness, greedy/Hungarian/auctions/CBBA/distributed frontiers..."></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section id="multigoal" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>Multi-goal planning, Dubins constraints, and routing with profits</h2>
+              <p class="module-lead">Multi-goal robot planning is TSP wearing a robot body. Targets may be neighborhoods, edge costs may depend on heading or order, and the best route may skip low-profit measurements when battery is limited.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Routing variants are plausible committee material because they connect robotics constraints with classic optimization structures.</p>
+                <ul class="priority-topics">
+                  <li>TSP, GTSP, TSPN, and orienteering variants</li>
+                  <li>Dubins state, bounded curvature, and path families</li>
+                  <li>Routing with profits under travel budget</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="uir-multigoal"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Coding a Dubins Car Optimal Path Planner - Aaron Becker (8:05)</h3>
+                <div class="video-frame" title="Coding a Dubins car optimal path planner" data-video-id="tjUVE3jto98"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="tjUVE3jto98" data-start="0">0:00 Dubins car</button>
+                  <button type="button" data-video-target="tjUVE3jto98" data-start="135">2:15 path types</button>
+                  <button type="button" data-video-target="tjUVE3jto98" data-start="330">5:30 planner</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=tjUVE3jto98" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Finding Time-efficient Trajectories for Dubins Vehicle - AI Center FEE CTU (16:30)</h3>
+                <div class="video-frame" title="Finding time efficient trajectories for Dubins vehicle" data-video-id="UEv-9MqBijg"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="UEv-9MqBijg" data-start="0">0:00 problem frame</button>
+                  <button type="button" data-video-target="UEv-9MqBijg" data-start="250">4:10 constraints</button>
+                  <button type="button" data-video-target="UEv-9MqBijg" data-start="650">10:50 route idea</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=UEv-9MqBijg" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Dubins TSP with Neighborhoods in 3D - ICRA 2018 (3:00)</h3>
+                <div class="video-frame" title="Dubins TSP with neighborhoods" data-video-id="m5hwgP1PxMw"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="m5hwgP1PxMw" data-start="0">0:00 neighborhoods</button>
+                  <button type="button" data-video-target="m5hwgP1PxMw" data-start="75">1:15 sampling headings</button>
+                  <button type="button" data-video-target="m5hwgP1PxMw" data-start="135">2:15 route result</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=m5hwgP1PxMw" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Multi-goal planning asks a robot to visit several targets and is related to TSP, ATSP, GTSP, TSPN, Dubins TSP, orienteering, team orienteering, and prize-collecting TSP.</li>
+                <li>Robotic costs can depend on obstacles, start/final depot, heading, motion constraints, sensing radius, budget, rewards, and multiple robots.</li>
+                <li>Sequence-dependent TSP appears when travel cost from <code>i</code> to <code>j</code> depends on previous heading, order, or local path constraints.</li>
+                <li>Dubins vehicle state is <code>(x,y,theta)</code>; it moves forward with bounded curvature. Shortest paths are combinations of circular arcs and straight segments such as LSL, RSR, LSR, RSL, RLR, and LRL.</li>
+                <li>With sensing radius, visiting a target can mean passing through a neighborhood, giving TSPN or Dubins TSPN.</li>
+                <li>Routing with profits maximizes collected reward under travel budget, often skipping low-value targets.</li>
+                <li>Solution families are decoupled methods, transformation to TSP/ATSP/GTSP after sampling headings/viewpoints, and integrated sampling-based searches.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> ordinary TSP asks for order; robotic variants add headings, neighborhoods, constraints, and rewards.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="uir-multigoal-lab">
+              <h3>Profit route preview</h3>
+              <div class="uir-score-row">
+                <label>Route budget
+                  <input id="uir-route-budget" type="range" min="8" max="24" step="1" value="15">
+                </label>
+              </div>
+              <p class="step-note"><strong>Why:</strong> a budget can make skipping a target better than visiting everything.</p>
+              <div id="uir-route-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="uir-multigoal"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="uir-multigoal"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <div class="uir-written-grid">
+              <label class="free-recall">
+                <span>Classify robotic multi-goal planning as TSP, ATSP, GTSP, TSPN, or sequence-dependent TSP.</span>
+                <textarea rows="5" data-recall="uir-multigoal-variants" placeholder="Visit all targets, asymmetric costs, clusters, neighborhoods, heading/order-dependent costs, depots, obstacles, multiple robots..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Explain Dubins TSP and Dubins TSP with neighborhoods for data collection.</span>
+                <textarea rows="5" data-recall="uir-multigoal-dubins-tspn" placeholder="State (x,y,theta), forward motion, bounded curvature, L/R arcs and S segments, heading samples, sensing radius, neighborhoods..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Formulate routing with profits and compare decoupled, transformation, and sampling-based methods.</span>
+                <textarea rows="5" data-recall="uir-multigoal-profits-methods" placeholder="Max sum p_i y_i, budget B, skip low-profit targets, orienteering/team/prize-collecting, sequence then geometry, sampled TSP/GTSP, integrated graph search..."></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section id="sampling" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>Sampling-based motion planning: PRM, RRT, RRT*, guarantees</h2>
+              <p class="module-lead">Sampling-based planners avoid building the whole free space. They ask a collision checker about many candidate configurations, then connect enough of them that a path appears with high probability.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>PRM/RRT/RRT* are directly named in reported motion-planning evidence and pair naturally with C-space questions.</p>
+                <ul class="priority-topics">
+                  <li>PRM as reusable roadmap vs RRT as single-query tree</li>
+                  <li>RRT* rewiring and cost improvement</li>
+                  <li>Probabilistic completeness vs asymptotic optimality</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="uir-sampling"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Motion Planning Algorithms (RRT, RRT*, PRM) - MIT 6.881 Final Project (5:41)</h3>
+                <div class="video-frame" title="Motion planning algorithms RRT RRT star PRM" data-video-id="gP6MRe_IHFo"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="gP6MRe_IHFo" data-start="0">0:00 setup</button>
+                  <button type="button" data-video-target="gP6MRe_IHFo" data-start="90">1:30 RRT</button>
+                  <button type="button" data-video-target="gP6MRe_IHFo" data-start="205">3:25 PRM/RRT*</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=gP6MRe_IHFo" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>UC Berkeley CS287 Motion Planning: PRM, RRT, Trajopt (1:23:51, optional 9:00-29:00)</h3>
+                <div class="video-frame" title="UC Berkeley motion planning PRM RRT" data-video-id="ZDuoQRutcfk" data-start="540"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="ZDuoQRutcfk" data-start="540">9:00 sampling setup</button>
+                  <button type="button" data-video-target="ZDuoQRutcfk" data-start="900">15:00 PRM/RRT</button>
+                  <button type="button" data-video-target="ZDuoQRutcfk" data-start="1380">23:00 optimal variants</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=ZDuoQRutcfk&t=540s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Sampling-based planning is useful because exact continuous high-dimensional motion planning is hard; it samples configurations and uses collision checking.</li>
+                <li>PRM is a multi-query roadmap: sample free configurations, connect nearby samples with a local planner, store the graph, then answer many start/goal queries by graph search.</li>
+                <li>RRT is a single-query tree: sample <code>q_rand</code>, find nearest <code>q_near</code>, extend toward the sample, add a collision-free node, and stop when the goal is reached.</li>
+                <li>RRT explores quickly because random samples tend to pull the tree into large unexplored Voronoi regions.</li>
+                <li>RRT* adds best-parent choice and rewiring so nearby nodes get cheaper paths through the new sample when possible.</li>
+                <li>Probabilistic completeness means the probability of finding a path approaches 1 as samples go to infinity, if a feasible path exists.</li>
+                <li>Asymptotic optimality means solution cost converges to optimal cost; RRT is generally not asymptotically optimal, while RRT* and PRM* are under assumptions.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> completeness is about eventually finding a path; optimality is about eventually improving its cost.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="uir-sampling-tabs">
+              <h3>RRT growth preview</h3>
+              <p class="step-note"><strong>Why:</strong> each random sample pulls the nearest tree node toward unexplored free space.</p>
+              <div id="uir-rrt-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-uir-rrt-prev>Previous</button>
+                <button type="button" data-uir-rrt-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="uir-sampling"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="uir-sampling"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <div class="uir-written-grid">
+              <label class="free-recall">
+                <span>Compare PRM and RRT as sampling-based motion planners.</span>
+                <textarea rows="5" data-recall="uir-sampling-prm-rrt" placeholder="High-dimensional C_free, collision checker, PRM multi-query roadmap, local planner, RRT single-query tree, nearest and extend..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Explain exactly what RRT* changes relative to RRT and why that matters.</span>
+                <textarea rows="5" data-recall="uir-sampling-rrtstar" placeholder="Nearby set, choose best parent, add node, rewire neighbors, cost improvement, assumptions, slower but improves toward optimum..."></textarea>
+              </label>
+              <label class="free-recall">
+                <span>Define probabilistic completeness and asymptotic optimality, and classify PRM, RRT, PRM*, and RRT*.</span>
+                <textarea rows="5" data-recall="uir-sampling-guarantees" placeholder="Probability of finding feasible path tends to 1, cost converges to optimal, basic planners vs star variants, assumptions..."></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head">
+                <span class="reported-badge">Clearly relevant</span>
+                <h3>Configuration-space motion planning</h3>
+              </div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>This drill mirrors the strongest reported UIR robotics-planning evidence.</p>
+                <ul class="priority-topics">
+                  <li>Configuration space, C_free, and C_obst</li>
+                  <li>Discretization, roadmaps, PRM, and RRT</li>
+                  <li>Completeness and optimality guarantees</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: OI Mgr - Artificial Intelligence report: motion planning in robotics, configuration space, C_free/C_obst, discretization, PRM/RRT, probabilistic completeness, and asymptotic optimality.</p>
+              <label class="free-recall">
+                <span>Answer an examiner asking for motion planning in robotics: define configuration space, C_free and C_obst, explain discretization without reducing the whole answer to grids, then compare PRM/RRT guarantees.</span>
+                <textarea rows="5" data-recall="uir-reported-cspace-motion" placeholder="q, C, C_obst, C_free, continuous path, roadmap/local planner, grid as approximation, PRM/RRT, completeness vs optimality..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>A configuration <code>q</code> fully specifies the robot pose or joint state; the configuration space <code>C</code> is the set of all configurations.</li>
+                    <li><code>C_obst</code> contains configurations where the robot collides with obstacles or violates constraints; <code>C_free = C \ C_obst</code>.</li>
+                    <li>The task is to find a continuous path from <code>q_start</code> to <code>q_goal</code> lying in <code>C_free</code>; motion planning may also require kinematic, dynamic, or time feasibility.</li>
+                    <li>Discretization builds a graph approximation of <code>C_free</code>, but grid search is only one option; roadmaps and sampling-based planners use collision checking plus a local planner.</li>
+                    <li>PRM samples free configurations and connects nearby ones for reusable multi-query roadmaps; RRT grows a single-query tree toward random samples.</li>
+                    <li>Probabilistic completeness means the chance of finding a feasible path tends to 1 with enough samples. Asymptotic optimality means solution cost converges to the optimum.</li>
+                    <li>Basic RRT is usually probabilistically complete but not asymptotically optimal because it adds first feasible extensions without systematic rewiring/cost improvement; RRT* and PRM* add mechanisms that improve cost under assumptions.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="uir-reported-cspace-motion">Must say: A configuration q fully specifies the robot pose or joint state, and C is the set of all configurations. C_obst is the set of configurations causing collision or violating constraints; C_free = C \ C_obst. The planning problem is to find a continuous path from q_start to q_goal inside C_free, with motion planning also considering kinematics, dynamics, or time. Discretization approximates C_free by a graph, but a good answer should not become only grid planning: roadmaps and sampling planners use collision checking and local planners. PRM builds a reusable multi-query roadmap; RRT grows a single-query tree toward random samples. Probabilistic completeness means success probability tends to 1 if a feasible path exists. Asymptotic optimality means solution cost converges to optimal. Basic RRT is generally not asymptotically optimal because it accepts feasible tree extensions without rewiring or systematic cost improvement, while RRT* and PRM* add optimality mechanisms under assumptions.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head">
+                <span class="reported-badge low">Lower confidence</span>
+                <h3>A* in robot navigation graphs</h3>
+              </div>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Lower-confidence report, but A* on robot graphs is still a high-value planning bridge to C-space/roadmap answers.</p>
+                <ul class="priority-topics">
+                  <li>Open queue, g/h/f scores, and relaxation</li>
+                  <li>Admissible and consistent heuristics</li>
+                  <li>Graph optimality vs continuous robot feasibility</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor AI/ZUI report overlapping PUI/UIR: A*, heuristic functions, shortest-path heuristic for road networks, priority queue, already-seen states, and generated states.</p>
+              <label class="free-recall">
+                <span>Explain how you would implement A* for robot path planning on a roadmap or road-network graph, including the heuristic guarantee and how generated or already-seen states are handled.</span>
+                <textarea rows="5" data-recall="uir-reported-astar-navigation" placeholder="Graph from roadmap/grid/road network, open priority queue, g/h/f, closed/best-g, admissible/consistent heuristic, robot feasibility caveat..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>First define the search graph: nodes are collision-free configurations, roadmap vertices, grid cells, or road-network intersections; edges have nonnegative traversal cost and must be robot-feasible enough for the chosen abstraction.</li>
+                    <li>A* stores open states in a priority queue ordered by <code>f(n)=g(n)+h(n)</code>, where <code>g</code> is known start-to-node cost and <code>h</code> estimates remaining cost.</li>
+                    <li>When expanding a node, generate successors, compute tentative <code>g'</code>, relax the state if <code>g'</code> improves the best known cost, update parent pointers, and push or decrease-key in the priority queue.</li>
+                    <li>Use a closed/best-cost table so already-seen states are ignored only when the new path is not better; with inconsistent heuristics, allow reopening improved states.</li>
+                    <li>An admissible heuristic never overestimates the true remaining graph cost; a consistent heuristic also satisfies the triangle inequality and gives optimal graph paths without reopening.</li>
+                    <li>For road or robot navigation, Euclidean distance, straight-line time lower bounds, or Dubins/Reeds-Shepp lower bounds can be admissible if they do not exceed real travel cost.</li>
+                    <li>The guarantee is optimality on the discretized graph, not automatically a dynamically feasible continuous trajectory unless the graph edges/local planner encode that feasibility.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="uir-reported-astar-navigation">Must say: Define the robot navigation graph first: nodes can be collision-free configurations, roadmap vertices, grid cells, or road-network intersections; edges have nonnegative traversal cost and should represent feasible local movement for the abstraction. A* uses an open priority queue ordered by f(n)=g(n)+h(n), where g is known cost from the start and h estimates remaining cost. On expansion, generate successors, compute tentative g values, relax a state only if the new path is better, store parent pointers, and push or decrease-key in the priority queue. Keep a best-cost or closed table; already-seen states are ignored only when the new g is not better, and inconsistent heuristics may require reopening. Admissible h never overestimates true remaining graph cost; consistent h satisfies h(n) <= c(n,m)+h(m), giving optimal graph paths without reopening. Straight-line distance, lower-bound travel time, or Dubins/Reeds-Shepp lower bounds can be admissible if they never exceed real cost. The guarantee is optimality on the graph abstraction, not automatic continuous robot feasibility unless edges/local planning enforce it.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic" class="band panic-band">
+          <p class="eyebrow">45-minute panic pass</p>
+          <h2>Say these in order</h2>
+          <ol class="panic-list">
+            <li><strong>Robot body:</strong> robot equals embodied agent; sensors, actuators, controller; proprioceptive vs exteroceptive sensing.</li>
+            <li><strong>Architectures:</strong> hierarchical <code>Sense -&gt; Plan -&gt; Act</code>, reactive <code>Sense -&gt; Act</code>, hybrid planner/executive/reactive layer, with advantages and drawbacks.</li>
+            <li><strong>C-space:</strong> define <code>q</code>, <code>C</code>, <code>C_obs</code>, <code>C_free</code>, path vs motion planning, roadmap construction, grid/graph search, A* speedups.</li>
+            <li><strong>D* Lite:</strong> changing edge costs, reuse previous search, <code>g</code>, <code>rhs</code>, local consistency, repair not restart.</li>
+            <li><strong>Exploration:</strong> frontiers in occupancy grids, utility as information gain minus travel cost, entropy/mutual information, centralized vs decentralized MRTA.</li>
+            <li><strong>Multi-goal:</strong> TSP variants, sequence-dependent costs, Dubins bounded-curvature paths, TSPN/DTSPN, orienteering and profits, decoupled/transformation/sampling methods.</li>
+            <li><strong>Sampling:</strong> PRM multi-query, RRT single-query, RRT* rewiring, probabilistic completeness, asymptotic optimality.</li>
+          </ol>
+        </section>
+
+        <section id="oral" class="band">
+          <p class="eyebrow">Oral exam skeleton</p>
+          <h2>A clean 8-minute answer</h2>
+          <div class="oral-script">
+            <p><strong>1. Frame the domain.</strong> "UIR studies decision making, planning, and coordination for one or more embodied robots. Embodiment makes geometry, dynamics, sensors, actuators, uncertainty, and time central."</p>
+            <p><strong>2. Architectures.</strong> "Hierarchical control builds a model and plans before acting; reactive control maps perception directly to behavior; hybrid control combines a deliberative planner, executive, and reactive safety layer."</p>
+            <p><strong>3. Motion planning.</strong> "A configuration describes the robot state. Obstacles become forbidden regions in configuration space, so planning asks for a continuous path in free space, often approximated by roadmaps, grids, or sampling."</p>
+            <p><strong>4. Graph search and replanning.</strong> "On a graph I can use BFS, Dijkstra, A*, weighted or any-angle variants and speedups. In changing or partially known environments D* Lite repairs previous A*-like search using g and rhs values."</p>
+            <p><strong>5. Exploration and coordination.</strong> "Unknown environments use frontiers or information gain. Multi-robot exploration adds task allocation: centralized assignment is globally coordinated but fragile; decentralized auctions or consensus scale better."</p>
+            <p><strong>6. Multi-goal data collection.</strong> "Multiple targets create robotic TSP variants. With headings and curvature constraints we get Dubins routes; with sensing radius we get neighborhoods; with limited budget and rewards we get orienteering or prize-collecting problems."</p>
+            <p><strong>7. Sampling planners.</strong> "PRM builds a reusable roadmap; RRT grows a single-query tree; RRT* rewires for improving cost. PRM/RRT are probabilistically complete, while RRT*/PRM* are asymptotically optimal under assumptions."</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <template data-recall-reference="uir-robot-embodiment-sensors">Must say: a robot is an embodied agent acting in the physical world, so geometry, dynamics, uncertainty, time, energy, and interaction constraints matter. Sensors measure robot or world state. Proprioceptive sensors measure internal state such as encoders, IMU, joint positions, battery, and odometry. Exteroceptive sensors measure the external world such as lidar, camera, sonar, bumper, GPS, or depth sensors. Actuators/effectors such as wheels, motors, servos, legs, grippers, propellers, pneumatics, or hydraulics change the world or the robot pose. A controller maps measurements and internal state to commands.</template>
+  <template data-recall-reference="uir-robot-paradigms">Must say: hierarchical control is Sense -&gt; Plan -&gt; Act with an explicit model and deliberative long-horizon planning; it can optimize globally but reacts slowly and is brittle under model error. Reactive control is Sense -&gt; Act, often behavior-based, potential-field-like, or subsumption-style; it is fast and robust locally but has weak global planning guarantees and can get stuck in local minima. Hybrid control combines a planner, executive or sequencer, and reactive controllers; it is practical because it combines goal reasoning with fast safety responses, but layer integration, timing, consistency, and debugging are hard.</template>
+  <template data-recall-reference="uir-robot-hybrid-example">Must say: for a delivery robot, the deliberative planner uses a map and task goal to choose route/subgoals; the executive sequences navigation, elevator/door interactions, and monitors progress; the reactive layer handles obstacle avoidance, collision stops, local wall following, and low-level motor control. Proprioceptive and exteroceptive sensors feed state estimates. New obstacles or localization failures trigger replanning or recovery. The example should explicitly separate global planning from fast local safety and mention the drawback that coordination between layers is complex.</template>
+
+  <template data-recall-reference="uir-path-cspace-roadmaps">Must say: path planning asks for a collision-free geometric path, while motion planning asks for a feasible trajectory respecting kinematics, dynamics, and often time. A configuration q fully describes robot pose or joint state; the configuration space C contains all configurations. C_obs is the set of configurations where the robot collides with obstacles or violates constraints, and C_free = C \ C_obs. The planning problem is a continuous path tau from q_start to q_goal inside C_free. Workspace geometry can be transformed by obstacle inflation for simple robots, and roadmap methods approximate C_free by a graph of feasible configurations connected by local planners.</template>
+  <template data-recall-reference="uir-path-astar-speedups">Must say: roadmap or grid planning discretizes free space into a graph and then searches it. BFS works for unweighted graphs, Dijkstra for nonnegative edge costs, and A* orders nodes by f(n)=g(n)+h(n). With an admissible and consistent heuristic, A* returns an optimal path on the graph; weighted A* trades optimality for speed by inflating h. Theta* or any-angle planners reduce grid artifacts by allowing line-of-sight shortcuts. Speedups include better heuristics, bidirectional search, hierarchical abstractions, jump point search on grids, preprocessing, and incremental replanning. The answer should separate graph optimality from continuous robot feasibility.</template>
+  <template data-recall-reference="uir-path-dstar-lite">Must say: D* and D* Lite are for changing or partially known environments where edge costs are discovered or updated during execution. D* Lite is an incremental heuristic search related to Lifelong Planning A*. It stores g(s), the current cost-to-go estimate, and rhs(s), a one-step lookahead value. A state is locally consistent when g(s)=rhs(s); inconsistent states go into a priority queue. When an obstacle or cost change appears, affected rhs values are updated and the previous search tree is repaired, instead of running A* from scratch over the whole graph. This is useful for robots navigating while sensing a map online.</template>
+
+  <template data-recall-reference="uir-explore-frontiers">Must say: exploration in an unknown occupancy grid repeats mapping, detecting frontiers, choosing targets, planning paths, executing, and replanning. A frontier is a boundary between known free cells and unknown cells. Frontiers are usually clustered into candidate regions, scored by a utility such as information gain minus lambda times travel cost, and then selected as navigation goals. After moving and sensing, the occupancy grid changes, new free/occupied/unknown cells are marked, frontiers are recomputed, and the loop continues until the map is complete or the budget ends.</template>
+  <template data-recall-reference="uir-explore-information">Must say: frontier utility is a practical heuristic: expected information gain or number of unknown cells revealed minus a travel-cost penalty. Information-theoretic exploration uses entropy H(X) = -sum p log p as uncertainty and mutual information I(X;Z)=H(X)-H(X|Z) as expected uncertainty reduction after observations. Informative path planning chooses an entire path maximizing expected information along the path minus travel cost or risk. It is more principled than nearest-frontier rules but computationally expensive, so approximations, sampling, submodular heuristics, or receding-horizon planning are common.</template>
+  <template data-recall-reference="uir-explore-mrta">Must say: multi-robot exploration adds task allocation because several robots must choose frontiers or information-gathering paths without duplicating effort. Centralized MRTA has one planner collecting robot states and assigning tasks; it can optimize globally with greedy assignment, Hungarian assignment, MILP, or global search, but has communication/computation bottlenecks and a single point of failure. Decentralized MRTA uses local decisions, auctions, market-based bidding, consensus-based bundle algorithms, or distributed frontier selection; it scales and is robust but may be suboptimal and requires conflict resolution and communication protocols.</template>
+
+  <template data-recall-reference="uir-multigoal-variants">Must say: robotic multi-goal planning asks for an order or route through several targets. Ordinary TSP visits all targets at minimum cost; ATSP allows asymmetric costs; GTSP chooses one node from each cluster; TSPN visits neighborhoods rather than exact points; sequence-dependent TSP has travel costs that depend on heading, previous target, order, or local path constraints. Robotic variants also include depots, obstacles, multiple robots, sensing radius, energy/time budget, and rewards. The examiner wants the link between combinatorial route ordering and physical motion constraints.</template>
+  <template data-recall-reference="uir-multigoal-dubins-tspn">Must say: a Dubins vehicle has state (x,y,theta), moves forward, and has bounded curvature, so orientation is part of the cost. Shortest Dubins paths between two configurations are composed of left/right circular arcs and straight segments, with types such as LSL, RSR, LSR, RSL, RLR, and LRL. Dubins TSP asks for a target order and headings minimizing curvature-constrained travel. With sensing radius or target regions, the robot only needs to enter a neighborhood, giving TSPN or Dubins TSPN. Practical transformations sample viewpoints/headings around each neighborhood and reduce to ATSP or GTSP.</template>
+  <template data-recall-reference="uir-multigoal-profits-methods">Must say: routing with profits models data collection under limited time, energy, or path length. It maximizes collected reward sum p_i y_i subject to a travel budget B, so low-value or expensive targets may be skipped. Orienteering maximizes reward within a budget, team orienteering uses multiple robots, and prize-collecting TSP trades travel cost against penalties for missed targets. Decoupled methods choose the target sequence and then compute motion paths; transformation methods sample headings/viewpoints/neighborhoods and solve TSP/ATSP/GTSP-like instances; integrated sampling-based methods search over feasible motion and reward together but can be more expensive.</template>
+
+  <template data-recall-reference="uir-sampling-prm-rrt">Must say: sampling-based planners avoid exact construction of high-dimensional continuous C_free and rely on random or deterministic samples plus collision checking. PRM is a multi-query method for mostly static worlds: sample collision-free configurations, connect nearby samples with a local planner if the edge is collision-free, store the roadmap, then connect start/goal and run graph search. RRT is a single-query tree: start at q_start, sample q_rand, find nearest q_near, steer or extend toward the sample, collision-check the segment, and add a node. PRM invests in reusable roadmaps; RRT grows quickly toward unexplored space.</template>
+  <template data-recall-reference="uir-sampling-rrtstar">Must say: RRT* modifies RRT by considering a neighborhood around each new sample, choosing the parent that gives the cheapest path-to-come among feasible connections, and rewiring nearby nodes through the new node if their cost improves. This keeps the exploration idea of RRT but adds cost improvement over time. It is usually slower per iteration than basic RRT because of neighbor searches and extra collision checks. Under standard assumptions and suitable connection radius, RRT* is asymptotically optimal, while basic RRT is generally only probabilistically complete.</template>
+  <template data-recall-reference="uir-sampling-guarantees">Must say: probabilistic completeness means that if a feasible path exists, the probability that the planner has found a path tends to 1 as the number of samples or time tends to infinity. PRM and RRT have this guarantee under standard assumptions such as adequate sampling, collision checking, and clearance. Asymptotic optimality is stronger: the best solution cost converges to the optimal cost as samples go to infinity. Basic RRT is generally not asymptotically optimal; PRM* and RRT* are asymptotically optimal under their assumptions. Completeness is about eventually finding any feasible path; optimality is about eventually improving path quality.</template>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    pageModules.uir = ["uir-robot", "uir-path", "uir-explore", "uir-multigoal", "uir-sampling"];
+
+    ["uir-robot", "uir-path", "uir-explore", "uir-multigoal", "uir-sampling"].forEach((key) => {
+      flashcards[key] = [];
+    });
+
+    quizzes["uir-robot"] = [
+      { q: "A proprioceptive sensor measures...", a: ["Internal robot state such as joints, motion, or battery", "External landmarks, obstacles, and nearby scene geometry", "Planned rewards, route choices, and task deadlines"], correct: 0, why: "Encoders, IMUs, battery and joint sensors are internal." },
+      { q: "Which item is exteroceptive rather than proprioceptive?", a: ["A lidar scanning a hallway", "A wheel encoder counting drive motion", "A joint sensor reporting arm angle"], correct: 0, why: "Exteroceptive sensors observe the external world; encoders and joint sensors measure internal state." },
+      { q: "Embodiment mainly means the agent...", a: ["Has a physical body constrained by geometry, dynamics, time, and uncertainty", "Uses symbolic plans without needing collision or motion constraints", "Chooses actions from rewards without modeling physical interaction"], correct: 0, why: "Robots must respect physical constraints that abstract software agents can often ignore." },
+      { q: "An actuator or effector is responsible for...", a: ["Producing physical change through motors, wheels, grippers, or legs", "Estimating the robot state from camera, lidar, or IMU data", "Storing map vertices and edges for later graph search"], correct: 0, why: "Motors, wheels, grippers, legs, and propellers turn controller commands into physical effects." },
+      { q: "The hierarchical paradigm is best summarized as...", a: ["Sense -> Plan -> Act", "Sample -> Rewire -> Profit", "Bid -> Allocate -> Pay"], correct: 0, why: "It uses perception to update a model, then deliberates before acting." },
+      { q: "A typical weakness of hierarchical control is...", a: ["Slow reaction and brittleness when the model is wrong or stale", "Weak long-horizon reasoning even with a reliable world model", "Local reflexes only, with no deliberative planning layer"], correct: 0, why: "The deliberate model-plan-act loop can be too slow or model-dependent in changing worlds." },
+      { q: "A reactive architecture is strong at...", a: ["Fast local response to nearby events", "Certified global optimality for the whole task", "Exact routing over all possible target orders"], correct: 0, why: "Reactive behaviors are quick and robust locally, but weak globally." },
+      { q: "A reactive architecture often struggles with...", a: ["Local minima and weak task-completion guarantees", "Updating a detailed global model before every action", "Reacting quickly to obstacle or bumper sensor changes"], correct: 0, why: "Local behaviors can be fast but may not encode enough global task structure." },
+      { q: "Hybrid architectures combine...", a: ["A global planner, an executive, and local reactive behaviors", "Sensors and state estimates without any physical effectors", "Exact C-space construction without feedback control"], correct: 0, why: "The practical pattern is planner, executive or sequencer, and reactive controllers." },
+      { q: "In a hybrid robot architecture, the executive mainly...", a: ["Sequences execution and monitors progress between planner and behaviors", "Expands workspace obstacles into configuration-space obstacles", "Scores candidate map cells using mutual information alone"], correct: 0, why: "The executive bridges deliberative plans and low-level behaviors." }
+    ];
+    quizzes["uir-path"] = [
+      { q: "Path planning differs from motion planning because path planning...", a: ["Finds collision-free geometry; motion planning adds dynamics and timing", "Assigns robots to frontiers while ignoring geometric feasibility", "Chooses reward subsets under a budget without building paths"], correct: 0, why: "Motion planning is the physically feasible trajectory version of the problem." },
+      { q: "Configuration space obstacles are...", a: ["Configurations where the robot collides or violates constraints", "Workspace cells that have not yet been observed by sensors", "Graph vertices that remain after the shortest path is found"], correct: 0, why: "C_obs is the set of forbidden configurations." },
+      { q: "For a circular robot in a 2D map, a common C-space simplification is...", a: ["Inflate obstacles by the robot radius and plan for a point robot", "Shrink obstacles until every narrow corridor becomes passable", "Ignore the radius during planning and check it only after execution"], correct: 0, why: "Obstacle inflation transfers robot size into forbidden point configurations." },
+      { q: "C_free is...", a: ["The configurations in C that are not in C_obs", "The A* open list before any node has been expanded", "The reward targets selected by a profit-routing solver"], correct: 0, why: "The planner must keep the continuous path inside the free configurations." },
+      { q: "A roadmap planner first creates...", a: ["A graph embedded in free configuration space", "A belief table over frontier information gains", "A budgeted reward list for optional targets"], correct: 0, why: "Then start/goal are connected and graph search is used." },
+      { q: "A visibility graph tends to use...", a: ["Obstacle vertices and straight-line visible connections", "Occupancy-grid entropy cells and sensing predictions", "Robot bids and task prices from an auction protocol"], correct: 0, why: "It is a roadmap that exploits shortest polygonal paths touching obstacle vertices." },
+      { q: "A Voronoi roadmap tends to favor...", a: ["Paths that keep clearance from nearby obstacles", "Paths that intentionally skim exact obstacle corners", "Plans that avoid graph search after the roadmap is built"], correct: 0, why: "Voronoi edges lie near points equidistant from obstacles, often improving clearance." },
+      { q: "A* differs from Dijkstra mainly by using...", a: ["A heuristic estimate toward the goal", "A random sampler over continuous C_free", "A sensing radius around each target region"], correct: 0, why: "A* orders search by cost-so-far plus heuristic estimate." },
+      { q: "A* is optimally safe on a graph when its heuristic is...", a: ["Admissible and, for graph-search consistency, consistent", "Inflated beyond the true remaining cost at every state", "Sampled from obstacle configurations near the start"], correct: 0, why: "Admissibility avoids overestimating; consistency keeps graph-search behavior well behaved." },
+      { q: "Weighted A* usually trades...", a: ["Optimality for speed by inflating the heuristic", "Graph search for distributed robot task allocation", "Sampling effort for exact continuous C-space construction"], correct: 0, why: "A larger heuristic weight can focus search more aggressively but may lose optimality." },
+      { q: "Theta* is best remembered as...", a: ["An any-angle grid planner using line-of-sight shortcuts", "A market-based method for assigning frontiers to robots", "A curvature-constrained path family for Dubins vehicles"], correct: 0, why: "It reduces grid staircasing by allowing non-grid-edge shortcuts when visible." },
+      { q: "D* Lite is useful when...", a: ["Edge costs are discovered or changed during execution", "A static roadmap will be queried forever without updates", "No graph, costs, or heuristic search structure is available"], correct: 0, why: "Its point is incremental repair after new obstacle/cost information." },
+      { q: "A D* Lite state is locally consistent when...", a: ["g(s) equals rhs(s)", "g(s) equals the entropy of the map", "rhs(s) is forced to zero for every state"], correct: 0, why: "Inconsistency marks states needing repair." },
+      { q: "The key advantage of D* Lite over fresh A* after a newly discovered obstacle is...", a: ["It repairs affected parts while reusing previous search information", "It guarantees the environment will remain static after replanning", "It removes edge costs from the graph before searching again"], correct: 0, why: "D* Lite reuses previous search information after local cost changes." }
+    ];
+    quizzes["uir-explore"] = [
+      { q: "A frontier is between...", a: ["Known free cells and still-unknown cells", "Two targets that have already been visited", "The open and closed lists inside A* search"], correct: 0, why: "Frontier exploration chooses these boundaries as information targets." },
+      { q: "After frontier cells are detected, they are often...", a: ["Clustered into candidate exploration goals", "Converted into actuators for low-level control", "Rewired as if they were nearby RRT* nodes"], correct: 0, why: "Clusters produce manageable target candidates instead of many individual cells." },
+      { q: "A utility score gain - lambda * cost will prefer...", a: ["High information gain with low travel effort", "The farthest frontier even when gain is small", "The closest obstacle even if it reveals nothing"], correct: 0, why: "The travel penalty trades curiosity against movement cost." },
+      { q: "Increasing lambda in gain - lambda * cost makes the planner...", a: ["Penalize distant frontiers more strongly", "Ignore travel cost and chase information only", "Prefer large frontiers regardless of distance"], correct: 0, why: "Lambda controls how expensive travel is in the utility score." },
+      { q: "Entropy in exploration represents...", a: ["Uncertainty about the map or state", "The curvature bound of a forward-only vehicle", "The priority queue of inconsistent D* states"], correct: 0, why: "Higher entropy means more uncertainty to reduce through sensing." },
+      { q: "Mutual information measures...", a: ["Expected uncertainty reduction from observations", "The turning radius required by wheel motion", "The number of robots available for a task"], correct: 0, why: "I(X;Z) = H(X) - H(X|Z)." },
+      { q: "Informative path planning chooses...", a: ["A path maximizing expected information gain minus cost", "The nearest frontier using only Euclidean distance", "A target tour that ignores sensing predictions"], correct: 0, why: "It reasons about observations along a path, not just a single cell." },
+      { q: "Centralized task allocation can be problematic because...", a: ["It creates communication and computation bottlenecks", "It cannot compare assignments using global team state", "It must avoid maintaining any shared world model"], correct: 0, why: "A single allocator can coordinate well but may be fragile and overloaded." },
+      { q: "A strength of centralized MRTA is...", a: ["It can reason about the team assignment globally", "It avoids communication between robots and planner", "It remains unaffected if the coordinator fails"], correct: 0, why: "The central planner sees the global assignment problem, though this creates bottlenecks." },
+      { q: "Auction-based allocation is usually a...", a: ["Market-style distributed assignment method", "Configuration-space obstacle inflation method", "Cost-improving rewiring step for RRT*"], correct: 0, why: "Robots bid for tasks and assignments emerge from bids." },
+      { q: "The Hungarian algorithm is mainly used for...", a: ["Linear assignment when robot-task costs are known", "Collision checking along a curvature-constrained arc", "Inflating a heuristic to speed up weighted A*"], correct: 0, why: "It solves a structured assignment problem, often as a centralized MRTA component." }
+    ];
+    quizzes["uir-multigoal"] = [
+      { q: "Robotic multi-goal planning is related to TSP because it must choose...", a: ["An order for visiting multiple targets", "A reflex for avoiding only the nearest obstacle", "A calibration matrix for interpreting raw sensors"], correct: 0, why: "The route sequence is the combinatorial core." },
+      { q: "ATSP is relevant when travel costs are...", a: ["Different from i to j than from j to i", "Guaranteed equal in both travel directions", "Unrelated to direction, heading, or road constraints"], correct: 0, why: "Robot costs can differ by direction because of wind, slopes, headings, or road constraints." },
+      { q: "GTSP means the route must...", a: ["Choose one representative node from each cluster", "Visit every exact target point twice in a row", "Ignore alternatives such as viewpoints or groups"], correct: 0, why: "Clusters model alternatives such as sampled viewpoints or target groups." },
+      { q: "TSPN means the robot...", a: ["Visits neighborhoods or regions around targets", "Must pass through every target's exact point", "Treats target size and sensing radius as irrelevant"], correct: 0, why: "Sensing radius can make a nearby pass sufficient." },
+      { q: "Sequence-dependent TSP costs can arise because...", a: ["Cost depends on heading, previous order, or local path constraints", "The graph heuristic is unavailable for A* search", "Every target has the same reward and visit priority"], correct: 0, why: "Robot motion constraints make route cost depend on more than just two target positions." },
+      { q: "Dubins paths assume the vehicle...", a: ["Moves forward while respecting a bounded turning curvature", "Can teleport between targets without travel time", "Has position only, with no orientation in the state"], correct: 0, why: "The state includes heading theta and a curvature bound." },
+      { q: "The canonical Dubins shortest path families are combinations of...", a: ["Left/right circular arcs and straight segments", "Vertical and horizontal grid moves only", "Auction bids and assignment prices only"], correct: 0, why: "Examples include LSL, RSR, LSR, RSL, RLR, and LRL." },
+      { q: "Routing with profits is appropriate when...", a: ["A budget prevents visiting every available target", "Every target is mandatory and travel is free", "Targets have no rewards or collection value"], correct: 0, why: "The planner trades collected rewards against travel cost." },
+      { q: "The orienteering problem asks for...", a: ["Maximum collected reward within a travel budget", "A minimum tour visiting all targets regardless of cost", "The closest frontier according to current map distance"], correct: 0, why: "It is the classic budgeted reward-collection formulation." },
+      { q: "Team orienteering extends orienteering by adding...", a: ["Multiple robots or multiple reward-collecting routes", "A single start state and no other route choices", "Removal of travel budgets and reward limits"], correct: 0, why: "The team version distributes reward collection among several agents." },
+      { q: "Transformation methods often reduce the problem to...", a: ["TSP, ATSP, or GTSP after sampling configurations or headings", "Raw sensor calibration without a routing formulation", "One Bellman backup over a single local control state"], correct: 0, why: "Sampling representative visits lets combinatorial solvers handle the sequence." },
+      { q: "Decoupled methods are simple but may be...", a: ["Suboptimal because sequence and motion are solved separately", "Exact because routing and geometry never interact", "Probabilistically complete just by choosing a target order"], correct: 0, why: "Choosing sequence separately from feasible geometry can miss better integrated solutions." }
+    ];
+    quizzes["uir-sampling"] = [
+      { q: "PRM is especially suited for...", a: ["Many queries in a mostly static environment", "One execution with constantly changing edge costs", "Task auctions where robots bid on frontier goals"], correct: 0, why: "The roadmap can be reused for many start/goal pairs." },
+      { q: "The PRM construction phase mainly...", a: ["Samples free configurations and connects nearby ones with a local planner", "Clusters frontiers by entropy and assigns them to robots", "Solves a prize-collecting tour over optional targets exactly"], correct: 0, why: "PRM builds a reusable graph embedded in C_free." },
+      { q: "RRT grows by repeatedly...", a: ["Sampling and extending from the nearest tree node", "Solving a robot-task assignment problem", "Deleting obstacles before checking any motion"], correct: 0, why: "Sample, nearest, steer/extend, collision-check, add node." },
+      { q: "RRT is called rapidly exploring partly because...", a: ["Large unexplored Voronoi regions attract more random samples", "It skips collision checking to expand the tree faster", "It computes all-pairs shortest paths before sampling"], correct: 0, why: "Nodes with large Voronoi regions are more likely to be nearest to a new random sample." },
+      { q: "RRT* improves RRT through...", a: ["Best-parent selection and rewiring of nearby nodes", "Ignoring path costs after the first solution is found", "Frontier clustering before each random sample"], correct: 0, why: "RRT* chooses better parents and rewires neighbors when cost improves." },
+      { q: "RRT* chooses a parent by...", a: ["Selecting the feasible nearby parent with lowest path cost", "Always attaching the sample to the newest tree node", "Always extending from the obstacle with largest clearance"], correct: 0, why: "Best-parent selection is one of the changes that enables cost improvement." },
+      { q: "Probabilistic completeness says...", a: ["Find-path probability approaches 1 if a feasible path exists", "Every finite sample set already contains the optimal path", "The map and obstacle costs never change during execution"], correct: 0, why: "It is a limiting guarantee as sample count increases." },
+      { q: "Asymptotic optimality says...", a: ["The best solution cost converges to the optimal cost as samples grow", "The planner returns the exact optimum after the first sample", "Collision checking becomes unnecessary after enough samples"], correct: 0, why: "It is a stronger limiting guarantee about path quality." },
+      { q: "Basic RRT is generally not...", a: ["Asymptotically optimal under the usual assumptions", "A single-query planner built from a growing tree", "A sampling-based method using collision checks"], correct: 0, why: "RRT* was introduced to add asymptotic optimality." },
+      { q: "PRM* and RRT* are important because they are...", a: ["Asymptotically optimal under standard assumptions", "Reactive controller architectures for local safety", "Centralized algorithms for multi-robot task allocation"], correct: 0, why: "The star variants add connection/rewiring rules that improve solution quality asymptotically." }
+    ];
+
+    const uirArchData = {
+      hierarchical: "<h4>Hierarchical</h4><p><strong>Pipeline:</strong> sense, update explicit world model, plan, execute. Good for predictable domains and global optimization.</p><p><strong>Trap:</strong> slow reaction and brittleness when the world model is wrong or incomplete.</p><p class=\"step-note\"><strong>Remember:</strong> best when the model is reliable and time is available.</p>",
+      reactive: "<h4>Reactive</h4><p><strong>Pipeline:</strong> sense directly triggers behavior. Examples include obstacle avoidance, wall following, potential fields, and subsumption.</p><p><strong>Trap:</strong> local minima and weak task-completion guarantees.</p><p class=\"step-note\"><strong>Remember:</strong> best for fast local safety, not long-horizon reasoning.</p>",
+      hybrid: "<h4>Hybrid</h4><p><strong>Pipeline:</strong> high-level planner chooses goals, executive monitors and sequences, reactive layer handles fast safety and control.</p><p><strong>Trap:</strong> layer integration, timing, and consistency are hard to debug.</p><p class=\"step-note\"><strong>Remember:</strong> the executive is the bridge between plan and behavior.</p>",
+      sensors: "<h4>Body loop</h4><p><code>proprioception</code> checks the robot itself; <code>exteroception</code> checks the world. The controller maps those measurements plus internal state to actuator commands.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">encoders</span><span class=\"uir-chip good\">IMU</span><span class=\"uir-chip\">lidar</span><span class=\"uir-chip\">camera</span><span class=\"uir-chip warn\">motors</span><span class=\"uir-chip warn\">gripper</span></div>"
+    };
+
+    const dstarSteps = [
+      { text: "<strong>Initial map:</strong> the robot plans from S to G under the current costs. D* Lite stores search information instead of throwing it away.", path: [0, 1, 2, 3, 4, 5, 13, 21, 29, 37, 45, 53, 61, 62, 63] },
+      { text: "<strong>New obstacle appears:</strong> an edge or cell on the planned route becomes expensive. Only affected vertices become inconsistent.", wall: [21], path: [0, 1, 2, 3, 4, 5, 13] },
+      { text: "<strong>Repair:</strong> update affected rhs values, put inconsistent states in the priority queue, and propagate only the necessary changes.", wall: [21], frontier: [14, 22, 30, 38], path: [0, 1, 2, 3, 4, 5, 13] },
+      { text: "<strong>Reused result:</strong> the robot gets a repaired shortest path from its current position, without running a fresh A* over the entire map.", wall: [21], path: [0, 1, 2, 3, 4, 5, 6, 7, 15, 23, 31, 39, 47, 55, 63] }
+    ];
+    let dstarIndex = 0;
+
+    function renderDstar() {
+      const output = document.getElementById("uir-dstar-output");
+      if (!output) return;
+      const step = dstarSteps[dstarIndex];
+      const walls = new Set([10, 11, 12, 19, 27, 35, 36, ...(step.wall || [])]);
+      const path = new Set(step.path || []);
+      const frontier = new Set(step.frontier || []);
+      const cells = Array.from({ length: 64 }, (_, i) => {
+        const classes = ["uir-cell"];
+        if (walls.has(i)) classes.push("wall");
+        if (path.has(i)) classes.push("path");
+        if (frontier.has(i)) classes.push("frontier");
+        if (i === 0) classes.push("robot");
+        const label = i === 0 ? "S" : i === 63 ? "G" : "";
+        return `<span class="${classes.join(" ")}">${label}</span>`;
+      }).join("");
+      output.innerHTML = `<p>${step.text}</p><div class="uir-map">${cells}</div><div class="uir-chip-row"><span class="uir-chip robot">S start</span><span class="uir-chip good">blue repaired path</span><span class="uir-chip">green inconsistent area</span><span class="uir-chip warn">dark obstacle</span></div><p class="step-note"><strong>Remember:</strong> inconsistent means <code>g</code> and <code>rhs</code> disagree, so that state needs repair.</p>`;
+    }
+
+    const frontierTargets = [
+      { name: "F1", gain: 20, cost: 5 },
+      { name: "F2", gain: 30, cost: 20 },
+      { name: "F3", gain: 16, cost: 3 }
+    ];
+
+    function renderFrontier() {
+      const output = document.getElementById("uir-frontier-output");
+      const slider = document.getElementById("uir-frontier-lambda");
+      if (!output || !slider) return;
+      const lambda = Number(slider.value);
+      const rows = frontierTargets.map((f) => ({ ...f, score: f.gain - lambda * f.cost }));
+      const best = rows.reduce((a, b) => a.score > b.score ? a : b);
+      output.innerHTML = `<h4>Choose ${best.name}</h4><p>With lambda = ${lambda.toFixed(1)}, the best frontier balances information gain against travel effort.</p><table class="uir-route-table"><thead><tr><th>Frontier</th><th>Gain</th><th>Travel</th><th>Utility</th></tr></thead><tbody>${rows.map((r) => `<tr class="${r.name === best.name ? "keep" : ""}"><td>${r.name}</td><td>${r.gain}</td><td>${r.cost}</td><td>${r.score.toFixed(1)}</td></tr>`).join("")}</tbody></table><p class="step-note"><strong>Remember:</strong> choose the highest utility score, not just the highest information gain.</p>`;
+    }
+
+    const routeTargets = [
+      { name: "A", profit: 9, cost: 4 },
+      { name: "B", profit: 6, cost: 5 },
+      { name: "C", profit: 13, cost: 9 },
+      { name: "D", profit: 4, cost: 3 },
+      { name: "E", profit: 8, cost: 7 }
+    ];
+
+    function bestProfitRoute(budget) {
+      let best = { profit: 0, cost: 0, chosen: [] };
+      for (let mask = 0; mask < (1 << routeTargets.length); mask += 1) {
+        const chosen = routeTargets.filter((_, i) => mask & (1 << i));
+        const cost = chosen.reduce((sum, item) => sum + item.cost, 0);
+        const profit = chosen.reduce((sum, item) => sum + item.profit, 0);
+        if (cost <= budget && profit > best.profit) best = { profit, cost, chosen };
+      }
+      return best;
+    }
+
+    function renderRoute() {
+      const output = document.getElementById("uir-route-output");
+      const slider = document.getElementById("uir-route-budget");
+      if (!output || !slider) return;
+      const budget = Number(slider.value);
+      const best = bestProfitRoute(budget);
+      const keep = new Set(best.chosen.map((item) => item.name));
+      output.innerHTML = `<h4>Budget ${budget}: collect ${best.profit} profit</h4><p>This toy route ignores heading and order, so it is a profit-routing preview. Real robotic versions add sequence-dependent motion costs and neighborhoods.</p><table class="uir-route-table"><thead><tr><th>Target</th><th>Profit</th><th>Cost</th><th>Decision</th></tr></thead><tbody>${routeTargets.map((t) => `<tr class="${keep.has(t.name) ? "keep" : ""}"><td>${t.name}</td><td>${t.profit}</td><td>${t.cost}</td><td>${keep.has(t.name) ? "visit" : "skip"}</td></tr>`).join("")}</tbody></table><p><strong>Chosen:</strong> ${best.chosen.map((t) => t.name).join(" -> ") || "none"}; travel cost ${best.cost}.</p><p class="step-note"><strong>Remember:</strong> profit routing rewards the best subset, not necessarily the longest tour.</p>`;
+    }
+
+    const rrtSteps = [
+      "<p><strong>Start tree:</strong> begin at <code>q_start</code>. The planner only knows the collision checker and a steering rule.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">q_start</span></div>",
+      "<p><strong>Sample:</strong> draw <code>q_rand</code>. Find nearest existing node <code>q_near</code>.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">q_start</span><span class=\"uir-chip\">q_rand</span><span class=\"uir-chip warn\">nearest</span></div>",
+      "<p><strong>Extend:</strong> steer a short step from <code>q_near</code> toward <code>q_rand</code>. If the local segment is collision-free, add the new node.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">node 1</span><span class=\"uir-chip good\">node 2</span><span class=\"uir-chip\">collision check</span></div>",
+      "<p><strong>Spread:</strong> repeating this quickly fills unexplored regions because large Voronoi cells attract more samples.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">rapid exploration</span><span class=\"uir-chip\">goal bias optional</span><span class=\"uir-chip\">post-smoothing common</span></div>",
+      "<p><strong>RRT* difference:</strong> choose the cheapest parent among neighbors and rewire nearby nodes through the new node if cost improves.</p><div class=\"uir-chip-row\"><span class=\"uir-chip good\">best parent</span><span class=\"uir-chip good\">rewire</span><span class=\"uir-chip warn\">asymptotic optimality</span></div><p class=\"step-note\"><strong>Remember:</strong> rewiring is the part that lets cost improve over time.</p>"
+    ];
+    let rrtIndex = 0;
+
+    function renderRrt() {
+      const output = document.getElementById("uir-rrt-output");
+      if (!output) return;
+      output.innerHTML = rrtSteps[rrtIndex];
+    }
+
+    function initUirArch() {
+      const output = document.getElementById("uir-arch-output");
+      if (!output) return;
+      const render = (key) => {
+        output.innerHTML = uirArchData[key];
+        document.querySelectorAll("[data-uir-arch]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.uirArch === key);
+        });
+      };
+      document.querySelectorAll("[data-uir-arch]").forEach((button) => {
+        button.addEventListener("click", () => render(button.dataset.uirArch));
+      });
+      render("hierarchical");
+    }
+
+    function initUirDstar() {
+      document.querySelector("[data-uir-dstar-prev]")?.addEventListener("click", () => {
+        dstarIndex = Math.max(0, dstarIndex - 1);
+        renderDstar();
+      });
+      document.querySelector("[data-uir-dstar-next]")?.addEventListener("click", () => {
+        dstarIndex = Math.min(dstarSteps.length - 1, dstarIndex + 1);
+        renderDstar();
+      });
+      renderDstar();
+    }
+
+    function initUirFrontier() {
+      document.getElementById("uir-frontier-lambda")?.addEventListener("input", renderFrontier);
+      renderFrontier();
+    }
+
+    function initUirRoute() {
+      document.getElementById("uir-route-budget")?.addEventListener("input", renderRoute);
+      renderRoute();
+    }
+
+    function initUirRrt() {
+      document.querySelector("[data-uir-rrt-prev]")?.addEventListener("click", () => {
+        rrtIndex = Math.max(0, rrtIndex - 1);
+        renderRrt();
+      });
+      document.querySelector("[data-uir-rrt-next]")?.addEventListener("click", () => {
+        rrtIndex = Math.min(rrtSteps.length - 1, rrtIndex + 1);
+        renderRrt();
+      });
+      renderRrt();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initUirArch();
+      initUirDstar();
+      initUirFrontier();
+      initUirRoute();
+      initUirRrt();
+    });
+  </script>
+</body>
+</html>

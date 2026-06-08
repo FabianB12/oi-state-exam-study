@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TAL Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>TAL in Plain English</h1>
+    <p class="lead">TAL is about sorting problems by what machines can solve, how fast they can solve them, how much memory they need, and which problems cannot be solved at all.</p>
+    <div class="routine"><div><strong>1. Identify the world.</strong><span>Time, space, randomness, or decidability?</span></div><div><strong>2. Name the class.</strong><span>P, NP, PSPACE, RP, RE, decidable...</span></div><div><strong>3. Give the reason.</strong><span>Algorithm, certificate, reduction, or contradiction.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>Complexity basics</h2><p class="what">What resources does an algorithm use?</p><ul><li>Time = number of steps.</li><li>Space = working memory, usually not counting read-only input.</li><li>Correctness = invariant for truth, variant for termination.</li></ul></article>
+    <article class="card green"><h2>Turing machines</h2><p class="what">The formal model behind algorithms.</p><ul><li>Deterministic: one next move.</li><li>Nondeterministic: many branches; accept if one branch accepts.</li><li>Multitape changes speed polynomially, not the big classes.</li></ul></article>
+    <article class="card amber"><h2>P, NP, reductions</h2><p class="what">Can we solve it fast, or verify a solution fast?</p><ul><li><b>P:</b> polynomial-time solving.</li><li><b>NP:</b> polynomial-time verification/certificate.</li><li><b>NP-hard:</b> everything in NP reduces to it.</li></ul></article>
+    <article class="card rose"><h2>Space and randomness</h2><p class="what">Memory-bounded and probability-bounded computation.</p><ul><li><b>PSPACE:</b> polynomial memory.</li><li>Savitch: NPSPACE = PSPACE.</li><li>RP/co-RP/ZPP differ by one-sided or zero error.</li></ul></article>
+    <article class="card teal"><h2>Undecidability</h2><p class="what">Some yes/no questions have no always-correct terminating algorithm.</p><ul><li>Decidable: halts with yes/no on every input.</li><li>RE: halts on yes instances, may loop on no.</li><li>Halting problem: classic contradiction by diagonalization.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Most TAL answers are classification plus proof idea.</p><ul><li>Define the class/problem.</li><li>State the inclusion or theorem.</li><li>Use reduction, certificate, simulation, or diagonalization.</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> NP means solutions can be verified in polynomial time; NP-complete problems are in NP and at least as hard as every NP problem by polynomial reduction.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>NP does not mean "not polynomial"; P may still equal NP.</li><li>Reduce from a known hard problem to prove your target hard.</li><li>Semi-decidable is not the same as decidable.</li></ul></section>
+  <div class="footer">Use this page first; then drill the formal definitions and theorem statements.</div>
+</main></body></html>

@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.env.*
+node_modules/
+
+# Local agent/browser scratch output
+.claude/
+.playwright-cli/
+output/
+
+# Source repositories used as raw research/reference material; not part of the deployed app.
+.source_repos/
+
+# Local logs and caches
+*.log
+*.tmp

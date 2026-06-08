@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SMU Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>SMU in Plain English</h1>
+    <p class="lead">SMU is about learning from feedback. The main question is always: what feedback do we see, what is the learner trying to minimize, and how much exploration is needed?</p>
+    <div class="routine"><div><strong>1. Identify feedback.</strong><span>Full label, mistake, chosen reward, or delayed reward?</span></div><div><strong>2. Name the goal.</strong><span>Low error, few mistakes, low regret, high return.</span></div><div><strong>3. Give the update.</strong><span>Eliminate, explore, estimate values, or improve policy.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>PAC learning</h2><p class="what">Batch examples from a fixed distribution.</p><ul><li>Goal: low true error with high probability.</li><li>Needs sample complexity in epsilon and delta.</li><li>VC dimension controls learnability.</li></ul></article>
+    <article class="card green"><h2>Online learning</h2><p class="what">Predict one example at a time.</p><ul><li>Goal: few mistakes or low regret.</li><li>Can be adversarial sequence.</li><li>Conjunction/disjunction learners eliminate inconsistent literals.</li></ul></article>
+    <article class="card amber"><h2>Bandits</h2><p class="what">You only observe reward for the arm you pulled.</p><ul><li>Explore/exploit tension is central.</li><li>Regret compares against best fixed arm.</li><li>UCB = average reward plus uncertainty bonus.</li></ul></article>
+    <article class="card rose"><h2>Reinforcement learning</h2><p class="what">Actions change future states and rewards.</p><ul><li>Value iteration assumes known model.</li><li>TD/Q-learning learn from sampled transitions.</li><li>Policy search optimizes policy directly.</li></ul></article>
+    <article class="card teal"><h2>Key contrast</h2><p class="what">Less feedback makes learning harder.</p><ul><li>PAC: label for sampled example.</li><li>Bandit: only chosen reward.</li><li>RL: chosen reward plus next state, delayed consequences.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Always say the feedback model first.</p><ul><li>What is observed?</li><li>What is optimized?</li><li>What algorithm handles exploration?</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> In bandits the learner does not see rewards of unchosen arms, so algorithms like UCB add an uncertainty bonus to try promising but under-sampled actions.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>PAC assumes i.i.d. data; online learning may be adversarial.</li><li>Bandit regret is not the same as supervised classification error.</li><li>Q-learning estimates action values, not just state values.</li></ul></section>
+  <div class="footer">Use this page to keep the feedback settings separate.</div>
+</main></body></html>

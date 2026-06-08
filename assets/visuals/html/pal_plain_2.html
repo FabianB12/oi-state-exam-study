@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAL Plain English 2</title>
+  <link rel="stylesheet" href="pal_plain_style.css">
+</head>
+<body>
+  <main class="sheet">
+    <section class="intro compact">
+      <h1>PAL in Plain English</h1>
+      <p class="lead">Second half: search trees and automata/text search. These are mostly "choose the right structure" and "remember how the pattern is tracked."</p>
+    </section>
+
+    <section class="topic rose">
+      <div class="side">
+        <div class="number">4</div>
+        <h2>Search trees</h2>
+        <p>Different dictionaries for different workloads.</p>
+      </div>
+      <div class="main">
+        <div class="box">
+          <h3>Balanced trees</h3>
+          <ul>
+            <li>AVL: stricter balance, O(log n).</li>
+            <li>Red-black: also O(log n), common in libraries.</li>
+            <li>Splay: amortized O(log n), good with repeated access.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Special trees</h3>
+          <ul>
+            <li>B/B+ trees: block storage and database indexes.</li>
+            <li>k-d tree: geometric points in low dimensions.</li>
+            <li>Skip list: randomized ordered dictionary.</li>
+          </ul>
+        </div>
+        <div class="sentence"><b>Exam sentence:</b> All balanced search trees aim for logarithmic height; the difference is how they maintain balance and what workload they are optimized for.</div>
+      </div>
+    </section>
+
+    <section class="topic teal">
+      <div class="side">
+        <div class="number">5</div>
+        <h2>Automata and text search</h2>
+        <p>A finite state machine remembers how much of the pattern has matched.</p>
+      </div>
+      <div class="main">
+        <div class="box">
+          <h3>Automata</h3>
+          <ul>
+            <li>DFA: exactly one next state.</li>
+            <li>NFA: a set of possible states.</li>
+            <li>Regex, DFA, and NFA describe regular languages.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Text search</h3>
+          <ul>
+            <li>KMP: exact matching in O(n + m).</li>
+            <li>Levenshtein DP: approximate matching in O(mn).</li>
+            <li>Aho-Corasick: many patterns in one scan.</li>
+          </ul>
+        </div>
+        <div class="sentence"><b>Exam sentence:</b> KMP can be seen as an automaton over prefix lengths: after a mismatch, failure links say how much of the prefix is still usable.</div>
+      </div>
+    </section>
+
+    <section class="simple">
+      <h2>How to study PAL in two days</h2>
+      <div class="study-grid">
+        <div>
+          <h3>First pass</h3>
+          <p>Read these two pages and say each exam sentence out loud. You only need the rough map first.</p>
+        </div>
+        <div>
+          <h3>Second pass</h3>
+          <p>Go into the notes and attach details to each box: definitions, algorithms, and complexity.</p>
+        </div>
+        <div>
+          <h3>Final pass</h3>
+          <p>Cover the notes and answer from memory: "what is it, what algorithm, what complexity, what trap?"</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple warning">
+      <h2>Three common traps</h2>
+      <ul>
+        <li>Do not mix directed and undirected Euler conditions.</li>
+        <li>Graph invariants can disprove isomorphism, but usually do not prove it.</li>
+        <li>O(1) matrix edge lookup is bought with O(n^2) memory.</li>
+      </ul>
+    </section>
+
+    <footer>Page 2 of 2: the goal is recognition first, precision second.</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>State Exam Study Hub</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+</head>
+<body data-page="index">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html" aria-current="page"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../exam_questions.md"><span class="material-symbols-rounded">format_list_bulleted</span>Question Index</a>
+      <a href="../common/README.md"><span class="material-symbols-rounded">description</span>Notes</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">Study dashboard</p>
+      <h1>Let's get through the state exam, one module at a time.</h1>
+      <p class="lead">This hub turns the dense Markdown/PDF notes into watchable, recall-heavy study sessions. Choose a question below, then work through the videos, exam-style quizzes, written recall prompts, and labs.</p>
+      <div class="head-meta">
+        <span class="time-pill">Exam: June 18, 2026</span>
+        <span class="time-pill">9 pages ready</span>
+        <a class="button" href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Open timetable</a>
+        <a class="button primary" href="pal.html"><span class="material-symbols-rounded">play_arrow</span>Start with PAL</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="committee-focus-h">
+      <div class="section-heading focus-heading">
+        <div>
+          <p class="eyebrow">Committee focus map</p>
+          <h2 id="committee-focus-h">Likely examiner overlap</h2>
+        </div>
+        <p>Sorted by likely relevance from public research profiles plus the reported-question archive. Use it to decide where to spend extra effort after every page has at least a survival pass.</p>
+      </div>
+      <div class="focus-map" aria-label="Subjects sorted by likely committee overlap">
+        <a class="focus-card is-hot" href="mas.html" aria-label="Open MAS study page">
+          <div class="focus-rank">1</div>
+          <div class="focus-main">
+            <span class="focus-title">MAS</span>
+            <p>Agents, games, coalitions, auctions</p>
+          </div>
+          <div class="focus-score" aria-label="Maximum focus">
+            <span>Maximum focus</span>
+            <meter min="0" max="5" value="5">5 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Kroupa</span>
+            <span>Komenda</span>
+            <span class="weak">Šír</span>
+          </div>
+          <p class="focus-reason">Strongest committee overlap: Kroupa maps to game theory/cooperative games, Komenda maps to multi-agent planning/systems, and reported history strongly supports examiners asking near their own lane.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open MAS</span>
+        </a>
+
+        <a class="focus-card is-hot" href="pui.html" aria-label="Open PUI study page">
+          <div class="focus-rank">2</div>
+          <div class="focus-main">
+            <span class="focus-title">PUI</span>
+            <p>Domain independent planning</p>
+          </div>
+          <div class="focus-score" aria-label="Maximum focus">
+            <span>Maximum focus</span>
+            <meter min="0" max="5" value="5">5 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Komenda</span>
+            <span class="weak">Kroupa</span>
+          </div>
+          <p class="focus-reason">Automated planning is Komenda's clearest match. Reported AI questions repeatedly punish vague planning answers, so be able to define states, actions, transitions, cost, goal and plan cleanly.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open PUI</span>
+        </a>
+
+        <a class="focus-card is-high" href="ssu.html" aria-label="Open SSU study page">
+          <div class="focus-rank">3</div>
+          <div class="focus-main">
+            <span class="focus-title">SSU</span>
+            <p>ML, ERM, EM, neural networks</p>
+          </div>
+          <div class="focus-score" aria-label="Heavy focus">
+            <span>Heavy focus</span>
+            <meter min="0" max="5" value="4">4 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Šír</span>
+            <span class="weak">Komenda</span>
+            <span class="weak">Kroupa</span>
+          </div>
+          <p class="focus-reason">Šír is the strongest ML signal: deep relational learning, knowledge graphs/databases and neural methods. Student reports also show ML examiners asking SVM, perceptron, backprop and model assumptions.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open SSU</span>
+        </a>
+
+        <a class="focus-card is-high" href="lup.html" aria-label="Open LUP study page">
+          <div class="focus-rank">4</div>
+          <div class="focus-main">
+            <span class="focus-title">LUP</span>
+            <p>Logic, resolution, model search</p>
+          </div>
+          <div class="focus-score" aria-label="Heavy focus">
+            <span>Heavy focus</span>
+            <meter min="0" max="5" value="4">4 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Šír</span>
+            <span class="weak">Komenda</span>
+          </div>
+          <p class="focus-reason">Knowledge representation, symbolic reasoning and relational logic are plausible Šír territory. Be especially crisp on FOL, unification, resolution, Prolog and what a model actually means.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open LUP</span>
+        </a>
+
+        <a class="focus-card is-mid" href="ko.html" aria-label="Open KO study page">
+          <div class="focus-rank">5</div>
+          <div class="focus-main">
+            <span class="focus-title">KO</span>
+            <p>Combinatorial optimization</p>
+          </div>
+          <div class="focus-score" aria-label="Solid focus">
+            <span>Solid focus</span>
+            <meter min="0" max="5" value="3">3 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Komenda</span>
+            <span>Bureš</span>
+            <span>Kroupa</span>
+            <span class="weak">Bača</span>
+          </div>
+          <p class="focus-reason">CSP/AC-3 is strongly represented in reports. Komenda has planning/constraint overlap, Bureš maps to constrained and combinatorial testing, and Kroupa maps to optimization/game computation.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open KO</span>
+        </a>
+
+        <a class="focus-card is-mid" href="pal.html" aria-label="Open PAL study page">
+          <div class="focus-rank">6</div>
+          <div class="focus-main">
+            <span class="focus-title">PAL</span>
+            <p>Graphs, trees, automata, text search</p>
+          </div>
+          <div class="focus-score" aria-label="Solid focus">
+            <span>Solid focus</span>
+            <meter min="0" max="5" value="3">3 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Bača</span>
+            <span>Bureš</span>
+            <span class="weak">Šír</span>
+          </div>
+          <p class="focus-reason">Bača's database/query-processing profile makes B-tree/B+ tree, indexing and search structures worth extra attention. Bureš adds graph/state-machine/testing overlap.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open PAL</span>
+        </a>
+
+        <a class="focus-card" href="smu.html" aria-label="Open SMU study page">
+          <div class="focus-rank">7</div>
+          <div class="focus-main">
+            <span class="focus-title">SMU</span>
+            <p>Learnability, bandits, RL</p>
+          </div>
+          <div class="focus-score" aria-label="Normal focus">
+            <span>Normal focus</span>
+            <meter min="0" max="5" value="2">2 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Komenda</span>
+            <span>Šír</span>
+            <span class="weak">Kroupa</span>
+          </div>
+          <p class="focus-reason">Sequential decision-making, probabilistic reasoning and RL overlap with AI/games/planning, but less directly than PUI or SSU. Still know MDPs and policy/value iteration cold.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open SMU</span>
+        </a>
+
+        <a class="focus-card" href="uir.html" aria-label="Open UIR study page">
+          <div class="focus-rank">8</div>
+          <div class="focus-main">
+            <span class="focus-title">UIR</span>
+            <p>Robot planning and coordination</p>
+          </div>
+          <div class="focus-score" aria-label="Normal focus">
+            <span>Normal focus</span>
+            <meter min="0" max="5" value="2">2 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Komenda</span>
+            <span class="weak">Kroupa</span>
+          </div>
+          <p class="focus-reason">Planning and robotics overlap exists through Komenda/AIC, but your committee is less UIR-heavy than a Faigl-style committee. Drill C-space, PRM/RRT and motion-planning guarantees.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open UIR</span>
+        </a>
+
+        <a class="focus-card is-baseline" href="tal.html" aria-label="Open TAL study page">
+          <div class="focus-rank">9</div>
+          <div class="focus-main">
+            <span class="focus-title">TAL</span>
+            <p>Complexity and decidability</p>
+          </div>
+          <div class="focus-score" aria-label="Baseline focus">
+            <span>Baseline focus</span>
+            <meter min="0" max="5" value="1">1 out of 5</meter>
+          </div>
+          <div class="focus-people">
+            <span>Bureš</span>
+            <span class="weak">Bača</span>
+          </div>
+          <p class="focus-reason">Least committee-specific, but still common-core. Reports show TAL can be strict: reductions, P/NP/coNP/NPC, recursive vs RE and decidability cannot be skipped.</p>
+          <span class="focus-open"><span class="material-symbols-rounded">arrow_forward</span>Open TAL</span>
+        </a>
+      </div>
+
+      <div class="focus-evidence" aria-label="Reported history notes">
+        <div>
+          <strong>Tomáš Kroupa in reports</strong>
+          <p>Appears as chair/supervisor in several OI bachelor/software reports, but not as a clear examiner for your exact AI master topics. His public work is the stronger signal: game theory, coalitional games, Shapley/core, Nash and optimization.</p>
+        </div>
+        <div>
+          <strong>Miroslav Bureš in reports</strong>
+          <p>Directly appears asking software/testing/OOP questions such as automated testing and line coverage. Within your scope, that mainly boosts constraint, graph/state-machine and combinatorial-testing style preparation.</p>
+        </div>
+      </div>
+
+      <div class="priority-legend" aria-label="Priority marker legend">
+        <div class="priority-legend-head">
+          <span class="material-symbols-rounded">priority_high</span>
+          <div>
+            <strong>Inside each study page</strong>
+            <p>These same priority markers now flag the modules and reported drills that are most likely to matter for your committee.</p>
+          </div>
+        </div>
+        <div class="priority-legend-scale">
+          <span class="priority-dot priority-critical"></span><span>Maximum</span>
+          <span class="priority-dot priority-high"></span><span>Heavy</span>
+          <span class="priority-dot priority-solid"></span><span>Solid</span>
+          <span class="priority-dot priority-normal"></span><span>Normal</span>
+          <span class="priority-dot priority-baseline"></span><span>Common-core</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="pages-h">
+      <div class="section-heading">
+        <p class="eyebrow">Common part</p>
+        <h2 id="pages-h">Study pages</h2>
+      </div>
+      <div class="question-grid">
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M33PAL</p>
+            <h3>Polynomial graph algorithms, search trees &amp; automata</h3>
+            <p>Timestamped videos, exam-style quizzes, written recall prompts, and interactive previews for the first common question.</p>
+            <p class="estimate-line"><strong>Time:</strong> 4.5-5.5h full pass; 45m panic pass</p>
+          </div>
+          <a class="button primary" href="pal.html"><span class="material-symbols-rounded">arrow_forward</span>Study PAL</a>
+        </article>
+
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M01TAL</p>
+            <h3>Complexity classes, Turing machines, randomization &amp; undecidability</h3>
+            <p>Theory videos, proof templates, exam-style quizzes, written recall prompts, and steppers for the second common question.</p>
+            <p class="estimate-line"><strong>Time:</strong> 5-6.5h full pass; 45m panic pass</p>
+          </div>
+          <a class="button primary" href="tal.html"><span class="material-symbols-rounded">arrow_forward</span>Study TAL</a>
+        </article>
+
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M35KO</p>
+            <h3>Combinatorial optimization</h3>
+            <p>ILP formulations, shortest paths, flows, knapsack, TSP approximation, scheduling, and CSP/AC3.</p>
+            <p class="estimate-line"><strong>Time:</strong> 6-8h full pass; 60-75m panic pass</p>
+          </div>
+          <a class="button primary" href="ko.html"><span class="material-symbols-rounded">arrow_forward</span>Study KO</a>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="ai-pages-h">
+      <div class="section-heading">
+        <p class="eyebrow">AI specialization</p>
+        <h2 id="ai-pages-h">Study pages</h2>
+      </div>
+      <div class="question-grid">
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M36SMU</p>
+            <h3>Learnability models, bandits &amp; reinforcement learning</h3>
+            <p>PAC/online learnability, conjunction/disjunction algorithms, bandit regret, UCB/Thompson, MDPs, value iteration, TD, Q-learning, SARSA, and policy search.</p>
+            <p class="estimate-line"><strong>Time:</strong> 4.5-6h full pass; 45-60m panic pass</p>
+          </div>
+          <a class="button primary" href="smu.html"><span class="material-symbols-rounded">arrow_forward</span>Study SMU</a>
+        </article>
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M36LUP</p>
+            <h3>Resolution, automatic proving &amp; model search</h3>
+            <p>Normal forms, SAT, DPLL/CDCL, SMT, Prolog, SLDNF, FOL resolution, equality reasoning, and finite-domain grounding.</p>
+            <p class="estimate-line"><strong>Time:</strong> 4-5.5h full pass; 45m panic pass</p>
+          </div>
+          <a class="button primary" href="lup.html"><span class="material-symbols-rounded">arrow_forward</span>Study LUP</a>
+        </article>
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M33SSU</p>
+            <h3>Empirical risk, MLE, EM &amp; neural networks</h3>
+            <p>ERM/generalization bounds, VC dimension, SVMs, MLE, EM lower bounds, backpropagation, SGD, CNNs, initialization, and regularization.</p>
+            <p class="estimate-line"><strong>Time:</strong> 5-6.5h full pass; 60m panic pass</p>
+          </div>
+          <a class="button primary" href="ssu.html"><span class="material-symbols-rounded">arrow_forward</span>Study SSU</a>
+        </article>
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M36PUI</p>
+            <h3>Domain independent planning</h3>
+            <p>STRIPS/SAS, heuristic search, delete relaxation, abstraction, landmarks/LM-Cut, LP heuristics, nondeterministic and probabilistic planning, MDPs, POMDPs, and MCTS.</p>
+            <p class="estimate-line"><strong>Time:</strong> 4.5-6h full pass; 45-60m panic pass</p>
+          </div>
+          <a class="button primary" href="pui.html"><span class="material-symbols-rounded">arrow_forward</span>Study PUI</a>
+        </article>
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M36MAS</p>
+            <h3>Autonomous agents, game theory &amp; auctions</h3>
+            <p>Normal-form games, Nash and alternatives, extensive-form games, coalitional games, Shapley value, voting power, auctions, Myerson, and combinatorial winner determination.</p>
+            <p class="estimate-line"><strong>Time:</strong> 4.5-6h full pass; 45-60m panic pass</p>
+          </div>
+          <a class="button primary" href="mas.html"><span class="material-symbols-rounded">arrow_forward</span>Study MAS</a>
+        </article>
+        <article class="question-card">
+          <div>
+            <p class="course">BE4M36UIR</p>
+            <h3>Robot decision making, planning &amp; coordination</h3>
+            <p>Robot paradigms, sensors/actuators, configuration space, roadmaps, graph replanning, D*/D* Lite, exploration, multi-robot task allocation, robotic TSP variants, and PRM/RRT/RRT* guarantees.</p>
+            <p class="estimate-line"><strong>Time:</strong> 5-6.5h full pass; 60m panic pass</p>
+          </div>
+          <a class="button primary" href="uir.html"><span class="material-symbols-rounded">arrow_forward</span>Study UIR</a>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="loop-h">
+      <div class="section-heading">
+        <p class="eyebrow">How to study here</p>
+        <h2 id="loop-h">The study loop</h2>
+      </div>
+      <div class="loop-grid">
+        <div class="loop-step"><strong><span class="material-symbols-rounded">play_circle</span>1. Watch</strong><span>Use the timestamps, not whole-video wandering.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">record_voice_over</span>2. Recall</strong><span>Say the exam bullets out loud before rereading.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">quiz</span>3. Check</strong><span>Use exam-style quizzes and validated written answers.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">graphic_eq</span>4. Rehearse</strong><span>Finish with the oral skeleton for each topic.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+</body>
+</html>

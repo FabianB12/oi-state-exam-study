@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LUP Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>LUP in Plain English</h1>
+    <p class="lead">LUP is about proving by search. Convert formulas into a form a machine can search, then either find a model or derive a contradiction.</p>
+    <div class="routine"><div><strong>1. Normalize.</strong><span>CNF, clauses, Skolem form.</span></div><div><strong>2. Search.</strong><span>DPLL/CDCL, SLD, resolution, saturation.</span></div><div><strong>3. Interpret result.</strong><span>Model found, unsatisfiable, or proof by contradiction.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>SAT and CNF</h2><p class="what">Boolean proving becomes clause search.</p><ul><li>CNF = conjunction of clauses.</li><li>Tseitin avoids exponential CNF blowup.</li><li>Resolution derives new clauses until contradiction.</li></ul></article>
+    <article class="card green"><h2>DPLL/CDCL</h2><p class="what">Modern SAT solving is smart backtracking.</p><ul><li>Unit propagation forces assignments.</li><li>Backtracking explores choices.</li><li>Clause learning records why conflict happened.</li></ul></article>
+    <article class="card amber"><h2>Prolog and SLD</h2><p class="what">Logic programs answer goals by resolution.</p><ul><li>Horn clauses have at most one positive literal.</li><li>SLD resolves selected goal with program rules.</li><li>Negation as failure means "not provable".</li></ul></article>
+    <article class="card rose"><h2>First-order resolution</h2><p class="what">Variables require unification and Skolemization.</p><ul><li>Skolemization removes existential variables.</li><li>Unification finds substitutions that make terms equal.</li><li>Saturation keeps deriving clauses until done or contradiction.</li></ul></article>
+    <article class="card teal"><h2>Equality and models</h2><p class="what">Equality needs special handling; model search grounds domains.</p><ul><li>Paramodulation/superposition reason with equality.</li><li>Grounding finite domains reduces to SAT.</li><li>Subsumption removes redundant clauses.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Say what representation the solver searches.</p><ul><li>Formula to clauses.</li><li>Rules for deriving consequences.</li><li>Stopping condition: model or empty clause.</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> Resolution proves unsatisfiability by deriving the empty clause; in first-order logic this needs unification so clauses can match after substitution.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>CNF conversion and Tseitin encoding are not the same thing.</li><li>Skolemization preserves satisfiability, not logical equivalence.</li><li>Negation as failure is procedural, not classical negation.</li></ul></section>
+  <div class="footer">Use this page to keep the proving pipelines straight.</div>
+</main></body></html>

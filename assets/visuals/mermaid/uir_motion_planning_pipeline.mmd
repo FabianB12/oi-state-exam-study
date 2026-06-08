@@ -1,0 +1,24 @@
+flowchart LR
+  World["<b>World + robot</b><br/>obstacles<br/>sensors<br/>kinematics"]
+  Cspace["<b>Configuration space</b><br/>C_free vs C_obs<br/>robot states"]
+  Planner["<b>Planner</b><br/>A*, D*<br/>PRM, RRT<br/>roadmaps or samples"]
+  Traj["<b>Trajectory</b><br/>path + timing<br/>constraints"]
+  Execute["<b>Execute</b><br/>control<br/>feedback"]
+  Replan["<b>Replanning</b><br/>changed map<br/>or blocked edge"]
+  Complete["<b>Sampling guarantee</b><br/>Probabilistic completeness:<br/>if a path exists, success probability<br/>approaches 1."]
+
+  World --> Cspace --> Planner --> Traj --> Execute
+  Execute -.-> Replan
+  Replan -.-> Planner
+  Planner --> Complete
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class World,Traj blue;
+  class Cspace green;
+  class Planner yellow;
+  class Execute red;
+  class Replan,Complete neutral;

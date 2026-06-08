@@ -1,0 +1,28 @@
+flowchart LR
+  s((s))
+  a((a))
+  b((b))
+  c((c))
+  d((d))
+  t((t))
+
+  s -- "3" --> a
+  s -- "2" --> b
+  a -- "2" --> c
+  a -- "1" --> d
+  b -- "2" --> d
+  c -- "3" --> t
+  d -- "2" --> t
+
+  Cut["<b>Minimum-cut idea</b><br/>When no residual s-t path remains,<br/>vertices reachable from s define the source side.<br/>The crossing capacity equals the maximum flow."]
+
+  a -. "cut edge" .-> c
+  b -. "cut edge" .-> d
+  d --> Cut
+
+  classDef source fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:3px;
+  classDef sink fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:3px;
+  classDef note fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class s,a,b source;
+  class c,d,t sink;
+  class Cut note;

@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PUI Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+  <style>
+    .pui-state-row,
+    .pui-action-row,
+    .pui-score-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.7rem;
+    }
+    .pui-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+    .pui-chip.good { border-color: #b9dfc5; background: var(--good-tint); color: var(--good); }
+    .pui-chip.bad { border-color: #efb9b9; background: var(--bad-tint); color: var(--bad); }
+    .pui-score-row label {
+      display: grid;
+      gap: 0.2rem;
+      min-width: 7rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .pui-score-row input {
+      width: 100%;
+      padding: 0.35rem 0.45rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      font: inherit;
+      font-size: 0.9rem;
+    }
+    .pui-uct-table {
+      width: 100%;
+      margin-top: 0.75rem;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .pui-uct-table th,
+    .pui-uct-table td {
+      padding: 0.45rem 0.5rem;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+    .pui-uct-table th { background: var(--surface-3); color: var(--ink-soft); }
+    .pui-uct-table tr.best td { background: var(--good-tint); }
+  </style>
+</head>
+<body data-page="pui">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../ai/04_pui_domain_independent_planning.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../ai/04_pui_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M36PUI &middot; AI specialization question 4</p>
+      <h1>Domain independent planning</h1>
+      <p class="lead">PUI is the art of turning a domain description into search: represent states and actions, estimate distance-to-goal with relaxations or abstractions, then switch from sequences to policies when actions become nondeterministic or probabilistic. Keep the oral answer anchored on one question: what problem did we relax, abstract, or sample?</p>
+      <div class="head-meta">
+        <span class="time-pill">5-6.5 hour full pass</span>
+        <a class="button primary" href="#tasks"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="pui-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="pui-progress-detail">0 of 5 modules checked.</p>
+          <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="pui-tasks" aria-label="Mark planning tasks and search module complete">
+            <a href="#tasks"><span class="rail-num">1</span> Tasks, STRIPS, search</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="pui-relax" aria-label="Mark relaxation and abstraction module complete">
+            <a href="#relax"><span class="rail-num">2</span> Relaxation &amp; abstraction</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="pui-landmarks" aria-label="Mark landmarks and LP heuristics module complete">
+            <a href="#landmarks"><span class="rail-num">3</span> Landmarks, LM-Cut, LP</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="pui-uncertainty" aria-label="Mark nondeterministic and probabilistic planning module complete">
+            <a href="#uncertainty"><span class="rail-num">4</span> Policies under uncertainty</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="pui-mcts" aria-label="Mark MCTS module complete">
+            <a href="#mcts"><span class="rail-num">5</span> MCTS &amp; UCT</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="tasks" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>Planning tasks, STRIPS/SAS, and heuristic search</h2>
+              <p class="module-lead">Classical planning is deterministic, fully observable, and static. Once the representation is fixed, the planner searches a huge implicit graph whose nodes are states and whose edges are applicable actions.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Komenda is directly aligned with automated planning, and reports emphasize that formalizing the task before algorithms is a major examiner expectation.</p>
+                <ul class="priority-topics">
+                  <li>formal planning/search tuple, classical assumptions, and implicit state graph</li>
+                  <li>STRIPS applicability/successor formula and SAS finite-domain representation</li>
+                  <li>A*, admissibility, consistency, open/closed handling, and duplicate states</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="pui-tasks"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>CS188 SP24 LEC07 - Propositional Logic and Planning (80:09, watch 45:00-65:00)</h3>
+                <div class="video-frame" title="CS188 SP24 LEC07 - Logic: Propositional Logic and Planning" data-video-id="WVaBk3ldQIo" data-start="2700"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="2700">45:00 planning frame</button>
+                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="3060">51:00 actions as logic</button>
+                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="3600">60:00 plan constraints</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=WVaBk3ldQIo&t=2700s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>CS188 SP24 LEC03 - A* and Heuristics (74:18, watch 25:00-43:00)</h3>
+                <div class="video-frame" title="CS188 SP24 LEC03 - Search: Informed Search, A*, Heuristics" data-video-id="zRFZwAUQT8U" data-start="1500"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="1500">25:00 heuristic idea</button>
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="1860">31:00 A*</button>
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2220">37:00 admissibility</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=zRFZwAUQT8U&t=1500s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A general planning/search problem can be stated as <code>(S,A,gamma,c,s0,G)</code>: states, actions, transition/successor function, action costs, initial state, and goal test.</li>
+                <li>A classical planning task has finite states, deterministic actions, full observability, known initial state, a goal condition, and a static domain.</li>
+                <li>In STRIPS, <code>Pi = (F,A,I,G)</code>; actions have preconditions, add effects, and delete effects.</li>
+                <li>PDDL is the usual syntax for writing STRIPS-like domains and problems: predicates/types/actions in the domain file, objects/initial state/goal in the problem file.</li>
+                <li>An action is applicable when <code>pre(a) subset s</code>; the successor is <code>(s \ del(a)) union add(a)</code>.</li>
+                <li>SAS replaces many mutually exclusive propositional facts by one finite-domain variable, often making the representation smaller.</li>
+                <li>Satisficing planning wants any valid plan; optimal planning wants minimum cost or length and must prove no cheaper plan exists.</li>
+                <li>BFS handles unit costs, uniform-cost handles positive costs, greedy best-first uses only <code>h</code>, and A* uses <code>g + h</code>.</li>
+                <li>A* implementation answer: open priority queue by <code>f=g+h</code>, best known <code>g</code> per state, parent pointers for reconstruction, and closed/reopen policy depending on heuristic consistency.</li>
+                <li>Admissible means never overestimate; consistent means each estimate respects one-step triangle inequality.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> a planner searches states; STRIPS only tells it which action edges exist.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pui-strips-lab">
+              <h3>STRIPS state updater</h3>
+              <p class="preview-text">Try the tiny logistics plan. Preconditions block illegal actions; add/delete effects update the state.</p>
+              <p class="step-note"><strong>Use this when:</strong> you need to explain applicability first, then the successor formula.</p>
+              <div class="pui-action-row">
+                <button type="button" data-pui-action="load">load package</button>
+                <button type="button" data-pui-action="drive">drive truck</button>
+                <button type="button" data-pui-action="unload">unload package</button>
+                <button type="button" data-pui-action="reset">reset</button>
+              </div>
+              <div id="pui-strips-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Define a classical planning task formally and explain what changes in SAS compared with STRIPS.</span>
+                  <textarea rows="5" data-recall="pui-tasks-strips-sas" placeholder="Classical assumptions, Pi=(F,A,I,G), action components, SAS variables/domains..."></textarea>
+                  <template data-recall-reference="pui-tasks-strips-sas">Must say: classical planning has finite states, deterministic actions, full observability, known initial state, goal condition, and static domain. STRIPS task Pi=(F,A,I,G) uses propositional facts; an action has preconditions, add effects, and delete effects. SAS uses finite-domain variables, where a state assigns one value to each variable and actions use partial assignments for preconditions/effects. SAS often compresses mutually exclusive facts such as one object's location into one variable.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Start from a raw search prompt and formalize it before naming A*.</span>
+                  <textarea rows="5" data-recall="pui-tasks-state-space-formalism" placeholder="S, A, gamma/T, c, s0, G, solution path/policy, graph is implicit..."></textarea>
+                  <template data-recall-reference="pui-tasks-state-space-formalism">Must say: define the state space S, available actions A(s), successor or transition function gamma(s,a), action cost c(s,a,s'), initial state s0, and goal test or set G. A solution is a path or action sequence from s0 to a goal for deterministic planning; under uncertainty it becomes a policy. The graph is usually implicit: states are generated by applying actions rather than stored in advance.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Given a STRIPS state and an action, describe applicability and compute the successor.</span>
+                  <textarea rows="5" data-recall="pui-tasks-successor" placeholder="pre(a) subset s, gamma(s,a), missing preconditions, add/delete interaction..."></textarea>
+                  <template data-recall-reference="pui-tasks-successor">Must say: action a is applicable in state s exactly when pre(a) is a subset of s. If any precondition is missing, there is no transition edge for that action from s. The successor is gamma(s,a)=(s \ del(a)) union add(a), so delete effects remove facts and add effects make facts true. Unmentioned facts persist by inertia. A plan is valid when repeated application from I reaches a state satisfying G.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Compare satisficing and optimal planning, then choose a search algorithm for each case.</span>
+                  <textarea rows="5" data-recall="pui-tasks-search" placeholder="BFS, UCS, GBFS, A*, g/h/f, admissible, consistent, proof of optimality..."></textarea>
+                  <template data-recall-reference="pui-tasks-search">Must say: satisficing planning needs any valid plan, so greedy best-first search or other heuristic methods may be used even without optimality guarantees. Optimal planning needs a minimum-cost or minimum-length plan and proof no cheaper plan exists. BFS is appropriate for unit action costs; uniform-cost search handles positive costs; greedy best-first orders by h only; A* orders by f=g+h. A* is optimal with an admissible heuristic and consistency avoids reopening closed nodes.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain A* implementation details after giving the guarantee.</span>
+                  <textarea rows="5" data-recall="pui-tasks-a-star-implementation" placeholder="Open PQ, closed set, best g, duplicates, reopen, parent pointers..."></textarea>
+                  <template data-recall-reference="pui-tasks-a-star-implementation">Must say: keep an open priority queue ordered by f(s)=g(s)+h(s), store the best known g-value for each generated state, and keep parent/action pointers to reconstruct the plan. When a successor is generated with a better g, update it in open or reopen it if it was closed. With a consistent heuristic, closed states do not need reopening; with only admissibility, reopening may be required for graph search optimality.</template>
+                </label>
+                <label class="free-recall">
+                  <span>What are PDDL, SAT planning, and Graphplan in one compact comparison?</span>
+                  <textarea rows="5" data-recall="pui-tasks-pddl-sat-graphplan" placeholder="PDDL syntax, bounded horizon, Boolean variables/actions, clauses, planning graph mutexes..."></textarea>
+                  <template data-recall-reference="pui-tasks-pddl-sat-graphplan">Must say: PDDL is a modeling language for planning domains and problem instances, typically with predicates, typed objects, action parameters, preconditions, and effects. SAT planning fixes a horizon k and encodes action choices, state facts, initial state, goal, preconditions, effects, frame axioms, and mutual exclusions as propositional clauses; if SAT, the model yields a plan of length k. Graphplan builds alternating fact/action layers with mutex relations and extracts a plan backward; the planning graph also inspires relaxed-plan heuristics.</template>
+                </label>
+              </section>
+              <section class="quiz" data-pui-quiz="pui-tasks"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define classical planning, STRIPS, SAS, satisficing vs optimal planning, and the search algorithms.</span>
+              <textarea rows="4" data-recall="pui-tasks" placeholder="Classical assumptions, Pi=(F,A,I,G), gamma(s,a), SAS, BFS/UCS/GBFS/A*, admissible/consistent..."></textarea>
+              <template data-recall-reference="pui-tasks">Must say: classical planning assumes deterministic actions, full observability, known initial state, finite states, static domain, and a goal condition. STRIPS is Pi=(F,A,I,G) with action preconditions, add effects, and delete effects; applicability means pre(a) subset s and the successor is (s \ del(a)) union add(a). SAS encodes states with finite-domain variables and can be more compact. Satisficing finds any plan; optimal planning proves minimum cost/length. BFS handles unit costs, uniform-cost positive costs, greedy best-first uses h, and A* uses g+h with admissible/consistent heuristics for optimal search.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="relax" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Delete relaxation and abstraction heuristics</h2>
+              <p class="module-lead">Planning heuristics usually solve an easier problem. Delete relaxation removes negative interactions; abstraction projects the task into a smaller exact problem.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Heuristics are a high-potential planning follow-up because they test whether you know exactly which easier problem each estimate solves.</p>
+                <ul class="priority-topics">
+                  <li>delete relaxation and facts-only-accumulate intuition</li>
+                  <li><code>hmax</code>, <code>hadd</code>, <code>hff</code>, strength, and admissibility</li>
+                  <li>projection abstractions, pattern databases, and merge-and-shrink</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">75-95 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="pui-relax"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>CS188 SP24 LEC03 - A* heuristic properties (74:18, watch 37:00-52:00)</h3>
+                <div class="video-frame" title="CS188 SP24 LEC03 - Search: Informed Search, A*, Heuristics" data-video-id="zRFZwAUQT8U" data-start="2220"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2220">37:00 admissible</button>
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2580">43:00 consistency</button>
+                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2940">49:00 dominance</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=zRFZwAUQT8U&t=2220s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Resource backup: CTU and Basel planning heuristic slides</h3>
+                <div class="resource-card">
+                  <p>Short videos for <code>hmax</code>, <code>hadd</code>, <code>hff</code>, pattern databases, and merge-and-shrink are scarce. Use these slides after the A* segment for the exam-specific formulas.</p>
+                  <a class="button" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>CTU PUI lecture plan</a>
+                  <a class="fallback-link" href="https://ai.dmi.unibas.ch/_files/teaching/fs25/ai/slides/ai-f04-handout4.pdf" target="_blank" rel="noreferrer">Basel delete-relaxation handout</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Delete relaxation sets every delete list to empty, so facts only accumulate and the relaxed task may allow impossible plans.</li>
+                <li><code>hmax</code> propagates fact costs with max over preconditions and max over goals; it is admissible but often weak.</li>
+                <li><code>hadd</code> replaces max by sum, so it is more informative but can double-count shared actions and is not admissible.</li>
+                <li><code>hff</code> builds a relaxed planning graph and extracts one relaxed plan greedily; it is useful for satisficing search but not admissible.</li>
+                <li>An abstraction maps concrete states into abstract states and uses exact abstract distance as a heuristic.</li>
+                <li>Pattern databases keep only selected SAS variables; larger patterns are stronger but exponentially larger.</li>
+                <li>Merge-and-shrink merges atomic abstractions and shrinks them to keep memory manageable.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> heuristics are useful because they solve an easier planning problem and reuse its distance.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pui-relax-tabs">
+              <h3>Heuristic family selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-pui-relax-tab="delete">Delete relaxation</button>
+                <button type="button" data-pui-relax-tab="hmax">hmax</button>
+                <button type="button" data-pui-relax-tab="hadd">hadd / hff</button>
+                <button type="button" data-pui-relax-tab="abstraction">Abstraction</button>
+              </div>
+              <div id="pui-relax-output" class="preview-box"></div>
+              <p class="step-note"><strong>Why:</strong> the exam comparison is mostly about what was ignored and whether the estimate stays admissible.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Explain delete relaxation and derive the intuition behind <code>hmax</code>, <code>hadd</code>, and <code>hff</code>.</span>
+                  <textarea rows="5" data-recall="pui-relax-delete-family" placeholder="Ignore delete lists, facts accumulate, max vs sum vs extracted relaxed plan..."></textarea>
+                  <template data-recall-reference="pui-relax-delete-family">Must say: delete relaxation removes every delete effect, so facts only accumulate and negative interactions disappear. The relaxed task may admit impossible plans, giving optimistic estimates. hmax propagates fact costs and combines preconditions/goals by maximum, so it is admissible but weak. hadd uses sums, is often more informative, but can double-count shared actions and is not admissible. hff builds a relaxed planning graph, greedily extracts one relaxed plan, and counts its actions/cost; it is useful for satisficing planning but not admissible.</template>
+                </label>
+                <label class="free-recall">
+                  <span>State the formulas or recurrences for <code>hmax</code> and <code>hadd</code> and explain their admissibility difference.</span>
+                  <textarea rows="5" data-recall="pui-relax-hmax-hadd" placeholder="Initial facts cost 0, achiever minimization, max/sum over preconditions and goals..."></textarea>
+                  <template data-recall-reference="pui-relax-hmax-hadd">Must say: a fact already true in s has cost 0. Otherwise hmax(s,p)=min over actions adding p of cost(a)+max over q in pre(a) hmax(s,q), and hmax(s)=max over goals. hadd uses the same achiever minimization but replaces the max over preconditions and goals with sums. hmax is admissible because it never charges more than achieving all subgoals together, but it ignores additive cost. hadd can be larger and more guiding, but shared achievers can be counted repeatedly, so it can overestimate.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Compare projection pattern databases with merge-and-shrink abstractions.</span>
+                  <textarea rows="5" data-recall="pui-relax-abstractions" placeholder="alpha:S->S^alpha, exact abstract distances, selected variables, merge, shrink, memory..."></textarea>
+                  <template data-recall-reference="pui-relax-abstractions">Must say: an abstraction maps concrete states to abstract states and uses exact abstract goal distance as a heuristic. If abstraction does not increase transition costs, the heuristic is admissible. Projection/pattern databases choose a subset of SAS variables, solve the projected abstract state space exactly, and store distances for fast lookup; larger patterns are stronger but exponentially larger. Merge-and-shrink starts with atomic abstractions, repeatedly merges them, and shrinks abstract state spaces to keep memory bounded while preserving useful lower bounds.</template>
+                </label>
+              </section>
+              <section class="quiz" data-pui-quiz="pui-relax"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Compare delete-relaxation heuristics and abstraction heuristics without looking at the formulas.</span>
+              <textarea rows="4" data-recall="pui-relax" placeholder="Delete lists vanish, hmax, hadd, hff, admissibility, abstraction, pattern DB, merge-and-shrink..."></textarea>
+              <template data-recall-reference="pui-relax">Must say: delete-relaxation heuristics solve a planning task where delete effects are ignored, so facts monotonically accumulate. hmax uses max aggregation and is admissible but weak; hadd sums subgoal costs and can double-count, so it is not admissible; hff extracts one relaxed plan and is strong for satisficing but not optimal search. Abstraction heuristics map concrete states to smaller abstract state spaces and use exact abstract distances. Pattern databases are projection abstractions over selected SAS variables. Merge-and-shrink merges variables and compresses abstractions to control memory.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="landmarks" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Landmarks, LM-Cut, linear programming heuristics, and portfolios</h2>
+              <p class="module-lead">Landmarks are necessary achievements. LM-Cut turns necessary relaxed action cuts into an admissible cost estimate; LP heuristics express necessary plan conditions as linear constraints.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>These are exam-rich planning heuristics because they require precise definitions, a repeatable algorithm story, and a lower-bound/admissibility argument.</p>
+                <ul class="priority-topics">
+                  <li>fact/action/formula landmarks and ordering relations</li>
+                  <li>LM-Cut loop, relaxed action cuts, and cost subtraction</li>
+                  <li>operator-counting/state-equation LP and potential heuristics</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="pui-landmarks"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Resource: CTU Landmarks and LM-Cut</h3>
+                <div class="resource-card">
+                  <p>Use the CTU lecture deck for landmark orders, discovery, and LM-Cut. The companion tutorial is a short worked reference for the cut loop.</p>
+                  <a class="button" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open CTU lecture list</a>
+                  <a class="fallback-link" href="https://cw.fel.cvut.cz/b192/_media/courses/be4m36pui/tut-lm-cut.pdf" target="_blank" rel="noreferrer">LM-Cut tutorial PDF</a>
+                </div>
+              </article>
+              <article class="video-card">
+                <h3>Resource: LP/operator-counting heuristics</h3>
+                <div class="resource-card">
+                  <p>Fast Downward's docs are a practical cross-check: delete-relaxation constraints, LM-Cut constraints, posthoc optimization, and state-equation constraints are all operator-counting constraints.</p>
+                  <a class="button" href="https://www.fast-downward.org/23.06/documentation/search/ConstraintGenerator/" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open Fast Downward docs</a>
+                  <a class="fallback-link" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer">CTU LP heuristics and portfolios</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A landmark is a fact, action, or formula that every valid plan must achieve or use.</li>
+                <li>Natural, greedy necessary, and reasonable orders describe how landmarks should appear relative to each other.</li>
+                <li>Landmarks can be found by relaxed planning graph analysis, backchaining from goals, necessary predecessors, and disjunctive choices.</li>
+                <li>LM-Cut repeatedly computes <code>hmax</code>, finds a relaxed action cut every relaxed plan must cross, adds the minimum cut cost, subtracts it from cut actions, and repeats until relaxed goal cost is zero.</li>
+                <li>State-equation heuristics use nonnegative action-count variables and necessary net-change constraints, then minimize action cost.</li>
+                <li>Potential heuristics assign weights to facts or SAS values and enforce Bellman-like action inequalities, giving admissible and consistent heuristics.</li>
+                <li>Planning portfolios combine heuristics and planners because performance is strongly domain-dependent.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> landmarks are not advice; they are achievements every real plan is forced to pass through.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pui-cut-lab">
+              <h3>LM-Cut cost intuition</h3>
+              <p class="preview-text">Each row is a cut: every relaxed plan must use at least one action in that row. LM-Cut may safely add the cheapest action cost in the cut, then reduce all actions in that cut by that amount.</p>
+              <p class="step-note"><strong>Why:</strong> adding the minimum cut cost counts unavoidable progress without charging too much.</p>
+              <div class="mini-tabs">
+                <button type="button" data-pui-cut="first">cut 1: [2, 5, 7]</button>
+                <button type="button" data-pui-cut="second">cut 2: [3, 3, 8]</button>
+                <button type="button" data-pui-cut="third">cut 3: [1, 4]</button>
+              </div>
+              <div id="pui-cut-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Define landmarks, landmark orders, and common discovery ideas.</span>
+                  <textarea rows="5" data-recall="pui-landmarks-definition" placeholder="Fact/action/formula landmarks, natural/greedy necessary/reasonable order, RPG/backchaining..."></textarea>
+                  <template data-recall-reference="pui-landmarks-definition">Must say: a landmark is a fact, action, or formula that every valid plan must make true or use. Natural order means one landmark must be achieved before another; greedy necessary order means one must hold immediately before the first achievement of another; reasonable order is not logically necessary but avoids harmful ordering choices. Landmarks can be discovered from relaxed planning graphs, backchaining from goals through achievers, necessary predecessors, and disjunctive alternatives when one of several facts/actions must occur.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Describe the LM-Cut loop and why the heuristic remains admissible.</span>
+                  <textarea rows="5" data-recall="pui-landmarks-lmcut" placeholder="hmax values, cut, every relaxed plan crosses, min cost, subtract, repeat..."></textarea>
+                  <template data-recall-reference="pui-landmarks-lmcut">Must say: LM-Cut repeatedly computes hmax values in the delete-relaxed problem, identifies a cut of actions that every relaxed plan must use to cross from reachable facts to goal-relevant facts, adds the minimum action cost in that cut, subtracts that amount from all actions in the cut, and repeats until relaxed goal cost is zero. The added amount is admissible because every real plan has a corresponding relaxed plan and must pay at least one action from each cut; subtracting avoids charging the same cost twice.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain state-equation heuristics, potential heuristics, and planning portfolios.</span>
+                  <textarea rows="5" data-recall="pui-landmarks-lp-potentials" placeholder="Action-count LP variables, necessary constraints, potential weights, action inequalities, portfolios..."></textarea>
+                  <template data-recall-reference="pui-landmarks-lp-potentials">Must say: state-equation/operator-counting heuristics introduce nonnegative action-count variables x_a and add necessary linear constraints expressing that action effects must support the net changes from the current state to the goal, then minimize total action cost. Because the constraints are necessary for any real plan, the LP optimum is a lower bound. Potential heuristics assign weights to facts or SAS values and enforce goal/action inequalities such as h(s) <= cost(a)+h(s') so the weighted state function is admissible and consistent. Portfolios run or combine several planners/heuristics because planning performance is highly domain-dependent.</template>
+                </label>
+              </section>
+              <section class="quiz" data-pui-quiz="pui-landmarks"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain landmarks, LM-Cut, state-equation heuristics, potential heuristics, and portfolios as one story.</span>
+              <textarea rows="4" data-recall="pui-landmarks" placeholder="Necessary achievements, landmark orders, LM-Cut loop, LP action counts, potential weights, portfolios..."></textarea>
+              <template data-recall-reference="pui-landmarks">Must say: landmarks are necessary achievements or actions in every valid plan, with useful orders such as natural, greedy necessary, and reasonable orders. They can be found by relaxed planning graph analysis, goal backchaining, and necessary-predecessor reasoning. LM-Cut uses delete-relaxed hmax values to find necessary action cuts, adds the minimum cut cost, subtracts it from cut actions, and repeats, preserving admissibility. State-equation heuristics are LP/operator-counting lower bounds over action counts and necessary net-change constraints. Potential heuristics learn fact/value weights satisfying action inequalities. Portfolios combine planners because no single heuristic dominates across domains.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="uncertainty" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>Nondeterministic and probabilistic planning</h2>
+              <p class="module-lead">When actions have several possible outcomes, a single sequence is fragile. The answer becomes a policy, and the strength of the policy depends on whether outcomes are adversarial/nondeterministic or probabilistic.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Planning under uncertainty is a direct high-potential extension of classical planning: the examiner can ask exactly when a sequence becomes a reactive policy.</p>
+                <ul class="priority-topics">
+                  <li>weak, strong, and strong cyclic policies for nondeterministic planning</li>
+                  <li>MDP tuple, Bellman backup, value iteration, and policy extraction</li>
+                  <li>POMDP belief states and partial observability</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">75-95 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="pui-uncertainty"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>CS188 SP24 LEC17 - MDP states, values, policies, Q-values (83:20, watch 0:00-18:00)</h3>
+                <div class="video-frame" title="CS188 SP24 LEC17 - MDPs: States, Values, Policies, Q-values" data-video-id="i2hHZRhzy-k"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="0">0:00 uncertain actions</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="420">7:00 MDP pieces</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="780">13:00 policy/value</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=i2hHZRhzy-k" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Text backup: Stanford CS221 value-iteration slides</h3>
+                <div class="resource-card">
+                  <p>The Stanford video mirror is not reliably embeddable, but the official CS221 slides are stable and concise. Use them to rehearse the Bellman backup, state values, policy extraction, and convergence intuition.</p>
+                  <a class="button" href="https://stanford-cs221.github.io/spring2024-extra/modules/mdps/mdp1.pdf" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open CS221 slides</a>
+                  <a class="fallback-link" href="https://www.youtube.com/watch?v=i2hHZRhzy-k" target="_blank" rel="noreferrer">Primary CS188 video</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>In nondeterministic planning, an action maps a state to a set of possible successor states; a solution is usually a policy <code>pi:S -> A</code>.</li>
+                <li>A weak plan has at least one successful execution; a strong plan guarantees all executions reach the goal in finite time.</li>
+                <li>A strong cyclic plan allows loops but requires all fair executions to eventually reach the goal.</li>
+                <li>AND/OR search separates planner choices at OR nodes from environment outcomes at AND nodes.</li>
+                <li>Probabilistic planning attaches probabilities <code>P(s'|s,a)</code> and becomes an MDP <code>(S,A,P,R,gamma)</code>.</li>
+                <li>Value iteration repeatedly applies the Bellman optimality backup; stochastic shortest path planning often minimizes expected cost to terminal goals.</li>
+                <li>POMDPs maintain belief states, update beliefs after observations, and are much harder than fully observable MDPs.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> uncertainty changes the answer from one sequence to a policy that can react.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pui-policy-tabs">
+              <h3>Policy type selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-pui-policy="weak">weak</button>
+                <button type="button" data-pui-policy="strong">strong</button>
+                <button type="button" data-pui-policy="cyclic">strong cyclic</button>
+                <button type="button" data-pui-policy="pomdp">POMDP</button>
+              </div>
+              <div id="pui-policy-output" class="preview-box"></div>
+              <p class="step-note"><strong>Use this when:</strong> you need to separate optimistic, guaranteed, looping, and partially observable cases.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Compare weak, strong, and strong cyclic solutions in nondeterministic planning.</span>
+                  <textarea rows="5" data-recall="pui-uncertainty-plan-types" placeholder="Policy, possible outcomes, existence vs guarantee, fairness, loops..."></textarea>
+                  <template data-recall-reference="pui-uncertainty-plan-types">Must say: in nondeterministic planning an action maps a state to a set of possible successors and a solution is usually a policy pi:S->A, not one sequence. A weak plan succeeds along at least one possible execution and assumes cooperative outcomes. A strong plan guarantees that every possible execution reaches the goal in finite time. A strong cyclic plan may revisit states and loop, but under fairness assumptions every fair execution eventually reaches the goal. The distinction is about how adversarial or cooperative the environment is allowed to be.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain AND/OR search for nondeterministic planning.</span>
+                  <textarea rows="5" data-recall="pui-uncertainty-andor" placeholder="OR planner choice, AND environment outcomes, solution subtree, weak/strong acceptance..."></textarea>
+                  <template data-recall-reference="pui-uncertainty-andor">Must say: the search graph alternates OR nodes, where the planner chooses an action, and AND nodes, where all possible environment outcomes of that action must be considered. For strong planning, an action choice is acceptable only if every outcome branch can be solved and reaches the goal. For weak planning, one successful branch may be enough. For strong cyclic planning, the solution graph may contain cycles but must satisfy fairness/progress conditions. The result is a policy/subgraph that says what to do after each possible observed outcome.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Formulate probabilistic planning as an MDP and contrast it with a POMDP.</span>
+                  <textarea rows="5" data-recall="pui-uncertainty-mdp-pomdp" placeholder="S,A,P,R,gamma, Bellman backup, greedy policy, belief states, observations..."></textarea>
+                  <template data-recall-reference="pui-uncertainty-mdp-pomdp">Must say: probabilistic planning assigns transition probabilities P(s'|s,a) and is modeled as an MDP with states, actions, transition probabilities, rewards or costs, and discount factor or terminal goals. A policy chooses actions by state. Value iteration applies the Bellman optimality backup V_{k+1}(s)=max_a sum_{s'} P(s'|s,a)[R(s,a,s')+gamma V_k(s')] for reward maximization, or the analogous min-cost backup. A POMDP has hidden state and observations, so the planner maintains a belief distribution over states and updates it after actions and observations; this belief-state planning is much harder.</template>
+                </label>
+              </section>
+              <section class="quiz" data-pui-quiz="pui-uncertainty"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Distinguish nondeterministic plans from probabilistic planning/MDPs and POMDPs.</span>
+              <textarea rows="4" data-recall="pui-uncertainty" placeholder="Weak/strong/strong cyclic, AND/OR, MDP tuple, Bellman value iteration, SSP, belief state..."></textarea>
+              <template data-recall-reference="pui-uncertainty">Must say: nondeterministic planning has actions with sets of possible outcomes and usually returns a policy. Weak plans need one successful execution, strong plans guarantee all executions reach the goal in finite time, and strong cyclic plans allow fair loops. AND/OR search models planner choices as OR nodes and environment outcomes as AND nodes. Probabilistic planning gives transition probabilities P(s'|s,a), forming an MDP with states, actions, rewards/costs, and discount or terminal goals; value iteration computes an optimal policy by Bellman backups. POMDPs add partial observability and use belief-state distributions updated from observations.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="mcts" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>Monte-Carlo Tree Search and UCT</h2>
+              <p class="module-lead">MCTS is online, sample-based planning. It does not solve the whole MDP up front; it spends simulations around the current decision and balances promising actions against uncertain actions.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>MCTS is useful when connected to planning under uncertainty, but it should not crowd out the formal planning, heuristic, MDP, and POMDP spine.</p>
+                <ul class="priority-topics">
+                  <li>selection, expansion, rollout, and backpropagation</li>
+                  <li>UCT exploitation/exploration rule</li>
+                  <li>online sample-based planning with a generative model</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">55-75 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="pui-mcts"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Monte Carlo Tree Search - John Levine (15:49)</h3>
+                <div class="video-frame" title="Monte Carlo Tree Search by John Levine" data-video-id="UXW2yZndl7U"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="UXW2yZndl7U" data-start="0">0:00 idea</button>
+                  <button type="button" data-video-target="UXW2yZndl7U" data-start="300">5:00 tree policy</button>
+                  <button type="button" data-video-target="UXW2yZndl7U" data-start="600">10:00 rollout/backprop</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=UXW2yZndl7U" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>CS188 SP24 LEC06 - MCTS segment (79:14, optional watch 72:00-79:00)</h3>
+                <div class="video-frame" title="CS188 SP24 LEC06 - Games: Expectimax, Monte Carlo Tree Search" data-video-id="_-xH1CAfoxM" data-start="4320"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4320">72:00 rollouts</button>
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4560">76:00 UCB/UCT</button>
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4680">78:00 summary</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=_-xH1CAfoxM&t=4320s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>MCTS builds an asymmetric tree by repeated simulations from the current state.</li>
+                <li>One iteration has selection, expansion, simulation/rollout, and backpropagation.</li>
+                <li>UCT chooses the action with average value plus an exploration bonus <code>C sqrt(ln N(s) / N(s,a))</code>.</li>
+                <li>The average-value term exploits actions that look good; the bonus explores actions with few visits.</li>
+                <li>MCTS is useful when a generative model can sample next states and rewards but exhaustive dynamic programming is too expensive.</li>
+                <li>It is anytime: more rollouts generally improve the decision, but the planner can act after a fixed computation budget.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> UCT chooses between what currently looks good and what has not been tried enough.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="pui-uct-lab">
+              <h3>UCT calculator</h3>
+              <p class="preview-text">Change the parent visits or exploration constant. The row with the largest UCT score is selected.</p>
+              <p class="step-note"><strong>Why:</strong> the mean is exploitation; the bonus is exploration.</p>
+              <div class="pui-score-row">
+                <label>Parent N<input id="pui-parent-visits" type="number" min="2" value="120"></label>
+                <label>C<input id="pui-uct-c" type="number" min="0" step="0.1" value="1.4"></label>
+              </div>
+              <div id="pui-uct-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Explain one full MCTS iteration and what statistics are stored in the tree.</span>
+                  <textarea rows="5" data-recall="pui-mcts-iteration" placeholder="Selection, expansion, rollout, backpropagation, visit counts, mean values..."></textarea>
+                  <template data-recall-reference="pui-mcts-iteration">Must say: MCTS performs online sample-based planning from the current state and builds an asymmetric partial tree. One iteration selects actions down the current tree using a tree policy, expands by adding a new child when an untried action/outcome is reached, simulates or rolls out with a default policy to estimate return, and backpropagates the sampled return to update visit counts and value estimates. Nodes or state-action edges store visit counts N and accumulated or average returns.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Write and interpret the UCT selection rule.</span>
+                  <textarea rows="5" data-recall="pui-mcts-uct-rule" placeholder="argmax, mean value, C sqrt(ln N(s)/N(s,a)), exploitation/exploration..."></textarea>
+                  <template data-recall-reference="pui-mcts-uct-rule">Must say: UCT selects an action maximizing average value plus an exploration bonus, typically a = argmax_a [Xbar(s,a) + C sqrt(ln N(s) / N(s,a))]. The average value term exploits actions with good observed returns. The bonus is large for actions with few visits and grows slowly with parent visits, encouraging exploration. C controls the exploration strength. As an action is sampled more often, its bonus shrinks.</template>
+                </label>
+                <label class="free-recall">
+                  <span>When would you use MCTS instead of full dynamic programming or A* planning?</span>
+                  <textarea rows="5" data-recall="pui-mcts-when-use" placeholder="Generative model, huge state space, online decision, anytime budget, approximate policy..."></textarea>
+                  <template data-recall-reference="pui-mcts-when-use">Must say: MCTS is attractive when the state/action space is too large for exhaustive value iteration or complete search, but a generative model can sample next states and rewards. It focuses computation around the current decision instead of solving the whole MDP. It is anytime, so it can return an action after a fixed rollout budget and improve with more simulations. It gives approximate decisions and is common in games and stochastic planning; it trades exact guarantees for scalable sampled estimates.</template>
+                </label>
+              </section>
+              <section class="quiz" data-pui-quiz="pui-mcts"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain MCTS and UCT as if the examiner asks why value iteration is not always enough.</span>
+              <textarea rows="4" data-recall="pui-mcts" placeholder="Sample-based online planning, selection/expansion/rollout/backprop, UCT formula, anytime behavior..."></textarea>
+              <template data-recall-reference="pui-mcts">Must say: value iteration enumerates and repeatedly backs up states, which may be infeasible in huge spaces. MCTS instead performs sample-based online planning from the current state using a generative model. Each iteration has selection, expansion, simulation/rollout, and backpropagation. UCT selects actions by average value plus C sqrt(ln N(s)/N(s,a)), balancing exploitation of high-value actions with exploration of under-visited actions. MCTS is anytime and approximate: more rollouts usually improve decisions, but it can act under a fixed computation budget.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Formal planning frame</h3></div>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>The report evidence says vague planning/search answers failed before algorithms, making this the highest-yield correction drill.</p>
+                <ul class="priority-topics">
+                  <li>states, actions, transition/successor, cost, initial state, and goal</li>
+                  <li>deterministic sequence versus policy under uncertainty</li>
+                  <li>STRIPS facts, preconditions, add effects, and delete effects</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: An OI AI report warned that vague planning/search answers failed before algorithms were discussed; the examiner expected the formal task first.</p>
+              <label class="free-recall">
+                <span>Define planning in AI as a formal search/planning problem before naming algorithms or heuristics.</span>
+                <textarea rows="5" data-recall="pui-reported-formal-planning" placeholder="States, actions, transition/successor, cost, initial state, goal, plan, heuristic..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>Start with the model: <code>(S,A,gamma,c,s0,G)</code> for states, applicable actions, successor/transition function, action cost, initial state, and goal test or goal set. A deterministic plan is an action sequence from <code>s0</code> to a goal state.</p>
+                  <ul>
+                    <li>The graph is usually implicit: successors are generated by applying actions.</li>
+                    <li>In STRIPS, a task <code>(F,A,I,G)</code> uses facts, preconditions, add effects, and delete effects.</li>
+                    <li>A heuristic <code>h(s)</code> estimates remaining cost and guides algorithms such as greedy best-first search or A*.</li>
+                    <li>Only after the formalism is clear should you discuss BFS, UCS, A*, planning heuristics, or guarantees.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pui-reported-formal-planning">Must say: define the problem as states S, actions A or A(s), successor/transition function gamma, action cost c, initial state s0, and goal test or goal set G. A deterministic solution is an action sequence reaching a goal; under uncertainty it becomes a policy. The state graph is implicit and generated by applying actions. In STRIPS, facts, preconditions, add effects, delete effects, initial state, and goal define the task. A heuristic estimates remaining cost and guides search. State the formal task before naming algorithms.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>A* implementation details</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Multiple reported search prompts focus on implementation details, so this drill protects against stopping at the A* slogan.</p>
+                <ul class="priority-topics">
+                  <li>open priority queue by <code>f=g+h</code> and parent reconstruction</li>
+                  <li>best known <code>g</code>, duplicate detection, closed set, and reopening</li>
+                  <li>admissible versus consistent heuristic guarantees</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor AI/ZUI reports on road networks, 15-puzzle, and search pushed for priority queues, generated states, already-seen states, admissibility, and consistency.</p>
+              <label class="free-recall">
+                <span>Explain A* as an implemented graph-search algorithm, including open/closed handling, duplicate states, and heuristic conditions.</span>
+                <textarea rows="5" data-recall="pui-reported-astar" placeholder="Open priority queue, g/h/f, best g, parent pointers, duplicates, reopen, admissible, consistent..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>A* stores generated frontier states in an open priority queue ordered by <code>f(s)=g(s)+h(s)</code>, where <code>g</code> is cost so far and <code>h</code> estimates remaining cost. It also stores best known <code>g</code> values and parent/action pointers.</p>
+                  <ul>
+                    <li>When a successor is generated, ignore it if an equal or better <code>g</code> is already known; otherwise update it in open or reopen it.</li>
+                    <li>A closed set records expanded states; with a consistent heuristic, closed states never need reopening.</li>
+                    <li>Admissible means <code>h</code> never overestimates optimal remaining cost, giving optimality for tree search and graph search with proper reopening.</li>
+                    <li>Consistent means <code>h(s) <= c(s,a,s') + h(s')</code>, which makes <code>f</code> nondecreasing along paths.</li>
+                    <li>If <code>h=0</code>, A* is uniform-cost search/Dijkstra on nonnegative-cost graphs.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pui-reported-astar">Must say: A* uses an open priority queue ordered by f=g+h, where g is path cost so far and h estimates remaining cost. Store best known g per state and parent/action pointers for reconstruction. On generating a duplicate, keep the lower g value; update open or reopen a closed state if a better path is found. With a consistent heuristic, closed states do not need reopening; with only admissibility, graph search may need reopening. Admissible means never overestimate; consistent means h(s) <= c(s,a,s') + h(s'). With h=0, A* becomes uniform-cost search or Dijkstra for nonnegative costs.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Uninformed vs informed search</h3></div>
+              <p class="reported-source">Context: Bachelor AI/ZUI reports asked for DFS, IDDFS, BFS, A*, formal state spaces, finite-solution conditions, vacuum world, road networks, and 15-puzzle examples.</p>
+              <label class="free-recall">
+                <span>Compare uninformed and informed search on puzzle-style problems, including solution guarantees and the role of examples such as vacuum world or 15-puzzle.</span>
+                <textarea rows="5" data-recall="pui-reported-search-comparison" placeholder="BFS, DFS, IDDFS, UCS, A*, completeness, optimality, finite branching/depth, heuristics..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>First formalize states, actions, successor function, costs, initial state, and goal. Uninformed search uses only this model; informed search also uses a heuristic estimate of distance or cost to goal.</p>
+                  <ul>
+                    <li>BFS is complete for finite branching and finite shallowest solution depth, and optimal for unit costs.</li>
+                    <li>DFS is memory-light but not complete in infinite-depth spaces and not optimal; with finite spaces and cycle checking it can find a solution if one exists.</li>
+                    <li>IDDFS combines DFS memory with BFS depth-order completeness for unit-cost depth.</li>
+                    <li>UCS is complete and optimal for positive costs; A* adds <code>h</code> and is optimal with admissible/consistent handling.</li>
+                    <li>For 15-puzzle, use compact board representation and admissible heuristics such as misplaced tiles or Manhattan distance; for vacuum world, define dirt/location states and action costs explicitly.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pui-reported-search-comparison">Must say: define states, actions, successor function, costs, initial state, and goal before comparing algorithms. Uninformed search uses no heuristic; informed search uses h. BFS is complete for finite branching and finite shallowest solution depth and optimal for unit costs. DFS uses little memory but is not complete in infinite-depth spaces and is not optimal; in finite spaces with cycle checking it can find a solution. IDDFS gives BFS-like completeness with DFS-like memory for unit-cost depth. UCS is complete and optimal for positive costs. A* uses f=g+h and is optimal with admissible/consistent handling. Examples should define the representation: vacuum world states include location and dirt; 15-puzzle states are board permutations with compact storage and admissible heuristics such as Manhattan distance. h=0 reduces A* to UCS/Dijkstra.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Planning under uncertainty as MDP</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>The reported MDP prompt is a direct planning-under-uncertainty bridge: replace a fixed plan with a policy and state the Bellman machinery cleanly.</p>
+                <ul class="priority-topics">
+                  <li>MDP components <code>S,A,P,R</code>/cost and discount or terminal goals</li>
+                  <li>policy and value function instead of one action sequence</li>
+                  <li>Bellman backup, value iteration, and policy iteration</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: An OI AI report asked about MDPs with a worked example; this overlaps PUI when deterministic plans become policies under uncertainty.</p>
+              <label class="free-recall">
+                <span>Frame an MDP as planning under uncertainty and explain what replaces a deterministic plan.</span>
+                <textarea rows="5" data-recall="pui-reported-mdp-planning" placeholder="S, A, P, R/cost, gamma, policy, value, Bellman, value iteration..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>An MDP is a planning model with probabilistic outcomes: <code>(S,A,P,R,gamma)</code> or costs, where <code>P(s'|s,a)</code> gives transition probabilities and rewards/costs evaluate outcomes. The solution is a policy <code>pi(s)</code>, not a fixed action sequence.</p>
+                  <ul>
+                    <li>The value of a policy is expected discounted or total return from a state.</li>
+                    <li>Bellman optimality: <code>V*(s)=max_a [R(s,a)+gamma sum_s' P(s'|s,a)V*(s')]</code>.</li>
+                    <li>Value iteration repeatedly applies Bellman backups; policy iteration alternates evaluation and improvement.</li>
+                    <li>This is PUI-relevant because uncertainty turns search over paths into computation of contingent actions for each reachable state.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="pui-reported-mdp-planning">Must say: an MDP models planning under uncertainty with states S, actions A, transition probabilities P(s'|s,a), rewards or costs, and often discount gamma. Because action outcomes are probabilistic, the solution is a policy pi mapping states to actions, not one deterministic sequence. The value is expected discounted or total return. Bellman optimality is V*(s)=max_a [R(s,a)+gamma sum_s' P(s'|s,a)V*(s')], or the cost-minimizing analogue. Value iteration applies Bellman backups; policy iteration evaluates and improves a policy. The planning link is that uncertainty requires contingent decisions for reachable states.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic" class="module panic-module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Panic pass</span>
+              <h2>45-minute survival route</h2>
+              <p class="module-lead">If the whole planning zoo feels too large, memorize the spine first. The exam answer is much easier when every technique is attached to its relaxation or uncertainty model.</p>
+            </div>
+          </header>
+          <div class="block">
+            <p class="block-label practice">Route</p>
+            <ol class="compact-list">
+              <li>Say the classical planning assumptions, then define STRIPS and SAS.</li>
+              <li>If asked a raw search problem, first state <code>(S,A,gamma,c,s0,G)</code>; then talk algorithms.</li>
+              <li>Watch CS188 A* at 37:00-43:00 and memorize admissible vs consistent.</li>
+              <li>For A*, say open priority queue, best <code>g</code>, closed set, parent pointers, and reopen caveat.</li>
+              <li>Write the roles of <code>hmax</code>, <code>hadd</code>, <code>hff</code>, PDB, and merge-and-shrink in one table.</li>
+              <li>Run the LM-Cut lab and say the six algorithm steps out loud.</li>
+              <li>Have one sentence ready for PDDL/SAT planning: PDDL models tasks; SAT planning encodes a bounded horizon.</li>
+              <li>Watch CS188 MDPs at 0:00-18:00 and write the Bellman value iteration equation.</li>
+              <li>Watch John Levine's MCTS video at 0:00-15:49 and memorize selection, expansion, rollout, backpropagation, UCT.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="oral" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Final rehearsal</span>
+              <h2>Oral answer skeleton</h2>
+              <p class="module-lead">Use this as the final answer spine. The examiner can interrupt anywhere, and you still have a clean next sentence.</p>
+            </div>
+          </header>
+          <div class="block">
+            <p class="block-label recall">Say it</p>
+            <article class="recall-card">
+              <ol class="compact-list">
+                <li>Start with classical planning assumptions and say a plan is a sequence of deterministic actions from initial state to goal.</li>
+                <li>If the prompt is informal, define <code>(S,A,gamma,c,s0,G)</code> before mentioning any algorithm.</li>
+                <li>Define STRIPS formally, give the applicability and successor formula, then contrast SAS finite-domain variables.</li>
+                <li>Mention PDDL as the domain/problem syntax for STRIPS-like models, then explain satisficing vs optimal planning.</li>
+                <li>Give the search menu: BFS, uniform-cost, greedy best-first, A*. For A*, include open priority queue, closed/best-g bookkeeping, and reopen conditions.</li>
+                <li>State admissible and consistent heuristics, then explain delete relaxation.</li>
+                <li>Compare <code>hmax</code>, <code>hadd</code>, and <code>hff</code> by formula idea and admissibility.</li>
+                <li>Explain abstraction heuristics, projection/pattern databases, and merge-and-shrink.</li>
+                <li>Define landmarks, landmark orders, and LM-Cut's repeated relaxed-action cuts.</li>
+                <li>Explain state-equation LP heuristics, potential heuristics, and why portfolios are practical.</li>
+                <li>Switch to uncertainty: weak, strong, strong cyclic plans and AND/OR search.</li>
+                <li>Finish with MDP value iteration, POMDP belief states, and MCTS/UCT as sample-based online planning.</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    (() => {
+      const puiModules = ["pui-tasks", "pui-relax", "pui-landmarks", "pui-uncertainty", "pui-mcts"];
+      const progressKey = "pui-study-progress-v1";
+      const recallKey = "pui-study-recall-v1";
+
+      const puiFlashcards = {};
+
+      const puiQuizzes = {
+        "pui-tasks": [
+          { q: "Which STRIPS condition makes action a applicable in state s?", a: ["pre(a) subset s", "add(a) subset s", "G subset pre(a)"], correct: 0, why: "All preconditions must already hold in the current state." },
+          { q: "If action a is applicable, the STRIPS successor is...", a: ["(s minus del(a)) union add(a)", "(s union del(a)) minus add(a)", "(pre(a) union s) minus G"], correct: 0, why: "Delete effects are removed and add effects are inserted; unrelated facts persist." },
+          { q: "Which item is not a standard classical-planning assumption?", a: ["Known initial state and goal test", "Deterministic actions with full observability", "Hidden state with noisy observations"], correct: 2, why: "Hidden/noisy observations belong to partially observable planning, not classical planning." },
+          { q: "A* orders nodes by...", a: ["estimated remaining cost h(s) only", "path cost g(s) plus heuristic h(s)", "number of variables plus goal facts"], correct: 1, why: "A* combines known path cost g with estimated remaining cost h." },
+          { q: "SAS is often compact because it...", a: ["models every outcome with probabilities", "groups mutually exclusive facts as values of one variable", "turns each delete effect into a separate action"], correct: 1, why: "One variable can encode location = A/B/C instead of many mutually exclusive facts." },
+          { q: "For positive non-unit action costs and no heuristic, the optimal graph-search choice is...", a: ["Lowest accumulated path cost first", "Deepest branch before alternatives", "Lowest heuristic estimate first"], correct: 0, why: "Uniform-cost search expands by accumulated path cost and is optimal for positive costs." },
+          { q: "A satisficing planner is allowed to return...", a: ["Any plan that reaches the goal", "Only a proven minimum-cost plan", "Only a certificate that no plan exists"], correct: 0, why: "Satisficing planning optimizes speed or feasibility rather than proving optimality." },
+          { q: "A consistent heuristic satisfies...", a: ["h(s) <= c(s,a,s') + h(s') for every transition", "h(s) >= h*(s) for every reachable state", "h(goal) equals infinity unless all costs are zero"], correct: 0, why: "Consistency is the one-step triangle inequality for heuristic estimates." }
+        ],
+        "pui-relax": [
+          { q: "Delete relaxation makes planning easier because...", a: ["delete effects are ignored, so facts only accumulate", "preconditions are ignored, so actions are always applicable", "goals are dropped, so every state is solved"], correct: 0, why: "Ignoring delete effects removes negative interactions between actions." },
+          { q: "Which delete-relaxation heuristic is admissible but often weak?", a: ["hmax", "hadd", "hff"], correct: 0, why: "hmax uses max aggregation, so it underestimates but loses interactions." },
+          { q: "Why can hadd overestimate?", a: ["It may charge the same shared achiever more than once", "It treats every precondition as already true", "It drops action costs before summing facts"], correct: 0, why: "Summing subgoal costs can charge the same achiever more than once." },
+          { q: "hff gets its estimate by...", a: ["Extracting one relaxed plan from a relaxed planning graph", "Solving the belief-state MDP with exact dynamic programming", "Taking the largest real action cost along a known plan"], correct: 0, why: "The FF heuristic counts or costs a greedily extracted relaxed plan." },
+          { q: "A pattern database stores...", a: ["sampled rollout returns for tree edges", "exact abstract goal distances for projected states", "landmark names ordered by discovery time"], correct: 1, why: "Projection abstractions can be solved exactly and looked up during search." },
+          { q: "Projection abstraction usually chooses...", a: ["A selected subset of SAS variables", "A selected subset of rollout trajectories", "Only actions with empty delete lists"], correct: 0, why: "A pattern is a selected variable subset whose projected state space is solved exactly." },
+          { q: "Merge-and-shrink controls memory by...", a: ["Merging abstractions, then shrinking large abstract spaces", "Replacing all action rewards with zero-cost transitions", "Storing every concrete state before running search"], correct: 0, why: "It builds larger abstractions gradually but compresses them to stay within size limits." },
+          { q: "An abstraction heuristic is admissible when abstract transitions...", a: ["Do not cost more than corresponding concrete behavior", "Include every delete effect from the original task twice", "Are generated by random samples instead of projection"], correct: 0, why: "The abstract distance must be a lower bound on the concrete distance." }
+        ],
+        "pui-landmarks": [
+          { q: "A landmark is something that...", a: ["may appear in one fortunate valid plan", "must occur or hold in every valid plan", "is always an action's delete effect"], correct: 1, why: "Necessity across all valid plans is the defining property." },
+          { q: "LM-Cut adds which value from a cut?", a: ["minimum action cost among actions in the cut", "maximum h-value among states outside the cut", "number of SAS variables touched by the cut"], correct: 0, why: "Every relaxed plan must cross the cut, so the cheapest cut action cost is safe." },
+          { q: "Why does LM-Cut subtract the cut cost from cut actions?", a: ["To avoid counting the same unavoidable cost again", "To force the remaining heuristic to overestimate", "To turn nondeterministic outcomes into a policy"], correct: 0, why: "After charging the minimum cut cost, residual costs prevent double charging." },
+          { q: "A greedy necessary landmark order means...", a: ["One landmark must hold immediately before another is first achieved", "A landmark may be skipped when greedy search finds a shortcut", "All landmarks are ordered by increasing action cost"], correct: 0, why: "It is a local ordering relation around the first achievement of the later landmark." },
+          { q: "A state-equation heuristic usually optimizes...", a: ["Nonnegative action counts with necessary linear constraints", "Rollout values with UCT visit-count constraints", "Belief probabilities with observation update constraints"], correct: 0, why: "Operator-counting LPs count actions and impose necessary conditions for any real plan." },
+          { q: "Potential heuristics choose weights so that...", a: ["action inequalities preserve admissibility and consistency", "delete effects are ignored in every transition", "all action costs are constrained to become zero"], correct: 0, why: "The constraints make the potential function a lower bound along transitions." },
+          { q: "A disjunctive landmark says...", a: ["at least one member of a set must be achieved", "every action has exactly one possible outcome", "all goal facts are mutually exclusive forever"], correct: 0, why: "Sometimes the necessary condition is a choice among several facts or actions." },
+          { q: "Planning portfolios are useful mainly because...", a: ["planner performance depends strongly on the domain", "combining planners makes every heuristic admissible", "portfolios remove the need to encode states"], correct: 0, why: "Different domains reward different heuristics and search strategies." }
+        ],
+        "pui-uncertainty": [
+          { q: "In nondeterministic planning, a solution is usually...", a: ["a policy that reacts to observed outcomes", "a single fixed SAT clause reused in every state", "a VC-dimension bound for the state space"], correct: 0, why: "The agent must react to whichever outcome occurs." },
+          { q: "A weak plan guarantees...", a: ["At least one outcome path can reach the goal", "All executions terminate in the goal", "The optimal expected discounted reward"], correct: 0, why: "Weak planning is optimistic about which outcome branch occurs." },
+          { q: "A strong plan requires...", a: ["Every possible execution reaches the goal in finite time", "Only one favorable branch needs to reach the goal", "A belief distribution is updated after observations"], correct: 0, why: "Strong plans treat nondeterministic outcomes as branches that all must be solved." },
+          { q: "A strong cyclic plan allows loops but assumes...", a: ["fair executions that eventually take enabled progress", "negative rewards on every non-goal transition", "no branching from environment outcomes"], correct: 0, why: "Fairness rules out being stuck forever avoiding progress when progress is repeatedly available." },
+          { q: "In AND/OR search, OR nodes represent...", a: ["choices of actions controlled by the planner", "all outcomes of one action that must be handled", "observation probabilities for hidden states"], correct: 0, why: "OR nodes are choices controlled by the planner; AND nodes represent outcome branching." },
+          { q: "An MDP transition model is written as...", a: ["P(s'|s,a) for successor probabilities", "pre(a) subset s for action applicability", "N(s,a)/ln N(s) for visit bonuses"], correct: 0, why: "Probabilistic planning attaches probabilities to successor states." },
+          { q: "Value iteration repeatedly applies...", a: ["a Bellman backup over actions and successors", "a STRIPS update over delete lists only", "a landmark ordering rule over facts only"], correct: 0, why: "Dynamic programming updates values from expected immediate reward/cost and successor values." },
+          { q: "A POMDP uses belief states because...", a: ["the real state may be hidden or noisy", "actions are deterministic and fully visible", "goal facts are removed after each step"], correct: 0, why: "The agent tracks a probability distribution over possible hidden states." }
+        ],
+        "pui-mcts": [
+          { q: "The four MCTS phases are...", a: ["selection, expansion, simulation, backpropagation", "grounding, Skolemization, SAT solving, SMT solving", "breadth-first, depth-first, uniform-cost, A* search"], correct: 0, why: "That is the standard simulation loop." },
+          { q: "UCT's exploration term gets larger when...", a: ["an action has relatively few visits", "an action has already dominated visits", "the current node is already terminal"], correct: 0, why: "The denominator is the action visit count." },
+          { q: "The exploitation term in UCT is usually...", a: ["The empirical average return for that action", "The count of ungrounded variables in the state", "The number of delete effects in the action"], correct: 0, why: "UCT starts from the current mean return estimate for each action." },
+          { q: "Increasing the UCT constant C generally makes search...", a: ["more exploratory across less-visited actions", "purely greedy with no exploration bonus", "unable to propagate rollout returns"], correct: 0, why: "C scales the exploration bonus." },
+          { q: "MCTS is sample-based because it...", a: ["samples rollouts from a generative model", "enumerates every reachable state before acting", "works only with deterministic STRIPS actions"], correct: 0, why: "It estimates values by simulated trajectories." },
+          { q: "MCTS builds an asymmetric tree because...", a: ["More simulations go toward promising or uncertain actions", "Every reachable state is expanded the same number of times", "Only one fixed action sequence is stored in memory"], correct: 0, why: "The tree grows where the selection policy sends rollouts." },
+          { q: "The simulation or rollout phase usually...", a: ["continues with a default policy to estimate return", "solves the entire MDP exactly by value iteration", "checks STRIPS preconditions for the next operator"], correct: 0, why: "A rollout samples a trajectory beyond the explicit tree." },
+          { q: "MCTS is called anytime because it...", a: ["can return a usable action after a fixed rollout budget", "always proves optimality after one sampled rollout", "chooses actions without any transition model or sampler"], correct: 0, why: "More computation can improve the estimate, but the algorithm can stop and act." }
+        ]
+      };
+
+      function readJson(key) {
+        try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch { return {}; }
+      }
+
+      function writeJson(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      function updatePuiProgress() {
+        const progress = readJson(progressKey);
+        const moduleDone = puiModules.filter((key) => progress[key]).length;
+        const videoKeys = [...new Set([...document.querySelectorAll("[data-video-watch-key], [data-video-choice-watch-key]")]
+          .map((control) => control.dataset.videoWatchKey || control.dataset.videoChoiceWatchKey)
+          .filter(Boolean))];
+        const videoDone = videoKeys.filter((key) => progress[key]).length;
+        const total = puiModules.length + videoKeys.length;
+        const percent = total ? Math.round(((moduleDone + videoDone) / total) * 100) : 0;
+        document.querySelectorAll("[data-progress-key]").forEach((box) => {
+          box.checked = Boolean(progress[box.dataset.progressKey]);
+        });
+        document.getElementById("pui-progress-percent").textContent = `${percent}%`;
+        document.getElementById("pui-progress-detail").textContent = videoKeys.length
+          ? `${moduleDone}/${puiModules.length} modules checked, ${videoDone}/${videoKeys.length} videos watched.`
+          : `${moduleDone} of ${puiModules.length} modules checked.`;
+        document.querySelectorAll("[data-progress-fill]").forEach((fill) => { fill.style.width = `${percent}%`; });
+      }
+
+      function initPuiProgress() {
+        document.querySelectorAll("[data-progress-key]").forEach((box) => {
+          box.addEventListener("change", () => {
+            const progress = readJson(progressKey);
+            progress[box.dataset.progressKey] = box.checked;
+            writeJson(progressKey, progress);
+            updatePuiProgress();
+          });
+        });
+        document.querySelector("[data-reset-progress]")?.addEventListener("click", () => {
+          localStorage.removeItem(progressKey);
+          updatePuiProgress();
+        });
+        updatePuiProgress();
+      }
+
+      function initPuiFlashcards() {
+        document.querySelectorAll("[data-pui-flashcards]").forEach((container) => {
+          const set = puiFlashcards[container.dataset.puiFlashcards] || [];
+          set.forEach(([front, back]) => {
+            const card = document.createElement("article");
+            card.className = "flashcard";
+            card.innerHTML = `<p><strong>${front}</strong></p><button type="button">Show answer</button><p class="flashcard-answer">${back}</p>`;
+            card.querySelector("button").addEventListener("click", () => {
+              card.classList.toggle("revealed");
+              card.querySelector("button").textContent = card.classList.contains("revealed") ? "Hide answer" : "Show answer";
+            });
+            container.appendChild(card);
+          });
+        });
+      }
+
+      function initPuiQuizzes() {
+        document.querySelectorAll("[data-pui-quiz]").forEach((container) => {
+          const set = puiQuizzes[container.dataset.puiQuiz] || [];
+          window.renderQuizPager?.(container, set, { storageKey: container.dataset.puiQuiz });
+        });
+      }
+
+      const stripsActions = {
+        load: {
+          pre: ["at(package,A)", "at(truck,A)"],
+          add: ["in(package,truck)"],
+          del: ["at(package,A)"],
+          label: "load package at A"
+        },
+        drive: {
+          pre: ["at(truck,A)"],
+          add: ["at(truck,B)"],
+          del: ["at(truck,A)"],
+          label: "drive truck A to B"
+        },
+        unload: {
+          pre: ["in(package,truck)", "at(truck,B)"],
+          add: ["at(package,B)"],
+          del: ["in(package,truck)"],
+          label: "unload package at B"
+        }
+      };
+      let puiState = new Set(["at(package,A)", "at(truck,A)", "road(A,B)"]);
+      let puiMessage = "Initial state loaded.";
+
+      function renderStrips() {
+        const output = document.getElementById("pui-strips-output");
+        if (!output) return;
+        const stateHtml = [...puiState].sort().map((fact) => `<span class="pui-chip ${fact === "at(package,B)" ? "good" : ""}">${fact}</span>`).join("");
+        output.innerHTML = `<h4>Current state</h4><div class="pui-state-row">${stateHtml}</div><p>${puiMessage}</p><p><strong>Goal:</strong> <code>at(package,B)</code></p><p class="step-note"><strong>Remember:</strong> failed preconditions mean there is no edge for that action from this state.</p>`;
+      }
+
+      function initStripsLab() {
+        document.querySelectorAll("[data-pui-action]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const key = button.dataset.puiAction;
+            if (key === "reset") {
+              puiState = new Set(["at(package,A)", "at(truck,A)", "road(A,B)"]);
+              puiMessage = "Reset to initial state.";
+              renderStrips();
+              return;
+            }
+            const action = stripsActions[key];
+            const missing = action.pre.filter((fact) => !puiState.has(fact));
+            if (missing.length) {
+              puiMessage = `Cannot apply ${action.label}; missing precondition ${missing.map((x) => `<code>${x}</code>`).join(", ")}.`;
+              renderStrips();
+              return;
+            }
+            action.del.forEach((fact) => puiState.delete(fact));
+            action.add.forEach((fact) => puiState.add(fact));
+            puiMessage = `Applied ${action.label}: deleted ${action.del.join(", ") || "nothing"} and added ${action.add.join(", ")}.`;
+            renderStrips();
+          });
+        });
+        renderStrips();
+      }
+
+      const relaxData = {
+        delete: "<h4>Delete relaxation</h4><p>Set every <code>del(a)</code> to empty. If a fact becomes true in the relaxed task, it stays true.</p><pre>move(A,B): del at(A) becomes ignored</pre><p class=\"step-note\"><strong>Remember:</strong> the estimate is optimistic because real conflicts disappear.</p>",
+        hmax: "<h4>hmax</h4><p>To achieve a set of preconditions, pay only the most expensive subgoal.</p><pre>cost(pre(a)) = max_q h(q)</pre><p class=\"step-note\"><strong>Remember:</strong> max avoids double-counting, so it is admissible but often weak.</p>",
+        hadd: "<h4>hadd and hff</h4><p><code>hadd</code> sums subgoal costs, so it is stronger but may double-count. <code>hff</code> extracts one relaxed plan from the relaxed planning graph and counts its selected actions.</p><p class=\"step-note\"><strong>Remember:</strong> stronger guidance can lose admissibility when shared actions are counted twice.</p>",
+        abstraction: "<h4>Abstraction</h4><p>Map concrete states to fewer abstract states and solve exactly there. Projection/pattern databases keep selected variables. Merge-and-shrink repeatedly combines variables and compresses state spaces.</p><p class=\"step-note\"><strong>Use this when:</strong> exact search is possible only after hiding part of the state description.</p>"
+      };
+
+      function initRelaxTabs() {
+        const output = document.getElementById("pui-relax-output");
+        if (!output) return;
+        const render = (key) => {
+          output.innerHTML = relaxData[key];
+          document.querySelectorAll("[data-pui-relax-tab]").forEach((button) => {
+            button.classList.toggle("active", button.dataset.puiRelaxTab === key);
+          });
+        };
+        document.querySelectorAll("[data-pui-relax-tab]").forEach((button) => {
+          button.addEventListener("click", () => render(button.dataset.puiRelaxTab));
+        });
+        render("delete");
+      }
+
+      const cuts = {
+        first: [2, 5, 7],
+        second: [3, 3, 8],
+        third: [1, 4]
+      };
+
+      function initCutLab() {
+        const output = document.getElementById("pui-cut-output");
+        if (!output) return;
+        const render = (key) => {
+          const values = cuts[key];
+          const min = Math.min(...values);
+          const reduced = values.map((v) => v - min);
+          output.innerHTML = `<h4>Cut cost = ${min}</h4><p>Because every relaxed plan must use at least one action from this cut, adding the minimum action cost is safe.</p><div class="pui-state-row">${values.map((v, i) => `<span class="pui-chip ${v === min ? "good" : ""}">a${i + 1}: ${v}</span>`).join("")}</div><p>After subtracting ${min}: ${reduced.map((v, i) => `<code>a${i + 1}=${v}</code>`).join(" ")}</p><p class="step-note"><strong>Remember:</strong> subtracting prevents the same unavoidable cost from being counted again later.</p>`;
+          document.querySelectorAll("[data-pui-cut]").forEach((button) => {
+            button.classList.toggle("active", button.dataset.puiCut === key);
+          });
+        };
+        document.querySelectorAll("[data-pui-cut]").forEach((button) => {
+          button.addEventListener("click", () => render(button.dataset.puiCut));
+        });
+        render("first");
+      }
+
+      const policyData = {
+        weak: "<h4>Weak plan</h4><p>There exists at least one execution path to the goal.</p><p class=\"step-note\"><strong>Remember:</strong> weak means the environment may cooperate; it is not a guarantee.</p>",
+        strong: "<h4>Strong plan</h4><p>Every possible execution reaches the goal in finite time.</p><p class=\"step-note\"><strong>Remember:</strong> strong means every outcome branch must be safe.</p>",
+        cyclic: "<h4>Strong cyclic plan</h4><p>The policy may loop, but under fairness it eventually reaches the goal.</p><p class=\"step-note\"><strong>Remember:</strong> loops are allowed only if fair executions cannot avoid progress forever.</p>",
+        pomdp: "<h4>POMDP belief state</h4><p>When the state is hidden, the planner maintains <code>b(s)</code>, a probability distribution over possible states, and updates it after actions and observations.</p><p class=\"step-note\"><strong>Remember:</strong> the belief state is the planner's best current summary of hidden reality.</p>"
+      };
+
+      function initPolicyTabs() {
+        const output = document.getElementById("pui-policy-output");
+        if (!output) return;
+        const render = (key) => {
+          output.innerHTML = policyData[key];
+          document.querySelectorAll("[data-pui-policy]").forEach((button) => {
+            button.classList.toggle("active", button.dataset.puiPolicy === key);
+          });
+        };
+        document.querySelectorAll("[data-pui-policy]").forEach((button) => {
+          button.addEventListener("click", () => render(button.dataset.puiPolicy));
+        });
+        render("weak");
+      }
+
+      const uctActions = [
+        { name: "A", value: 0.72, visits: 70 },
+        { name: "B", value: 0.60, visits: 8 },
+        { name: "C", value: 0.48, visits: 3 }
+      ];
+
+      function renderUct() {
+        const output = document.getElementById("pui-uct-output");
+        if (!output) return;
+        const parent = Math.max(2, Number(document.getElementById("pui-parent-visits").value || 120));
+        const c = Math.max(0, Number(document.getElementById("pui-uct-c").value || 1.4));
+        const rows = uctActions.map((action) => {
+          const bonus = c * Math.sqrt(Math.log(parent) / action.visits);
+          return { ...action, bonus, score: action.value + bonus };
+        });
+        const best = rows.reduce((a, b) => a.score > b.score ? a : b);
+        output.innerHTML = `<h4>Selected action: ${best.name}</h4><table class="pui-uct-table"><thead><tr><th>Action</th><th>Mean</th><th>Visits</th><th>Bonus</th><th>UCT</th></tr></thead><tbody>${rows.map((row) => `<tr class="${row.name === best.name ? "best" : ""}"><td>${row.name}</td><td>${row.value.toFixed(2)}</td><td>${row.visits}</td><td>${row.bonus.toFixed(3)}</td><td>${row.score.toFixed(3)}</td></tr>`).join("")}</tbody></table><p class="step-note"><strong>Remember:</strong> low-visit actions get a bigger bonus; increasing <code>C</code> makes the planner explore more.</p>`;
+      }
+
+      function initUctLab() {
+        document.getElementById("pui-parent-visits")?.addEventListener("input", renderUct);
+        document.getElementById("pui-uct-c")?.addEventListener("input", renderUct);
+        renderUct();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initPuiProgress();
+        initPuiFlashcards();
+        initPuiQuizzes();
+        initStripsLab();
+        initRelaxTabs();
+        initCutLab();
+        initPolicyTabs();
+        initUctLab();
+      });
+    })();
+  </script>
+</body>
+</html>

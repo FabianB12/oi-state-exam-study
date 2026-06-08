@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMU Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+</head>
+<body data-page="smu">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../ai/01_smu_learnability_bandits_rl.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../ai/01_smu_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M36SMU &middot; AI specialization question 1</p>
+      <h1>Learnability models, bandits, and reinforcement learning</h1>
+      <p class="lead">SMU is a ladder of feedback settings. First you learn from labeled examples, then from adversarial online feedback, then from partial bandit rewards, then from delayed rewards in an MDP. Keep asking: what feedback do I observe, what objective am I minimizing, and what update rule does that imply?</p>
+      <div class="head-meta">
+        <span class="time-pill">4.5-6 hour full pass</span>
+        <a class="button primary" href="#pac-online"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="smu-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="smu-progress-detail">0 of 5 modules checked.</p>
+          <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="smu-pac" aria-label="Mark PAC and online module complete">
+            <a href="#pac-online"><span class="rail-num">1</span> PAC, online, VC</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="smu-boolean" aria-label="Mark conjunctions module complete">
+            <a href="#boolean"><span class="rail-num">2</span> Boolean learners</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="smu-bandits" aria-label="Mark bandits module complete">
+            <a href="#bandits"><span class="rail-num">3</span> Bandits</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="smu-mdp" aria-label="Mark MDP module complete">
+            <a href="#mdp"><span class="rail-num">4</span> MDPs &amp; value iteration</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="smu-rl-control" aria-label="Mark RL control module complete">
+            <a href="#rl-control"><span class="rail-num">5</span> TD, Q, SARSA</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="pac-online" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>PAC, online learning, and VC dimension</h2>
+              <p class="module-lead">PAC asks whether random labeled examples are enough to output a low-error hypothesis. Online learning asks whether sequential feedback can keep mistakes or regret small, even when examples are adversarial.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Useful SMU foundation, but committee overlap is weaker than the decision-making and reinforcement-learning material.</p>
+                <ul class="priority-topics">
+                  <li>PAC guarantee, epsilon/delta, and VC dimension</li>
+                  <li>Online mistake bounds and regret framing</li>
+                  <li>PAC vs adversarial online assumptions</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="smu-pac"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>PAC learning and VC dimension - Serrano.Academy (17:16)</h3>
+                <div class="video-frame" title="PAC Learning and VC Dimension" data-video-id="X4Oxst5huQA"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="0">0:00 PAC idea</button>
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="420">7:00 VC intuition</button>
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="760">12:40 sample complexity</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=X4Oxst5huQA" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Caltech VC dimension of perceptrons segment (19 min)</h3>
+                <div class="video-frame" title="Caltech VC Dimension of Perceptrons" data-video-id="Dc0sr0kdBVI" data-start="0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="Dc0sr0kdBVI" data-start="0">0:00 lecture start</button>
+                  <button type="button" data-video-target="Dc0sr0kdBVI" data-start="420">7:00 shattering intuition</button>
+                  <button type="button" data-video-target="Dc0sr0kdBVI" data-start="1500">25:00 VC examples</button>
+                </div>
+                <a class="fallback-link" href="https://work.caltech.edu/library/072.html" target="_blank" rel="noreferrer">Caltech segment page</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>PAC uses i.i.d. examples from an unknown distribution and wants true error at most epsilon with probability at least 1-delta.</li>
+                <li>Efficient PAC learning also requires polynomial running time and polynomial sample complexity.</li>
+                <li>Online learning predicts before seeing the label; performance is a mistake bound or regret against a comparator.</li>
+                <li>Finite mistake-bound online learning implies realizable PAC learnability, but PAC does not guarantee low adversarial online mistakes.</li>
+                <li>VC dimension is the largest shattered set size and characterizes distribution-free binary PAC learnability.</li>
+                <li>Littlestone dimension is the online analogue for realizable adversarial learning.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> PAC is about random training samples; online learning is about a sequence where each prediction happens before feedback.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="smu-pac-tabs">
+              <h3>Feedback-setting selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-smu-pac-tab="pac">PAC</button>
+                <button type="button" data-smu-pac-tab="online">Online</button>
+                <button type="button" data-smu-pac-tab="vc">VC</button>
+                <button type="button" data-smu-pac-tab="relations">Relations</button>
+              </div>
+              <p class="step-note"><strong>Why:</strong> choose the tab by asking what feedback is visible and what guarantee the learner is trying to prove.</p>
+              <div id="smu-pac-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="smu-pac"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="smu-pac"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain PAC vs online learning and where VC dimension fits, without looking at the notes.</span>
+              <textarea rows="4" data-recall="smu-pac" placeholder="Definitions, assumptions, objective, relation, VC/Littlestone..."></textarea>
+            </label>
+            <template data-recall-reference="smu-pac">PAC: i.i.d. labeled examples from an unknown distribution, unknown target concept, output h with true error at most epsilon with probability at least 1-delta; efficient PAC also requires polynomial sample complexity and runtime. Online: rounds see x_t, predict, reveal label/loss, update, no i.i.d. assumption, possibly adversarial, measured by mistake bound or regret. Finite mistake-bound online learnability implies realizable PAC learnability; PAC does not automatically imply adversarial online mistake bounds. VC dimension is largest shattered set and characterizes distribution-free binary PAC learnability; Littlestone dimension is the analogous realizable online characterization.</template>
+            <label class="free-recall">
+              <span>State a formal PAC guarantee and the usual VC sample-complexity message.</span>
+              <textarea rows="4" data-recall="smu-pac-formal" placeholder="Use epsilon, delta, err_D(h), polynomial sample size, finite VC dimension..."></textarea>
+            </label>
+            <template data-recall-reference="smu-pac-formal">Define true error err_D(h)=Pr_{x~D}[h(x) != c(x)]. For every epsilon, delta in (0,1), every distribution D, and target c in C, after m polynomial in 1/epsilon, 1/delta, n, and size(c), the learner outputs h with Pr[err_D(h) <= epsilon] >= 1-delta. Efficient PAC adds polynomial runtime. For VC dimension d, typical realizable sample complexity is O((d log(1/epsilon)+log(1/delta))/epsilon), agnostic is O((d+log(1/delta))/epsilon^2), and finite VC dimension is necessary and sufficient for distribution-free binary PAC learnability.</template>
+            <label class="free-recall">
+              <span>Compare VC dimension and Littlestone dimension as exam characterizations.</span>
+              <textarea rows="4" data-recall="smu-pac-vc-littlestone" placeholder="Shattering vs online trees, PAC vs adversarial online, finite dimension condition..."></textarea>
+            </label>
+            <template data-recall-reference="smu-pac-vc-littlestone">VC dimension is the largest size of a point set shattered by H, meaning every binary labeling can be realized; finite VC dimension characterizes distribution-free binary PAC learnability. Littlestone dimension is the online analogue based on shattered mistake trees; finite Littlestone dimension characterizes learnability with a finite mistake bound in the realizable adversarial online setting. The contrast is distributional batch generalization versus sequential adversarial prediction.</template>
+          </div>
+        </section>
+
+        <section id="boolean" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Conjunctions, disjunctions, and reductions</h2>
+              <p class="module-lead">The Boolean learner is the cleanest part of SMU: start too strict, remove literals that positive examples disprove, and use duality for disjunctions.</p>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">45-60 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="smu-boolean"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>PAC learning - Georgia Tech ML (8:03)</h3>
+                <div class="video-frame" title="PAC Learning - Georgia Tech" data-video-id="vbQovP_Y9p8"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="vbQovP_Y9p8" data-start="0">0:00 PAC recap</button>
+                  <button type="button" data-video-target="vbQovP_Y9p8" data-start="250">4:10 finite classes</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=vbQovP_Y9p8" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Optional text backup: mistake-bound learning slides</h3>
+                <div class="resource-card">
+                  <p>This subtopic is under-served by short videos. Use the lab plus the formal notes, and keep the linked lecture slides as backup for the online mistake-bound framing.</p>
+                  <a class="button" href="https://svivek.com/teaching/lectures/slides/mistake-bound-learning/mistake-bound.pdf" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open slides</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A conjunction over n Boolean variables has literals x_i and not x_i.</li>
+                <li>Start with all 2n literals; for every positive example, remove every literal falsified by that example; ignore negative examples.</li>
+                <li>The algorithm is O(mn), because each example can check all literals.</li>
+                <li>Disjunctions use the dual: remove literals made true by negative examples, or reduce using De Morgan.</li>
+                <li>Online conjunction learning removes a literal after a false negative; each literal disappears at most once, so the update bound is at most 2n.</li>
+                <li>k-CNF becomes conjunction learning over all clauses of size at most k, which is efficient for fixed k because there are O(n^k) clauses.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> for conjunctions, positive examples delete impossible literals; for disjunctions, swap the logic to negative examples.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="smu-boolean-stepper">
+              <h3>Literal elimination preview</h3>
+              <p class="step-note"><strong>Why:</strong> every deletion is safe because a true positive example cannot violate any literal that belongs in the target conjunction.</p>
+              <div id="smu-boolean-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-smu-boolean-prev>Previous</button>
+                <button type="button" data-smu-boolean-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="smu-boolean"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="smu-boolean"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Run the conjunction learner on a two-variable example and state the online mistake/update bound.</span>
+              <textarea rows="4" data-recall="smu-boolean" placeholder="Initial literals, positive-example deletion, dual disjunction, k-CNF trick..."></textarea>
+            </label>
+            <template data-recall-reference="smu-boolean">For n Boolean variables, start with all 2n literals in a conjunction. For each positive example, delete every literal falsified by that example; ignore negative examples in the basic realizable PAC algorithm. Example with x1,x2: start x1 and not x1 and x2 and not x2; positive (1,0) deletes not x1 and x2; positive (1,1) deletes not x2, leaving x1. Online, a false negative triggers the same deletion; each literal is removed at most once, so there are at most 2n updates/mistakes in the clean realizable setting.</template>
+            <label class="free-recall">
+              <span>Give the direct disjunction learner and the De Morgan reduction.</span>
+              <textarea rows="4" data-recall="smu-boolean-disjunction" placeholder="All literals in OR, negative examples, duality, why safe..."></textarea>
+            </label>
+            <template data-recall-reference="smu-boolean-disjunction">For disjunctions, start with all literals in a disjunction. For every negative example, delete every literal made true by that example, because a target disjunction must be false on a negative example. Ignore positive examples in the direct dual algorithm. Equivalently use De Morgan: a disjunction l1 or ... or lk is the negation of the conjunction of the negated literals, so learning disjunctions reduces to learning conjunctions after complementing labels/literals appropriately.</template>
+            <label class="free-recall">
+              <span>Explain how fixed-k CNF and k-DNF reduce to conjunction/disjunction learning.</span>
+              <textarea rows="4" data-recall="smu-boolean-reductions" placeholder="Clause features, O(n^k), fixed k, dual k-DNF..."></textarea>
+            </label>
+            <template data-recall-reference="smu-boolean-reductions">For fixed k, enumerate all clauses of size at most k; there are O(n^k) many up to constants for fixed k. Treat each clause as a Boolean feature. A k-CNF is then a conjunction over these clause-features, so the conjunction learner applies in the expanded feature space and remains efficient for fixed k. k-DNF follows dually by negation/De Morgan or by reducing to the disjunction version over term features.</template>
+          </div>
+        </section>
+
+        <section id="bandits" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Multi-armed bandits</h2>
+              <p class="module-lead">Bandits are one-step decision problems with partial feedback. You only see the reward of the arm you pulled, so exploration is the cost of learning what the other arms might have done.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>Partial-feedback decision making is a plausible bridge into planning/RL-style questioning even when SMU is not the strongest committee signal.</p>
+                <ul class="priority-topics">
+                  <li>Expected regret and gap decomposition</li>
+                  <li>Epsilon-greedy vs UCB vs Thompson sampling</li>
+                  <li>Exploration-exploitation tradeoff</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="smu-bandits"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Multi-Armed Bandit - ritvikmath (11:43)</h3>
+                <div class="video-frame" title="Multi-Armed Bandit Data Science Concepts" data-video-id="e3L4VocZnnQ"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="e3L4VocZnnQ" data-start="0">0:00 problem</button>
+                  <button type="button" data-video-target="e3L4VocZnnQ" data-start="310">5:10 exploration</button>
+                  <button type="button" data-video-target="e3L4VocZnnQ" data-start="520">8:40 policies</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=e3L4VocZnnQ" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>UCB vs Thompson sampling comparison (9:07)</h3>
+                <div class="video-frame" title="UCB vs Thompson Sampling" data-video-id="dI7I7iuuZrA"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="0">0:00 comparison</button>
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="140">2:20 UCB</button>
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="330">5:30 Thompson</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=dI7I7iuuZrA" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Thompson Sampling - ritvikmath (13:16)</h3>
+                <div class="video-frame" title="Thompson Sampling Data Science Concepts" data-video-id="Zgwfw3bzSmQ"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="0">0:00 posterior idea</button>
+                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="360">6:00 beta updates</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=Zgwfw3bzSmQ" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>At each round, choose one of K arms and observe only that arm's reward.</li>
+                <li>Expected regret is T times the best mean minus expected collected reward, equivalently sum of gaps times expected pulls of suboptimal arms.</li>
+                <li>Fixed epsilon-greedy keeps exploring forever, so regret is linear; decaying epsilon is schedule-sensitive.</li>
+                <li>UCB chooses empirical mean plus confidence bonus sqrt(2 ln t / N_i(t)), giving optimism under uncertainty.</li>
+                <li>UCB1 has logarithmic regret for bounded stochastic rewards.</li>
+                <li>Thompson sampling samples from each posterior and pulls the largest sample; Bernoulli arms use Beta alpha/beta success/failure updates.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> regret measures what you lost by exploring or choosing weak arms instead of the best arm in hindsight.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="smu-bandit-tabs">
+              <h3>Bandit policy chooser</h3>
+              <div class="mini-tabs">
+                <button type="button" data-smu-bandit-tab="regret">Regret</button>
+                <button type="button" data-smu-bandit-tab="epsilon">Epsilon-greedy</button>
+                <button type="button" data-smu-bandit-tab="ucb">UCB</button>
+                <button type="button" data-smu-bandit-tab="thompson">Thompson</button>
+              </div>
+              <p class="step-note"><strong>Remember:</strong> epsilon explores randomly, UCB explores uncertain arms, and Thompson explores by sampling a plausible world.</p>
+              <div id="smu-bandit-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="smu-bandits"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="smu-bandits"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define regret and compare epsilon-greedy, UCB, and Thompson sampling in one paragraph.</span>
+              <textarea rows="4" data-recall="smu-bandits" placeholder="Feedback, regret formula, exploration mechanism, guarantee/limitation..."></textarea>
+            </label>
+            <template data-recall-reference="smu-bandits">A stochastic K-armed bandit has rounds where the learner selects one arm and observes only that arm's reward; the other rewards are hidden. With means mu_i and best mean mu*, expected regret is T mu* - E[sum_t R_t], equivalently sum over suboptimal arms Delta_i E[N_i(T)] where Delta_i=mu* - mu_i. Epsilon-greedy mostly exploits empirical means but explores randomly; fixed epsilon gives linear regret because exploration never stops. UCB chooses empirical mean plus sqrt(2 ln t / N_i(t)), optimism under uncertainty, and UCB1 has logarithmic regret for bounded stochastic rewards. Thompson sampling samples each arm mean from its posterior and pulls the largest sample; Bernoulli rewards use Beta alpha/beta success/failure updates.</template>
+            <label class="free-recall">
+              <span>Derive the gap form of stochastic bandit regret and interpret each term.</span>
+              <textarea rows="4" data-recall="smu-bandits-regret" placeholder="mu*, Delta_i, N_i(T), why only suboptimal arms matter..."></textarea>
+            </label>
+            <template data-recall-reference="smu-bandits-regret">Let mu* be the best expected reward and Delta_i=mu* - mu_i. The expected reward of always pulling the best arm is T mu*. The algorithm's expected reward is sum_i mu_i E[N_i(T)]. Subtracting gives E[R_T]=sum_i (mu* - mu_i)E[N_i(T)], and the best arms have Delta_i=0, so only suboptimal arms contribute. Each pull of a suboptimal arm costs its expected gap.</template>
+            <label class="free-recall">
+              <span>Explain why UCB and Thompson sampling explore more intelligently than fixed epsilon-greedy.</span>
+              <textarea rows="4" data-recall="smu-bandits-algorithms" placeholder="Uniform exploration vs confidence bonus vs posterior probability matching..."></textarea>
+            </label>
+            <template data-recall-reference="smu-bandits-algorithms">Fixed epsilon-greedy explores uniformly, so it keeps wasting a constant fraction of pulls on obviously bad arms and has linear regret. UCB explores arms whose upper confidence bounds are still high; the uncertainty bonus shrinks with N_i(t), so exploration is targeted to uncertain plausible winners and yields logarithmic regret under standard stochastic bounded assumptions. Thompson sampling maintains posterior uncertainty and samples a plausible mean for each arm, so arms are explored in proportion to posterior probability of being optimal; for Bernoulli arms, successes increment alpha and failures increment beta.</template>
+          </div>
+        </section>
+
+        <section id="mdp" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>MDPs, values, Bellman equations, and value iteration</h2>
+              <p class="module-lead">An MDP adds state and delayed reward. Bellman equations are just "reward now plus discounted value later", optimized over actions.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Decision processes, Bellman backups, and value iteration line up with committee interest in planning, games, and sequential decision making.</p>
+                <ul class="priority-topics">
+                  <li>MDP tuple, policies, V and Q functions</li>
+                  <li>Bellman optimality equation</li>
+                  <li>Value-iteration backup and greedy policy extraction</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">60-75 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="smu-mdp"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>CS188 MDPs: states, values, policies, Q-values (83:20, watch 0:00-18:00)</h3>
+                <div class="video-frame" title="CS188 MDPs States Values Policies Q-values" data-video-id="i2hHZRhzy-k"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="0">0:00 MDP setup</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="420">7:00 values/utilities</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="780">13:00 policy/value link</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=i2hHZRhzy-k" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Policy and Value Iteration - Mutual Information (16:39)</h3>
+                <div class="video-frame" title="Policy and Value Iteration" data-video-id="l87rgLg90HI"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="l87rgLg90HI" data-start="0">0:00 intuition</button>
+                  <button type="button" data-video-target="l87rgLg90HI" data-start="450">7:30 iteration</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=l87rgLg90HI" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>An MDP is (S, A, P, R, gamma): states, actions, transition probabilities, rewards, and discount factor.</li>
+                <li>A policy pi(a|s) defines behavior; V^pi(s) values a state, Q^pi(s,a) values taking an action then following pi.</li>
+                <li>The optimal Bellman equation maximizes expected immediate reward plus gamma times next-state optimal value.</li>
+                <li>Value iteration repeatedly applies the Bellman optimality backup until values stabilize, then extracts a greedy policy.</li>
+                <li>For finite discounted MDPs, value iteration converges.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> <code>V</code> asks how good a state is; <code>Q</code> asks how good one action is from that state.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="smu-mdp-stepper">
+              <h3>Bellman backup mini lab</h3>
+              <p class="step-note"><strong>Why:</strong> the backup combines reward now with discounted value later, then keeps the best action.</p>
+              <div id="smu-mdp-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-smu-mdp-prev>Previous</button>
+                <button type="button" data-smu-mdp-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="smu-mdp"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="smu-mdp"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Write the MDP tuple, define V and Q, and derive the value-iteration backup from memory.</span>
+              <textarea rows="4" data-recall="smu-mdp" placeholder="Tuple, policy, value functions, Bellman, value iteration..."></textarea>
+            </label>
+            <template data-recall-reference="smu-mdp">An MDP is (S,A,P,R,gamma): states, actions, transition probabilities P(s'|s,a), rewards R(s,a,s'), and discount gamma. A policy pi(a|s) chooses actions. V^pi(s) is the expected discounted return from s following pi; Q^pi(s,a) is the expected return after taking a in s and then following pi. Bellman optimality is V*(s)=max_a sum_{s'} P(s'|s,a)[R(s,a,s')+gamma V*(s')]. Value iteration applies V_{k+1}(s)=max_a sum_{s'} P(s'|s,a)[R(s,a,s')+gamma V_k(s')] until convergence, then extracts a greedy policy.</template>
+            <label class="free-recall">
+              <span>Explain state utility, optimal policy, and the Bellman equation in words.</span>
+              <textarea rows="4" data-recall="smu-mdp-utility-policy" placeholder="Expected discounted return, reward now plus value later, greedy action..."></textarea>
+            </label>
+            <template data-recall-reference="smu-mdp-utility-policy">State utility is the state-value function: expected discounted future reward from a state under a policy. The Bellman equation expresses recursive consistency: value equals expected immediate reward plus gamma times the value of the next state. The optimal Bellman equation maximizes this quantity over available actions. An optimal policy chooses an action attaining that maximum in each state, and after value iteration the greedy policy with respect to the converged values is optimal for a finite discounted MDP.</template>
+            <label class="free-recall">
+              <span>Work one Bellman backup symbolically and state why value iteration converges.</span>
+              <textarea rows="4" data-recall="smu-mdp-backup" placeholder="Action scores, transition sum, max, discounted finite MDP contraction..."></textarea>
+            </label>
+            <template data-recall-reference="smu-mdp-backup">For each action a in state s, compute an action score sum_{s'} P(s'|s,a)(R(s,a,s') + gamma V_k(s')). The next value V_{k+1}(s) is the maximum action score. After updating all states repeatedly, select greedy actions from the final values. In a finite MDP with gamma in [0,1), the Bellman optimality operator is a contraction, so repeated backups converge to the unique optimal value function.</template>
+          </div>
+        </section>
+
+        <section id="rl-control" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>Monte Carlo, ADP, temporal difference, Q-learning, SARSA, and policy search</h2>
+              <p class="module-lead">This is the exam-dense RL module. The memory anchor is: Monte Carlo averages returns, ADP learns a model, TD bootstraps, Q-learning backs up the greedy next action, SARSA backs up the actual next action.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>RL control is the most direct SMU route into sequential control questions and can be connected to planning under uncertainty.</p>
+                <ul class="priority-topics">
+                  <li>Monte Carlo, ADP, and TD learning distinctions</li>
+                  <li>Q-learning vs SARSA updates</li>
+                  <li>On-policy/off-policy control and policy search</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">75-95 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="smu-rl-control"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Q Learning simply explained: SARSA and Q-learning (9:45)</h3>
+                <div class="video-frame" title="Q Learning SARSA and Q-Learning Explanation" data-video-id="MI8ByADMh20"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="MI8ByADMh20" data-start="0">0:00 Q-learning setup</button>
+                  <button type="button" data-video-target="MI8ByADMh20" data-start="330">5:30 SARSA contrast</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=MI8ByADMh20" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>On-policy vs off-policy algorithms (14:47)</h3>
+                <div class="video-frame" title="On-policy vs off-policy algorithms" data-video-id="YUKUXoUg3Nc"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="YUKUXoUg3Nc" data-start="0">0:00 definitions</button>
+                  <button type="button" data-video-target="YUKUXoUg3Nc" data-start="440">7:20 examples</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=YUKUXoUg3Nc" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Text backup: Stanford CS229 RL lecture and David Silver control slides</h3>
+                <div class="resource-card">
+                  <p>The old Stanford YouTube mirror for this lecture is not reliably embeddable. Use the official SEE page and the Stanford-hosted David Silver slides for ADP/model learning, temporal-difference control, Q-learning, SARSA, and policy search.</p>
+                  <a class="button" href="https://see.stanford.edu/Course/CS229/38" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open Stanford lecture</a>
+                  <a class="fallback-link" href="https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/control.pdf" target="_blank" rel="noreferrer">David Silver control slides</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Direct utility estimation is Monte Carlo prediction: average sampled returns G_t for each state.</li>
+                <li>ADP is model-based: estimate P and R from counts/rewards, then solve the learned MDP with value or policy iteration.</li>
+                <li>TD updates V(s) toward r + gamma V(s'), mixing sampling with bootstrapping.</li>
+                <li>Q-learning is off-policy: target r + gamma max_a' Q(s',a').</li>
+                <li>SARSA is on-policy: target r + gamma Q(s',a') where a' is the actually selected next action.</li>
+                <li>Exploration strategies include epsilon-greedy, softmax, optimistic initialization, UCB bonuses, and posterior sampling.</li>
+                <li>Policy search directly optimizes J(theta), for example by random search, finite differences, policy gradient, REINFORCE, or actor-critic.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> Q-learning uses the best next action in the target; SARSA uses the action the current policy actually took.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="smu-rl-tabs">
+              <h3>RL update selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-smu-rl-tab="mc">Monte Carlo</button>
+                <button type="button" data-smu-rl-tab="adp">ADP</button>
+                <button type="button" data-smu-rl-tab="td">TD</button>
+                <button type="button" data-smu-rl-tab="q">Q vs SARSA</button>
+                <button type="button" data-smu-rl-tab="policy">Policy search</button>
+              </div>
+              <p class="step-note"><strong>Use this:</strong> first identify what is learned, then ask whether the target is a full return, a model solve, or a one-step bootstrap.</p>
+              <div id="smu-rl-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="smu-rl-control"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="smu-rl-control"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Compare MC, ADP, TD, Q-learning, SARSA, and policy search as if answering orally.</span>
+              <textarea rows="5" data-recall="smu-rl-control" placeholder="What is learned, target/update, model-free/model-based, on/off-policy..."></textarea>
+            </label>
+            <template data-recall-reference="smu-rl-control">Direct utility estimation is Monte Carlo prediction: average sampled returns G_t for states under a policy; model-free, can be unbiased but high variance and often episodic. ADP is model-based: estimate transition probabilities and rewards from experience, then solve the learned MDP by value or policy iteration. TD uses bootstrapping: V(s) <- V(s)+alpha(r+gamma V(s')-V(s)). Q-learning is off-policy TD control with target r+gamma max_{a'}Q(s',a'); SARSA is on-policy with target r+gamma Q(s',a') where a' is actually chosen. Exploration methods include epsilon-greedy, softmax, optimistic initialization, UCB bonuses, posterior sampling. Policy search directly optimizes J(theta) for a parameterized policy, e.g. finite differences, policy gradient, REINFORCE, actor-critic.</template>
+            <label class="free-recall">
+              <span>Contrast direct utility estimation, ADP, and TD learning.</span>
+              <textarea rows="4" data-recall="smu-rl-prediction" placeholder="Full returns, learned model, one-step bootstrap, bias/variance..."></textarea>
+            </label>
+            <template data-recall-reference="smu-rl-prediction">Direct utility estimation estimates V^pi(s) by averaging complete sampled returns G_t; it is model-free, simple, and can have high variance. ADP learns a model, usually estimates P and R by counts/averages, then plans in the estimated MDP; it is model-based and uses dynamic programming. TD learning is model-free but bootstraps from current estimates with target r + gamma V(s'), mixing sampling with dynamic programming and allowing incremental updates before episode end.</template>
+            <label class="free-recall">
+              <span>Give the Q-learning and SARSA updates and explain on-policy versus off-policy.</span>
+              <textarea rows="4" data-recall="smu-rl-q-sarsa" placeholder="Both formulas, actual next action vs max next action, behavior policy..."></textarea>
+            </label>
+            <template data-recall-reference="smu-rl-q-sarsa">Q-learning update: Q(s,a) <- Q(s,a)+alpha(r+gamma max_{a'}Q(s',a')-Q(s,a)); it is off-policy because it backs up the greedy next action even if the behavior policy explored. SARSA update: Q(s,a) <- Q(s,a)+alpha(r+gamma Q(s',a')-Q(s,a)), where a' is the next action actually selected by the current policy; it is on-policy because the target evaluates the policy being followed, including exploratory moves. Both require sufficient exploration and suitable learning rates for standard convergence results.</template>
+            <label class="free-recall">
+              <span>Explain exploration versus exploitation and when policy search is attractive.</span>
+              <textarea rows="4" data-recall="smu-rl-explore-policy-search" placeholder="Need to try actions, common strategies, direct optimization, continuous actions..."></textarea>
+            </label>
+            <template data-recall-reference="smu-rl-explore-policy-search">Exploration tries uncertain actions to learn their consequences; exploitation uses the currently best-known action to collect reward. Common strategies are epsilon-greedy, softmax/Boltzmann, optimistic initialization, UCB-style bonuses, and posterior sampling. Policy search parameterizes pi_theta and directly optimizes J(theta)=E[discounted return], using methods such as random search, finite differences, policy gradients, REINFORCE, and actor-critic. It is attractive for continuous or high-dimensional actions and when deriving a greedy policy from a value function is hard, but it can have high variance and local optima.</template>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head">
+                <span class="reported-badge low">Lower confidence</span>
+                <h3>MDP tuple and Bellman computation</h3>
+              </div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Reported overlap plus Bellman-style computation makes this the highest-yield SMU drill despite lower report confidence.</p>
+                <ul class="priority-topics">
+                  <li>MDP tuple and V/Q definitions</li>
+                  <li>Bellman/value-iteration computation</li>
+                  <li>Worked transition-and-reward backup</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: OI AI report, lower-confidence overlap: MDPs, definition, computation, and a partially specified worked example.</p>
+              <label class="free-recall">
+                <span>Define an MDP, explain V and Q, write the Bellman/value-iteration backup, and show how you would compute a missing value from given transition probabilities and rewards.</span>
+                <textarea rows="5" data-recall="smu-reported-mdp" placeholder="(S,A,P,R,gamma), V/Q, action scores, probability-weighted rewards plus gamma next value, max over actions..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <ul>
+                    <li>An MDP is <code>(S,A,P,R,gamma)</code>: states, actions, transition probabilities <code>P(s'|s,a)</code>, rewards, and discount factor.</li>
+                    <li><code>V^pi(s)</code> is expected discounted return from state <code>s</code> under policy <code>pi</code>; <code>Q^pi(s,a)</code> is expected return after taking action <code>a</code> and then following <code>pi</code>.</li>
+                    <li>For value iteration, compute each action score as <code>sum_s' P(s'|s,a)(R(s,a,s') + gamma V_k(s'))</code>, then set <code>V_{k+1}(s)</code> to the maximum score.</li>
+                    <li>In a worked example, plug each listed successor probability and reward into the sum, add the discounted old successor value, multiply by the probability, sum the terms, and compare actions.</li>
+                    <li>After convergence, choose the greedy action with the highest backed-up score in each state.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="smu-reported-mdp">Must say: An MDP is (S,A,P,R,gamma): states, actions, transition probabilities P(s'|s,a), rewards R(s,a,s'), and discount gamma. V^pi(s) is expected discounted return from a state under policy pi; Q^pi(s,a) is expected return after taking action a and then following pi. Bellman/value iteration computes action scores sum_s' P(s'|s,a)(R(s,a,s') + gamma V_k(s')) and sets V_{k+1}(s) to the maximum action score. To fill a missing worked-example value, plug in each successor probability, immediate reward, and old successor value, multiply probability by reward plus discounted next value, sum the terms, then compare actions and choose the greedy maximum.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic" class="module panic-module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Panic pass</span>
+              <h2>45-60 minute survival route</h2>
+              <p class="module-lead">If today is cooked, do this instead of trying to swallow the whole PDF. You need the exam skeleton first.</p>
+            </div>
+          </header>
+          <div class="block">
+            <p class="block-label practice">Route</p>
+            <ol class="compact-list">
+              <li>Watch the PAC/VC short video at 0:00-12:40 and memorize PAC vs online plus VC definition.</li>
+              <li>Do the Boolean lab once and say the conjunction/disjunction algorithms out loud.</li>
+              <li>Watch the bandit videos at their UCB/Thompson timestamps and memorize the regret formulas.</li>
+              <li>Watch Stanford MDP timestamps 5:00, 27:10, and 35:40; write the Bellman and value-iteration equations.</li>
+              <li>Finish with the Q-learning/SARSA video and the RL update selector.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="oral" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Final rehearsal</span>
+              <h2>Oral answer skeleton</h2>
+              <p class="module-lead">Use this as the last five-minute check. If you can say these transitions cleanly, the question stops feeling like a pile of unrelated formulas.</p>
+            </div>
+          </header>
+          <div class="block">
+            <p class="block-label recall">Say it</p>
+            <article class="recall-card">
+              <ol class="compact-list">
+                <li>Start with feedback settings: PAC gets i.i.d. full labels; online gets sequential labels/losses; bandits get only selected rewards; RL gets delayed rewards through states.</li>
+                <li>Define PAC with epsilon/delta and true error, then contrast mistake bound and regret in online learning.</li>
+                <li>State VC dimension through shattering and say finite VC dimension characterizes distribution-free PAC learnability.</li>
+                <li>Give the literal-elimination algorithm for conjunctions, the dual for disjunctions, and the k-CNF/k-DNF reduction idea.</li>
+                <li>Define bandit regret, then explain epsilon-greedy, UCB optimism, and Thompson posterior sampling.</li>
+                <li>Define an MDP, V, Q, Bellman optimality, and value iteration.</li>
+                <li>Finish with MC, ADP, TD, Q-learning, SARSA, exploration, and policy search.</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    const smuPracticeKeys = ["smu-pac", "smu-boolean", "smu-bandits", "smu-mdp", "smu-rl-control"];
+
+    if (typeof flashcards !== "undefined") {
+      smuPracticeKeys.forEach((key) => { flashcards[key] = []; });
+    }
+
+    if (typeof quizzes !== "undefined") {
+      quizzes["smu-pac"] = [
+        {
+          q: "Which assumption is specific to the standard PAC model?",
+          a: ["Examples are i.i.d. from an unknown distribution", "The adversary may choose each next example after seeing the learner", "Only the chosen action's reward is observed"],
+          correct: 0,
+          why: "PAC is a batch distributional model with independent examples from D."
+        },
+        {
+          q: "In the PAC guarantee, delta is...",
+          a: ["The probability that the accuracy guarantee fails", "The target upper bound on true classification error", "The average regret allowed per online round"],
+          correct: 0,
+          why: "The guarantee is usually Pr[err_D(h) <= epsilon] >= 1 - delta."
+        },
+        {
+          q: "Efficient PAC learnability requires polynomial...",
+          a: ["Both sample size and learner running time", "Only the cumulative regret guarantee", "Only the discount and reward scale"],
+          correct: 0,
+          why: "A class can be statistically learnable but not efficiently learnable if computation is too large."
+        },
+        {
+          q: "The online mistake-bound model evaluates a learner on...",
+          a: ["Every realizable sequence, often adversarially ordered", "Only one i.i.d. training sample then no updates", "Posterior samples of arm means"],
+          correct: 0,
+          why: "The online learner predicts before feedback and must keep mistakes bounded on all realizable sequences."
+        },
+        {
+          q: "Sublinear online regret means...",
+          a: ["Per-round excess loss versus a comparator vanishes", "The hypothesis has zero true error on D", "The exploration probability is fixed at zero"],
+          correct: 0,
+          why: "R_T = o(T) implies R_T/T tends to zero."
+        },
+        {
+          q: "A set is shattered by H when...",
+          a: ["Every binary labeling of that set is realized by some h in H", "One hypothesis labels all points in the set identically", "A learner visits every point before making a mistake"],
+          correct: 0,
+          why: "Shattering is the all-labelings combinatorial test behind VC dimension."
+        },
+        {
+          q: "Finite VC dimension is necessary and sufficient for...",
+          a: ["Distribution-free binary PAC learnability", "Efficient PAC learning for every representation", "Finite mistake bounds in adversarial online learning"],
+          correct: 0,
+          why: "This is the central PAC characterization for binary classification."
+        },
+        {
+          q: "The online analogue of VC dimension in the realizable adversarial setting is...",
+          a: ["Littlestone dimension", "Discount factor", "Beta posterior dimension"],
+          correct: 0,
+          why: "Finite Littlestone dimension characterizes finite mistake-bound online learnability."
+        },
+        {
+          q: "Which implication is safe in the realizable setting?",
+          a: ["Finite mistake-bound online learner implies PAC learnability", "PAC learnability always implies finite adversarial mistake bound", "Finite VC dimension always implies finite online mistake bound"],
+          correct: 0,
+          why: "The online learner can be run on i.i.d. samples and its final hypothesis used for PAC."
+        },
+        {
+          q: "The agnostic PAC sample bound usually scales like...",
+          a: ["A dependence on 1 / epsilon squared", "A dependence only on 1 / gamma", "Only logarithmic dependence on arms"],
+          correct: 0,
+          why: "Agnostic learning estimates excess risk and typically has an epsilon^-2 dependence."
+        }
+      ];
+
+      quizzes["smu-boolean"] = [
+        {
+          q: "The realizable conjunction learner starts with...",
+          a: ["All 2n literals in one conjunction", "No literals until a positive arrives", "One randomly chosen literal per variable"],
+          correct: 0,
+          why: "It begins overly strict and deletes literals proven impossible by positives."
+        },
+        {
+          q: "A positive example with x_i = 1 causes the conjunction learner to delete...",
+          a: ["The literal not x_i", "The literal x_i itself", "All literals currently true"],
+          correct: 0,
+          why: "The literal not x_i is false on that positive example, so it cannot be required."
+        },
+        {
+          q: "Why can the basic PAC conjunction learner ignore negative examples?",
+          a: ["Positive samples delete literals that the true conjunction cannot require", "Negative samples directly reveal every literal in the target", "Negative samples are saved for the disjunction version of the learner"],
+          correct: 0,
+          why: "The algorithm maintains all literals consistent with positives; sample complexity handles remaining false positives."
+        },
+        {
+          q: "The direct disjunction learner deletes literals using...",
+          a: ["Negative examples that make candidate literals true", "Positive examples that make candidate literals false", "Positive examples that satisfy every current literal"],
+          correct: 0,
+          why: "A target disjunction must be false on a negative example, so any true literal is impossible."
+        },
+        {
+          q: "The online conjunction mistake/update bound is at most 2n because...",
+          a: ["Each literal can be deleted only once", "Each update removes one observed example", "Each mistake permanently adds a literal"],
+          correct: 0,
+          why: "Every update removes at least one literal and there are only 2n literals."
+        },
+        {
+          q: "Learning disjunctions by reduction mainly uses...",
+          a: ["De Morgan duality between ORs and ANDs", "The positive-only deletion rule unchanged", "A confidence bonus over candidate literals"],
+          correct: 0,
+          why: "A disjunction is the negation of a conjunction of negated literals."
+        },
+        {
+          q: "For fixed k, k-CNF is efficiently reducible to...",
+          a: ["Conjunction learning over O(n^k) clause features", "Disjunction learning over O(n^k) term features", "Value iteration over O(n^k) clause states"],
+          correct: 0,
+          why: "A k-CNF is a conjunction of clauses once each possible small clause is treated as a feature."
+        },
+        {
+          q: "Why does the k-CNF reduction stop being obviously efficient when k is part of the input?",
+          a: ["The number of possible clauses can become exponential", "The number of observed positives can become exponential", "The online mistake bound no longer depends on n"],
+          correct: 0,
+          why: "O(n^k) is polynomial only when k is fixed."
+        },
+        {
+          q: "A monotone conjunction is easier because it uses...",
+          a: ["Only positive, unnegated literals", "Only negative, negated literals", "Only clauses of size exactly k"],
+          correct: 0,
+          why: "The hypothesis space excludes negated literals."
+        }
+      ];
+
+      quizzes["smu-bandits"] = [
+        {
+          q: "Bandit feedback differs from full-information online feedback because...",
+          a: ["Only the reward of the selected arm is observed", "Every arm's loss is revealed after the chosen action", "Labels are sampled in a fixed i.i.d. training batch"],
+          correct: 0,
+          why: "The learner does not see counterfactual rewards for unplayed arms."
+        },
+        {
+          q: "If mu* is the best arm mean, expected regret is...",
+          a: ["T mu* minus expected collected reward", "Expected collected reward minus T mu*", "T times the average gap over all arms"],
+          correct: 0,
+          why: "Regret compares the algorithm with always pulling the best arm in expectation."
+        },
+        {
+          q: "In the gap decomposition, Delta_i E[N_i(T)] means...",
+          a: ["Expected regret contribution from suboptimal arm i", "Expected reward collected from the best arm alone", "Confidence bonus assigned to arm i in UCB"],
+          correct: 0,
+          why: "Each pull of arm i loses Delta_i expected reward relative to the best arm."
+        },
+        {
+          q: "Fixed epsilon-greedy has linear regret mainly because...",
+          a: ["It keeps exploring with constant probability forever", "Its confidence bonus remains too optimistic forever", "It permanently stops sampling uncertain arms"],
+          correct: 0,
+          why: "A constant fraction of pulls remains random even after the best arm is known."
+        },
+        {
+          q: "A weakness of epsilon-greedy is that exploration is...",
+          a: ["Uniform across arms instead of uncertainty-targeted", "Concentrated only on the current best arm", "Scheduled by Bellman backups over states"],
+          correct: 0,
+          why: "It can waste pulls on arms that are already clearly poor."
+        },
+        {
+          q: "UCB chooses an arm using...",
+          a: ["Empirical mean plus an uncertainty bonus", "Empirical mean minus an uncertainty penalty", "Posterior mode after each reward update"],
+          correct: 0,
+          why: "The bonus makes undersampled arms optimistic."
+        },
+        {
+          q: "In UCB1, the exploration bonus is larger when...",
+          a: ["An arm has been tried only a few times", "An arm has a very large pull count", "The discount factor is close to zero"],
+          correct: 0,
+          why: "The confidence radius contains N_i(t) in the denominator."
+        },
+        {
+          q: "For bounded stochastic rewards, UCB1 is known for...",
+          a: ["Regret growing only logarithmically in T", "Constant regret on every reward sequence", "Zero exploration after initialization"],
+          correct: 0,
+          why: "The standard guarantee is O(sum_i ln T / Delta_i) up to constants."
+        },
+        {
+          q: "Thompson sampling selects an arm by...",
+          a: ["Drawing one plausible mean per arm from the posterior", "Adding a confidence bonus to each empirical mean", "Deleting arms whose latest reward was zero"],
+          correct: 0,
+          why: "It is posterior sampling or probability matching."
+        },
+        {
+          q: "For Bernoulli Thompson sampling with a Beta prior, a success increments...",
+          a: ["the alpha success count", "the beta failure count", "the gamma discount term"],
+          correct: 0,
+          why: "Successes update the alpha parameter; failures update beta."
+        }
+      ];
+
+      quizzes["smu-mdp"] = [
+        {
+          q: "Which tuple defines a discounted finite MDP?",
+          a: ["S, A, P, R, gamma", "H, C, epsilon, delta, VC", "K, alpha, beta, Delta, T"],
+          correct: 0,
+          why: "States, actions, dynamics, rewards, and discount define the decision process."
+        },
+        {
+          q: "The Markov property says the next-state distribution depends on...",
+          a: ["The current state and chosen action", "The full history even after state is known", "Only the training distribution and VC dimension"],
+          correct: 0,
+          why: "P(s'|s,a) summarizes the needed past through the current state."
+        },
+        {
+          q: "V^pi(s) is best described as...",
+          a: ["Expected discounted return from state s following pi", "Expected immediate reward for the selected arm", "Number of labelings realized on a point set"],
+          correct: 0,
+          why: "State utility is the state-value function under a policy."
+        },
+        {
+          q: "Q^pi(s,a) conditions on...",
+          a: ["Taking action a first, then following pi", "Following pi before choosing any action", "Seeing only positive examples first"],
+          correct: 0,
+          why: "Q values state-action pairs."
+        },
+        {
+          q: "The optimal Bellman equation uses a max over actions because...",
+          a: ["The optimal policy chooses the best action in each state", "The environment chooses the worst next state", "The policy must randomize equally over actions"],
+          correct: 0,
+          why: "Optimal control selects the action with the best expected reward plus future value."
+        },
+        {
+          q: "The Bellman backup combines...",
+          a: ["Immediate reward and discounted next-state value", "Empirical arm means and confidence bonuses", "Training error and hypothesis complexity"],
+          correct: 0,
+          why: "The recursive form is reward now plus gamma times value later."
+        },
+        {
+          q: "Value iteration repeatedly applies...",
+          a: ["The Bellman optimality backup", "The policy-gradient update", "The Beta posterior update"],
+          correct: 0,
+          why: "It updates values for all states using the current value estimates."
+        },
+        {
+          q: "After value iteration converges, the policy is extracted by...",
+          a: ["Choosing greedy actions with respect to the final values", "Choosing actions uniformly after the final backup", "Keeping the previous policy regardless of values"],
+          correct: 0,
+          why: "The greedy policy maximizes the Bellman action score."
+        },
+        {
+          q: "For finite discounted MDPs, value iteration converges because...",
+          a: ["The Bellman optimality operator is a contraction", "The update operator is monotone but undiscounted", "The VC dimension controls every value update"],
+          correct: 0,
+          why: "Gamma < 1 makes repeated backups contract value differences."
+        }
+      ];
+
+      quizzes["smu-rl-control"] = [
+        {
+          q: "Direct utility estimation estimates V by...",
+          a: ["Averaging sampled returns from experience", "Learning P and R before planning", "Taking a max over next Q-values"],
+          correct: 0,
+          why: "It is Monte Carlo prediction from observed returns."
+        },
+        {
+          q: "A common limitation of Monte Carlo prediction is...",
+          a: ["High variance and waiting for returns", "No samples are needed for updates", "All labels must be known before acting"],
+          correct: 0,
+          why: "Full returns can be noisy and may require episode completion or truncation."
+        },
+        {
+          q: "Adaptive dynamic programming is model-based because it...",
+          a: ["Estimating P and R, then planning in the learned MDP", "Avoiding transition estimates and bootstrapping only", "Comparing rewards only to the best fixed arm"],
+          correct: 0,
+          why: "ADP learns a model and applies planning."
+        },
+        {
+          q: "TD(0) prediction updates V(s) toward...",
+          a: ["the one-step target r + gamma V(s')", "the full bandit regret T mu* - reward", "all binary labelings of the sample"],
+          correct: 0,
+          why: "The one-step bootstrapped target is the TD signature."
+        },
+        {
+          q: "TD learning combines...",
+          a: ["Sampled transitions with bootstrapped value targets", "Full model planning without sampled experience", "Posterior arm sampling without value updates"],
+          correct: 0,
+          why: "It samples transitions but bootstraps from current value estimates."
+        },
+        {
+          q: "Q-learning's target is...",
+          a: ["r + gamma max_a' Q(s',a') using the greedy next action", "r + gamma Q(s',a') using the action actually taken", "the full Monte Carlo return G_t after the episode"],
+          correct: 0,
+          why: "The max over next actions makes it off-policy control."
+        },
+        {
+          q: "SARSA's target is...",
+          a: ["r + gamma Q(s',a') for the next action actually chosen", "r + gamma max_a' Q(s',a') regardless of behavior", "a UCB confidence bonus added to immediate reward"],
+          correct: 0,
+          why: "SARSA updates the state-action pair using the next sampled action."
+        },
+        {
+          q: "Q-learning is off-policy because...",
+          a: ["It backs up the greedy next action even under exploratory behavior", "It averages complete returns before every value update", "It requires a known model before choosing actions"],
+          correct: 0,
+          why: "The learned target policy can differ from the behavior policy."
+        },
+        {
+          q: "SARSA is on-policy because...",
+          a: ["It evaluates the policy that actually selects the next action", "It ignores exploratory actions when forming the target", "It learns only a model and then plans offline"],
+          correct: 0,
+          why: "Its target includes the actual next action selected by the current behavior policy."
+        },
+        {
+          q: "Optimistic initialization encourages exploration by...",
+          a: ["Making untried actions look valuable initially", "Deleting actions after negative examples appear", "Setting every uncertainty bonus to zero"],
+          correct: 0,
+          why: "Actions are tried because their initial values are deliberately hopeful."
+        },
+        {
+          q: "Policy search is especially natural when...",
+          a: ["Actions are continuous or greedy value extraction is hard", "The action set is small and greedy value extraction is easy", "The policy is fixed and only V^pi must be estimated"],
+          correct: 0,
+          why: "Directly optimizing pi_theta avoids enumerating value-greedy actions in difficult action spaces."
+        },
+        {
+          q: "REINFORCE is an example of...",
+          a: ["A policy-gradient policy-search method", "A literal-elimination learning rule", "A UCB-style confidence-bound rule"],
+          correct: 0,
+          why: "It estimates a gradient of expected return with respect to policy parameters."
+        }
+      ];
+    }
+  </script>
+</body>
+</html>

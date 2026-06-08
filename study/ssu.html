@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSU Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+</head>
+<body data-page="ssu">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../ai/03_ssu_erm_mle_em_deep_networks.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../ai/03_ssu_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M33SSU &middot; AI specialization question 3</p>
+      <h1>Empirical risk, MLE, EM, and neural networks</h1>
+      <p class="lead">SSU is the supervised-learning pipeline from statistics to deep learning. Start with a loss and risk, control the train-test gap, fit probabilistic models with likelihood, handle hidden variables with EM, then train neural networks with backpropagation and stochastic gradients.</p>
+      <div class="head-meta">
+        <span class="time-pill">4.5-6 hour full pass</span>
+        <a class="button primary" href="#erm"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="ssu-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="ssu-progress-detail">0 of 5 modules checked.</p>
+          <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="ssu-erm" aria-label="Mark ERM module complete">
+            <a href="#erm"><span class="rail-num">1</span> ERM &amp; bounds</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="ssu-svm" aria-label="Mark SVM module complete">
+            <a href="#svm"><span class="rail-num">2</span> SVMs &amp; kernels</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="ssu-mle-em" aria-label="Mark MLE and EM module complete">
+            <a href="#mle-em"><span class="rail-num">3</span> MLE &amp; EM</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="ssu-backprop" aria-label="Mark neural network mechanics module complete">
+            <a href="#backprop"><span class="rail-num">4</span> Networks &amp; backprop</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="ssu-training" aria-label="Mark training and CNN module complete">
+            <a href="#training"><span class="rail-num">5</span> SGD, CNNs, regularization</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="erm" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>Empirical risk, generalization, consistency, and VC dimension</h2>
+              <p class="module-lead">ERM chooses the hypothesis with the lowest training loss. The exam question is really about when this is trustworthy: Hoeffding for fixed hypotheses, a union bound for finite classes, and VC dimension for infinite classes.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>ERM and VC theory support the heavier ML questions signaled by Gustav &Scaron;ir, especially when an answer must justify why a learned classifier generalizes.</p>
+                <ul class="priority-topics">
+                  <li>risk versus empirical risk</li>
+                  <li>Hoeffding and finite-class union bounds</li>
+                  <li>VC dimension and consistency caveats</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="ssu-erm"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>PAC Learning and VC Dimension - John Mount (17:16)</h3>
+                <div class="video-frame" title="PAC Learning and VC Dimension" data-video-id="X4Oxst5huQA"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="0">0:00 learning setup</button>
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="260">4:20 error guarantee</button>
+                  <button type="button" data-video-target="X4Oxst5huQA" data-start="625">10:25 VC dimension</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=X4Oxst5huQA" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Optional text backup: MIT 6.790 learnability and VC</h3>
+                <div class="resource-card">
+                  <p>Use this when you want the finite-class union-bound story in a course-note form: learnability, finite classes, PAC learning, uniform convergence, and VC dimension.</p>
+                  <a class="button" href="https://gradml.mit.edu/supervised/learnability_and_vc/" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open MIT notes</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Prediction examples are drawn from an unknown distribution; a hypothesis <code>h</code> is judged by a loss such as 0/1, squared, hinge, or logistic loss.</li>
+                <li>True risk is expected loss on the data distribution; empirical risk is average loss on the sample; ERM minimizes empirical risk over <code>H</code>.</li>
+                <li>Hoeffding bounds the train-true deviation for a fixed bounded-loss hypothesis.</li>
+                <li>For finite <code>H</code>, union bound gives <code>R(h) &lt;= Rhat(h) + sqrt(log(2|H|/delta)/(2m))</code> with high probability.</li>
+                <li>For infinite classes, VC dimension replaces <code>log |H|</code>; typical rates look like <code>sqrt((d + log(1/delta))/m)</code>.</li>
+                <li>Statistical consistency means risk converges to the best achievable risk as sample size grows, assuming uniform convergence, optimization, and a suitable model class.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> training loss is what you can measure; true risk is what the examiner cares about.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="ssu-bound-tabs">
+              <h3>Generalization-bound calculator</h3>
+              <div class="mini-tabs" aria-label="Bound settings">
+                <button type="button" data-ssu-bound-tab="finite">Finite H</button>
+                <button type="button" data-ssu-bound-tab="vc">VC class</button>
+                <button type="button" data-ssu-bound-tab="losses">Loss map</button>
+              </div>
+              <div id="ssu-bound-output" class="preview-box"></div>
+              <p class="step-note"><strong>Use this when:</strong> the question asks why low empirical error may still fail on fresh data.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Define risk, empirical risk, ERM, and explain what problem generalization bounds solve.</span>
+                  <textarea rows="5" data-recall="ssu-erm-risk-bound" placeholder="Use formulas for R(h), Rhat_S(h), argmin ERM, and the train-test gap..."></textarea>
+                  <template data-recall-reference="ssu-erm-risk-bound">Must say: true risk is expected loss under the unknown data distribution; empirical risk is average loss on the training sample; ERM chooses h in H minimizing empirical risk; low empirical risk alone does not guarantee low true risk; a generalization bound upper-bounds true risk by empirical risk plus a complexity/confidence/sample-size term.</template>
+                </label>
+                <label class="free-recall">
+                  <span>State Hoeffding's inequality and derive the finite-class ERM bound by union bound.</span>
+                  <textarea rows="5" data-recall="ssu-erm-hoeffding-union" placeholder="Fixed h first, then all h in finite H, then solve for epsilon..."></textarea>
+                  <template data-recall-reference="ssu-erm-hoeffding-union">Must say: for bounded independent losses in [0,1], Hoeffding bounds P(|sample mean - expectation| >= epsilon) by 2 exp(-2m epsilon^2); for a fixed h this controls |Rhat_S(h)-R(h)|; union bound over finite H gives probability at most 2|H| exp(-2m epsilon^2) that any h deviates; with probability at least 1-delta, R(h) <= Rhat_S(h) + sqrt(ln(2|H|/delta)/(2m)) for all h.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain VC dimension and statistical consistency in the ERM story.</span>
+                  <textarea rows="5" data-recall="ssu-erm-vc-consistency" placeholder="Shattering, capacity, infinite H, convergence of learned risk..."></textarea>
+                  <template data-recall-reference="ssu-erm-vc-consistency">Must say: VC dimension is the largest set size shattered by H; it measures classifier capacity for binary classification; for infinite H it replaces log |H| in distribution-free rates such as O(sqrt((d+ln(1/delta))/m)); higher VC dimension increases overfitting risk; consistency means the learned risk converges as m grows to the best risk in the class or Bayes risk under assumptions like uniform convergence, enough data, suitable class, and approximate ERM optimization.</template>
+                </label>
+              </section>
+              <section class="quiz" data-ssu-quiz="ssu-erm"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain why low training error alone is not enough.</span>
+              <textarea rows="4" data-recall="ssu-erm" placeholder="Risk, empirical risk, Hoeffding, union bound, VC dimension, consistency..."></textarea>
+              <template data-recall-reference="ssu-erm">Must say: empirical risk is measured on the training sample but true risk is expected future loss; a complex class can fit training data while generalizing poorly; Hoeffding controls one fixed bounded-loss hypothesis; union bound extends to finite H with a log |H| term; VC dimension controls infinite binary classes; consistency requires uniform convergence/appropriate class/optimization so risk approaches the best achievable risk as sample size grows.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="svm" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Support vector machines, hinge loss, and kernels</h2>
+              <p class="module-lead">SVMs are regularized ERM with a geometric memory hook: maximize the margin. The soft-margin version allows violations, and the kernel trick swaps dot products for feature-space inner products.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>&Scaron;ir's machine-learning signal and student-report overlap make SVMs one of the highest-yield SSU answers.</p>
+                <ul class="priority-topics">
+                  <li>hard and soft margin formulations</li>
+                  <li>hinge loss as regularized ERM</li>
+                  <li>kernel trick and support-vector prediction</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">55-75 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="ssu-svm"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>SVM main ideas - StatQuest (20:32, watch 0:00-18:40)</h3>
+                <div class="video-frame" title="Support Vector Machines Part 1 Main Ideas" data-video-id="efR1C6CvhmE"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="efR1C6CvhmE" data-start="0">0:00 max margin</button>
+                  <button type="button" data-video-target="efR1C6CvhmE" data-start="430">7:10 support vectors</button>
+                  <button type="button" data-video-target="efR1C6CvhmE" data-start="820">13:40 soft margin</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=efR1C6CvhmE" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>SVM polynomial kernel - StatQuest (7:15)</h3>
+                <div class="video-frame" title="Support Vector Machines Polynomial Kernel" data-video-id="Toet3EiSFcM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="0">0:00 kernel need</button>
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="160">2:40 feature lift</button>
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="300">5:00 kernel trick</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=Toet3EiSFcM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A linear SVM uses <code>f(x) = w^T x + b</code> and constraints <code>y_i(w^T x_i + b) >= 1</code>.</li>
+                <li>The geometric margin is <code>2 / ||w||</code>, so the hard-margin primal minimizes <code>1/2 ||w||^2</code> subject to correct margin constraints.</li>
+                <li>Soft margin introduces slack <code>xi_i >= 0</code> and minimizes <code>1/2 ||w||^2 + C sum xi_i</code>.</li>
+                <li>The soft-margin objective is equivalent to regularized ERM with hinge loss <code>max(0, 1 - y f(x))</code>.</li>
+                <li><code>C</code> trades larger margin against training violations.</li>
+                <li>The kernel trick replaces <code>x_i^T x_j</code> by <code>K(x_i,x_j) = phi(x_i)^T phi(x_j)</code>; prediction depends only on support vectors.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> margin controls geometry, <code>C</code> controls violations, kernels control the feature space.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="ssu-svm-tabs">
+              <h3>Margin and kernel selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-ssu-svm-tab="hard">Hard margin</button>
+                <button type="button" data-ssu-svm-tab="soft">Soft margin</button>
+                <button type="button" data-ssu-svm-tab="hinge">Hinge loss</button>
+                <button type="button" data-ssu-svm-tab="kernel">Kernel</button>
+              </div>
+              <div id="ssu-svm-output" class="preview-box"></div>
+              <p class="step-note"><strong>Why:</strong> all four tabs are the same SVM story seen as constraints, loss, or dot products.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Formulate the hard-margin SVM from geometry.</span>
+                  <textarea rows="5" data-recall="ssu-svm-hard-margin" placeholder="Classifier, canonical constraints, margin width, primal objective..."></textarea>
+                  <template data-recall-reference="ssu-svm-hard-margin">Must say: binary labels y_i in {-1,+1}; linear classifier f(x)=w^T x+b; canonical constraints y_i(w^T x_i+b) >= 1; geometric margin width is 2/||w||; maximizing margin is equivalent to minimizing 1/2 ||w||^2 subject to all margin constraints; hard margin assumes separable data.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain soft-margin SVM as regularized ERM with hinge loss.</span>
+                  <textarea rows="5" data-recall="ssu-svm-soft-hinge" placeholder="Slack variables, C tradeoff, hinge loss, margin violations..."></textarea>
+                  <template data-recall-reference="ssu-svm-soft-hinge">Must say: soft margin introduces slack xi_i >= 0 with constraints y_i(w^T x_i+b) >= 1 - xi_i; objective is 1/2||w||^2 + C sum_i xi_i; equivalently minimize 1/2||w||^2 + C sum_i max(0, 1-y_i f(x_i)); hinge loss is zero outside the margin and linear for violations; C trades margin size/regularization against training errors.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Describe the dual/kernel prediction form and the role of support vectors.</span>
+                  <textarea rows="5" data-recall="ssu-svm-kernel-support" placeholder="Dot products, K(x,z), phi, prediction, nonzero alpha_i..."></textarea>
+                  <template data-recall-reference="ssu-svm-kernel-support">Must say: the SVM dual uses training examples only through dot products; the kernel trick replaces x_i^T x_j by K(x_i,x_j)=phi(x_i)^T phi(x_j) without explicitly computing phi; prediction has form f(x)=sum_i alpha_i y_i K(x_i,x)+b; polynomial and RBF/Gaussian kernels are common; only points with alpha_i > 0 are support vectors and determine the boundary.</template>
+                </label>
+              </section>
+              <section class="quiz" data-ssu-quiz="ssu-svm"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Derive the SVM story from geometry to regularized ERM.</span>
+              <textarea rows="4" data-recall="ssu-svm" placeholder="Margin, primal objective, slack, hinge loss, C, kernels, support vectors..."></textarea>
+              <template data-recall-reference="ssu-svm">Must say: start with f(x)=w^T x+b and margin constraints y_i f(x_i) >= 1; margin is 2/||w|| so hard-margin SVM minimizes 1/2||w||^2; soft margin adds slack xi_i and penalty C sum xi_i; this equals regularized hinge-loss ERM; C balances margin and violations; the dual depends on dot products, enabling kernels K(x,z); prediction is a support-vector sum and only nonzero alpha_i points matter.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="mle-em" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Maximum likelihood estimation and EM</h2>
+              <p class="module-lead">MLE chooses parameters that make the observed data most likely. EM is the rescue plan when hidden variables put a log around a sum: alternate posterior responsibilities and parameter refitting.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Likelihood and latent-variable fitting are core statistical-learning foundations behind the ML-heavy committee signal.</p>
+                <ul class="priority-topics">
+                  <li>likelihood and log-likelihood maximization</li>
+                  <li>MLE examples and consistency assumptions</li>
+                  <li>EM lower bound, E-step, M-step, and local optima</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="ssu-mle-em"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Maximum likelihood, clearly explained - StatQuest (6:12)</h3>
+                <div class="video-frame" title="Maximum Likelihood Clearly Explained" data-video-id="XepXtl9YKwc"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="XepXtl9YKwc" data-start="0">0:00 likelihood</button>
+                  <button type="button" data-video-target="XepXtl9YKwc" data-start="145">2:25 fit parameters</button>
+                  <button type="button" data-video-target="XepXtl9YKwc" data-start="245">4:05 likelihood curve</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=XepXtl9YKwc" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>EM algorithm: how it works - Victor Lavrenko (7:53)</h3>
+                <div class="video-frame" title="EM algorithm how it works" data-video-id="REypj2sy_5U"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="0">0:00 hidden labels</button>
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="140">2:20 E-step</button>
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="300">5:00 M-step</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=REypj2sy_5U" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Likelihood is <code>L(theta) = product_i p_theta(x_i)</code>; log-likelihood is <code>sum_i log p_theta(x_i)</code>; MLE maximizes it.</li>
+                <li>Bernoulli MLE is the sample mean; Gaussian mean MLE is the sample mean.</li>
+                <li>An estimator is consistent if it converges in probability to the true parameter as sample size grows.</li>
+                <li>With latent <code>z</code>, likelihood has <code>log sum_z p_theta(x,z)</code>, which is hard to optimize directly.</li>
+                <li>EM uses Jensen's inequality to build a lower bound; the gap is a KL divergence to the true posterior.</li>
+                <li>E-step sets <code>q_i(z) = p_theta_old(z | x_i)</code>; M-step maximizes expected complete-data log-likelihood; likelihood increases monotonically but can stop at a local optimum.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> MLE fits observed data; EM adds soft guesses for hidden data before fitting again.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="ssu-em-stepper">
+              <h3>Two-cluster EM preview</h3>
+              <div id="ssu-em-output" class="preview-box"></div>
+              <p class="step-note"><strong>Why:</strong> EM alternates between "what labels are likely?" and "what parameters fit those labels?"</p>
+              <div class="step-controls">
+                <button type="button" data-ssu-em-prev>Previous</button>
+                <button type="button" data-ssu-em-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Define MLE and estimator consistency, including simple examples.</span>
+                  <textarea rows="5" data-recall="ssu-mle-consistency" placeholder="Likelihood, log-likelihood, argmax, Bernoulli/Gaussian examples, convergence in probability..."></textarea>
+                  <template data-recall-reference="ssu-mle-consistency">Must say: likelihood L(theta)=product_i p_theta(x_i); log-likelihood is sum_i log p_theta(x_i); MLE chooses theta maximizing log-likelihood; log preserves the maximizer and turns products into sums; Bernoulli MLE is the sample mean and Gaussian mean MLE is the sample mean; an estimator is consistent when theta_hat_m converges in probability to theta*, and MLE needs conditions such as correct model family, identifiability, regularity, and enough data.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Derive the EM lower bound using Jensen's inequality.</span>
+                  <textarea rows="6" data-recall="ssu-em-jensen-bound" placeholder="Latent z, log sum, introduce q_i(z), Jensen, entropy term, KL gap..."></textarea>
+                  <template data-recall-reference="ssu-em-jensen-bound">Must say: with latent z, p_theta(x)=sum_z p_theta(x,z), so the log-likelihood contains log sum_z p_theta(x_i,z); introduce any distribution q_i(z) and write log sum_z q_i(z) p_theta(x_i,z)/q_i(z); Jensen gives a lower bound sum_z q_i(z) log(p_theta(x_i,z)/q_i(z)); summed over i this is expected complete-data log-likelihood plus entropy of q; the gap to the true log-likelihood is sum_i KL(q_i(z) || p_theta(z|x_i)).</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain E-step, M-step, responsibilities, and EM caveats.</span>
+                  <textarea rows="5" data-recall="ssu-em-steps-responsibilities" placeholder="q posterior, expected complete log-likelihood, Gaussian mixture responsibilities, monotonic/local..."></textarea>
+                  <template data-recall-reference="ssu-em-steps-responsibilities">Must say: EM is block-coordinate ascent on the lower bound; E-step sets q_i(z)=p_{theta_old}(z|x_i), making the bound tight; in mixtures these q values are responsibilities or soft assignments; M-step chooses theta maximizing sum_i E_{q_i}[log p_theta(x_i,z)], updating parameters using soft counts; likelihood increases monotonically but EM can converge to a local optimum and depends on initialization.</template>
+                </label>
+              </section>
+              <section class="quiz" data-ssu-quiz="ssu-mle-em"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain EM as lower-bound coordinate ascent.</span>
+              <textarea rows="4" data-recall="ssu-mle-em" placeholder="Likelihood, log-likelihood, latent log-sum, Jensen, q, KL gap, E-step, M-step..."></textarea>
+              <template data-recall-reference="ssu-mle-em">Must say: MLE maximizes log-likelihood; latent variables create log sum_z p_theta(x,z), which is hard; introduce q_i(z) and Jensen to form a lower bound; the gap is KL(q_i || posterior); E-step sets q_i to p_{theta_old}(z|x_i), making the bound tight; M-step maximizes expected complete-data log-likelihood; EM increases likelihood monotonically but may stop at a local optimum.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="backprop" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>Neurons, architectures, layers, and backpropagation</h2>
+              <p class="module-lead">A neural network is a composed differentiable function. Forward pass computes activations; backprop applies the chain rule backward and produces gradients for each weight matrix and bias vector.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>&Scaron;ir strongly signals neural-network mechanics, and reported drills ask directly for network design and backprop training.</p>
+                <ul class="priority-topics">
+                  <li>forward pass layer equations</li>
+                  <li>backpropagation deltas and gradients</li>
+                  <li>output layers, losses, and multiclass extensions</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-90 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="ssu-backprop"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>But what is a neural network? - 3Blue1Brown (18:40)</h3>
+                <div class="video-frame" title="But what is a neural network" data-video-id="aircAruvnKk"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="aircAruvnKk" data-start="0">0:00 network picture</button>
+                  <button type="button" data-video-target="aircAruvnKk" data-start="310">5:10 weights/biases</button>
+                  <button type="button" data-video-target="aircAruvnKk" data-start="700">11:40 activations</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Backpropagation, intuitively - 3Blue1Brown (12:47)</h3>
+                <div class="video-frame" title="Backpropagation intuitively" data-video-id="Ilg3gGewQ5U"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="0">0:00 recap</button>
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="165">2:45 output error</button>
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="470">7:50 backward signal</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=Ilg3gGewQ5U" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A neuron computes <code>z = w^T x + b</code>, then activation <code>a = sigma(z)</code>.</li>
+                <li>Common activations include sigmoid, tanh, ReLU, leaky ReLU, and softmax at multiclass output.</li>
+                <li>A feedforward layer is <code>h^(l) = sigma(W^(l) h^(l-1) + b^(l))</code>.</li>
+                <li>Architectures include MLPs, CNNs, RNN/LSTM/GRU, residual networks, and autoencoders.</li>
+                <li>Backprop computes <code>delta^(l) = dL/dz^(l)</code>, gradients <code>dL/dW^(l) = delta^(l)(a^(l-1))^T</code>, and <code>dL/db^(l) = delta^(l)</code>.</li>
+                <li>The backward recursion multiplies by the next layer's weights and the local derivative: <code>delta^(l) = (W^(l+1)^T delta^(l+1)) * sigma'(z^(l))</code>.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> a <code>delta</code> is the blame arriving at a layer before its activation.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="ssu-backprop-stepper">
+              <h3>Backprop signal stepper</h3>
+              <div id="ssu-backprop-output" class="preview-box"></div>
+              <p class="step-note"><strong>Use this when:</strong> you need to say the chain rule as a forward pass, output error, backward pass, then update.</p>
+              <div class="step-controls">
+                <button type="button" data-ssu-backprop-prev>Previous</button>
+                <button type="button" data-ssu-backprop-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Describe a feedforward network from neuron to architecture.</span>
+                  <textarea rows="5" data-recall="ssu-net-feedforward-architecture" placeholder="Neuron equation, activation, layer equation, common architectures/layers..."></textarea>
+                  <template data-recall-reference="ssu-net-feedforward-architecture">Must say: a neuron computes z=w^T x+b and activation a=sigma(z); common activations include sigmoid, tanh, ReLU, leaky ReLU, and softmax for multiclass output; a feedforward layer is h^(l)=sigma(W^(l)h^(l-1)+b^(l)); networks compose these layers; architectures/layers include MLP/dense, CNN/convolution/pooling, recurrent LSTM/GRU, residual skip connections, autoencoders, normalization, dropout, and embeddings.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Derive the core backpropagation equations for one layer.</span>
+                  <textarea rows="6" data-recall="ssu-backprop-equations" placeholder="Forward z/a, delta, gradients for W and b, recursion..."></textarea>
+                  <template data-recall-reference="ssu-backprop-equations">Must say: forward pass stores z^(l)=W^(l)a^(l-1)+b^(l) and a^(l)=sigma(z^(l)); define delta^(l)=dL/dz^(l); gradients are dL/dW^(l)=delta^(l)(a^(l-1))^T and dL/db^(l)=delta^(l) or batch sums/averages; backward recursion is delta^(l)=((W^(l+1))^T delta^(l+1)) odot sigma'(z^(l)); backprop is efficient chain-rule bookkeeping from output layer backward.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain how layer types affect forward and backward computation.</span>
+                  <textarea rows="5" data-recall="ssu-backprop-layer-types" placeholder="Dense, convolution, pooling, normalization, dropout, recurrent/residual..."></textarea>
+                  <template data-recall-reference="ssu-backprop-layer-types">Must say: dense layers use matrix multiply plus bias; convolution layers share filters over local receptive fields; pooling downsamples and routes gradients through selected/averaged locations; normalization rescales activations and has learnable/statistical parameters; dropout masks activations during training; recurrent layers share parameters over time; residual layers add skip paths that help gradients flow.</template>
+                </label>
+              </section>
+              <section class="quiz" data-ssu-quiz="ssu-backprop"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain one forward pass and one backward pass.</span>
+              <textarea rows="4" data-recall="ssu-backprop" placeholder="Neuron, activation, layer equation, delta, gradients, recursion, layer types..."></textarea>
+              <template data-recall-reference="ssu-backprop">Must say: forward computes affine preactivations and nonlinear activations layer by layer; output is compared with target through a loss; define delta=dL/dz; output delta starts the backward pass; hidden deltas use next-layer weights times next delta and local activation derivative; gradients for weights are delta times previous activation and bias gradients are deltas; parameters are updated by SGD/minibatch optimizers; mention common layer types and activations.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="training" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>SGD, CNNs, initialization, and regularization</h2>
+              <p class="module-lead">Deep learning succeeds or fails in the training details: minibatches, learning rates, initialization, normalization, regularization, and architecture choices. CNNs add local filters and weight sharing for images and spatial signals.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>This is the practical deep-learning follow-through to the committee's ML emphasis: how networks are actually trained and kept from overfitting.</p>
+                <ul class="priority-topics">
+                  <li>SGD, minibatches, optimizers, and learning rates</li>
+                  <li>CNN filters, channels, pooling, and weight sharing</li>
+                  <li>initialization, regularization, and validation controls</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="ssu-training"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid">
+              <article class="video-card">
+                <h3>Stochastic Gradient Descent - StatQuest (10:53)</h3>
+                <div class="video-frame" title="Stochastic Gradient Descent Clearly Explained" data-video-id="vMh0zPT0tLI"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="vMh0zPT0tLI" data-start="0">0:00 full gradient</button>
+                  <button type="button" data-video-target="vMh0zPT0tLI" data-start="190">3:10 stochastic idea</button>
+                  <button type="button" data-video-target="vMh0zPT0tLI" data-start="435">7:15 minibatches</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=vMh0zPT0tLI" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>CNN image classification - StatQuest (15:23)</h3>
+                <div class="video-frame" title="Image Classification with CNNs" data-video-id="HGwBXDKFk9I"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="HGwBXDKFk9I" data-start="0">0:00 image features</button>
+                  <button type="button" data-video-target="HGwBXDKFk9I" data-start="240">4:00 filters</button>
+                  <button type="button" data-video-target="HGwBXDKFk9I" data-start="560">9:20 pooling/classifier</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=HGwBXDKFk9I" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>Full gradient descent updates <code>theta &lt;- theta - eta grad L(theta)</code>; SGD estimates the gradient from one example or a minibatch.</li>
+                <li>Minibatch SGD trades noisy but cheap updates against exact but expensive full gradients.</li>
+                <li>Practical improvements include momentum, Adam/RMSProp, learning-rate schedules, weight decay, early stopping, data augmentation, and normalization.</li>
+                <li>Bad initialization causes vanishing or exploding activations/gradients; Xavier is common for tanh/sigmoid-like activations and He for ReLU.</li>
+                <li>CNNs use convolution filters with local connectivity, weight sharing, translation equivariance, channels, and pooling/striding for downsampling.</li>
+                <li>Deep nets can overfit; exam answers should mention train/validation split, regularization, augmentation, early stopping, dropout, weight decay, and architecture constraints.</li>
+              </ul>
+            </article>
+            <p class="step-note"><strong>Remember:</strong> optimization makes training loss go down; regularization is what keeps validation loss honest.</p>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="ssu-training-tabs">
+              <h3>Training-choice selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-ssu-train-tab="sgd">SGD</button>
+                <button type="button" data-ssu-train-tab="init">Initialization</button>
+                <button type="button" data-ssu-train-tab="cnn">CNN</button>
+                <button type="button" data-ssu-train-tab="regularization">Regularization</button>
+              </div>
+              <div id="ssu-training-output" class="preview-box"></div>
+              <p class="step-note"><strong>Why:</strong> these choices are practical safeguards against slow learning, unstable gradients, or overfitting.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="written-practice written-prompts">
+                <h3>Written exam prompts</h3>
+                <label class="free-recall">
+                  <span>Explain minibatch SGD and practical optimizer choices.</span>
+                  <textarea rows="5" data-recall="ssu-training-sgd-optimizers" placeholder="Full gradient, minibatch estimate, eta, noise/cost tradeoff, momentum/Adam/schedules..."></textarea>
+                  <template data-recall-reference="ssu-training-sgd-optimizers">Must say: full gradient descent updates theta <- theta - eta grad L(theta); SGD/minibatch SGD estimates the gradient from one example or batch B using theta <- theta - eta (1/|B|) sum_{i in B} grad ell_i(theta); minibatches trade cheaper/noisier updates against exact/expensive full gradients; learning rate matters; practical choices include momentum, Adam/RMSProp, learning-rate schedules, normalization, and monitoring validation loss.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Describe CNNs: convolution, channels, pooling, and invariance/equivariance.</span>
+                  <textarea rows="6" data-recall="ssu-training-cnn" placeholder="Local filters, weight sharing, y_{k,i,j}, channels, pooling/stride, images..."></textarea>
+                  <template data-recall-reference="ssu-training-cnn">Must say: a convolutional layer applies learned filters over local spatial neighborhoods, e.g. y_{k,i,j}=sum_{c,u,v} W_{k,c,u,v} x_{c,i+u,j+v}+b_k; local connectivity reduces parameters; weight sharing applies the same filter at many positions; this gives translation equivariance; multiple channels/features are learned; pooling or striding downsamples and can add local invariance; CNNs are suited to images and spatial signals.</template>
+                </label>
+                <label class="free-recall">
+                  <span>Explain initialization and regularization for deep networks.</span>
+                  <textarea rows="5" data-recall="ssu-training-init-regularization" placeholder="Vanishing/exploding, Xavier, He, validation, dropout, weight decay, augmentation, early stopping..."></textarea>
+                  <template data-recall-reference="ssu-training-init-regularization">Must say: bad initialization can make activations or gradients vanish/explode; Xavier/Glorot uses variance about 2/(n_in+n_out) and is common for tanh/sigmoid-like activations; He uses variance about 2/n_in and is common for ReLU; biases are often zero/small; overfitting is controlled with train/validation split, weight decay/L2, dropout, data augmentation, early stopping, normalization effects, and architecture constraints.</template>
+                </label>
+              </section>
+              <section class="quiz" data-ssu-quiz="ssu-training"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Explain how a deep network is trained in practice.</span>
+              <textarea rows="4" data-recall="ssu-training" placeholder="Minibatches, SGD, Adam, schedules, Xavier/He, CNN filters, pooling, dropout, weight decay..."></textarea>
+              <template data-recall-reference="ssu-training">Must say: training repeatedly computes forward pass, loss, backprop gradients, and SGD/minibatch updates; minibatches balance cost and gradient noise; optimizers and schedules such as momentum, Adam/RMSProp, and learning-rate decay improve training; initialization such as Xavier or He keeps signal scales stable; CNNs use local filters, weight sharing, channels, pooling/striding; regularization/generalization uses validation split, dropout, weight decay, augmentation, early stopping, normalization, and suitable architecture constraints.</template>
+            </label>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Exam-risk ML fundamentals</p>
+            <article class="recall-card">
+              <h3>Decision trees, ensembles, metrics, and bias/variance</h3>
+              <ul>
+                <li>Bias is systematic underfitting error; variance is sensitivity to the training sample. Regularization, simpler models, and more data reduce variance; richer models reduce bias.</li>
+                <li>A decision tree recursively splits features to reduce impurity such as entropy/information gain or Gini impurity. It overfits easily unless depth, leaf size, pruning, or validation control it.</li>
+                <li>Bagging trains models on bootstrap samples and averages/votes to reduce variance; random forests add feature subsampling to decorrelate trees.</li>
+                <li>Boosting trains weak learners sequentially with more focus on previous mistakes; it can reduce bias but is sensitive to noise and needs regularization.</li>
+                <li>Classification metrics come from the confusion matrix: accuracy, precision, recall, specificity, F1, ROC-AUC, and PR-AUC. Use precision/recall/F1 when classes are imbalanced.</li>
+              </ul>
+            </article>
+            <label class="free-recall">
+              <span>Give a compact oral answer for decision trees, ensembles, evaluation metrics, and bias/variance.</span>
+              <textarea rows="5" data-recall="ssu-ml-fundamentals" placeholder="Tree split criteria, overfitting controls, bagging/forest/boosting, confusion-matrix metrics, bias/variance..."></textarea>
+              <template data-recall-reference="ssu-ml-fundamentals">Must say: bias is underfitting/systematic error and variance is training-sample sensitivity; regularization and simpler models lower variance while richer models lower bias. Decision trees split features by impurity reduction such as entropy/information gain or Gini and need depth/pruning/min-leaf validation to avoid overfitting. Bagging and random forests average decorrelated trees to reduce variance; boosting fits weak learners sequentially to correct errors and can reduce bias. Metrics come from TP/FP/TN/FN: accuracy, precision, recall, specificity, F1, ROC-AUC, and PR-AUC; for imbalance, prefer precision/recall/F1 or PR-AUC over raw accuracy.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>SVM margin classifier</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Direct reported-drill overlap with a high-signal ML topic.</p>
+                <ul class="priority-topics">
+                  <li>separable versus nonseparable SVM</li>
+                  <li>margin drawing, slack, and hinge loss</li>
+                  <li>kernel explanation and QP distinction</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor AI/RPZ-style reports and one OI AI report asked for SVMs, separable and nonseparable cases, kernels, margin drawings, and the optimization type.</p>
+              <label class="free-recall">
+                <span>Formulate an SVM classifier for separable and nonseparable data, explain the margin picture, and say how kernels change the model.</span>
+                <textarea rows="5" data-recall="ssu-reported-svm" placeholder="Hard margin, soft margin, slack, C, hinge loss, QP not LP, kernel trick..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>A linear SVM classifies by <code>sign(w^T x+b)</code>. In the separable hard-margin case it solves <code>min 1/2||w||^2</code> subject to <code>y_i(w^T x_i+b) >= 1</code>, maximizing geometric margin <code>2/||w||</code>.</p>
+                  <ul>
+                    <li>For nonseparable data, add slack <code>xi_i >= 0</code> and minimize <code>1/2||w||^2 + C sum xi_i</code> with <code>y_i(w^T x_i+b) >= 1-xi_i</code>.</li>
+                    <li>This is regularized hinge-loss ERM; <code>C</code> trades margin size against violations.</li>
+                    <li>The optimization is quadratic programming, not linear programming, because of <code>||w||^2</code>.</li>
+                    <li>Kernels replace dot products by <code>K(x,z)=phi(x)^T phi(z)</code>, giving nonlinear boundaries while prediction depends on support vectors.</li>
+                    <li>In the drawing, support vectors lie on or inside the margin; maximizing margin improves robustness but kernels and large <code>C</code> can overfit.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="ssu-reported-svm">Must say: a linear SVM predicts sign(w^T x+b). Hard margin solves min 1/2||w||^2 subject to y_i(w^T x_i+b) >= 1, which maximizes margin 2/||w||. Soft margin adds slack xi_i >= 0 and minimizes 1/2||w||^2 + C sum xi_i with y_i(w^T x_i+b) >= 1-xi_i. This is regularized hinge-loss ERM; C trades margin against violations. The optimization is quadratic programming, not linear programming. Kernels replace dot products by K(x,z)=phi(x)^T phi(z), producing nonlinear boundaries through support vectors. The margin drawing should show the separating hyperplane, parallel margin lines, support vectors, and violations for nonseparable data.</template>
+            </article>
+
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Neural network design and backprop</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Reported questions match the committee-heavy neural-network mechanics almost one-to-one.</p>
+                <ul class="priority-topics">
+                  <li>one-hidden-layer binary classifier design</li>
+                  <li>backpropagation and SGD training story</li>
+                  <li>overfitting, universal approximation, and output extensions</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor AI/RPZ-style reports asked how neural networks work, how backprop trains them, how to extend output layers, and how to design a binary classifier from three features.</p>
+              <label class="free-recall">
+                <span>Design a one-hidden-layer neural network for binary classification from three input features, explain training by backpropagation, and discuss perfect classification, universal approximation, and overfitting.</span>
+                <textarea rows="5" data-recall="ssu-reported-neural-net" placeholder="3 inputs, hidden layer, sigmoid/softmax output, loss, deltas, SGD, multi-output, regularization..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>Use inputs <code>x in R^3</code>, a hidden layer <code>h=sigma(W_1x+b_1)</code>, and an output such as <code>p=sigmoid(w_2^T h+b_2)</code> for binary classification. Train with binary cross-entropy or another suitable classification loss.</p>
+                  <ul>
+                    <li>Backprop computes forward activations, loss, output error, hidden-layer errors by the chain rule, then updates weights with SGD/minibatches or Adam.</li>
+                    <li>For multiple outputs, replace the scalar output by several neurons, typically softmax plus cross-entropy for single-label multiclass or independent sigmoid outputs for multilabel tasks.</li>
+                    <li>Perfect training or test classification is not guaranteed: data may be noisy, nonseparable, insufficiently modeled, or optimization may find only a local/minibatch-dependent solution.</li>
+                    <li>Universal approximation says sufficiently wide networks can approximate broad classes of continuous functions, but it does not guarantee good generalization or easy training.</li>
+                    <li>Prevent overfitting with validation, early stopping, weight decay, dropout, data augmentation, simpler architecture, and enough data.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="ssu-reported-neural-net">Must say: for three features use x in R^3, hidden activations h=sigma(W_1x+b_1), and a binary output p=sigmoid(w_2^T h+b_2), trained with binary cross-entropy or another classification loss. Backprop runs a forward pass, computes the loss, propagates output and hidden errors by the chain rule, and updates weights with SGD/minibatches or Adam. To extend two outputs to many outputs, use an output neuron per class, usually softmax with cross-entropy for single-label multiclass or independent sigmoids for multilabel classification. Perfect classification is not always possible because of noise, nonseparability, model limits, and optimization. Universal approximation gives representation capacity for sufficiently wide networks, not guaranteed generalization or easy training. Overfitting is controlled by validation, early stopping, weight decay, dropout, augmentation, simpler models, and more data.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic" class="module band panic-band">
+          <p class="eyebrow">45-minute panic pass</p>
+          <h2>What to rehearse if time is cruel</h2>
+          <ol class="panic-list">
+            <li><strong>ERM:</strong> risk vs empirical risk, Hoeffding, finite-class union bound, VC dimension, consistency.</li>
+            <li><strong>SVM:</strong> hard-margin primal, soft-margin slack, hinge loss, <code>C</code>, support vectors, kernel trick.</li>
+            <li><strong>MLE:</strong> likelihood, log-likelihood, examples, consistency assumptions.</li>
+            <li><strong>EM:</strong> latent variables, log-sum difficulty, Jensen lower bound, KL gap, E-step, M-step, local optimum.</li>
+            <li><strong>Neural nets:</strong> neuron/layer equation, activations, backprop deltas, SGD/minibatches, initialization, CNNs, regularization.</li>
+            <li><strong>ML fundamentals:</strong> bias/variance, decision-tree split criteria and pruning, bagging/random forests, boosting, and confusion-matrix metrics.</li>
+          </ol>
+        </section>
+
+        <section id="oral" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Oral skeleton</span>
+              <h2>One clean answer path</h2>
+              <p class="module-lead">Use this as the shape of a spoken exam answer. It is deliberately compact: definitions first, formulas second, caveats third.</p>
+            </div>
+          </header>
+          <div class="oral-script">
+            <p><strong>1. ERM:</strong> "We choose a hypothesis from <code>H</code> by minimizing empirical loss. The target is true risk, an expectation over the unknown distribution. Hoeffding controls the gap for one hypothesis; a union bound controls all hypotheses in finite <code>H</code>; VC dimension controls infinite binary classes. Consistency means the learned risk converges to the best achievable risk under suitable assumptions."</p>
+            <p><strong>2. SVM:</strong> "A linear SVM maximizes margin, equivalently minimizes <code>1/2 ||w||^2</code> under margin constraints. Soft margin adds slack and becomes regularized hinge-loss ERM. In the dual, examples appear through dot products, so kernels allow nonlinear decision boundaries. Only support vectors affect prediction."</p>
+            <p><strong>3. MLE and EM:</strong> "MLE maximizes log-likelihood. With latent variables, likelihood contains a log of a sum, so EM optimizes a Jensen lower bound. The E-step sets responsibilities to the posterior under old parameters; the M-step maximizes expected complete-data log-likelihood. It increases likelihood monotonically but can converge locally."</p>
+            <p><strong>4. Neural networks:</strong> "Layers compose affine maps and nonlinear activations. Backprop is the chain rule: compute output error, propagate deltas backward, and form gradients for weights and biases. Training uses SGD or minibatches with learning-rate choices and optimizers."</p>
+            <p><strong>5. Deep-training details:</strong> "CNNs exploit local connectivity and weight sharing; initialization such as Xavier or He keeps signals stable; regularization such as dropout, weight decay, augmentation, validation, and early stopping fights overfitting."</p>
+            <p><strong>6. Nearby ML drills:</strong> "If the examiner pivots to classical classifiers, I can define decision trees by impurity-reducing splits, explain pruning against overfitting, compare bagging/random forests with boosting, and choose metrics from the confusion matrix instead of relying on accuracy alone."</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    (() => {
+      const modules = ["ssu-erm", "ssu-svm", "ssu-mle-em", "ssu-backprop", "ssu-training"];
+      const progressKey = "ssu-study-progress-v1";
+
+      const flashcards = {
+        "ssu-erm": [],
+        "ssu-svm": [],
+        "ssu-mle-em": [],
+        "ssu-backprop": [],
+        "ssu-training": []
+      };
+
+      const quizzes = {
+        "ssu-erm": [
+          { q: "True risk is...", a: ["Expected loss under the data distribution", "Average loss over the training sample", "Penalty term based only on model size"], correct: 0, why: "Risk is the population expectation, which is exactly the quantity we cannot directly measure." },
+          { q: "Empirical risk is...", a: ["Average loss on observed training examples", "Expected future loss under the distribution", "Capacity measure of the hypothesis class"], correct: 0, why: "ERM optimizes the sample average of the chosen loss." },
+          { q: "ERM chooses...", a: ["argmin_h in H Rhat_S(h)", "argmax_theta log p_theta(D)", "argmin_h in H R(h) from the unknown distribution"], correct: 0, why: "The ERM rule minimizes empirical risk over the chosen hypothesis class." },
+          { q: "Hoeffding requires the sampled losses to be...", a: ["Independent bounded random variables", "Linearly separable labeled examples", "Latent variables with Gaussian noise"], correct: 0, why: "In this course story it is applied to independent [0,1] loss variables." },
+          { q: "For one fixed hypothesis, Hoeffding controls...", a: ["|Rhat_S(h)-R(h)| for that hypothesis", "The margin width of its hyperplane", "The KL gap in its EM lower bound"], correct: 0, why: "It bounds the sample mean's deviation from its expectation." },
+          { q: "The union bound over finite H contributes...", a: ["A log |H| term in the deviation bound", "A slack penalty for margin violations", "A responsibility for each latent state"], correct: 0, why: "Controlling all hypotheses costs a factor |H|, which becomes log |H| after solving for epsilon." },
+          { q: "Increasing sample size m usually makes the bound...", a: ["Tighter, since estimation error shrinks", "Looser, because the model class grows automatically", "Unchanged, unless the VC dimension is zero"], correct: 0, why: "The complexity term scales like a square root divided by m." },
+          { q: "VC dimension is the largest number of points that can be...", a: ["Shattered by the hypothesis class", "Assigned to the same mixture component", "Used as support vectors in an SVM"], correct: 0, why: "Shattering means realizing all binary labelings of that set." },
+          { q: "A statistically consistent learner has risk that...", a: ["Converges to the best achievable risk under assumptions", "Becomes exactly zero on every finite sample", "Improves beyond Bayes risk as m grows"], correct: 0, why: "Consistency is an asymptotic guarantee, not a finite-sample promise." }
+        ],
+        "ssu-svm": [
+          { q: "The linear SVM score is...", a: ["f(x)=w^T x+b", "K(x,z)=phi(x)^T phi(z)", "q_i(z)=p(z|x_i)"], correct: 0, why: "The separating hyperplane is represented by w and b." },
+          { q: "The hard-margin constraints are...", a: ["y_i(w^T x_i+b) >= 1", "y_i(w^T x_i+b) <= 0", "xi_i=max(0,1-y_i f(x_i))"], correct: 0, why: "Canonical scaling makes the margin constraints equal to at least 1." },
+          { q: "Maximizing margin is equivalent to minimizing...", a: ["1/2 ||w||^2", "sum_i xi_i with no norm term", "negative log-likelihood of labels"], correct: 0, why: "Margin width is 2/||w||, so smaller norm means larger margin." },
+          { q: "Hard-margin SVM assumes...", a: ["Separable data with no violations", "Noisy overlap handled by slack", "Latent classes inferred by EM"], correct: 0, why: "Without separability, the hard constraints cannot all be satisfied." },
+          { q: "Slack variables represent...", a: ["Allowed margin violations", "Feature-space dot products", "Posterior soft cluster weights"], correct: 0, why: "Soft margin permits violations through xi_i." },
+          { q: "A larger C puts more penalty on...", a: ["Slack or margin violations", "Kernel bandwidth in RBF only", "Latent-variable entropy terms"], correct: 0, why: "C controls the tradeoff between margin and slack penalties." },
+          { q: "Hinge loss is zero when...", a: ["y f(x) >= 1", "0 < y f(x) < 1", "the point is misclassified but close"], correct: 0, why: "Correct points outside or on the margin have no hinge penalty." },
+          { q: "The kernel trick avoids explicitly computing...", a: ["The feature map phi(x)", "All support-vector coefficients alpha_i", "The bias term b in prediction"], correct: 0, why: "It computes feature-space inner products indirectly." },
+          { q: "Common kernel choices include...", a: ["Polynomial and RBF/Gaussian kernels", "Dropout and batch-normalization layers", "Bernoulli and Gaussian likelihood models"], correct: 0, why: "These are standard ways to define nonlinear feature-space similarities." },
+          { q: "Only points with nonzero alpha are...", a: ["Support vectors in the prediction", "Points ignored by the final classifier", "Latent classes in a mixture model"], correct: 0, why: "They determine the final SVM prediction." }
+        ],
+        "ssu-mle-em": [
+          { q: "Likelihood for iid data is...", a: ["product_i p_theta(x_i)", "sum_i log p_theta(x_i)", "sum_i max(0,1-y_i f(x_i))"], correct: 0, why: "The model probability or density assigned to independent observations multiplies." },
+          { q: "Log-likelihood is preferred because it...", a: ["Turns products into sums and keeps the maximizer", "Makes every likelihood problem convex", "Removes latent variables automatically"], correct: 0, why: "The logarithm is monotone, so it preserves argmax while simplifying products." },
+          { q: "The Bernoulli MLE for p is...", a: ["Sample proportion of successes", "Sample variance as the main parameter", "Largest observed value in the sample"], correct: 0, why: "The empirical success frequency maximizes the Bernoulli likelihood." },
+          { q: "The Gaussian mean MLE is...", a: ["Sample average of observations", "Sample variance used as the mean", "Largest likelihood value attained"], correct: 0, why: "With variance known or separately estimated, the likelihood is maximized at the sample average." },
+          { q: "Estimator consistency means theta_hat_m...", a: ["Converges in probability to theta*", "Is unbiased at every finite sample size", "Has zero variance once m is positive"], correct: 0, why: "Consistency is convergence as sample size grows." },
+          { q: "Latent-variable likelihood is hard because of...", a: ["The log wraps a sum or integral over z", "The activation derivative must be stored", "The margin constraints cannot be separable"], correct: 0, why: "The hidden variable must be summed or integrated out before the log." },
+          { q: "Jensen's inequality in EM creates...", a: ["A lower bound on log p_theta(x)", "An upper bound on hinge loss", "A hard constraint on the margin"], correct: 0, why: "Introducing q lets us move the log inside as a lower bound." },
+          { q: "The EM lower-bound gap is a...", a: ["KL divergence from q to the posterior", "Hinge-loss penalty for margin errors", "Pooling window over local features"], correct: 0, why: "The bound is tight when q equals the posterior." },
+          { q: "In a Gaussian mixture, E-step computes...", a: ["Responsibilities for latent components", "Support-vector coefficients alpha_i", "Dropout masks for hidden units"], correct: 0, why: "Responsibilities are soft cluster assignments." },
+          { q: "The M-step maximizes...", a: ["Expected complete-data log-likelihood", "The VC dimension generalization bound", "The number of hidden network layers"], correct: 0, why: "Parameters are refit using the current soft assignments q." },
+          { q: "EM is guaranteed to...", a: ["Increase likelihood monotonically, but not globally optimize", "Reach the global optimum for any initialization", "Decrease likelihood until convergence"], correct: 0, why: "The local-optimum caveat is important for exams." }
+        ],
+        "ssu-backprop": [
+          { q: "A neuron first computes...", a: ["An affine preactivation z=w^T x+b", "A normalized softmax probability vector", "A kernel similarity to support vectors"], correct: 0, why: "The activation is applied after z = w^T x + b." },
+          { q: "ReLU is...", a: ["max(0,z)", "1/(1+exp(-z))", "log(1+exp(z))"], correct: 0, why: "That piecewise-linear activation is the ReLU." },
+          { q: "Softmax is most often used for...", a: ["Multiclass output probabilities", "Hidden-layer margin constraints", "Mixture-component variance updates"], correct: 0, why: "It normalizes output scores into class probabilities." },
+          { q: "A feedforward layer has the form...", a: ["h^(l)=sigma(W^(l)h^(l-1)+b^(l))", "K(x,z)=phi(x)^T phi(z)", "q_i(z)=p_theta(z|x_i)"], correct: 0, why: "Each layer composes an affine map and nonlinearity." },
+          { q: "Backprop is mainly efficient...", a: ["Chain-rule bookkeeping", "Finite-difference search over weights", "Sampling labels from the posterior"], correct: 0, why: "It reuses local derivatives moving backward." },
+          { q: "The delta at layer l means...", a: ["Derivative of loss with respect to preactivation", "Derivative with respect to all parameters at once", "Indicator for the train-test split"], correct: 0, why: "The delta is the error signal with respect to preactivation." },
+          { q: "Hidden-layer delta recursion uses...", a: ["Next-layer weights and local activation derivative", "Only previous activations, ignoring downstream error", "Only empirical-risk bounds from Hoeffding"], correct: 0, why: "The formula is W^(l+1)^T delta^(l+1) multiplied elementwise by sigma'(z^(l))." },
+          { q: "The gradient with respect to W^(l) uses...", a: ["delta^(l) and previous activation", "next layer's bias and the learning rate", "VC dimension and sample-size bound"], correct: 0, why: "dL/dW is an outer product of error signal and previous activations." },
+          { q: "Convolution, pooling, dropout, and batch norm are examples of...", a: ["Neural network layer types", "Maximum-likelihood estimators", "SVM dual constraint terms"], correct: 0, why: "The exam expects examples beyond dense layers." },
+          { q: "Residual networks add...", a: ["Skip connections between layers", "Latent labels for hidden classes", "Pairwise kernels for all inputs"], correct: 0, why: "Skip connections help optimization in deep networks." }
+        ],
+        "ssu-training": [
+          { q: "SGD uses...", a: ["A stochastic/minibatch gradient estimate", "The exact full-dataset gradient every update", "Only support-vector examples for gradients"], correct: 0, why: "That is the source of the word stochastic." },
+          { q: "Minibatches are useful because they...", a: ["Trade gradient noise against computation cost", "Remove the need to define a training loss", "Guarantee convergence to a global minimum"], correct: 0, why: "They are cheaper than full batches and less noisy than single samples." },
+          { q: "Momentum and Adam are...", a: ["Optimization improvements for updates", "Kernel functions for nonlinear SVMs", "Initialization schemes for tanh networks"], correct: 0, why: "They modify the gradient update dynamics." },
+          { q: "A learning-rate schedule changes...", a: ["Step size during training", "Model capacity term in the VC bound", "Data likelihood definition in MLE"], correct: 0, why: "The learning rate eta controls update magnitude." },
+          { q: "Bad initialization can cause...", a: ["Vanishing or exploding activations/gradients", "Perfect posterior responsibility estimates", "Hard-margin separability of raw data"], correct: 0, why: "Signal scale through many layers is sensitive to initial weight variance." },
+          { q: "Xavier/Glorot initialization is commonly matched to...", a: ["Tanh or sigmoid-like activations", "RBF kernels in a nonlinear SVM", "Pooling layers with no weights"], correct: 0, why: "It uses variance roughly 2/(n_in+n_out)." },
+          { q: "He initialization is matched especially to...", a: ["ReLU-style rectified activations", "Sigmoid units in shallow logistic regression", "RBF kernels in nonlinear SVMs"], correct: 0, why: "It keeps variance healthier for rectified activations." },
+          { q: "CNN local connectivity means...", a: ["Filters see nearby spatial neighborhoods", "Each output connects densely to all pixels", "Only support-vector points influence filters"], correct: 0, why: "Local receptive fields exploit spatial structure." },
+          { q: "CNN weight sharing means...", a: ["The same filter is applied at many spatial locations", "Every location learns a different filter", "All examples are forced to share one label"], correct: 0, why: "The same learned kernel scans the input." },
+          { q: "Pooling or striding mainly performs...", a: ["Spatial downsampling", "Likelihood maximization over parameters", "Dual optimization over support vectors"], correct: 0, why: "It reduces spatial resolution and can add local invariance." },
+          { q: "Dropout is used mainly for...", a: ["Regularization by randomly masking activations", "Exact maximum-likelihood estimation", "Increasing model capacity deliberately"], correct: 0, why: "It discourages co-adaptation and overfitting." },
+          { q: "A validation split helps detect...", a: ["Overfitting during model selection", "Jensen lower bounds for latent variables", "Support-vector alpha coefficients"], correct: 0, why: "Validation performance estimates generalization during model selection." }
+        ]
+      };
+
+      const boundData = {
+        finite: "<h4>Finite hypothesis class</h4><p>For bounded loss and finite <code>H</code>, with probability at least <code>1 - delta</code>:</p><pre>R(h) &lt;= Rhat(h) + sqrt(log(2|H|/delta)/(2m))</pre><p class=\"step-note\"><strong>Remember:</strong> more samples shrink the gap; more hypotheses enlarge it.</p>",
+        vc: "<h4>Infinite class with VC dimension d</h4><p>VC dimension replaces <code>log |H|</code>. A typical distribution-free rate is:</p><pre>gap = O(sqrt((d + log(1/delta))/m))</pre><p class=\"step-note\"><strong>Remember:</strong> VC dimension is the capacity number used when <code>H</code> is too large to count.</p>",
+        losses: "<h4>Loss map</h4><ul><li><strong>0/1:</strong> classification mistake.</li><li><strong>Squared:</strong> regression penalty.</li><li><strong>Hinge:</strong> SVM margin violation.</li><li><strong>Logistic/cross-entropy:</strong> probabilistic classification training.</li></ul><p class=\"step-note\"><strong>Remember:</strong> the loss defines what a mistake means for the model.</p>"
+      };
+
+      const svmData = {
+        hard: "<h4>Hard margin</h4><pre>min 1/2 ||w||^2\ns.t. y_i(w^T x_i + b) >= 1</pre><p class=\"step-note\"><strong>Remember:</strong> hard margin works only when the data are separable with no violations.</p>",
+        soft: "<h4>Soft margin</h4><pre>min 1/2 ||w||^2 + C sum_i xi_i\ns.t. y_i(w^T x_i+b) >= 1 - xi_i, xi_i >= 0</pre><p class=\"step-note\"><strong>Why:</strong> slack lets the classifier survive noisy or overlapping classes.</p>",
+        hinge: "<h4>Hinge loss view</h4><pre>max(0, 1 - y f(x))</pre><p class=\"step-note\"><strong>Remember:</strong> zero loss means correct and outside the margin; otherwise the penalty grows linearly.</p>",
+        kernel: "<h4>Kernel prediction</h4><pre>f(x) = sum_i alpha_i y_i K(x_i,x) + b</pre><p class=\"step-note\"><strong>Why:</strong> kernels make nonlinear boundaries while the optimizer only sees pairwise similarities.</p>"
+      };
+
+      const emSteps = [
+        "<p><strong>Observed data:</strong> imagine one-dimensional points from two hidden Gaussian clusters. The cluster label <code>z</code> is missing.</p><p>The likelihood needs <code>log(sum_z p_theta(x,z))</code>, so direct maximization is awkward.</p>",
+        "<p><strong>E-step:</strong> compute responsibilities using current parameters, for example point <code>x</code> may be 0.8 cluster A and 0.2 cluster B.</p><p>This sets <code>q_i(z)</code> equal to the current posterior and makes the lower bound tight.</p>",
+        "<p><strong>M-step:</strong> update means, variances, and mixture weights using those soft assignments.</p><p>The same point contributes 80% to A's parameter updates and 20% to B's.</p>",
+        "<p><strong>Repeat:</strong> EM performs coordinate ascent on the lower bound. Likelihood goes up each round, but initialization still matters because the optimum can be local.</p>"
+      ];
+
+      const backpropSteps = [
+        "<p><strong>Forward:</strong> compute <code>z^(l) = W^(l)a^(l-1)+b^(l)</code> and <code>a^(l)=sigma(z^(l))</code> layer by layer.</p>",
+        "<p><strong>Output error:</strong> compare prediction to target and form the last-layer error signal <code>delta</code>.</p>",
+        "<p><strong>Backward:</strong> move one layer back using <code>W^T delta</code> and multiply by the local activation derivative.</p>",
+        "<p><strong>Gradients:</strong> each weight gradient is the error signal times the previous activation. Then SGD updates parameters in the negative-gradient direction.</p>"
+      ];
+
+      const trainingData = {
+        sgd: "<h4>SGD/minibatch</h4><p>Full gradient is accurate but expensive. Single-example SGD is cheap but noisy. Minibatches are the practical compromise.</p><pre>theta &lt;- theta - eta (1/|B|) sum_i grad ell_i(theta)</pre>",
+        init: "<h4>Initialization</h4><p>Bad scales make activations and gradients vanish or explode. Use Xavier for tanh/sigmoid-like activations and He for ReLU.</p>",
+        cnn: "<h4>CNN</h4><p>A learned filter slides across spatial locations. Local connectivity and weight sharing create translation equivariance; pooling or stride downsamples; channels store many learned features.</p>",
+        regularization: "<h4>Regularization</h4><p>Say the full cluster: validation split, weight decay, dropout, augmentation, early stopping, normalization effects, and architecture constraints.</p>"
+      };
+
+      function readProgress() {
+        try {
+          return JSON.parse(localStorage.getItem(progressKey) || "{}");
+        } catch {
+          return {};
+        }
+      }
+
+      function writeProgress(value) {
+        localStorage.setItem(progressKey, JSON.stringify(value));
+      }
+
+      function updateProgress() {
+        const progress = readProgress();
+        const moduleDone = modules.filter((key) => progress[key]).length;
+        const videoKeys = [...new Set([...document.querySelectorAll("[data-video-watch-key], [data-video-choice-watch-key]")]
+          .map((control) => control.dataset.videoWatchKey || control.dataset.videoChoiceWatchKey)
+          .filter(Boolean))];
+        const videoDone = videoKeys.filter((key) => progress[key]).length;
+        const total = modules.length + videoKeys.length;
+        const percent = total ? Math.round(((moduleDone + videoDone) / total) * 100) : 0;
+        document.querySelectorAll("[data-progress-key]").forEach((box) => {
+          if (modules.includes(box.dataset.progressKey)) box.checked = Boolean(progress[box.dataset.progressKey]);
+        });
+        const percentEl = document.getElementById("ssu-progress-percent");
+        const detailEl = document.getElementById("ssu-progress-detail");
+        if (percentEl) percentEl.textContent = `${percent}%`;
+        if (detailEl) {
+          detailEl.textContent = videoKeys.length
+            ? `${moduleDone}/${modules.length} modules checked, ${videoDone}/${videoKeys.length} videos watched.`
+            : `${moduleDone} of ${modules.length} modules checked.`;
+        }
+        document.querySelectorAll("[data-progress-fill]").forEach((fill) => {
+          fill.style.width = `${percent}%`;
+        });
+      }
+
+      function initSsuProgress() {
+        document.querySelectorAll("[data-progress-key]").forEach((box) => {
+          if (!modules.includes(box.dataset.progressKey)) return;
+          box.addEventListener("change", () => {
+            const progress = readProgress();
+            progress[box.dataset.progressKey] = box.checked;
+            writeProgress(progress);
+            updateProgress();
+          });
+        });
+        const reset = document.querySelector("[data-reset-progress]");
+        if (reset) reset.addEventListener("click", () => {
+          localStorage.removeItem(progressKey);
+          updateProgress();
+        });
+        updateProgress();
+      }
+
+      function initCards() {
+        document.querySelectorAll("[data-ssu-flashcards]").forEach((container) => {
+          const set = flashcards[container.dataset.ssuFlashcards] || [];
+          set.forEach(([front, back]) => {
+            const card = document.createElement("article");
+            card.className = "flashcard";
+            card.innerHTML = `<p><strong>${front}</strong></p><button type="button">Show answer</button><p class="flashcard-answer">${back}</p>`;
+            const button = card.querySelector("button");
+            button.addEventListener("click", () => {
+              card.classList.toggle("revealed");
+              button.textContent = card.classList.contains("revealed") ? "Hide answer" : "Show answer";
+            });
+            container.appendChild(card);
+          });
+        });
+      }
+
+      function initQuizzes() {
+        document.querySelectorAll("[data-ssu-quiz]").forEach((container) => {
+          const set = quizzes[container.dataset.ssuQuiz] || [];
+          window.renderQuizPager?.(container, set, { storageKey: container.dataset.ssuQuiz });
+        });
+      }
+
+      function initTabs(selector, outputId, data, initial) {
+        const output = document.getElementById(outputId);
+        if (!output) return;
+        const render = (key) => {
+          output.innerHTML = data[key];
+          document.querySelectorAll(selector).forEach((button) => {
+            const dataKey = Object.keys(button.dataset).find((name) => name.startsWith("ssu"));
+            button.classList.toggle("active", button.dataset[dataKey] === key);
+          });
+        };
+        document.querySelectorAll(selector).forEach((button) => {
+          const dataKey = Object.keys(button.dataset).find((name) => name.startsWith("ssu"));
+          button.addEventListener("click", () => render(button.dataset[dataKey]));
+        });
+        render(initial);
+      }
+
+      function initStepper(outputId, steps, prevSelector, nextSelector) {
+        const output = document.getElementById(outputId);
+        if (!output) return;
+        let index = 0;
+        const render = () => { output.innerHTML = steps[index]; };
+        const prev = document.querySelector(prevSelector);
+        const next = document.querySelector(nextSelector);
+        if (prev) prev.addEventListener("click", () => {
+          index = Math.max(0, index - 1);
+          render();
+        });
+        if (next) next.addEventListener("click", () => {
+          index = Math.min(steps.length - 1, index + 1);
+          render();
+        });
+        render();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initSsuProgress();
+        initCards();
+        initQuizzes();
+        initTabs("[data-ssu-bound-tab]", "ssu-bound-output", boundData, "finite");
+        initTabs("[data-ssu-svm-tab]", "ssu-svm-output", svmData, "hard");
+        initTabs("[data-ssu-train-tab]", "ssu-training-output", trainingData, "sgd");
+        initStepper("ssu-em-output", emSteps, "[data-ssu-em-prev]", "[data-ssu-em-next]");
+        initStepper("ssu-backprop-output", backpropSteps, "[data-ssu-backprop-prev]", "[data-ssu-backprop-next]");
+      });
+    })();
+  </script>
+</body>
+</html>

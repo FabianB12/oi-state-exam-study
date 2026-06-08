@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAL Plain English 1</title>
+  <link rel="stylesheet" href="pal_plain_style.css">
+</head>
+<body>
+  <main class="sheet">
+    <section class="intro">
+      <h1>PAL in Plain English</h1>
+      <p class="lead">PAL is not one big idea. It is five small toolboxes. Learn what each toolbox is for, the main names, and one sentence you can say in the exam.</p>
+      <div class="rule">
+        <div><strong>1. Recognize the topic.</strong><span>Graph, generation, tree, or automaton?</span></div>
+        <div><strong>2. Say the landmark.</strong><span>Condition, algorithm name, or formula.</span></div>
+        <div><strong>3. Finish with complexity.</strong><span>Most PAL answers end with O(...).</span></div>
+      </div>
+    </section>
+
+    <section class="topic blue">
+      <div class="side">
+        <div class="number">1</div>
+        <h2>Graph basics</h2>
+        <p>How to store a graph and talk about its size.</p>
+      </div>
+      <div class="main">
+        <div class="box">
+          <h3>Know this</h3>
+          <ul>
+            <li><b>n = vertices</b>, <b>m = edges</b>.</li>
+            <li>Adjacency list: good for sparse graphs, O(n + m) memory.</li>
+            <li>Adjacency matrix: O(1) edge lookup, but O(n^2) memory.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Watch out</h3>
+          <ul>
+            <li>Distance matrix usually means shortest-path distances.</li>
+            <li>Laplacian/incidence matrices are the algebraic view.</li>
+          </ul>
+        </div>
+        <div class="sentence"><b>Exam sentence:</b> For sparse graphs I would use adjacency lists because they take O(n + m) memory; matrices are useful when I need O(1) edge queries.</div>
+      </div>
+    </section>
+
+    <section class="topic green">
+      <div class="side">
+        <div class="number">2</div>
+        <h2>Graph algorithms</h2>
+        <p>MST, components, Euler trails, and isomorphism.</p>
+      </div>
+      <div class="main">
+        <div class="box">
+          <h3>Core algorithms</h3>
+          <ul>
+            <li><b>Prim/Kruskal/Boruvka</b> build minimum spanning trees.</li>
+            <li><b>Union-find</b> tracks components for Kruskal.</li>
+            <li><b>Kosaraju/Tarjan</b> find SCCs in O(n + m).</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Key conditions</h3>
+          <ul>
+            <li>MST: cut property and cycle property.</li>
+            <li>Euler undirected: all even, or exactly two odd.</li>
+            <li>Euler directed: in-degree/out-degree balance.</li>
+          </ul>
+        </div>
+        <div class="sentence"><b>Exam sentence:</b> Kruskal sorts edges and adds an edge only if union-find says it connects two different components; sorting gives O(m log n).</div>
+      </div>
+    </section>
+
+    <section class="topic amber">
+      <div class="side">
+        <div class="number">3</div>
+        <h2>Generation and numbers</h2>
+        <p>Listing objects, finding primes, and simple pseudorandomness.</p>
+      </div>
+      <div class="main">
+        <div class="box">
+          <h3>Counts</h3>
+          <ul>
+            <li>Subsets: 2^n.</li>
+            <li>k-subsets: C(n, k).</li>
+            <li>Permutations: n!.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Names to remember</h3>
+          <ul>
+            <li>Gray code: consecutive bit strings differ in one bit.</li>
+            <li>Sieve of Eratosthenes: all primes up to N.</li>
+            <li>LCG: X' = (aX + c) mod m.</li>
+          </ul>
+        </div>
+        <div class="sentence"><b>Exam sentence:</b> The sieve marks multiples starting from p^2 and finds all primes up to N in O(N log log N) time.</div>
+      </div>
+    </section>
+
+    <footer>Page 1 of 2: first learn the simple story, then drill details in the notes.</footer>
+  </main>
+</body>
+</html>

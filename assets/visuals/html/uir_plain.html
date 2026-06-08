@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>UIR Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>UIR in Plain English</h1>
+    <p class="lead">UIR is robot planning in the physical world. The key difference from abstract planning is geometry, sensing, uncertainty, motion constraints, and coordination between robots.</p>
+    <div class="routine"><div><strong>1. Name the robot problem.</strong><span>Control, path, exploration, tasks, or sampling.</span></div><div><strong>2. Name the space.</strong><span>World, grid, graph, or configuration space.</span></div><div><strong>3. Give the method.</strong><span>A*, D*, frontier, allocation, PRM/RRT.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>Robot architectures</h2><p class="what">How sensing, planning, and acting are organized.</p><ul><li>Hierarchical: sense-plan-act.</li><li>Reactive: fast behavior from perception.</li><li>Hybrid: deliberative planner plus reactive layer.</li></ul></article>
+    <article class="card green"><h2>Path and motion planning</h2><p class="what">Move from start to goal without collision.</p><ul><li>Configuration space represents robot poses.</li><li>Grid/graph planning uses A* and variants.</li><li>D*/D* Lite replan when the map changes.</li></ul></article>
+    <article class="card amber"><h2>Exploration</h2><p class="what">Plan to gain information, not just reach a known goal.</p><ul><li>Frontier = boundary between known free and unknown space.</li><li>Information gain and entropy score useful observations.</li><li>Exploration balances travel cost and new knowledge.</li></ul></article>
+    <article class="card rose"><h2>Multi-robot and multi-goal</h2><p class="what">Assign tasks and order visits.</p><ul><li>Centralized methods optimize globally but scale poorly.</li><li>Decentralized methods scale but may be less optimal.</li><li>Robotic TSP adds geometry and motion constraints.</li></ul></article>
+    <article class="card teal"><h2>Sampling planners</h2><p class="what">Avoid explicit full-space search in continuous spaces.</p><ul><li>PRM builds a roadmap.</li><li>RRT grows a tree toward random samples.</li><li>RRT*/PRM* add asymptotic optimality.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Always mention physical constraints.</p><ul><li>What is the state/configuration?</li><li>What is known vs. unknown?</li><li>What guarantee does the planner have?</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> Motion planning usually works in configuration space, where each point represents a full robot pose and obstacles become forbidden regions.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>Path planning ignores some motion constraints; motion planning includes geometry/kinematics.</li><li>Probabilistic completeness does not mean guaranteed success in finite time.</li><li>RRT is not asymptotically optimal; RRT* is.</li></ul></section>
+  <div class="footer">Use this page to separate robotics planning topics by what is being planned.</div>
+</main></body></html>

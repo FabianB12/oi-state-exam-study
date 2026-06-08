@@ -1,0 +1,16 @@
+flowchart LR
+  Assume["<b>Assume decider H</b><br/>H(P, x) predicts<br/>whether P halts on x"]
+  Build["<b>Build diagonal D(y)</b><br/>if H(y, y) says halt: loop<br/>otherwise: halt"]
+  Contradiction["<b>Run D(D)</b><br/>H predicts halt -> D loops<br/>H predicts loop -> D halts"]
+  Result["<b>Conclusion</b><br/>HALT is undecidable<br/>universal simulation is RE<br/>but not decidable"]
+
+  Assume --> Build --> Contradiction --> Result
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class Assume blue;
+  class Build yellow;
+  class Contradiction red;
+  class Result blue;

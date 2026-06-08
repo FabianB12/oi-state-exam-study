@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PUI Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>PUI in Plain English</h1>
+    <p class="lead">PUI is about planning actions before acting. The main trick is to estimate distance to the goal using relaxations, abstractions, landmarks, or optimization.</p>
+    <div class="routine"><div><strong>1. State the planning model.</strong><span>States, actions, initial state, goal.</span></div><div><strong>2. Choose the heuristic.</strong><span>Relaxed, abstracted, landmark, LP, or sampled.</span></div><div><strong>3. Say the guarantee.</strong><span>Satisficing, optimal, admissible, probabilistic.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>Classical planning</h2><p class="what">Find an action sequence from initial state to goal.</p><ul><li>STRIPS: facts, preconditions, add/delete effects.</li><li>SAS: finite-domain variables.</li><li>A*, greedy search, and heuristic search are central.</li></ul></article>
+    <article class="card green"><h2>Delete relaxation</h2><p class="what">Pretend actions never delete facts.</p><ul><li>hmax: optimistic max cost.</li><li>hadd: sums subgoal costs, may double count.</li><li>hff: extracts a relaxed plan.</li></ul></article>
+    <article class="card amber"><h2>Abstractions and landmarks</h2><p class="what">Simplify the problem or identify required facts/actions.</p><ul><li>Pattern databases solve projected tasks.</li><li>Merge-and-shrink builds abstract transition systems.</li><li>Landmarks must be achieved on every plan.</li></ul></article>
+    <article class="card rose"><h2>LP heuristics</h2><p class="what">Use linear constraints to lower-bound plan cost.</p><ul><li>State-equation heuristic counts action occurrences.</li><li>Potential heuristics assign values to facts/states.</li><li>LP gives a numeric estimate for search.</li></ul></article>
+    <article class="card teal"><h2>Uncertainty and MCTS</h2><p class="what">Actions may be nondeterministic or probabilistic.</p><ul><li>MDP value iteration optimizes expected return.</li><li>MCTS samples futures instead of expanding all states.</li><li>UCT balances value and exploration.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Always say what information is ignored or approximated.</p><ul><li>What is the relaxed problem?</li><li>Is the heuristic admissible?</li><li>What search uses it?</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> Delete-relaxation heuristics estimate goal distance by solving an easier problem where delete effects are ignored, so facts only accumulate.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>Satisficing means "find some plan"; optimal means minimum cost.</li><li>hadd is usually not admissible because it double-counts shared actions.</li><li>MCTS is useful when the full search tree is too large to enumerate.</li></ul></section>
+  <div class="footer">Use this page to remember what each heuristic family is simplifying.</div>
+</main></body></html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>KO Plain English</title><link rel="stylesheet" href="exam_plain_style.css"></head>
+<body><main class="sheet">
+  <section class="top">
+    <h1>KO in Plain English</h1>
+    <p class="lead">KO is about turning discrete choices into optimization problems. For each topic, know the model, whether it is easy or hard, and the standard exact, approximate, or graph algorithm.</p>
+    <div class="routine"><div><strong>1. Model the decision.</strong><span>Variables, constraints, objective.</span></div><div><strong>2. Pick the method.</strong><span>Exact, polynomial graph algorithm, approximation, or DP.</span></div><div><strong>3. State the guarantee.</strong><span>Optimal, feasible, pseudo-polynomial, or approximate.</span></div></div>
+  </section>
+  <section class="grid">
+    <article class="card blue"><h2>ILP and Branch & Bound</h2><p class="what">Use variables to describe choices.</p><ul><li>LP is polynomial; general ILP is NP-hard.</li><li>Binary variables are yes/no switches.</li><li>Branch & Bound splits cases and prunes by bounds.</li></ul></article>
+    <article class="card green"><h2>Shortest paths and flows</h2><p class="what">Polynomial graph problems with strong structure.</p><ul><li>Dijkstra: nonnegative edges.</li><li>Bellman-Ford: negative edges, detects negative cycles.</li><li>Max-flow min-cut links augmenting paths to cuts.</li></ul></article>
+    <article class="card amber"><h2>Knapsack and TSP</h2><p class="what">Hard problems where DP and approximation matter.</p><ul><li>Knapsack DP is pseudo-polynomial.</li><li>FPTAS scales profits for approximation.</li><li>Metric TSP has double-tree and Christofides.</li></ul></article>
+    <article class="card rose"><h2>Scheduling</h2><p class="what">Assign jobs to time/resources.</p><ul><li>Use Graham notation to describe the problem.</li><li>Know Bratley, Horn, list scheduling, McNaughton.</li><li>ILP models use start/order/time-indexed variables.</li></ul></article>
+    <article class="card teal"><h2>CSP and AC3</h2><p class="what">Reduce variable domains by consistency.</p><ul><li>CSP = variables, domains, constraints.</li><li>Arc consistency removes unsupported values.</li><li>AC3 repeats revisions until stable or empty domain.</li></ul></article>
+    <article class="card violet"><h2>How to answer</h2><p class="what">Start with the model; then discuss algorithmic status.</p><ul><li>What are the variables?</li><li>What is optimized?</li><li>Is the method exact, approximate, or heuristic?</li></ul></article>
+  </section>
+  <div class="exam"><b>Exam sentence:</b> ILP is powerful because it models discrete choices with linear constraints, but integrality makes it NP-hard; Branch & Bound solves it by relaxing, branching, and pruning.</div>
+  <section class="traps"><h2>Three traps</h2><ul><li>Pseudo-polynomial does not mean polynomial in input length.</li><li>Dijkstra needs nonnegative edge weights.</li><li>Approximation ratios depend on minimization vs. maximization.</li></ul></section>
+  <div class="footer">Use this page to choose the right method before reading formulas.</div>
+</main></body></html>

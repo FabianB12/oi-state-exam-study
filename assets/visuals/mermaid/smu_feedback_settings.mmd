@@ -1,0 +1,22 @@
+flowchart LR
+  PAC["<b>PAC learning</b><br/>i.i.d. labeled examples<br/>goal: low true error<br/>with high probability"]
+  Online["<b>Online learning</b><br/>sequence of examples<br/>predict, observe label<br/>goal: low regret or mistakes"]
+  Bandit["<b>Bandits</b><br/>choose arm<br/>observe only chosen reward<br/>balance exploration/exploitation"]
+  RL["<b>Reinforcement learning</b><br/>state, action, reward, next state<br/>learn policy over time"]
+  Feedback["<b>Key difference</b><br/>The less feedback you observe,<br/>the harder exploration becomes."]
+
+  PAC --> Feedback
+  Online --> Feedback
+  Bandit --> Feedback
+  RL --> Feedback
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class PAC blue;
+  class Online green;
+  class Bandit yellow;
+  class RL red;
+  class Feedback neutral;

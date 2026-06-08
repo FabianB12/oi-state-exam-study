@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAS Study Page</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+  <style>
+    .mas-payoff-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.65rem;
+      font-size: 0.9rem;
+    }
+    .mas-payoff-matrix th,
+    .mas-payoff-matrix td {
+      padding: 0.55rem;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+    .mas-payoff-matrix th { background: var(--surface-3); color: var(--ink-soft); }
+    .mas-payoff-matrix td.best { background: var(--good-tint); color: var(--good); font-weight: 800; }
+    .mas-lab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+    .mas-lab-stat {
+      padding: 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+    }
+    .mas-lab-stat strong { display: block; color: var(--lab); }
+    .mas-slider {
+      display: grid;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+    .mas-slider input { width: 100%; }
+    @media (max-width: 720px) {
+      .mas-lab-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body data-page="mas">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html" aria-current="page">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../ai/05_mas_agents_multiagent_game_theory.md"><span class="material-symbols-rounded">description</span>Formal Notes</a>
+      <a href="../ai/05_mas_watch_and_remember.md"><span class="material-symbols-rounded">smart_display</span>Watch Guide</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">BE4M36MAS &middot; AI specialization question 5</p>
+      <h1>Autonomous agents, multiagent games, coalitions, and auctions</h1>
+      <p class="lead">MAS is the question where "what should one agent do?" becomes "what happens when several agents optimize at once?" First identify the representation, then name the stability or fairness concept: Nash, minimax, subgame perfection, core, Shapley value, or auction truthfulness.</p>
+      <div class="head-meta">
+        <span class="time-pill">4.5-6 hour full pass</span>
+        <a class="button primary" href="#normal-form"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
+        <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
+      </div>
+    </section>
+
+    <div class="module-layout">
+      <aside class="module-rail" aria-label="Module navigation">
+        <div class="rail-progress">
+          <div class="rail-progress-top">
+            <span class="status-label">Your progress</span>
+            <strong id="mas-progress-percent">0%</strong>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-progress-fill></span></div>
+          <p class="rail-detail" id="mas-progress-detail">0 of 5 modules checked.</p>
+          <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
+        </div>
+
+        <nav class="rail-modules" data-progress-group>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="mas-normal" aria-label="Mark normal-form games module complete">
+            <a href="#normal-form"><span class="rail-num">1</span> Normal form</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="mas-zero-alt" aria-label="Mark zero-sum and alternative equilibria module complete">
+            <a href="#zero-alt"><span class="rail-num">2</span> Zero-sum &amp; alternatives</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="mas-extensive" aria-label="Mark extensive-form games module complete">
+            <a href="#extensive"><span class="rail-num">3</span> Extensive form</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="mas-coalitions" aria-label="Mark coalitional games module complete">
+            <a href="#coalitions"><span class="rail-num">4</span> Coalitions</a>
+          </div>
+          <div class="rail-item">
+            <input type="checkbox" data-progress-key="mas-auctions" aria-label="Mark auctions module complete">
+            <a href="#auctions"><span class="rail-num">5</span> Auctions</a>
+          </div>
+          <div class="rail-sep"></div>
+          <div class="rail-item panic">
+            <a href="#panic"><span class="rail-num">!</span> Panic pass</a>
+          </div>
+          <div class="rail-item is-jump">
+            <a href="#oral"><span class="rail-num">&#9835;</span> Oral skeleton</a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="module-main">
+        <section id="normal-form" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 1</span>
+              <h2>Normal-form games, dominance, mixed strategies, and Nash equilibrium</h2>
+              <p class="module-lead">A normal-form game is a compact snapshot of simultaneous strategic choice: players, actions, and utilities. Nash equilibrium says every chosen strategy is a best response to the others.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Kroupa and Komenda align strongly with game-theoretic MAS foundations, so the examiner can easily start from normal form and drill equilibrium vocabulary.</p>
+                <ul class="priority-topics">
+                  <li>normal-form game tuple, pure and mixed strategies</li>
+                  <li>dominance and iterated deletion caveats</li>
+                  <li>Nash equilibrium, best responses, and mixed-strategy indifference</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="mas-normal"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>What Is a Nash Equilibrium? - William Spaniel (5:23)</h3>
+                <div class="video-frame" title="Game Theory 101 Nash equilibrium" data-video-id="5TcYV6CZ7mI"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="5TcYV6CZ7mI" data-start="0">0:00 definition</button>
+                  <button type="button" data-video-target="5TcYV6CZ7mI" data-start="150">2:30 interpretation</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=5TcYV6CZ7mI" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Mixed Strategy Nash Equilibrium - William Spaniel (7:14)</h3>
+                <div class="video-frame" title="Game Theory 101 mixed strategy Nash equilibrium" data-video-id="fvEQujUcPv4"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="fvEQujUcPv4" data-start="0">0:00 why mix</button>
+                  <button type="button" data-video-target="fvEQujUcPv4" data-start="240">4:00 indifference</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=fvEQujUcPv4" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>The Mixed Strategy Algorithm - William Spaniel (9:34)</h3>
+                <div class="video-frame" title="Game Theory 101 mixed strategy algorithm" data-video-id="aa8USttcDoE"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="aa8USttcDoE" data-start="0">0:00 setup</button>
+                  <button type="button" data-video-target="aa8USttcDoE" data-start="250">4:10 equations</button>
+                  <button type="button" data-video-target="aa8USttcDoE" data-start="430">7:10 solve</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=aa8USttcDoE" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A normal-form game is <code>(N, (A_i), (u_i))</code>: players, action sets, and utility functions over action profiles.</li>
+                <li>A pure strategy is a single action; a mixed strategy is a probability distribution over actions.</li>
+                <li>Expected utility sums payoff times the product of independent mixed-strategy probabilities.</li>
+                <li>Strict dominance means another strategy is better against every opponent action; weak dominance allows ties and at least one strict improvement.</li>
+                <li>Iterated removal of strictly dominated strategies is order-independent; weak-dominance removal can depend on the order.</li>
+                <li>A Nash equilibrium is stable against unilateral deviations, but it may be inefficient, non-unique, or only mixed.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> Nash only checks one player switching alone; it does not check group moves or total welfare.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-normal-game-lab">
+              <h3>Dominance and Nash selector</h3>
+              <div class="mini-tabs">
+                <button type="button" data-mas-normal-tab="pd">Prisoner's dilemma</button>
+                <button type="button" data-mas-normal-tab="matching">Matching pennies</button>
+                <button type="button" data-mas-normal-tab="properties">Nash traps</button>
+              </div>
+              <p class="step-note"><strong>Use this when:</strong> look at one player at a time and ask whether changing only their action improves payoff.</p>
+              <div id="mas-normal-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="mas-normal"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="mas-normal"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define a normal-form game, pure and mixed strategies, and expected utility.</span>
+              <textarea rows="4" data-recall="mas-normal-foundations" placeholder="Game tuple, strategy spaces, expected utility formula, finite-game existence..."></textarea>
+              <template data-recall-reference="mas-normal-foundations">Must say: a normal-form game is G=(N,(A_i),(u_i)) with players, action sets, and utilities over action profiles. A pure strategy is one action; a mixed strategy is a probability distribution over pure actions. Expected utility is the payoff averaged over action profiles using the product of players' mixed probabilities. In finite games, at least one mixed Nash equilibrium exists, but a pure equilibrium need not exist.</template>
+            </label>
+            <label class="free-recall">
+              <span>Given a payoff matrix, explain how to find dominated strategies and pure Nash equilibria.</span>
+              <textarea rows="4" data-recall="mas-normal-dominance-nash" placeholder="Best responses by rows/columns, strict vs weak dominance, IESDS caveat, Nash check..."></textarea>
+              <template data-recall-reference="mas-normal-dominance-nash">Must say: compare one player's actions while holding opponents' actions fixed. Strict dominance means another strategy gives higher payoff for every opponent action; weak dominance means at least as high everywhere and higher somewhere. Iterated deletion of strictly dominated strategies is order-independent, while weak deletion may depend on order and can remove equilibria if used carelessly. A pure Nash equilibrium is a cell where each player's chosen action is a best response to the others; it only checks unilateral deviations.</template>
+            </label>
+            <label class="free-recall">
+              <span>Solve a 2x2 mixed equilibrium orally using the indifference method.</span>
+              <textarea rows="4" data-recall="mas-normal-mixed" placeholder="Let opponent mix with p/q, equate expected payoffs, supports, probabilities, verification..."></textarea>
+              <template data-recall-reference="mas-normal-mixed">Must say: choose a support for each player and make each player indifferent among the pure actions in their support. For player 1's mixing probability, equate player 2's expected payoff from their supported actions; for player 2's mixing probability, equate player 1's expected payoff. Check probabilities lie in [0,1], unsupported actions are not better, and pure equilibria should be checked separately. The intuition is that an action used with positive probability must be a best response.</template>
+            </label>
+            <label class="free-recall">
+              <span>State what Nash equilibrium guarantees and what it does not guarantee.</span>
+              <textarea rows="4" data-recall="mas-normal-properties" placeholder="Unilateral stability, non-uniqueness, inefficiency, social welfare, coalitional deviations, computation..."></textarea>
+              <template data-recall-reference="mas-normal-properties">Must say: Nash equilibrium guarantees no player can profit by changing strategy alone while the others keep their strategies fixed. It does not guarantee uniqueness, pure strategies, Pareto optimality, maximum social welfare, fairness, or stability against coalitional deviations. Finite games have mixed equilibria. General finite-game Nash computation uses methods such as support enumeration, Lemke-Howson, or complementarity formulations and is PPAD-complete in general.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="zero-alt" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 2</span>
+              <h2>Zero-sum LP, minimax, correlated equilibrium, and Stackelberg commitment</h2>
+              <p class="module-lead">Zero-sum games have clean optimization structure. Correlated equilibrium and Stackelberg equilibrium are useful alternatives to Nash when recommendations or commitment change what agents can coordinate on.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>This is a compact way for the committee to connect MAS with optimization: zero-sum LP/minimax, then alternative equilibrium concepts when timing or coordination changes.</p>
+                <ul class="priority-topics">
+                  <li>two-player zero-sum minimax theorem and primal/dual LP</li>
+                  <li>correlated equilibrium obedience inequalities</li>
+                  <li>Stackelberg commitment and security-game interpretation</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">55-75 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="mas-zero-alt"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Symmetric, Zero Sum Games - William Spaniel (9:22)</h3>
+                <div class="video-frame" title="Game Theory 101 symmetric zero-sum games" data-video-id="_D7DAsvx-z4"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="_D7DAsvx-z4" data-start="0">0:00 zero-sum idea</button>
+                  <button type="button" data-video-target="_D7DAsvx-z4" data-start="250">4:10 equilibrium</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=_D7DAsvx-z4" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Correlated Equilibrium: Intuition - Game Theory Online (5:08)</h3>
+                <div class="video-frame" title="Correlated equilibrium intuition" data-video-id="sQOrIpARr5E"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="sQOrIpARr5E" data-start="0">0:00 mediator</button>
+                  <button type="button" data-video-target="sQOrIpARr5E" data-start="145">2:25 traffic game</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=sQOrIpARr5E" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Security games segment - USC CREATE (optional long source)</h3>
+                <div class="video-frame" title="Security games Stackelberg segment" data-video-id="9x2w-Qi6ENk" data-start="273"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="9x2w-Qi6ENk" data-start="273">4:33 Stackelberg model</button>
+                  <button type="button" data-video-target="9x2w-Qi6ENk" data-start="590">9:50 deployed apps</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=9x2w-Qi6ENk&t=273s" target="_blank" rel="noreferrer">Optional full lecture</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>In a two-player zero-sum matrix game, player 1 has payoff matrix <code>A</code> and player 2 has payoff <code>-A</code>.</li>
+                <li>The minimax theorem says <code>max_x min_y x^T A y = min_y max_x x^T A y</code>.</li>
+                <li>Player 1's LP maximizes value <code>v</code> subject to each column giving expected payoff at least <code>v</code>, probabilities summing to one, and nonnegativity.</li>
+                <li>General finite-game Nash computation includes support enumeration, Lemke-Howson, complementarity methods, and PPAD-completeness in general.</li>
+                <li>Correlated equilibrium uses a mediator recommending actions; no player wants to deviate after seeing the recommendation. It is LP-computable.</li>
+                <li>Stackelberg equilibrium is leader commitment followed by follower best response; security games are the standard example.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> zero-sum has one shared game value; correlated and Stackelberg change coordination or timing.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-zero-sum-tabs">
+              <h3>Equilibrium mode switcher</h3>
+              <div class="mini-tabs">
+                <button type="button" data-mas-zero-tab="lp">Zero-sum LP</button>
+                <button type="button" data-mas-zero-tab="correlated">Correlated</button>
+                <button type="button" data-mas-zero-tab="stackelberg">Stackelberg</button>
+              </div>
+              <p class="step-note"><strong>Why:</strong> each tab changes what the player can rely on: worst-case opponent, recommendation, or commitment.</p>
+              <div id="mas-zero-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="mas-zero-alt"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="mas-zero-alt"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Derive the two-player zero-sum minimax LP and interpret its dual.</span>
+              <textarea rows="4" data-recall="mas-zero-lp" placeholder="Payoff A and -A, variables x/v, column constraints, dual y, value, minimax..."></textarea>
+              <template data-recall-reference="mas-zero-lp">Must say: in a two-player zero-sum game player 1 has matrix A and player 2 has payoff -A. Player 1 chooses mixed strategy x and value v, maximizes v, enforces sum_i x_i A_ij >= v for every column j, sum_i x_i=1, and x_i>=0. Player 2 has the dual minimization over y, bounding every row from above. The minimax theorem says max_x min_y x^T A y equals min_y max_x x^T A y, so both LPs give the same game value and optimal mixed strategies.</template>
+            </label>
+            <label class="free-recall">
+              <span>Compare zero-sum Nash computation with general normal-form Nash computation.</span>
+              <textarea rows="4" data-recall="mas-zero-general-nash" placeholder="Polynomial LP vs PPAD, support enumeration, Lemke-Howson, complementarity..."></textarea>
+              <template data-recall-reference="mas-zero-general-nash">Must say: two-player zero-sum games have a saddle-point structure and can be solved in polynomial time by linear programming. General-sum finite games still have mixed Nash equilibria, but finding one is PPAD-complete in general. Practical exact methods include support enumeration, Lemke-Howson for two-player games, and complementarity or mathematical programming formulations. The exam contrast is clean convex/dual LP structure in zero-sum versus difficult fixed-point computation in general-sum games.</template>
+            </label>
+            <label class="free-recall">
+              <span>Define correlated equilibrium and write the no-deviation idea.</span>
+              <textarea rows="4" data-recall="mas-zero-correlated" placeholder="Mediator distribution, private recommendations, obedience inequalities, LP, relation to Nash..."></textarea>
+              <template data-recall-reference="mas-zero-correlated">Must say: a mediator samples an action profile from a joint distribution and privately recommends each player's action. A distribution is a correlated equilibrium when after seeing their recommendation, no player can gain in expectation by switching to another action. The obedience inequalities are linear in the distribution p(a), so correlated equilibria can be found by LP. Every Nash equilibrium induces a correlated equilibrium through independent recommendations, but correlated equilibrium can express useful coordination beyond independent mixed strategies.</template>
+            </label>
+            <label class="free-recall">
+              <span>Explain Stackelberg equilibrium and why commitment changes the solution concept.</span>
+              <textarea rows="4" data-recall="mas-zero-stackelberg" placeholder="Leader commits, follower observes, best response, bilevel regions, security games, tie-breaking..."></textarea>
+              <template data-recall-reference="mas-zero-stackelberg">Must say: in a Stackelberg game the leader commits to a strategy first, the follower observes it, and the follower best-responds. The leader chooses the commitment anticipating the follower response, often giving the leader more power than simultaneous Nash. Computation is naturally bilevel, or can enumerate follower best-response regions in finite games; security games are the standard example where a defender commits to a randomized patrol. Mention tie-breaking assumptions if relevant, because follower indifference can affect the leader payoff.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="extensive" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 3</span>
+              <h2>Extensive-form games, information sets, strategies, sequence form, and regret</h2>
+              <p class="module-lead">Extensive-form games add time and information to strategic choice. The exam wants both the representation vocabulary and the solution algorithms: backward induction, sequence-form LP, and regret minimization/CFR.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Extensive form is slightly less central than normal-form and coalitional material, but it is a natural follow-up when the examiner asks how sequential decisions change equilibrium reasoning.</p>
+                <ul class="priority-topics">
+                  <li>game trees, information sets, strategies, and perfect recall</li>
+                  <li>subgame-perfect equilibrium and backward induction</li>
+                  <li>sequence form and regret/CFR for large zero-sum games</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">70-95 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="mas-extensive"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Subgame Perfect Equilibrium - William Spaniel (7:36)</h3>
+                <div class="video-frame" title="Game Theory 101 subgame perfect equilibrium" data-video-id="hSYXkDnCpHM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="hSYXkDnCpHM" data-start="0">0:00 tree idea</button>
+                  <button type="button" data-video-target="hSYXkDnCpHM" data-start="245">4:05 credibility</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=hSYXkDnCpHM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Backward Induction - William Spaniel (4:49)</h3>
+                <div class="video-frame" title="Game Theory 101 backward induction" data-video-id="pyLKkN5HpDY"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="pyLKkN5HpDY" data-start="0">0:00 solve from leaves</button>
+                  <button type="button" data-video-target="pyLKkN5HpDY" data-start="180">3:00 SPE</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=pyLKkN5HpDY" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Yale information sets segment - Ben Polak (18:56)</h3>
+                <div class="video-frame" title="Yale game theory information sets segment" data-video-id="D7aDIZ-KPEU"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="D7aDIZ-KPEU" data-start="0">0:00 information sets</button>
+                  <button type="button" data-video-target="D7aDIZ-KPEU" data-start="1136">18:56 matrix/tree translation</button>
+                </div>
+                <a class="fallback-link" href="https://oyc.yale.edu/economics/econ-159/lecture-18" target="_blank" rel="noreferrer">Yale course page</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>An EFG has decision nodes, player labels, actions on edges, chance nodes, terminal utilities, and information sets.</li>
+                <li>Perfect information means singleton information sets; imperfect information means a player cannot distinguish some nodes.</li>
+                <li>Perfect recall means players do not forget their own previous actions or information.</li>
+                <li>A pure strategy specifies an action at every information set; a behavioral strategy randomizes locally at each information set.</li>
+                <li>With perfect recall, Kuhn's theorem gives realization equivalence between mixed and behavioral strategies.</li>
+                <li>Subgame-perfect equilibrium requires Nash behavior in every subgame and removes noncredible threats; backward induction solves finite perfect-information games.</li>
+                <li>Sequence form represents realization probabilities and gives compact LPs for two-player zero-sum perfect-recall EFGs.</li>
+                <li>Regret minimization converges to coarse correlated equilibrium generally and to Nash average strategies in two-player zero-sum games; CFR decomposes regret by information sets.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> an extensive-form strategy must specify actions even at information sets that are never reached.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-extensive-stepper">
+              <h3>Tree-solver mini stepper</h3>
+              <p class="step-note"><strong>Why:</strong> solving from the leaves tells you which threats would actually be carried out.</p>
+              <div id="mas-efg-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-mas-efg-prev>Previous</button>
+                <button type="button" data-mas-efg-next>Next</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="mas-extensive"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="mas-extensive"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define an extensive-form game, information sets, imperfect information, and perfect recall.</span>
+              <textarea rows="4" data-recall="mas-extensive-representation" placeholder="Tree, players, actions, chance, terminal utilities, information sets, perfect recall..."></textarea>
+              <template data-recall-reference="mas-extensive-representation">Must say: an EFG is a game tree with decision nodes, player-to-move labels, actions on edges, chance nodes with probabilities, terminal utilities, and information sets. Perfect information means every information set is a singleton; imperfect information means a player cannot distinguish nodes in the same information set and must choose the same action rule there. Perfect recall means players never forget their own previous actions or information, which is needed for Kuhn's realization-equivalence result.</template>
+            </label>
+            <label class="free-recall">
+              <span>Compare pure, mixed, and behavioral strategies in an EFG.</span>
+              <textarea rows="4" data-recall="mas-extensive-strategies" placeholder="Contingent plan, distribution over plans, local randomization, Kuhn theorem, unreached infosets..."></textarea>
+              <template data-recall-reference="mas-extensive-strategies">Must say: a pure strategy is a complete contingent plan selecting an action at every information set, including those not reached. A mixed strategy is a probability distribution over pure strategies. A behavioral strategy randomizes independently at each information set. With perfect recall, Kuhn's theorem says mixed and behavioral strategies are realization-equivalent, so local randomization is sufficient for the same outcome distributions.</template>
+            </label>
+            <label class="free-recall">
+              <span>Explain Nash equilibrium, subgame-perfect equilibrium, and backward induction in EFGs.</span>
+              <textarea rows="4" data-recall="mas-extensive-spe" placeholder="Whole-game Nash, every subgame, noncredible threats, backward induction, subgame definition caveat..."></textarea>
+              <template data-recall-reference="mas-extensive-spe">Must say: Nash equilibrium is defined over full strategies and checks profitable unilateral deviations in the whole game. Subgame-perfect equilibrium requires the strategies to form a Nash equilibrium in every subgame, ruling out noncredible threats. In finite perfect-information games, backward induction solves by choosing optimal actions from terminal predecessors backward to the root. A proper subgame must start at a singleton information set and include all its successors without cutting information sets.</template>
+            </label>
+            <label class="free-recall">
+              <span>Describe sequence-form LP and regret/CFR as solving methods for EFGs.</span>
+              <textarea rows="4" data-recall="mas-extensive-solving" placeholder="Realization probabilities, flow constraints, zero-sum LP, regret convergence, CFR infosets..."></textarea>
+              <template data-recall-reference="mas-extensive-solving">Must say: sequence form represents realization probabilities of action sequences rather than exponentially many pure plans. Flow constraints set the empty sequence to probability 1 and make each information-set incoming realization equal the sum of outgoing child sequence probabilities. For two-player zero-sum perfect-recall EFGs this gives compact LPs for equilibrium. Regret minimization drives average play to coarse correlated equilibrium generally and to Nash average strategies in two-player zero-sum games; CFR decomposes regret by information sets using counterfactual values and regret matching.</template>
+            </label>
+            <label class="free-recall">
+              <span>Connect two-player game-tree search and multi-agent planning to MAS concepts.</span>
+              <textarea rows="4" data-recall="mas-extensive-minimax-planning" placeholder="Adversarial zero-sum tree, minimax, alpha-beta, evaluation depth, joint actions, centralized vs decentralized coordination..."></textarea>
+              <template data-recall-reference="mas-extensive-minimax-planning">Must say: in a deterministic two-player zero-sum game tree, minimax backs up max nodes for our choices and min nodes for the opponent's choices, giving a security value under optimal adversarial play. Alpha-beta pruning preserves the minimax result while skipping branches that cannot affect the backed-up value; depth limits require an evaluation function. Multi-agent planning can be centralized over joint actions or decentralized with communication/coordination limits; MAS solution concepts then ask whether the resulting joint behavior is stable, coordinated, or fair.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="coalitions" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 4</span>
+              <h2>Coalitional games, core stability, Shapley value, and voting power</h2>
+              <p class="module-lead">Coalitional games switch from strategic actions to group value. The two exam lenses are stability, via the core, and fair allocation, via the Shapley value and voting-power indices.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Coalitions are a high-yield MAS committee topic because they test whether you can switch from unilateral equilibrium to group stability and fair allocation.</p>
+                <ul class="priority-topics">
+                  <li>TU coalitional games and compact representations</li>
+                  <li>core constraints, blocking coalitions, and empty-core examples</li>
+                  <li>Shapley value, Shapley-Shubik, Banzhaf, and voting power</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">60-80 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="mas-coalitions"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Cooperative Games and the Shapley Value - Vincent Knight (2:27)</h3>
+                <div class="video-frame" title="Cooperative games and Shapley value" data-video-id="w9O0fkfMkx0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="w9O0fkfMkx0" data-start="0">0:00 cooperative game</button>
+                  <button type="button" data-video-target="w9O0fkfMkx0" data-start="80">1:20 Shapley idea</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=w9O0fkfMkx0" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Core vs Shapley example - Do Huu Canh (10:45)</h3>
+                <div class="video-frame" title="Core and Shapley value example" data-video-id="N4iA9_HREOM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="N4iA9_HREOM" data-start="0">0:00 example</button>
+                  <button type="button" data-video-target="N4iA9_HREOM" data-start="270">4:30 Shapley</button>
+                  <button type="button" data-video-target="N4iA9_HREOM" data-start="470">7:50 compare</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=N4iA9_HREOM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Optional text backup: CTU MAS notes</h3>
+                <div class="resource-card">
+                  <p>Voting indices are usually faster to learn from the formal notes than from video. Use the formulas for Shapley-Shubik and Banzhaf, then rehearse the pivotal-player story.</p>
+                  <a class="button" href="../ai/05_mas_agents_multiagent_game_theory.md#simple-voting-games"><span class="material-symbols-rounded">description</span>Open notes</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>A transferable-utility coalitional game is <code>(N, v)</code>, where <code>v(S)</code> assigns value to every coalition.</li>
+                <li>An allocation is efficient if the players' payoffs sum to <code>v(N)</code>.</li>
+                <li>The core is the set of efficient allocations where every coalition receives at least its own value, so no coalition can block.</li>
+                <li>The core may be empty; convex games have nonempty core.</li>
+                <li>The Shapley value is expected marginal contribution over all random player arrival orders.</li>
+                <li>Its axioms are efficiency, symmetry, dummy player, and additivity; naive computation is exponential.</li>
+                <li>Simple voting games are winning/losing games. Shapley-Shubik measures pivotal probability in an ordering; Banzhaf counts critical coalitions.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> the core asks "can a coalition walk away?"; Shapley asks "what is a fair average contribution?"</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card">
+              <h3>Three-player Shapley calculator</h3>
+              <p class="preview-text">Values: <code>v(A)=2</code>, <code>v(B)=1</code>, <code>v(C)=0</code>, <code>v(AB)=5</code>, <code>v(AC)=4</code>, <code>v(BC)=3</code>, <code>v(ABC)=9</code>.</p>
+              <p class="step-note"><strong>Remember:</strong> marginal contribution means value after a player joins minus value before they join.</p>
+              <div id="mas-shapley-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="mas-coalitions"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="mas-coalitions"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define coalitional games, compact representations, and important game classes.</span>
+              <textarea rows="4" data-recall="mas-coalitions-foundations" placeholder="(N,v), TU, allocations, explicit exponential, additive, superadditive, convex, simple voting..."></textarea>
+              <template data-recall-reference="mas-coalitions-foundations">Must say: a transferable-utility coalitional game is (N,v), where v maps each coalition S subset N to a value and usually v(empty)=0. An allocation distributes v(N) among players and is efficient if the payoffs sum to v(N). Explicit representation lists 2^n coalition values, so compact representations include weighted voting games, graph games, marginal-contribution networks, or logical rules. Classes include additive, superadditive, convex or supermodular, and simple voting games with values 0/1.</template>
+            </label>
+            <label class="free-recall">
+              <span>Explain the core, blocking coalitions, and when the core can be empty.</span>
+              <textarea rows="4" data-recall="mas-coalitions-core" placeholder="Efficiency, coalition rationality, inequalities, stability, empty core, convex games..."></textarea>
+              <template data-recall-reference="mas-coalitions-core">Must say: the core is the set of efficient allocations x with sum_i x_i=v(N) such that every coalition S receives at least v(S), i.e. sum_{i in S} x_i >= v(S). If a coalition can get more by leaving, it blocks the allocation, so the core is a stability concept. The core may be empty, especially when coalition demands are mutually inconsistent. Convex games have a nonempty core, and the Shapley value lies in the core for convex games.</template>
+            </label>
+            <label class="free-recall">
+              <span>State the Shapley value axioms, formula intuition, and computational cost.</span>
+              <textarea rows="4" data-recall="mas-coalitions-shapley" placeholder="Efficiency, symmetry, dummy, additivity, expected marginal contribution, factorial weights, exponential..."></textarea>
+              <template data-recall-reference="mas-coalitions-shapley">Must say: the Shapley value is the unique allocation satisfying efficiency, symmetry, dummy player, and additivity. It can be written as a weighted sum over S not containing i of v(S union {i})-v(S), with weight |S|!(n-|S|-1)!/n!. The intuitive interpretation is expected marginal contribution when players arrive in a uniformly random order. Naive exact computation is exponential because it ranges over all coalitions or all permutations.</template>
+            </label>
+            <label class="free-recall">
+              <span>Compare Shapley-Shubik and Banzhaf voting power on a weighted voting game.</span>
+              <textarea rows="4" data-recall="mas-coalitions-voting" placeholder="Winning coalitions, quota, pivotal in orders, critical coalitions, normalization, different notions..."></textarea>
+              <template data-recall-reference="mas-coalitions-voting">Must say: a simple or weighted voting game marks coalitions as winning or losing, often by weights meeting a quota. The Shapley-Shubik index is the probability that a voter is pivotal in a uniformly random ordering, where the coalition before them is losing and becomes winning when they join. The Banzhaf index counts coalitions where the voter is critical, meaning removing the voter changes winning to losing; it is often normalized by total critical counts. They measure different concepts, so equal voting weights need not imply equal normalized power in every game structure.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="auctions" class="module">
+          <header class="module-head">
+            <div class="module-head-main">
+              <span class="module-num">Module 5</span>
+              <h2>Auction mechanisms, bidding, revenue equivalence, optimal single-item auctions, Myerson, and combinatorial auctions</h2>
+              <p class="module-lead">An auction is a mechanism: an allocation rule plus a payment rule plus a bidding language. The oral exam usually asks you to compare incentives first, then mention revenue and computational limits.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>Auctions are a committee-friendly bridge from strategic agents to mechanisms, with clear places to test truthfulness, revenue, and computational hardness.</p>
+                <ul class="priority-topics">
+                  <li>first-price, second-price, English, Dutch, and revenue equivalence assumptions</li>
+                  <li>Myerson virtual values and optimal reserve-price intuition</li>
+                  <li>combinatorial auctions, VCG, and winner determination hardness</li>
+                </ul>
+              </div>
+            </div>
+            <div class="module-head-side">
+              <span class="time-pill">65-85 min</span>
+              <label class="module-check"><input type="checkbox" data-progress-key="mas-auctions"> Done</label>
+            </div>
+          </header>
+
+          <div class="block">
+            <p class="block-label watch">Watch first</p>
+            <div class="video-grid triple">
+              <article class="video-card">
+                <h3>Second Price Auctions - William Spaniel (6:49)</h3>
+                <div class="video-frame" title="Game Theory 101 second price auctions" data-video-id="VUN-k_nfDts"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="VUN-k_nfDts" data-start="0">0:00 rule</button>
+                  <button type="button" data-video-target="VUN-k_nfDts" data-start="125">2:05 truthfulness</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=VUN-k_nfDts" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Strategic and revenue equivalence - Selcuk Ozyurt (7:41)</h3>
+                <div class="video-frame" title="Strategic and revenue equivalence between auctions" data-video-id="jM2Q69k4jmw"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="jM2Q69k4jmw" data-start="0">0:00 equivalence idea</button>
+                  <button type="button" data-video-target="jM2Q69k4jmw" data-start="250">4:10 revenue</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=jM2Q69k4jmw" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Auction and Revenue - Learn IOE (9:17)</h3>
+                <div class="video-frame" title="Auction theory auction and revenue" data-video-id="SUEaaMOuEcM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="SUEaaMOuEcM" data-start="0">0:00 seller objective</button>
+                  <button type="button" data-video-target="SUEaaMOuEcM" data-start="250">4:10 revenue equivalence</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=SUEaaMOuEcM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label recall">Say this out loud</p>
+            <article class="recall-card">
+              <h3>What you must be able to say</h3>
+              <ul>
+                <li>An auction mechanism specifies allocation rule, payment rule, and bidding language.</li>
+                <li>Desirable properties include efficiency, incentive compatibility, individual rationality, revenue, and computational tractability.</li>
+                <li>Second-price/Vickrey auctions make truthful bidding weakly dominant in private-value single-item settings.</li>
+                <li>First-price sealed-bid auctions require bid shading; with <code>n</code> symmetric risk-neutral bidders and uniform <code>[0,1]</code> values, <code>b(v)=(n-1)v/n</code>.</li>
+                <li>English is strategically like second-price under private values; Dutch is strategically like first-price.</li>
+                <li>Revenue equivalence needs risk neutrality, independent private values, symmetric bidders, same allocation rule, and same lowest-type utility.</li>
+                <li>Myerson maximizes expected revenue by allocating to the highest nonnegative virtual value and charging a threshold payment; for i.i.d. regular distributions this is a reserve-price Vickrey auction.</li>
+                <li>Combinatorial auctions allocate bundles. Winner determination maximizes total reported value over disjoint bundles and is NP-hard in general; VCG is truthful and efficient but can have computational and revenue issues.</li>
+              </ul>
+              <p class="step-note"><strong>Remember:</strong> first ask who wins, then how much they pay, then whether truthful bidding is safe.</p>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-auction-lab">
+              <h3>Auction format simulator</h3>
+              <label class="mas-slider">Your private value: <span id="mas-auction-value-label">80</span>
+                <input id="mas-auction-value" type="range" min="10" max="100" value="80">
+              </label>
+              <p class="step-note"><strong>Use this when:</strong> compare paying your own bid with paying the next highest bid.</p>
+              <div id="mas-auction-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label practice">Practice</p>
+            <div class="practice-grid">
+              <section class="flashcards" data-flashcards="mas-auctions"><h3>Flashcards</h3></section>
+              <section class="quiz" data-quiz="mas-auctions"><h3>Quick check</h3></section>
+            </div>
+          </div>
+
+          <div class="block">
+            <p class="block-label free">Free recall</p>
+            <label class="free-recall">
+              <span>Define an auction mechanism and compare first-price, second-price, English, and Dutch bidding.</span>
+              <textarea rows="4" data-recall="mas-auctions-formats" placeholder="Allocation, payment, bidding language, truthful Vickrey, shading, English/Dutch equivalence..."></textarea>
+              <template data-recall-reference="mas-auctions-formats">Must say: an auction mechanism consists of an allocation rule, payment rule, and bidding language, and is judged by efficiency, incentive compatibility, individual rationality, revenue, and tractability. In a private-value second-price/Vickrey auction truthful bidding is weakly dominant and the winner pays the second-highest bid. In first-price auctions the winner pays their own bid, so symmetric risk-neutral bidders shade below value; for n uniform [0,1] bidders b(v)=(n-1)v/n. English is strategically like second-price under private values; Dutch is strategically like first-price.</template>
+            </label>
+            <label class="free-recall">
+              <span>State revenue equivalence and the assumptions under which it is safe to use.</span>
+              <textarea rows="4" data-recall="mas-auctions-revenue-equivalence" placeholder="Risk neutral, independent private values, symmetry, same allocation rule, lowest type utility, limits..."></textarea>
+              <template data-recall-reference="mas-auctions-revenue-equivalence">Must say: revenue equivalence says mechanisms with the same allocation rule and the same expected utility for the lowest type yield the same expected seller revenue under standard assumptions. Those assumptions include risk-neutral bidders, independent private values, symmetric bidders or common type distribution in the classic version, and truthful/Bayes-Nash behavior as appropriate. It does not automatically apply with risk aversion, affiliated/common values, asymmetric bidders, reserves changing allocation, budget constraints, collusion, or interdependent values.</template>
+            </label>
+            <label class="free-recall">
+              <span>Explain Myerson's optimal single-item auction.</span>
+              <textarea rows="4" data-recall="mas-auctions-myerson" placeholder="Virtual value, regular distributions, nonnegative highest virtual value, reserve, threshold payment..."></textarea>
+              <template data-recall-reference="mas-auctions-myerson">Must say: Myerson maximizes expected revenue by transforming values into virtual values phi(v)=v-(1-F(v))/f(v). The item is allocated to the bidder with the highest nonnegative virtual value, with monotonicity or ironing needed for irregular distributions, and payments are threshold payments that preserve incentive compatibility. For i.i.d. regular bidders, this becomes a Vickrey/second-price auction with an optimal reserve price where the virtual value crosses zero. This is revenue-optimal, not merely welfare-efficient.</template>
+            </label>
+            <label class="free-recall">
+              <span>Describe combinatorial auctions, VCG, and winner determination complexity.</span>
+              <textarea rows="4" data-recall="mas-auctions-combinatorial" placeholder="Bundles, valuations, OR/XOR, disjoint allocation optimization, NP-hard, VCG payments, drawbacks..."></textarea>
+              <template data-recall-reference="mas-auctions-combinatorial">Must say: combinatorial auctions sell multiple items and bidders can value bundles S subset M, allowing complementarities and substitutabilities. Bidding languages include explicit bundle bids, OR bids, XOR bids, and compact valuation classes such as additive, unit-demand, or submodular. Winner determination maximizes total reported value over disjoint allocated bundles and is NP-hard in general. VCG chooses the welfare-maximizing allocation and charges each winner the externality imposed on others, making truthful bidding dominant and efficient, but it may be computationally hard, require expressive bids, and have poor revenue or collusion vulnerabilities.</template>
+            </label>
+          </div>
+        </section>
+
+        <section id="reported-drills" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Previous exam reports</p>
+            <h2>Reported-question drills</h2>
+          </div>
+          <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
+          <div class="reported-drill-list">
+            <article class="reported-drill">
+              <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Two-player games and minimax</h3></div>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Reported AI/ZUI questions overlap directly with MAS zero-sum game-tree reasoning, so this drill is a likely oral detour from minimax or extensive form.</p>
+                <ul class="priority-topics">
+                  <li>game-state representation, terminal utilities, and winning criteria</li>
+                  <li>minimax, alpha-beta pruning, and depth-limited evaluation</li>
+                  <li>negamax variants and when MCTS replaces exhaustive search</li>
+                </ul>
+              </div>
+              <p class="reported-source">Context: Bachelor AI/ZUI reports asked about two-player games, what counts as winning, minimax, alpha-beta, negamax/negascout, MCTS, game-tree storage, limited-depth search, and evaluation functions.</p>
+              <label class="free-recall">
+                <span>Explain two-player adversarial game search from representation through minimax, pruning, depth limits, and winning conditions.</span>
+                <textarea rows="5" data-recall="mas-reported-minimax" placeholder="Game states, legal actions, terminal utilities, max/min, alpha-beta, evaluation, negamax, MCTS..."></textarea>
+              </label>
+              <details class="reported-answer">
+                <summary>Show model answer</summary>
+                <div class="reported-answer-body">
+                  <p>Model the game by states, player-to-move, legal actions, transition/result function, terminal test, and utility/payoff. Winning can mean reaching a terminal win/loss/draw state, maximizing utility, or guaranteeing at least the game value under optimal opponent play.</p>
+                  <ul>
+                    <li>Minimax backs values up a game tree: MAX chooses the child with highest value, MIN chooses the lowest; in zero-sum games this gives optimal play against an optimal opponent.</li>
+                    <li>Alpha-beta keeps bounds <code>alpha</code> and <code>beta</code> and prunes branches that cannot change the backed-up decision; move ordering controls practical speed.</li>
+                    <li>Large games cannot store the full tree, so implementations generate nodes on demand and store only search frontier, transposition table entries, or cached evaluated states.</li>
+                    <li>Limited-depth search stops at a cutoff and uses an evaluation function estimating utility from features such as material, mobility, threats, or goal distance.</li>
+                    <li>Negamax is a compact zero-sum minimax form; negascout/principal-variation search improves alpha-beta in good ordering. MCTS samples a partial tree when branching is huge or evaluations are hard.</li>
+                  </ul>
+                </div>
+              </details>
+              <template data-recall-reference="mas-reported-minimax">Must say: represent a two-player game by states, player to move, legal actions, transition/result function, terminal test, and utilities or payoffs. Winning may mean terminal win/loss/draw, maximizing utility, or guaranteeing at least the game value against optimal opposition. Minimax backs up values: MAX takes the maximum child and MIN takes the minimum child, giving optimal play in deterministic zero-sum games with perfect information. Alpha-beta keeps alpha and beta bounds and prunes branches that cannot affect the choice; move ordering determines practical savings. Full game trees are usually generated on demand rather than fully stored; transposition tables cache repeated states. Limited-depth search uses an evaluation function at cutoffs. Negamax is a compact zero-sum formulation, negascout/principal-variation search is an alpha-beta refinement, and MCTS samples a partial tree when exhaustive search is infeasible.</template>
+            </article>
+          </div>
+        </section>
+
+        <section id="panic" class="band panic-band">
+          <p class="eyebrow">45-minute panic pass</p>
+          <h2>Say these in order</h2>
+          <ol class="panic-list">
+            <li><strong>Normal form:</strong> define <code>(N,A_i,u_i)</code>, pure/mixed strategies, dominance, Nash, and the warning that Nash is not welfare optimal.</li>
+            <li><strong>Zero-sum:</strong> state minimax and the LP idea; mention general Nash computation is much harder.</li>
+            <li><strong>Alternatives:</strong> correlated equilibrium is mediated recommendation; Stackelberg is leader commitment.</li>
+            <li><strong>Extensive form:</strong> define tree, information sets, perfect information, perfect recall, strategy types, SPE, backward induction, sequence form, and CFR.</li>
+            <li><strong>Game-tree bridge:</strong> minimax backs up adversarial values; alpha-beta prunes safely; depth-limited play needs evaluation.</li>
+            <li><strong>Coalitions:</strong> define <code>(N,v)</code>, core constraints, Shapley axioms/formula intuition, and voting power indices.</li>
+            <li><strong>Auctions:</strong> allocation/payment/bidding language, truthfulness of second price, shading in first price, revenue equivalence assumptions, Myerson reserve idea, combinatorial winner determination.</li>
+          </ol>
+        </section>
+
+        <section id="oral" class="band">
+          <p class="eyebrow">Oral exam skeleton</p>
+          <h2>A clean 8-minute answer</h2>
+          <div class="oral-script">
+            <p><strong>1. Frame MAS.</strong> "This topic studies several autonomous agents whose utilities interact. The key is to choose the representation: normal form, extensive form, coalitional game, or auction mechanism."</p>
+            <p><strong>2. Normal form.</strong> "For simultaneous games I define players, actions, utilities, pure and mixed strategies, dominated strategies, and Nash equilibrium. Nash is unilateral stability, not social optimality."</p>
+            <p><strong>3. Computation and alternatives.</strong> "Zero-sum two-player games are solved by LP and minimax. General Nash computation is difficult. Correlated equilibrium uses recommendations and is LP-computable; Stackelberg uses leader commitment."</p>
+            <p><strong>4. Extensive form.</strong> "Sequential games use a game tree, chance, terminal utilities, and information sets. Perfect recall lets behavioral and mixed strategies match. SPE plus backward induction handles perfect information; sequence form and regret/CFR handle larger zero-sum EFGs."</p>
+            <p><strong>5. Game-tree and planning bridge.</strong> "For deterministic adversarial games, minimax backs up max and min choices; alpha-beta prunes branches that cannot change the value. For multi-agent planning, centralized joint-action planning quickly explodes, while decentralized planning needs coordination or communication assumptions."</p>
+            <p><strong>6. Coalitions.</strong> "A TU coalitional game assigns value to coalitions. The core is stability against blocking coalitions; the Shapley value is fair expected marginal contribution; Shapley-Shubik and Banzhaf measure voting power."</p>
+            <p><strong>7. Auctions.</strong> "Auctions are mechanisms. Second-price is truthful; first-price shades; English and Dutch match those strategically under private values. Revenue equivalence needs strong assumptions. Myerson uses virtual values. Combinatorial auctions are expressive but winner determination is NP-hard."</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    pageModules.mas = ["mas-normal", "mas-zero-alt", "mas-extensive", "mas-coalitions", "mas-auctions"];
+
+    flashcards["mas-normal"] = [];
+    flashcards["mas-zero-alt"] = [];
+    flashcards["mas-extensive"] = [];
+    flashcards["mas-coalitions"] = [];
+    flashcards["mas-auctions"] = [];
+
+    quizzes["mas-normal"] = [
+      { q: "A mixed strategy is...", a: ["A probability distribution over pure actions", "A fixed pure action chosen before play", "A payoff assigned to each action profile"], correct: 0, why: "Mixed strategies randomize over pure strategies." },
+      { q: "In expected utility for independent mixed strategies, action-profile probabilities are computed by...", a: ["Multiplying the players' action probabilities", "Averaging the utilities before probabilities", "Selecting the largest probability in each row"], correct: 0, why: "The expected payoff sums payoff times the product of the relevant mixed probabilities." },
+      { q: "Strict dominance means another strategy is better...", a: ["Only against the equilibrium opponent mix", "For every opponent action", "Only after dominated actions are removed"], correct: 1, why: "Strict dominance compares against all opponent actions." },
+      { q: "Weak dominance differs from strict dominance because it allows...", a: ["Ties in some opponent cases", "Losses in some opponent cases", "Comparisons only between coalition payoffs"], correct: 0, why: "Weak dominance is at least as good everywhere and strictly better somewhere." },
+      { q: "Iterated removal of strictly dominated strategies is...", a: ["Order-independent for surviving strategies", "Dependent on which deletion is tried first", "Equivalent to checking Pareto efficiency"], correct: 0, why: "Strict dominance deletion has an order-independent surviving set." },
+      { q: "Iterated removal of weakly dominated strategies can be...", a: ["Order-dependent", "Order-independent just like strict deletion", "Valid only in zero-sum matrix games"], correct: 0, why: "Weak removal can depend on the order and must be used carefully." },
+      { q: "A pure Nash equilibrium in a payoff matrix is found by intersecting...", a: ["Mutual best responses", "Rows with maximum total payoff", "Strategies surviving every deletion rule"], correct: 0, why: "Every player's chosen action must be a best response to the others." },
+      { q: "Nash equilibrium guarantees...", a: ["Maximum social welfare among outcomes", "No profitable unilateral deviation", "A unique payoff-maximizing allocation"], correct: 1, why: "Nash is individual deviation stability." },
+      { q: "A finite normal-form game always has...", a: ["At least one mixed Nash equilibrium", "At least one pure Nash equilibrium", "At least one welfare-maximizing equilibrium"], correct: 0, why: "Nash's theorem gives mixed equilibrium existence for finite games." },
+      { q: "In a 2x2 mixed equilibrium, a player mixes only if...", a: ["Their opponent's mix makes supported actions equally good", "Their own probabilities maximize social welfare", "Every pure action has identical payoffs"], correct: 0, why: "The indifference method makes every action in support a best response." },
+      { q: "Finding one Nash equilibrium in a general finite game is...", a: ["PPAD-complete", "Solvable by sorting payoffs once", "Equivalent to finding a shortest path"], correct: 0, why: "General finite-game Nash computation is PPAD-complete." },
+      { q: "A Nash equilibrium can be inefficient because it ignores...", a: ["Joint welfare-improving moves", "Best responses to others' strategies", "Payoffs from unilateral deviations"], correct: 0, why: "Nash checks unilateral stability, not Pareto efficiency or social welfare." }
+    ];
+    quizzes["mas-zero-alt"] = [
+      { q: "Two-player zero-sum games can be solved by...", a: ["Linear programming", "Checking only pure saddle points", "Applying a voting power index"], correct: 0, why: "The minimax LP gives optimal mixed strategies." },
+      { q: "In a zero-sum matrix game with player 1 payoff A, player 2's payoff is...", a: ["-A", "A with rows and columns swapped", "A constant independent of actions"], correct: 0, why: "Zero-sum means the players' payoffs sum to zero." },
+      { q: "Player 1's zero-sum LP maximizes v subject to constraints that every opponent pure action gives payoff...", a: ["At least v", "At most v", "Exactly equal to every pure payoff"], correct: 0, why: "Each column constraint protects player 1 against that column response." },
+      { q: "The dual zero-sum LP is naturally interpreted as...", a: ["Player 2's minimization problem", "A social-welfare maximization problem", "A coalition-stability constraint system"], correct: 0, why: "Player 2 chooses a mixed strategy minimizing player 1's maximum expected payoff." },
+      { q: "The minimax theorem equates...", a: ["max min and min max values", "dominant-strategy and correlated values", "first-price and second-price payments"], correct: 0, why: "For two-player zero-sum games the security values coincide." },
+      { q: "A saddle point in a pure zero-sum matrix game is a cell that is...", a: ["A column maximum and a row minimum", "A row maximum and a column maximum", "A cell with the largest joint payoff"], correct: 0, why: "It is a mutual best response under opposite interests." },
+      { q: "Correlated equilibrium adds...", a: ["A mediator that recommends actions", "A leader who commits before play", "A coalition that can transfer payoffs"], correct: 0, why: "The mediator samples a joint recommendation." },
+      { q: "The correlated-equilibrium constraints are linear because they are written in terms of...", a: ["The joint recommendation distribution p(a)", "A separate ranking of pure strategies", "The virtual value of each bidder"], correct: 0, why: "Obedience inequalities are linear in the probabilities of action profiles." },
+      { q: "Every Nash equilibrium induces a correlated equilibrium by using...", a: ["Independent recommendations from the Nash mixed profile", "A mediator who changes incentives with payments", "A blocking coalition for every deviation"], correct: 0, why: "Independent mixed play is a special case of a joint recommendation distribution." },
+      { q: "Stackelberg equilibrium is built around...", a: ["Leader commitment before follower response", "Simultaneous mixing with no observed action", "Coalition formation before bargaining"], correct: 0, why: "The follower observes the leader's commitment and best-responds." },
+      { q: "Security games are a standard example of...", a: ["Stackelberg commitment by a defender", "Correlated recommendations by a mediator", "First-price bidding with private values"], correct: 0, why: "A defender commits to a randomized security policy and an attacker responds." },
+      { q: "When a Stackelberg follower has multiple best responses, the leader payoff may depend on...", a: ["Tie-breaking assumptions", "The minimax value alone", "The number of dominated strategies"], correct: 0, why: "Optimistic or pessimistic follower tie-breaking can change the selected outcome." }
+    ];
+    quizzes["mas-extensive"] = [
+      { q: "Information sets model...", a: ["Nodes a player cannot tell apart", "Terminal histories with equal payoffs", "Coalitions a player may join"], correct: 0, why: "Nodes in the same information set look identical to the player." },
+      { q: "Perfect information means...", a: ["Each information set has one node", "Each player knows every payoff in advance", "Each player has a dominant strategy"], correct: 0, why: "A player always knows exactly where they are in the tree." },
+      { q: "Perfect recall means players do not forget...", a: ["Their own past actions and observations", "Other players' current mixed strategies", "Chance probabilities at terminal nodes"], correct: 0, why: "Perfect recall is memory of one's own history and observations." },
+      { q: "A pure EFG strategy must specify actions...", a: ["Only on histories reached in equilibrium", "At every information set", "Only at information sets with chance moves"], correct: 1, why: "Strategies include contingent actions at unreached information sets." },
+      { q: "A behavioral strategy randomizes...", a: ["Locally at each information set", "Once over complete contingent plans", "Only after terminal nodes are reached"], correct: 0, why: "Behavioral strategies assign action distributions to information sets." },
+      { q: "Kuhn's theorem requires perfect recall and says mixed and behavioral strategies are...", a: ["Realization-equivalent in outcomes", "Identical distributions over pure plans", "Equivalent only at singleton subgames"], correct: 0, why: "With perfect recall they can induce the same distributions over play." },
+      { q: "A proper subgame must start at...", a: ["A singleton information set and include successors", "Any node inside a larger information set", "Only a terminal node with known payoffs"], correct: 0, why: "Subgames cannot cut across information sets." },
+      { q: "Subgame perfection rules out...", a: ["Noncredible threats off the path", "Mixed strategies at information sets", "Chance moves with known probabilities"], correct: 0, why: "SPE requires Nash behavior in every subgame." },
+      { q: "Backward induction solves finite games with...", a: ["Finite perfect-information trees", "Games with imperfect recall", "Only simultaneous-move choices"], correct: 0, why: "It solves from terminal predecessors back to the root in perfect-information trees." },
+      { q: "Sequence form represents...", a: ["Realization probabilities of action sequences", "Utilities for every terminal history", "Coalition values for every subset"], correct: 0, why: "It avoids enumerating all pure contingent plans." },
+      { q: "Sequence-form flow constraints enforce that outgoing child sequence probabilities sum to...", a: ["The incoming realization probability", "The maximum terminal payoff below it", "The chance probability at the root"], correct: 0, why: "They preserve probability flow through the tree." },
+      { q: "External regret minimization in general games drives empirical play toward...", a: ["Coarse correlated equilibrium", "Subgame-perfect equilibrium in every game", "The core of a TU coalitional game"], correct: 0, why: "Low external regret implies coarse correlated equilibrium of average play." },
+      { q: "CFR is especially associated with...", a: ["Large imperfect-information games", "Pure-strategy voting power calculations", "Single-item sealed-bid auctions only"], correct: 0, why: "CFR decomposes regret by information sets, famously for poker-like games." }
+    ];
+    quizzes["mas-coalitions"] = [
+      { q: "A transferable-utility coalitional game is given by...", a: ["(N, v) with coalition values", "(N, A, u) with action payoffs", "(M, b, p) with bids and payments"], correct: 0, why: "v maps each coalition to transferable value." },
+      { q: "Explicitly listing v(S) for all coalitions takes...", a: ["Exponential space in number of players", "One value for each individual player", "Polynomial space for every representation"], correct: 0, why: "There are 2^n coalitions." },
+      { q: "An efficient allocation satisfies...", a: ["sum_i x_i = v(N)", "sum_i x_i <= v(emptyset)", "x_i >= v(N) for every player"], correct: 0, why: "Efficiency distributes exactly the grand coalition value." },
+      { q: "The core is about...", a: ["No coalition can profitably block", "No individual can change action alone", "No bidder can improve by shading"], correct: 0, why: "Core allocations satisfy every coalition's value lower bound." },
+      { q: "The core constraint for coalition S is...", a: ["sum_{i in S} x_i >= v(S)", "sum_{i in S} x_i <= v(N minus S)", "x_i = v(S) for each i in S"], correct: 0, why: "Every coalition must receive at least its standalone value." },
+      { q: "The core can be empty when...", a: ["Coalition demands are mutually inconsistent", "Every coalition is already paid enough", "Only the grand coalition has positive value"], correct: 0, why: "No efficient allocation may satisfy all blocking constraints." },
+      { q: "Convex coalitional games have...", a: ["A nonempty core", "A Shapley value equal to zero", "Dominant strategies for each player"], correct: 0, why: "Convexity/supermodularity guarantees nonempty core." },
+      { q: "Shapley value averages...", a: ["Marginal contributions over arrival orders", "Blocking constraints over all coalitions", "Voting weights normalized by quota"], correct: 0, why: "It is expected marginal contribution over random arrival orders." },
+      { q: "A dummy player receives...", a: ["Exactly their standalone contribution", "An equal share regardless of contribution", "The largest critical-voter count"], correct: 0, why: "The dummy axiom gives a player exactly their contribution; if none, zero." },
+      { q: "The Shapley axioms include...", a: ["Efficiency, symmetry, dummy, additivity", "Individual rationality, core, monotonicity, veto", "Truthfulness, reserves, efficiency, revenue"], correct: 0, why: "Those four axioms uniquely characterize the Shapley value." },
+      { q: "Shapley-Shubik measures...", a: ["Pivotal probability in random orderings", "Critical swings across all coalitions", "Minimum payoff needed to block"], correct: 0, why: "A voter is pivotal when their arrival turns losing into winning." },
+      { q: "Banzhaf counts...", a: ["Critical coalitions where a voter can swing outcome", "Pivotal positions in random voter orders", "Marginal contributions in TU games"], correct: 0, why: "A voter is critical when removing them changes winning to losing." }
+    ];
+    quizzes["mas-auctions"] = [
+      { q: "An auction mechanism specifies...", a: ["Allocation, payment, and bidding language", "Valuation, reserve, and utility only", "Coalitions, core, and Shapley value"], correct: 0, why: "Those are the core pieces of the mechanism." },
+      { q: "Incentive compatibility means...", a: ["Truthful reporting is optimal in the specified sense", "Bidders always earn the same utility", "Seller revenue is always maximized"], correct: 0, why: "For dominant-strategy IC, truthful bidding is a dominant strategy." },
+      { q: "In a private-value second-price auction, the dominant bid is...", a: ["Your private value", "Just below your private value", "The expected second-highest value"], correct: 0, why: "Truthful bidding is weakly dominant." },
+      { q: "The winner in a second-price auction pays...", a: ["The second-highest bid", "Their own submitted bid", "The seller's posted reserve only"], correct: 0, why: "The allocation is highest bid wins, payment is the next highest bid." },
+      { q: "In a first-price auction, bidders usually...", a: ["Shade bids below value", "Bid exactly their values", "Bid above value to ensure winning"], correct: 0, why: "The winner pays their own bid, so bidding value would leave no surplus." },
+      { q: "With n symmetric risk-neutral uniform bidders in first price, the equilibrium bid is...", a: ["(n-1)v/n", "v for every bidder type", "v/n below the reserve price"], correct: 0, why: "The standard uniform private-value shading formula is b(v)=(n-1)v/n." },
+      { q: "Under private values, English auctions are strategically closest to...", a: ["Second-price auctions", "First-price sealed-bid auctions", "All-pay auctions with common values"], correct: 0, why: "Ascending exit price mimics paying the second-highest willingness to pay." },
+      { q: "Under private values, Dutch auctions are strategically closest to...", a: ["First-price sealed-bid auctions", "Second-price Vickrey auctions", "VCG combinatorial auctions"], correct: 0, why: "In both, the bidder chooses the price they will pay if they win." },
+      { q: "Revenue equivalence requires...", a: ["Risk-neutral independent private values with symmetry", "Common values with asymmetric bidders", "Any reserve prices and budget constraints"], correct: 0, why: "The theorem depends on standard risk-neutral, independent, symmetric assumptions." },
+      { q: "Myerson allocates a single item by comparing...", a: ["Bidders' virtual values", "Bidders' raw values only", "Critical coalition counts"], correct: 0, why: "Revenue optimization uses virtual value rather than raw value." },
+      { q: "For i.i.d. regular bidders, Myerson's auction is essentially...", a: ["Second price with an optimal reserve", "First price with optimal shading", "VCG auction over item bundles"], correct: 0, why: "The reserve excludes negative virtual values." },
+      { q: "Combinatorial auctions are needed when bidders value...", a: ["Bundles of items with complements or substitutes", "Single items with independent values", "Only rankings over identical units"], correct: 0, why: "Bundle values capture complements and substitutes." },
+      { q: "Combinatorial winner determination is hard because...", a: ["It must choose disjoint bundles maximizing reported value", "Each bid must be converted into a virtual value", "The second-highest bid must be found per item"], correct: 0, why: "The bundle allocation optimization is NP-hard in general." },
+      { q: "VCG payments charge each winner...", a: ["The value others lose because of their allocation", "Their submitted bid for the allocated bundle", "A fixed reserve price for each item"], correct: 0, why: "VCG aligns truthful reporting with welfare maximization by externality payments." }
+    ];
+
+    const masNormalData = {
+      pd: `<h4>Prisoner's dilemma</h4><p>Defect strictly dominates cooperate for both players, so <code>(D,D)</code> is Nash even though <code>(C,C)</code> would give higher total welfare.</p><table class="mas-payoff-matrix"><tr><th></th><th>C</th><th>D</th></tr><tr><th>C</th><td>3,3</td><td>0,5</td></tr><tr><th>D</th><td>5,0</td><td class="best">1,1</td></tr></table><p class="step-note"><strong>Remember:</strong> the highlighted cell is stable because neither player alone wants to move.</p>`,
+      matching: `<h4>Matching pennies</h4><p>No pure Nash equilibrium: each pure outcome gives one player a profitable deviation. The mixed equilibrium is each player choosing heads/tails with probability <code>1/2</code>.</p><p class="step-note"><strong>Remember:</strong> mixing works by making the opponent indifferent between their pure actions.</p>`,
+      properties: `<h4>Nash traps</h4><ul><li>Equilibrium can be inefficient.</li><li>There can be several equilibria.</li><li>A finite game always has a mixed equilibrium, but may have no pure equilibrium.</li><li>Nash checks unilateral deviations, not coalitional deviations.</li></ul>`
+    };
+    const masZeroData = {
+      lp: `<h4>Zero-sum LP</h4><p>For player 1, choose probabilities <code>x_i</code> and value <code>v</code>.</p><p class="step-note"><strong>Remember:</strong> every column constraint protects player 1 against one pure response by player 2.</p><pre>maximize v
+sum_i x_i A_ij >= v for every column j
+sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2's minimization problem.</p>`,
+      correlated: `<h4>Correlated equilibrium</h4><p>A public or private signal can coordinate actions. After receiving the recommendation, each player asks: given this recommendation, would switching help me? If no for every player/action/deviation, it is correlated equilibrium.</p>`,
+      stackelberg: `<h4>Stackelberg</h4><p>The leader commits first and the follower best-responds. Commitment can improve the leader's payoff because it changes the follower's incentives. In security games, a defender commits to a randomized patrol distribution.</p>`
+    };
+    const masEfgSteps = [
+      `<h4>Step 1: draw the tree</h4><p>List decision nodes, who moves, actions on edges, chance probabilities if any, and terminal utilities.</p>`,
+      `<h4>Step 2: add information sets</h4><p>If a player cannot distinguish two nodes, connect them in one information set. A behavioral strategy must choose the same action distribution at all nodes in that set.</p>`,
+      `<h4>Step 3: solve small perfect-information games backward</h4><p>Start at terminal predecessors, pick optimal actions, replace subtrees by their chosen payoffs, and continue upward.</p>`,
+      `<h4>Step 4: name the refinement</h4><p>Nash can contain noncredible threats. SPE requires Nash equilibrium in every subgame, so threats must be optimal if the subgame is reached.</p>`,
+      `<h4>Step 5: for large imperfect-information games</h4><p>Use sequence-form realization plans for compact LPs in two-player zero-sum perfect-recall games, or regret minimization/CFR for scalable approximate solving.</p>`
+    ];
+
+    function initMasTabs(selector, outputId, data, firstKey) {
+      const output = document.getElementById(outputId);
+      if (!output) return;
+      const render = (key) => {
+        output.innerHTML = data[key];
+        document.querySelectorAll(selector).forEach((button) => {
+          const value = button.dataset.masNormalTab || button.dataset.masZeroTab;
+          button.classList.toggle("active", value === key);
+        });
+      };
+      document.querySelectorAll(selector).forEach((button) => {
+        const key = button.dataset.masNormalTab || button.dataset.masZeroTab;
+        button.addEventListener("click", () => render(key));
+      });
+      render(firstKey);
+    }
+
+    let masEfgIndex = 0;
+    function initMasEfgStepper() {
+      const output = document.getElementById("mas-efg-output");
+      if (!output) return;
+      const render = () => { output.innerHTML = masEfgSteps[masEfgIndex]; };
+      document.querySelector("[data-mas-efg-prev]")?.addEventListener("click", () => {
+        masEfgIndex = Math.max(0, masEfgIndex - 1);
+        render();
+      });
+      document.querySelector("[data-mas-efg-next]")?.addEventListener("click", () => {
+        masEfgIndex = Math.min(masEfgSteps.length - 1, masEfgIndex + 1);
+        render();
+      });
+      render();
+    }
+
+    function initMasShapley() {
+      const output = document.getElementById("mas-shapley-output");
+      if (!output) return;
+      const orders = [
+        ["A", "B", "C"], ["A", "C", "B"], ["B", "A", "C"],
+        ["B", "C", "A"], ["C", "A", "B"], ["C", "B", "A"]
+      ];
+      const values = { "": 0, A: 2, B: 1, C: 0, AB: 5, AC: 4, BC: 3, ABC: 9 };
+      const key = (set) => set.slice().sort().join("");
+      const sums = { A: 0, B: 0, C: 0 };
+      const rows = orders.map((order) => {
+        const joined = [];
+        const gains = {};
+        order.forEach((player) => {
+          const before = values[key(joined)] || 0;
+          joined.push(player);
+          gains[player] = (values[key(joined)] || 0) - before;
+          sums[player] += gains[player];
+        });
+        return `<tr><td>${order.join(" -> ")}</td><td>${gains.A ?? ""}</td><td>${gains.B ?? ""}</td><td>${gains.C ?? ""}</td></tr>`;
+      }).join("");
+      output.innerHTML = `<p>Average each player's marginal contribution across all six arrival orders.</p><table class="mas-payoff-matrix"><tr><th>Order</th><th>A</th><th>B</th><th>C</th></tr>${rows}<tr><th>Shapley</th><td class="best">${(sums.A / 6).toFixed(2)}</td><td class="best">${(sums.B / 6).toFixed(2)}</td><td class="best">${(sums.C / 6).toFixed(2)}</td></tr></table><p class="step-note"><strong>Why:</strong> averaging all orders removes bias from who arrives early or late.</p>`;
+    }
+
+    function initMasAuction() {
+      const slider = document.getElementById("mas-auction-value");
+      const label = document.getElementById("mas-auction-value-label");
+      const output = document.getElementById("mas-auction-output");
+      if (!slider || !label || !output) return;
+      const render = () => {
+        const v = Number(slider.value);
+        const shaded = Math.round((2 / 3) * v);
+        label.textContent = String(v);
+        output.innerHTML = `<div class="mas-lab-grid"><div class="mas-lab-stat"><strong>Second price</strong>Bid ${v}; truthful bidding is weakly dominant.</div><div class="mas-lab-stat"><strong>First price, n=3</strong>Symmetric uniform shading suggests bid about ${shaded}.</div><div class="mas-lab-stat"><strong>Reserve intuition</strong>Myerson may reject low values if virtual value is negative.</div></div><p>Combinatorial version: if you bid on bundles, the mechanism must choose disjoint bundles maximizing total value, which is the hard winner-determination problem.</p><p class="step-note"><strong>Remember:</strong> shading protects surplus in first price; truthfulness is safe in second price.</p>`;
+      };
+      slider.addEventListener("input", render);
+      render();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initMasTabs("[data-mas-normal-tab]", "mas-normal-output", masNormalData, "pd");
+      initMasTabs("[data-mas-zero-tab]", "mas-zero-output", masZeroData, "lp");
+      initMasEfgStepper();
+      initMasShapley();
+      initMasAuction();
+    });
+  </script>
+</body>
+</html>

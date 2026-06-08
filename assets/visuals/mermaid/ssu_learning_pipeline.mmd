@@ -1,0 +1,22 @@
+flowchart LR
+  Data["<b>Training data</b><br/>(xᵢ, yᵢ)"]
+  Hyp["<b>Hypothesis class</b><br/>linear model<br/>kernel model<br/>neural network"]
+  Obj["<b>Objective</b><br/>ERM<br/>MLE<br/>EM lower bound"]
+  Train["<b>Training</b><br/>SGD<br/>backpropagation"]
+  Pred["<b>Predictor</b><br/>h(x)"]
+  Gen["<b>Generalization</b><br/>Empirical risk: sample error.<br/>True risk: distribution error.<br/>Bounds use sample size and VC dimension."]
+
+  Data --> Hyp --> Obj --> Train --> Pred
+  Obj --> Gen
+  Gen --> Pred
+
+  classDef blue fill:#EFF6FF,stroke:#2563EB,color:#172033,stroke-width:2px;
+  classDef green fill:#F0FDF4,stroke:#16A34A,color:#172033,stroke-width:2px;
+  classDef yellow fill:#FEFCE8,stroke:#CA8A04,color:#172033,stroke-width:2px;
+  classDef red fill:#FFF1F2,stroke:#E11D48,color:#172033,stroke-width:2px;
+  classDef neutral fill:#F8FAFC,stroke:#64748B,color:#172033,stroke-width:2px;
+  class Data,Train blue;
+  class Hyp green;
+  class Obj yellow;
+  class Pred red;
+  class Gen neutral;

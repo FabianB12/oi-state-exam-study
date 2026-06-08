@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exam Timetable</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+</head>
+<body data-page="timetable">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html" aria-current="page"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span>
+          </a>
+          <a role="menuitem" href="tal.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span>
+          </a>
+          <a role="menuitem" href="ko.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span>
+          </a>
+          <a role="menuitem" href="smu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span>
+          </a>
+          <a role="menuitem" href="lup.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span>
+          </a>
+          <a role="menuitem" href="ssu.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span>
+          </a>
+          <a role="menuitem" href="pui.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span>
+          </a>
+          <a role="menuitem" href="mas.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span>
+          </a>
+          <a role="menuitem" href="uir.html">
+            <span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span>
+            <span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="../exam_questions.md"><span class="material-symbols-rounded">format_list_bulleted</span>Question Index</a>
+      <a href="../common/README.md"><span class="material-symbols-rounded">description</span>Notes</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head timetable-head">
+      <p class="eyebrow">Exam schedule</p>
+      <h1>One clear plan to June 18 — always know the next move.</h1>
+      <p class="lead">Cover every subject once by <strong>Mon June 15</strong>, then use June 16–17 to make it stick. Committee-heavy subjects come first: MAS, PUI, SSU, LUP, KO, PAL. Tick sessions as you finish them — progress is saved locally in this browser.</p>
+      <div class="head-meta tt-command">
+        <span class="time-pill"><span class="material-symbols-rounded">event</span>Exam: June 18, 2026</span>
+        <span class="time-pill" id="timetable-now-pill"><span class="material-symbols-rounded">schedule</span>Current time loading…</span>
+        <span class="time-pill tt-phase-pill" id="schedule-phase-pill"><span class="material-symbols-rounded">flag</span>Phase…</span>
+        <span class="time-pill" id="schedule-countdown"><span class="material-symbols-rounded">hourglass_top</span>…</span>
+        <a class="button primary" href="#schedule-grid"><span class="material-symbols-rounded">calendar_view_week</span>Open schedule</a>
+      </div>
+    </section>
+
+    <section class="timetable-dashboard" aria-label="Schedule summary">
+      <article class="tt-card tt-card-progress">
+        <div class="tt-card-top">
+          <span class="status-label">Overall progress</span>
+          <span class="tt-pct" id="schedule-progress-pct">0%</span>
+        </div>
+        <strong class="tt-hours"><span id="schedule-completed-hours">0h</span><span class="tt-of">of <span id="schedule-total-hours">0h</span></span></strong>
+        <div class="progress-track"><span class="progress-fill" id="schedule-progress-fill"></span></div>
+        <p id="schedule-progress-text">No sessions checked yet.</p>
+      </article>
+
+      <article class="tt-card tt-card-pace">
+        <div class="tt-card-top">
+          <span class="status-label">Pace check</span>
+          <span class="tt-badge" id="schedule-pace-status">—</span>
+        </div>
+        <strong class="tt-hours"><span id="schedule-expected-hours">0h</span><span class="tt-of">expected by now</span></strong>
+        <p id="schedule-expected-text">Current position will update from the clock.</p>
+      </article>
+
+      <article class="tt-card tt-card-next">
+        <div class="tt-card-top">
+          <span class="status-label">Do this next</span>
+          <span class="material-symbols-rounded tt-next-icon">arrow_forward</span>
+        </div>
+        <strong class="tt-next-subject" id="schedule-next-subject">Loading</strong>
+        <p id="schedule-next-detail">Finding the next planned block.</p>
+      </article>
+    </section>
+
+    <section class="phase-overview" aria-label="Study phases">
+      <article class="phase-card phase-first-pass" data-phase="first-pass">
+        <div class="phase-card-top">
+          <span class="phase-icon"><span class="material-symbols-rounded">menu_book</span></span>
+          <div class="phase-card-title"><strong>First pass</strong><span>Cover everything once</span></div>
+          <span class="phase-range">Jun 8–15</span>
+        </div>
+        <div class="progress-track"><span class="progress-fill" id="schedule-fp-fill"></span></div>
+        <p class="phase-stat" id="schedule-fp-text">0h / 0h</p>
+        <p class="phase-deadline"><span class="material-symbols-rounded">flag</span>Finish coverage by Mon Jun 15</p>
+      </article>
+
+      <article class="phase-card phase-review" data-phase="review">
+        <div class="phase-card-top">
+          <span class="phase-icon"><span class="material-symbols-rounded">replay</span></span>
+          <div class="phase-card-title"><strong>Review pass</strong><span>Make it stick</span></div>
+          <span class="phase-range">Jun 16–17</span>
+        </div>
+        <div class="progress-track"><span class="progress-fill" id="schedule-rv-fill"></span></div>
+        <p class="phase-stat" id="schedule-rv-text">0h / 0h</p>
+        <p class="phase-deadline"><span class="material-symbols-rounded">record_voice_over</span>Recall, mocks &amp; weak-spot repair</p>
+      </article>
+
+      <article class="phase-card phase-exam" data-phase="exam">
+        <div class="phase-card-top">
+          <span class="phase-icon"><span class="material-symbols-rounded">flag</span></span>
+          <div class="phase-card-title"><strong>Exam day</strong><span>No new learning</span></div>
+          <span class="phase-range">Jun 18</span>
+        </div>
+        <p class="phase-exam-note">No studying — you sit the exam in the morning.</p>
+        <p class="phase-deadline"><span class="material-symbols-rounded">wb_twilight</span>Rest, eat, and walk in calm</p>
+      </article>
+    </section>
+
+    <section class="timetable-layout" aria-labelledby="subjects-h">
+      <aside class="subject-plan" aria-labelledby="subjects-h">
+        <div class="subject-plan-head">
+          <div>
+            <p class="eyebrow">Subject load</p>
+            <h2 id="subjects-h">Hours by question</h2>
+          </div>
+          <button type="button" class="btn-ghost-sm" id="schedule-reset"><span class="material-symbols-rounded">restart_alt</span>Reset</button>
+        </div>
+        <div id="subject-summary-list" class="subject-summary-list"></div>
+      </aside>
+
+      <section class="schedule-panel" aria-labelledby="schedule-h">
+        <div class="section-heading timetable-heading">
+          <div>
+            <p class="eyebrow">Daily timetable</p>
+            <h2 id="schedule-h">June 8 – 18</h2>
+          </div>
+          <p>Each row is a day from 08:00 to midnight; learning days can run late to about 23:00. The red line marks now when today is on screen. <span class="schedule-scroll-hint"><span class="material-symbols-rounded">swipe_left</span>Scroll sideways for evening blocks</span></p>
+        </div>
+        <div class="schedule-scroll" id="schedule-grid" tabindex="0" aria-label="Scrollable timetable">
+          <div class="schedule-grid-inner">
+            <div class="schedule-axis-row">
+              <div class="schedule-corner"><span class="material-symbols-rounded">schedule</span>Time</div>
+              <div id="schedule-axis" class="schedule-axis" aria-label="Hour axis"></div>
+            </div>
+            <div id="schedule-days" class="schedule-days"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="band compact timetable-notes" aria-labelledby="how-to-use-schedule">
+      <p class="eyebrow">How to use this</p>
+      <h2 id="how-to-use-schedule">Keep the loop brutally simple</h2>
+      <div class="loop-grid">
+        <div class="loop-step"><strong><span class="material-symbols-rounded">timer</span>Start the block</strong><span>Open the linked subject page and work the highlighted modules first.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">record_voice_over</span>End with recall</strong><span>Do not count a block as done until you can say the oral skeleton.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">check_circle</span>Mark done</strong><span>Tick the session here. The hour progress updates immediately.</span></div>
+        <div class="loop-step"><strong><span class="material-symbols-rounded">psychology_alt</span>Protect review</strong><span>June 16-17 are for oral rehearsal and reported questions, not first contact.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script>
+    (() => {
+      const storageKey = "exam-timetable-progress-v1";
+      const hourStart = 8;
+      const hourEnd = 24;
+      const palCredit = 2.5;
+      const subjectMeta = {
+        PAL: { title: "PAL", url: "pal.html", className: "subject-pal" },
+        TAL: { title: "TAL", url: "tal.html", className: "subject-tal" },
+        KO: { title: "KO", url: "ko.html", className: "subject-ko" },
+        SMU: { title: "SMU", url: "smu.html", className: "subject-smu" },
+        LUP: { title: "LUP", url: "lup.html", className: "subject-lup" },
+        SSU: { title: "SSU", url: "ssu.html", className: "subject-ssu" },
+        PUI: { title: "PUI", url: "pui.html", className: "subject-pui" },
+        MAS: { title: "MAS", url: "mas.html", className: "subject-mas" },
+        UIR: { title: "UIR", url: "uir.html", className: "subject-uir" },
+        AWAY: { title: "Away", url: "index.html", className: "subject-away" },
+        MIX: { title: "Mixed review", url: "index.html", className: "subject-mix" },
+        EXAM: { title: "Exam", url: "index.html", className: "subject-exam" }
+      };
+
+      const schedule = [
+        {
+          date: "2026-06-08",
+          label: "Mon Jun 8",
+          theme: "Stabilize PAL, Prague drive, open MAS",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun8-pal-graphs", subject: "PAL", title: "Complexity, graph reps, Laplacian, MST/SCC refresh", start: 13, end: 14.75, link: "pal.html#module-complexity" },
+            { id: "jun8-prague-drive", subject: "AWAY", title: "Drive to Prague: no learning", start: 14.75, end: 17, link: "index.html", noProgress: true, noLink: true, kind: "unavailable" },
+            { id: "jun8-pal-trees", subject: "PAL", title: "Search trees, B-tree/B+ tree, indexing", start: 17, end: 18.5, link: "pal.html#module-trees" },
+            { id: "jun8-pal-automata", subject: "PAL", title: "Automata and text search essentials", start: 18.75, end: 20.25, link: "pal.html#module-automata" },
+            { id: "jun8-mas-nash", subject: "MAS", title: "Normal-form games and Nash basics", start: 20.25, end: 22.25, link: "mas.html#normal-form" },
+            { id: "jun8-late", subject: "MAS", title: "Recall pass: Nash recap + PAL recall", start: 22.5, end: 24, link: "mas.html#reported-drills", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-09",
+          label: "Tue Jun 9",
+          theme: "MAS deep pass",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun9-mas-zero", subject: "MAS", title: "Zero-sum, minimax, Stackelberg", start: 9, end: 11, link: "mas.html#zero-alt" },
+            { id: "jun9-mas-coalitions", subject: "MAS", title: "Coalitions, core, Shapley, voting power", start: 11.5, end: 13, link: "mas.html#coalitions" },
+            { id: "jun9-mas-auctions", subject: "MAS", title: "Auctions, Myerson, combinatorial auctions", start: 14.5, end: 16.5, link: "mas.html#auctions" },
+            { id: "jun9-mas-recall", subject: "MAS", title: "MAS reported drills and oral skeleton", start: 17, end: 18.5, link: "mas.html#reported-drills" },
+            { id: "jun9-pui-frame", subject: "PUI", title: "Planning task tuple + A* preview", start: 19.5, end: 21.5, link: "pui.html#tasks" },
+            { id: "jun9-late", subject: "MAS", title: "Recall pass: extensive-form games, regret, MAS oral skeleton", start: 21.75, end: 23, link: "mas.html#extensive", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-10",
+          label: "Wed Jun 10",
+          theme: "PUI full pass",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun10-pui-tasks", subject: "PUI", title: "STRIPS/SAS, task formalism, A*", start: 9, end: 11, link: "pui.html#tasks" },
+            { id: "jun10-pui-heuristics", subject: "PUI", title: "Delete relaxation, abstraction, landmarks, LM-Cut", start: 11.5, end: 13, link: "pui.html#relax" },
+            { id: "jun10-pui-uncertainty", subject: "PUI", title: "Nondeterministic and probabilistic planning", start: 14.5, end: 16.5, link: "pui.html#uncertainty" },
+            { id: "jun10-pui-drills", subject: "PUI", title: "Reported planning/A* drills", start: 17, end: 18.5, link: "pui.html#reported-drills" },
+            { id: "jun10-ssu-svm-preview", subject: "SSU", title: "SVM primer before ML day", start: 19.5, end: 21.5, link: "ssu.html#svm" },
+            { id: "jun10-late", subject: "PUI", title: "Recall pass: MCTS/UCT + PUI recall drills", start: 21.75, end: 23, link: "pui.html#mcts", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-11",
+          label: "Thu Jun 11",
+          theme: "SSU full pass",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun11-ssu-svm", subject: "SSU", title: "ERM/generalization, SVM, hinge loss, kernels", start: 9, end: 11, link: "ssu.html#erm" },
+            { id: "jun11-ssu-em", subject: "SSU", title: "MLE and EM", start: 11.5, end: 13, link: "ssu.html#mle-em" },
+            { id: "jun11-ssu-nn", subject: "SSU", title: "Neural nets and backprop", start: 14.5, end: 16.5, link: "ssu.html#backprop" },
+            { id: "jun11-ssu-training", subject: "SSU", title: "SGD, CNNs, regularization", start: 17, end: 18.5, link: "ssu.html#training" },
+            { id: "jun11-lup-sat-preview", subject: "LUP", title: "SAT/DPLL/CDCL preview", start: 19.5, end: 21.5, link: "lup.html#sat" },
+            { id: "jun11-late", subject: "SSU", title: "Recall pass: SVM/NN/EM oral rehearsal", start: 21.75, end: 23, link: "ssu.html#oral", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-12",
+          label: "Fri Jun 12",
+          theme: "LUP and KO entry",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun12-lup-sat", subject: "LUP", title: "SAT, DPLL, CDCL, SMT", start: 9, end: 10.5, link: "lup.html#sat" },
+            { id: "jun12-lup-prolog", subject: "LUP", title: "Prolog, SLDNF, negation, cut", start: 11, end: 12.5, link: "lup.html#prolog" },
+            { id: "jun12-lup-fol", subject: "LUP", title: "FOL, unification, resolution", start: 14, end: 16, link: "lup.html#fol" },
+            { id: "jun12-ko-csp", subject: "KO", title: "CSP and AC3", start: 16.5, end: 18, link: "ko.html#csp" },
+            { id: "jun12-ko-ilp", subject: "KO", title: "ILP formulations and branch-bound", start: 19.5, end: 21.5, link: "ko.html#ilp" },
+            { id: "jun12-late", subject: "LUP", title: "Recall pass: equality/superposition, model search, resolution recap", start: 21.75, end: 23, link: "lup.html#equality", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-13",
+          label: "Sat Jun 13",
+          theme: "KO and SMU",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun13-ko-tsp", subject: "KO", title: "TSP approximation and heuristics", start: 9, end: 10.5, link: "ko.html#tsp" },
+            { id: "jun13-ko-flow", subject: "KO", title: "Shortest paths, flows, cuts, residual graph", start: 11, end: 12.5, link: "ko.html#shortest" },
+            { id: "jun13-ko-schedule", subject: "KO", title: "Scheduling and knapsack essentials", start: 14, end: 15.5, link: "ko.html#scheduling" },
+            { id: "jun13-smu-mdp", subject: "SMU", title: "MDPs and Bellman equations", start: 16, end: 18, link: "smu.html#mdp" },
+            { id: "jun13-smu-rl", subject: "SMU", title: "Q-learning, SARSA, TD", start: 19.5, end: 21.5, link: "smu.html#rl-control" },
+            { id: "jun13-late", subject: "SMU", title: "Recall pass: MDP/RL recall + KO recap", start: 21.75, end: 23, link: "smu.html#rl-control", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-14",
+          label: "Sun Jun 14",
+          theme: "SMU, UIR, TAL",
+          phase: "first-pass",
+          sessions: [
+            { id: "jun14-smu-bandits", subject: "SMU", title: "Bandits, UCB, Thompson", start: 9, end: 10.5, link: "smu.html#bandits" },
+            { id: "jun14-smu-pac", subject: "SMU", title: "Boolean classes, PAC, online learning, VC", start: 11, end: 12.5, link: "smu.html#pac-online" },
+            { id: "jun14-uir-cspace", subject: "UIR", title: "Robot embodiment, C-space, D*, motion planning", start: 14, end: 15.5, link: "uir.html#robot" },
+            { id: "jun14-uir-explore", subject: "UIR", title: "Exploration, informative paths, multi-robot allocation", start: 15.75, end: 17.25, link: "uir.html#explore" },
+            { id: "jun14-uir-rrt", subject: "UIR", title: "PRM, RRT, RRT* guarantees", start: 17.5, end: 19, link: "uir.html#sampling" },
+            { id: "jun14-tal-complexity-preview", subject: "TAL", title: "P/NP/reductions preview", start: 19.5, end: 21.5, link: "tal.html#complexity" },
+            { id: "jun14-late", subject: "UIR", title: "Recall pass: multigoal, Dubins, profits, UIR recall", start: 21.75, end: 23, link: "uir.html#multigoal", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-15",
+          label: "Mon Jun 15",
+          theme: "TAL and common-core patching",
+          phase: "first-pass",
+          deadline: true,
+          sessions: [
+            { id: "jun15-tal-pnp", subject: "TAL", title: "P, NP, coNP, NPC, reductions", start: 9, end: 11, link: "tal.html#complexity" },
+            { id: "jun15-tal-decidability", subject: "TAL", title: "Decidability, RE, diagonalization", start: 11.5, end: 13, link: "tal.html#decidability" },
+            { id: "jun15-tal-machines", subject: "TAL", title: "Turing machines, PSPACE/space, randomness", start: 14.5, end: 16, link: "tal.html#machines" },
+            { id: "jun15-pal-review", subject: "PAL", title: "PAL reported drills: complexity, generation, B-tree, SCC, automata", start: 16.5, end: 18, link: "pal.html#reported-drills" },
+            { id: "jun15-ko-review", subject: "KO", title: "KO reported drills + final coverage patch", start: 19.5, end: 21.5, link: "ko.html#reported-drills" },
+            { id: "jun15-late", subject: "TAL", title: "Recall pass: correctness, space/randomness, final weak patch", start: 21.75, end: 23, link: "tal.html#oral", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-16",
+          label: "Tue Jun 16",
+          theme: "Committee-heavy oral rehearsal",
+          phase: "review",
+          sessions: [
+            { id: "jun16-mas-oral", subject: "MAS", title: "MAS 8-minute answer and weak spots", start: 9, end: 10.5, link: "mas.html#oral" },
+            { id: "jun16-pui-oral", subject: "PUI", title: "PUI formal task + heuristics oral", start: 11, end: 12.5, link: "pui.html#oral" },
+            { id: "jun16-ssu-oral", subject: "SSU", title: "SSU SVM/NN/EM oral", start: 14, end: 15.5, link: "ssu.html#oral" },
+            { id: "jun16-lup-oral", subject: "LUP", title: "LUP resolution/Prolog/model search oral", start: 16, end: 17.5, link: "lup.html#oral" },
+            { id: "jun16-mixed-repair", subject: "MIX", title: "Repair the two worst recalls", start: 18.5, end: 20.5, link: "index.html" },
+            { id: "jun16-late", subject: "MIX", title: "Recall pass: say each answer once", start: 20.75, end: 22.5, link: "index.html", kind: "recall" }
+          ]
+        },
+        {
+          date: "2026-06-17",
+          label: "Wed Jun 17",
+          theme: "Mock exam day",
+          phase: "review",
+          sessions: [
+            { id: "jun17-mock-common", subject: "MIX", title: "Mock: one common question from memory", start: 9, end: 10.5, link: "index.html" },
+            { id: "jun17-mock-ai", subject: "MIX", title: "Mock: one AI specialization answer", start: 11, end: 12.5, link: "index.html" },
+            { id: "jun17-reported", subject: "MIX", title: "All reported-question drills sweep", start: 14, end: 16, link: "../student_reported_relevant_questions.md" },
+            { id: "jun17-panic", subject: "MIX", title: "Panic passes for lowest-confidence pages", start: 16.5, end: 18, link: "index.html" },
+            { id: "jun17-final-skeletons", subject: "MIX", title: "Final oral skeletons, then light recall", start: 19, end: 20.5, link: "index.html" },
+            { id: "jun17-winddown", subject: "MIX", title: "Definitions only, then stop early and sleep", start: 20.75, end: 22, link: "index.html" }
+          ]
+        },
+        {
+          date: "2026-06-18",
+          label: "Thu Jun 18",
+          theme: "Exam morning — no studying",
+          phase: "exam",
+          sessions: []
+        }
+      ];
+
+      const phaseMeta = {
+        "first-pass": { label: "First pass", tagline: "Cover everything once", icon: "menu_book" },
+        review: { label: "Review pass", tagline: "Make it stick", icon: "replay" },
+        exam: { label: "Exam day", tagline: "No new learning", icon: "flag" }
+      };
+
+      const examDateKey = "2026-06-18";
+      const firstPassDeadlineKey = "2026-06-15";
+
+      function phaseForDate(dateKey) {
+        if (dateKey < "2026-06-08") return "pre";
+        if (dateKey <= "2026-06-15") return "first-pass";
+        if (dateKey <= "2026-06-17") return "review";
+        if (dateKey === "2026-06-18") return "exam";
+        return "done";
+      }
+
+      function daysBetween(fromKey, toKey) {
+        const from = new Date(`${fromKey}T00:00:00`);
+        const to = new Date(`${toKey}T00:00:00`);
+        return Math.round((to - from) / 86400000);
+      }
+
+      function readProgress() {
+        try { return JSON.parse(localStorage.getItem(storageKey) || "{}"); }
+        catch { return {}; }
+      }
+
+      function writeProgress(progress) {
+        localStorage.setItem(storageKey, JSON.stringify(progress));
+      }
+
+      function fmtHours(hours) {
+        return `${Number(hours.toFixed(1))}h`;
+      }
+
+      function fmtTime(decimal) {
+        const hour = Math.floor(decimal);
+        const mins = Math.round((decimal - hour) * 60);
+        return `${String(hour).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+      }
+
+      function sessionHours(session) {
+        return session.noProgress ? 0 : session.end - session.start;
+      }
+
+      function allSessions() {
+        return schedule.flatMap((day) => day.sessions.map((session) => ({ ...session, date: day.date, dayLabel: day.label })));
+      }
+
+      function positionFor(decimalHour) {
+        const clamped = Math.min(hourEnd, Math.max(hourStart, decimalHour));
+        return ((clamped - hourStart) / (hourEnd - hourStart)) * 100;
+      }
+
+      function currentDecimalHour(date = new Date()) {
+        return date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
+      }
+
+      function localDateKey(date = new Date()) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const d = String(date.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      }
+
+      function renderAxis() {
+        const axis = document.getElementById("schedule-axis");
+        axis.innerHTML = "";
+        for (let hour = hourStart; hour <= hourEnd; hour += 1) {
+          const tick = document.createElement("span");
+          tick.style.left = `${positionFor(hour)}%`;
+          tick.textContent = String(hour).padStart(2, "0");
+          axis.appendChild(tick);
+        }
+      }
+
+      function renderSchedule() {
+        const daysEl = document.getElementById("schedule-days");
+        const progress = readProgress();
+        const today = localDateKey();
+        const nowHour = currentDecimalHour();
+        daysEl.innerHTML = "";
+
+        let lastPhase = null;
+        schedule.forEach((day) => {
+          if (day.phase !== lastPhase) {
+            lastPhase = day.phase;
+            const meta = phaseMeta[day.phase];
+            const banner = document.createElement("div");
+            banner.className = `schedule-phase-banner phase-${day.phase}`;
+            const dates = day.phase === "first-pass" ? "Jun 8 – 15" : day.phase === "review" ? "Jun 16 – 17" : "Jun 18";
+            const note = day.phase === "first-pass"
+              ? "Finish coverage by Mon Jun 15"
+              : day.phase === "review"
+                ? "Recall, mocks &amp; weak-spot repair"
+                : "No studying — rest and arrive sharp";
+            banner.innerHTML = `<div class="schedule-phase-banner-inner"><span class="material-symbols-rounded">${meta.icon}</span><strong>${meta.label}</strong><span class="schedule-phase-tagline">${meta.tagline}</span><span class="schedule-phase-dates">${dates}</span><span class="schedule-phase-note">${note}</span></div>`;
+            daysEl.appendChild(banner);
+          }
+
+          const row = document.createElement("article");
+          row.className = `schedule-row phase-${day.phase}`;
+          if (day.deadline) row.classList.add("is-deadline");
+          if (day.date === today) row.classList.add("is-today");
+
+          const label = document.createElement("div");
+          label.className = "schedule-day-label";
+          const deadlineTag = day.deadline ? `<span class="schedule-day-deadline"><span class="material-symbols-rounded">flag</span>First-pass deadline</span>` : "";
+          label.innerHTML = `<strong>${day.label}</strong><span>${day.theme}</span>${deadlineTag}`;
+
+          const track = document.createElement("div");
+          track.className = "schedule-track";
+
+          if (day.date === today) {
+            const marker = document.createElement("div");
+            marker.className = "schedule-now-marker";
+            marker.style.left = `${positionFor(nowHour)}%`;
+            marker.innerHTML = `<span>now</span>`;
+            track.appendChild(marker);
+          }
+
+          day.sessions.forEach((session) => {
+            const meta = subjectMeta[session.subject] || subjectMeta.MIX;
+            const block = document.createElement("article");
+            block.className = `schedule-block ${meta.className}`;
+            if (progress[session.id]) block.classList.add("is-complete");
+            if (session.noProgress) block.classList.add("is-exam-block");
+            if (session.kind) block.classList.add(`is-${session.kind}-block`);
+            block.style.left = `${positionFor(session.start)}%`;
+            block.style.width = `${Math.max(4, positionFor(session.end) - positionFor(session.start))}%`;
+
+            const isRecall = session.kind === "recall";
+            const checkbox = session.noProgress ? "" : `<input type="checkbox" class="schedule-check-input" data-schedule-session="${session.id}" ${progress[session.id] ? "checked" : ""} aria-label="Mark ${session.title} complete">`;
+            const topTag = isRecall
+              ? `<span class="schedule-recall-tag" role="img" aria-label="Recall pass"><span class="material-symbols-rounded">replay</span></span>`
+              : `<span class="schedule-subject">${meta.title}</span>`;
+            const hoursLabel = session.noProgress ? "" : ` · ${fmtHours(sessionHours(session))}`;
+            const fullLabel = `${session.title}, ${fmtTime(session.start)}–${fmtTime(session.end)}${hoursLabel}`;
+            block.title = `${session.title} · ${fmtTime(session.start)}–${fmtTime(session.end)}${hoursLabel}`;
+            const cardLink = session.noLink ? "" : `<a class="schedule-block-link" href="${session.link}" aria-label="Open ${fullLabel}"></a>`;
+            block.innerHTML = `
+              ${cardLink}
+              <div class="schedule-block-top">
+                ${checkbox}
+                ${topTag}
+              </div>
+              <strong>${session.title}</strong>
+              <span class="schedule-time">${fmtTime(session.start)}–${fmtTime(session.end)}${hoursLabel}</span>
+            `;
+            track.appendChild(block);
+          });
+
+          if (!day.sessions.length) {
+            const rest = document.createElement("div");
+            rest.className = "schedule-rest-note";
+            rest.innerHTML = `<span class="material-symbols-rounded">bedtime</span>Exam in the morning — no studying. Rest, eat, and arrive sharp.`;
+            track.appendChild(rest);
+          }
+
+          row.append(label, track);
+          daysEl.appendChild(row);
+        });
+      }
+
+      function phaseOf(dateKey) {
+        const day = schedule.find((d) => d.date === dateKey);
+        return day ? day.phase : "first-pass";
+      }
+
+      function updateSummary() {
+        const progress = readProgress();
+        const sessions = allSessions();
+        const planned = sessions.reduce((sum, session) => sum + sessionHours(session), 0) + palCredit;
+        const completed = sessions.reduce((sum, session) => sum + (progress[session.id] ? sessionHours(session) : 0), 0) + palCredit;
+        const percent = Math.round((completed / planned) * 100);
+        const now = new Date();
+        const today = localDateKey(now);
+        const nowHour = currentDecimalHour(now);
+        const expected = sessions.reduce((sum, session) => {
+          if (session.date < today) return sum + sessionHours(session);
+          if (session.date > today) return sum;
+          if (nowHour >= session.end) return sum + sessionHours(session);
+          if (nowHour <= session.start) return sum;
+          return sum + Math.max(0, nowHour - session.start);
+        }, palCredit);
+
+        // Per-phase planned/completed (PAL credit counts as first-pass).
+        const phaseTotals = { "first-pass": { planned: palCredit, done: palCredit }, review: { planned: 0, done: 0 } };
+        sessions.forEach((session) => {
+          const phase = phaseOf(session.date);
+          if (phase !== "first-pass" && phase !== "review") return;
+          phaseTotals[phase].planned += sessionHours(session);
+          if (progress[session.id]) phaseTotals[phase].done += sessionHours(session);
+        });
+
+        const upcoming = sessions.find((session) => {
+          if (session.noProgress) return false;
+          if (progress[session.id]) return false;
+          if (session.date > today) return true;
+          return session.date === today && session.end > nowHour;
+        });
+
+        document.getElementById("schedule-total-hours").textContent = fmtHours(planned);
+        document.getElementById("schedule-completed-hours").textContent = fmtHours(completed);
+        document.getElementById("schedule-progress-pct").textContent = `${percent}%`;
+        document.getElementById("schedule-progress-fill").style.width = `${percent}%`;
+        document.getElementById("schedule-progress-text").textContent = `${fmtHours(Math.max(0, planned - completed))} left · includes ${fmtHours(palCredit)} existing PAL credit.`;
+        document.getElementById("schedule-expected-hours").textContent = fmtHours(expected);
+        document.getElementById("schedule-expected-text").textContent = `By ${now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} the plan expects about ${fmtHours(expected)} done.`;
+        document.getElementById("timetable-now-pill").innerHTML = `<span class="material-symbols-rounded">schedule</span>${now.toLocaleString([], { weekday: "short", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`;
+
+        // Pace badge: compare completed against where the plan expects you to be.
+        const paceEl = document.getElementById("schedule-pace-status");
+        const drift = completed - expected;
+        paceEl.classList.remove("is-good", "is-warn", "is-neutral");
+        if (today < "2026-06-08") {
+          paceEl.textContent = "Not started";
+          paceEl.classList.add("is-neutral");
+        } else if (Math.abs(drift) < 0.5) {
+          paceEl.textContent = "On track";
+          paceEl.classList.add("is-good");
+        } else if (drift >= 0.5) {
+          paceEl.textContent = `Ahead ${fmtHours(drift)}`;
+          paceEl.classList.add("is-good");
+        } else {
+          paceEl.textContent = `Behind ${fmtHours(-drift)}`;
+          paceEl.classList.add("is-warn");
+        }
+
+        // Current phase pill + exam countdown.
+        const currentPhase = phaseForDate(today);
+        const phasePill = document.getElementById("schedule-phase-pill");
+        const phaseText = {
+          pre: "Prep · starts Jun 8",
+          "first-pass": "Phase: First pass",
+          review: "Phase: Review",
+          exam: "Exam day",
+          done: "Exam complete"
+        }[currentPhase];
+        phasePill.innerHTML = `<span class="material-symbols-rounded">${currentPhase === "review" ? "replay" : currentPhase === "exam" ? "flag" : "menu_book"}</span>${phaseText}`;
+
+        const daysToExam = daysBetween(today, examDateKey);
+        const countdownEl = document.getElementById("schedule-countdown");
+        if (daysToExam > 1) countdownEl.innerHTML = `<span class="material-symbols-rounded">hourglass_top</span>${daysToExam} days to exam`;
+        else if (daysToExam === 1) countdownEl.innerHTML = `<span class="material-symbols-rounded">hourglass_top</span>Exam tomorrow`;
+        else if (daysToExam === 0) countdownEl.innerHTML = `<span class="material-symbols-rounded">hourglass_top</span>Exam today`;
+        else countdownEl.innerHTML = `<span class="material-symbols-rounded">hourglass_top</span>Exam passed`;
+
+        // Phase progress cards.
+        const fp = phaseTotals["first-pass"];
+        const rv = phaseTotals.review;
+        const fpPct = fp.planned ? Math.round((fp.done / fp.planned) * 100) : 0;
+        const rvPct = rv.planned ? Math.round((rv.done / rv.planned) * 100) : 0;
+        document.getElementById("schedule-fp-fill").style.width = `${fpPct}%`;
+        document.getElementById("schedule-fp-text").textContent = `${fmtHours(fp.done)} / ${fmtHours(fp.planned)} covered`;
+        document.getElementById("schedule-rv-fill").style.width = `${rvPct}%`;
+        document.getElementById("schedule-rv-text").textContent = `${fmtHours(rv.done)} / ${fmtHours(rv.planned)} rehearsed`;
+        document.querySelectorAll(".phase-card").forEach((card) => {
+          card.classList.toggle("is-current", card.dataset.phase === currentPhase);
+        });
+
+        if (upcoming) {
+          document.getElementById("schedule-next-subject").textContent = subjectMeta[upcoming.subject]?.title || upcoming.subject;
+          document.getElementById("schedule-next-detail").textContent = `${upcoming.dayLabel}, ${fmtTime(upcoming.start)}-${fmtTime(upcoming.end)} · ${upcoming.title}`;
+        } else {
+          document.getElementById("schedule-next-subject").textContent = "All done";
+          document.getElementById("schedule-next-detail").textContent = "No remaining planned sessions.";
+        }
+
+        renderSubjectSummary(sessions, progress);
+      }
+
+      function renderSubjectSummary(sessions, progress) {
+        const summaryEl = document.getElementById("subject-summary-list");
+        const subjectOrder = ["MAS", "PUI", "SSU", "LUP", "KO", "PAL", "SMU", "UIR", "TAL", "MIX"];
+        const totals = new Map();
+        sessions.forEach((session) => {
+          if (session.noProgress || session.subject === "EXAM") return;
+          const next = totals.get(session.subject) || { planned: 0, done: 0 };
+          next.planned += sessionHours(session);
+          if (progress[session.id]) next.done += sessionHours(session);
+          totals.set(session.subject, next);
+        });
+        totals.set("PAL", {
+          planned: (totals.get("PAL")?.planned || 0) + palCredit,
+          done: (totals.get("PAL")?.done || 0) + palCredit
+        });
+
+        summaryEl.innerHTML = "";
+        subjectOrder.forEach((subject) => {
+          const total = totals.get(subject);
+          if (!total) return;
+          const meta = subjectMeta[subject];
+          const percent = total.planned ? Math.round((total.done / total.planned) * 100) : 0;
+          const card = document.createElement("a");
+          card.className = `subject-summary ${meta.className}`;
+          card.href = meta.url;
+          card.innerHTML = `
+            <div><strong>${meta.title}</strong><span>${fmtHours(total.done)} / ${fmtHours(total.planned)}</span></div>
+            <div class="progress-track"><span class="progress-fill" style="width:${percent}%"></span></div>
+          `;
+          summaryEl.appendChild(card);
+        });
+      }
+
+      function bindActions() {
+        document.addEventListener("change", (event) => {
+          const input = event.target.closest("[data-schedule-session]");
+          if (!input) return;
+          const progress = readProgress();
+          progress[input.dataset.scheduleSession] = input.checked;
+          writeProgress(progress);
+          renderSchedule();
+          updateSummary();
+        });
+
+        document.getElementById("schedule-reset")?.addEventListener("click", () => {
+          localStorage.removeItem(storageKey);
+          renderSchedule();
+          updateSummary();
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderAxis();
+        renderSchedule();
+        updateSummary();
+        bindActions();
+        setInterval(() => {
+          renderSchedule();
+          updateSummary();
+        }, 60000);
+      });
+    })();
+  </script>
+</body>
+</html>
