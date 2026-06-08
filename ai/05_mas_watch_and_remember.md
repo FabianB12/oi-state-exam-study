@@ -18,10 +18,13 @@ Use this guide as the video-first path for **AI question 05: Autonomous Agents a
 4. [Game Theory 101 (#5): What Is a Nash Equilibrium?](https://www.youtube.com/watch?v=5TcYV6CZ7mI) - William Spaniel, 5:23.
    - Watch: 0:00-5:23.
    - Remember: Nash equilibrium means no profitable unilateral deviation; it does not mean globally best.
-5. [Game Theory 101 (#7): Mixed Strategy Nash Equilibrium and Matching Pennies](https://www.youtube.com/watch?v=fvEQujUcPv4) - William Spaniel, 7:14.
+5. [Game Theory 101 (#6): Best Responses](https://www.youtube.com/watch?v=VuDutyTs_r8) - William Spaniel, 8:24.
+   - Watch: 0:00-8:24.
+   - Remember: a Nash equilibrium is a strategy profile where every player's strategy is a best response to the others.
+6. [Game Theory 101 (#7): Mixed Strategy Nash Equilibrium and Matching Pennies](https://www.youtube.com/watch?v=fvEQujUcPv4) - William Spaniel, 7:14.
    - Watch: 0:00-7:14.
    - Remember: mixing makes the opponent indifferent among the pure strategies in their support.
-6. [Game Theory 101 (#8): The Mixed Strategy Algorithm](https://www.youtube.com/watch?v=aa8USttcDoE) - William Spaniel, 9:34.
+7. [Game Theory 101 (#8): The Mixed Strategy Algorithm](https://www.youtube.com/watch?v=aa8USttcDoE) - William Spaniel, 9:34.
    - Watch: 0:00-9:34.
    - Remember: solve simple mixed equilibria by equating the opponent's expected payoffs.
 
@@ -30,6 +33,7 @@ Say after watching:
 - A normal-form game is `(N, (A_i), (u_i))`.
 - Pure strategy = one action; mixed strategy = distribution over actions.
 - Strict dominance is better against every opponent action.
+- Best response = optimal reply to the other players' strategies.
 - Nash equilibrium is unilateral stability, not welfare optimality.
 
 ## 2. Zero-sum games and alternatives to Nash
