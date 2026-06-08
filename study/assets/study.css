@@ -2879,7 +2879,8 @@ p.fallback-link { margin-top: 0.5rem; }
   gap: 0.4rem;
 }
 
-.tree-guide-toggle {
+.tree-guide-toggle,
+.tree-wire-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2895,13 +2896,15 @@ p.fallback-link { margin-top: 0.5rem; }
   cursor: pointer;
 }
 
-.tree-guide-toggle[aria-pressed="true"] {
+.tree-guide-toggle[aria-pressed="true"],
+.tree-wire-toggle[aria-pressed="true"] {
   border-color: color-mix(in srgb, var(--lab) 42%, var(--line));
   background: var(--lab-tint);
   color: var(--lab);
 }
 
-.tree-guide-toggle[hidden] {
+.tree-guide-toggle[hidden],
+.tree-wire-toggle[hidden] {
   display: none;
 }
 
@@ -3016,6 +3019,11 @@ p.fallback-link { margin-top: 0.5rem; }
 .tree-edit-node.is-selected circle:not(.tree-edit-hit) {
   stroke: var(--brand);
   stroke-width: 3.5;
+}
+
+.tree-edit-node.is-wire-parent circle:not(.tree-edit-hit) {
+  stroke: var(--practice);
+  stroke-width: 4;
 }
 
 .tree-edit-node.is-wrong circle:not(.tree-edit-hit) {

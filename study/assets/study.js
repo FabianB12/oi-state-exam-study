@@ -4585,7 +4585,11 @@ function initTreeOperationLab() {
     dragStart: null,
     dragMoved: false,
     nodes: {},
+    edges: [],
     showGuide: false,
+    wireMode: false,
+    wireParent: null,
+    ignoreNextClick: false,
     validationMisses: [],
     btreeChoice: null,
     btreeStep: 0,
@@ -4609,6 +4613,7 @@ function initTreeOperationLab() {
   const edgeLayer = root.querySelector("[data-tree-edge-layer]");
   const nodeLayer = root.querySelector("[data-tree-node-layer]");
   const guideToggle = root.querySelector("[data-tree-guide-toggle]");
+  const wireToggle = root.querySelector("[data-tree-wire-toggle]");
   const colorTools = root.querySelector("[data-tree-color-tools]");
   const feedback = root.querySelector("[data-tree-op-feedback]");
   const btreeNode = root.querySelector("[data-tree-op-btree-node]");
@@ -4646,6 +4651,60 @@ function initTreeOperationLab() {
 
   const isNodeWrong = (id) => state.validationMisses.includes(id);
 
+  const edgeKey = ([from, to]) => `${from}->${to}`;
+  const sortedEdgeKeys = (edges) => [...edges].map(edgeKey).sort();
+
+  const setWireToggle = () => {
+    if (!wireToggle) return;
+    wireToggle.hidden = state.mode === "btree";
+    wireToggle.setAttribute("aria-pressed", String(state.wireMode));
+    wireToggle.textContent = state.wireMode ? "Rewire on" : "Rewire off";
+  };
+
+  const childCount = (parent, edges = state.edges) => edges.filter(([from]) => from === parent).length;
+
+  const rewireEdge = (parent, child) => {
+    if (!parent || !child || parent === child) {
+      setFeedback("wrong", "<strong>Cannot rewire.</strong> Choose two different nodes: parent first, then child.");
+      return false;
+    }
+    const alreadyConnected = state.edges.some(([from, to]) => from === parent && to === child);
+    if (alreadyConnected) {
+      state.edges = state.edges.filter(([from, to]) => !(from === parent && to === child));
+      state.validationMisses = [];
+      setFeedback("", `Detached ${escapeFeedbackText(parent)} -> ${escapeFeedbackText(child)}. Now attach the subtree where it belongs after the rotation.`);
+      return true;
+    }
+    const withoutChildParent = state.edges.filter(([, to]) => to !== child);
+    if (!alreadyConnected && childCount(parent, withoutChildParent) >= 2) {
+      setFeedback("wrong", `<strong>Cannot add ${escapeFeedbackText(parent)} -> ${escapeFeedbackText(child)}.</strong> A binary node can have at most two children. Move one of ${escapeFeedbackText(parent)}'s children elsewhere first.`);
+      return false;
+    }
+    state.edges = [...withoutChildParent, [parent, child]];
+    state.validationMisses = [];
+    setFeedback("", `Rewired ${escapeFeedbackText(parent)} -> ${escapeFeedbackText(child)}. Keep going until the rotation edges match the repaired tree.`);
+    return true;
+  };
+
+  const handleTreeNodeClick = (id) => {
+    if (state.wireMode) {
+      state.selectedNode = id;
+      if (!state.wireParent || state.wireParent === id) {
+        state.wireParent = id;
+        setFeedback("", `Parent ${escapeFeedbackText(id)} selected. Now click the child to attach under it.`);
+        renderTreeCanvas();
+        return;
+      }
+      const parent = state.wireParent;
+      const changed = rewireEdge(parent, id);
+      state.wireParent = null;
+      renderTreeCanvas();
+      if (changed) return;
+    }
+    state.selectedNode = id;
+    renderTreeCanvas();
+  };
+
   const renderTreeCanvas = () => {
     const item = currentItem();
     if (!item || !targetLayer || !edgeLayer || !nodeLayer) return;
@@ -4672,7 +4731,7 @@ function initTreeOperationLab() {
       });
     }
 
-    item.after.edges.forEach(([from, to]) => drawTreeLine(edgeLayer, state.nodes[from], state.nodes[to], "tree-live-edge"));
+    state.edges.forEach(([from, to]) => drawTreeLine(edgeLayer, state.nodes[from], state.nodes[to], "tree-live-edge"));
     item.before.nodes.forEach((sourceNode) => {
       const node = state.nodes[sourceNode.id];
       if (!node) return;
@@ -4681,6 +4740,7 @@ function initTreeOperationLab() {
           "tree-edit-node",
           node.color ? `is-${node.color}` : "",
           state.selectedNode === node.id ? "is-selected" : "",
+          state.wireParent === node.id ? "is-wire-parent" : "",
           state.activeNode === node.id ? "is-dragging" : "",
           isNodeWrong(node.id) ? "is-wrong" : ""
         ].filter(Boolean).join(" "),
@@ -4709,8 +4769,11 @@ function initTreeOperationLab() {
         svg?.setPointerCapture?.(event.pointerId);
       });
       group.addEventListener("click", () => {
-        state.selectedNode = node.id;
-        renderTreeCanvas();
+        if (state.ignoreNextClick) {
+          state.ignoreNextClick = false;
+          return;
+        }
+        handleTreeNodeClick(node.id);
       });
       nodeLayer.appendChild(group);
     });
@@ -4719,11 +4782,15 @@ function initTreeOperationLab() {
   const resetTreeState = () => {
     const item = currentItem();
     state.nodes = treeNodeMap(item?.before?.nodes || []);
+    state.edges = (item?.before?.edges || []).map(([from, to]) => [from, to]);
     state.selectedNode = null;
     state.activeNode = null;
     state.dragStart = null;
     state.dragMoved = false;
     state.showGuide = false;
+    state.wireMode = false;
+    state.wireParent = null;
+    state.ignoreNextClick = false;
     state.validationMisses = [];
   };
 
@@ -4739,12 +4806,16 @@ function initTreeOperationLab() {
 
   const finishDrag = (event) => {
     if (!state.activeNode) return;
-    snapActiveNode();
+    const clickedNode = state.activeNode;
+    const moved = state.dragMoved;
+    if (moved) snapActiveNode();
     state.activeNode = null;
     state.dragStart = null;
     state.dragMoved = false;
+    state.ignoreNextClick = true;
     if (event?.pointerId !== undefined) svg?.releasePointerCapture?.(event.pointerId);
-    renderTreeCanvas();
+    if (moved) renderTreeCanvas();
+    else handleTreeNodeClick(clickedNode);
   };
 
   svg?.addEventListener("pointermove", (event) => {
@@ -4766,8 +4837,8 @@ function initTreeOperationLab() {
 
   const describeCanvasStart = () => {
     return state.mode === "rb"
-      ? "Drag nodes into the empty snap rings, then set final colors. Use Show guide only if you want to reveal the labeled answer."
-      : "Drag nodes into the empty snap rings. Edges stay connected while you move them; Show guide reveals the labeled answer only if needed.";
+      ? "Drag nodes into the empty snap rings, turn Rewire on for parent -> child edges, then set final colors. Show guide reveals the labeled answer only if needed."
+      : "Drag nodes into the empty snap rings. Rewire mode: click parent -> child to attach; click an existing edge pair again to detach.";
   };
 
   const renderRotationMode = () => {
@@ -4778,6 +4849,7 @@ function initTreeOperationLab() {
       guideToggle.setAttribute("aria-pressed", "false");
       guideToggle.textContent = "Show guide";
     }
+    setWireToggle();
     if (colorTools) colorTools.hidden = state.mode !== "rb";
     if (instruction) instruction.textContent = describeCanvasStart();
     setFeedback("", "Build the repaired tree, then validate.");
@@ -4787,7 +4859,10 @@ function initTreeOperationLab() {
     const item = currentItem();
     state.btreeChoice = null;
     state.showGuide = false;
+    state.wireMode = false;
+    state.wireParent = null;
     if (guideToggle) guideToggle.hidden = true;
+    setWireToggle();
     if (btreeNode) btreeNode.innerHTML = renderBtreeStageVisual(item, state.btreeStep, state.answered);
     if (btreeChoices) {
       const step = item.steps[state.btreeStep];
@@ -4833,6 +4908,8 @@ function initTreeOperationLab() {
     const item = currentItem();
     const misses = [];
     const wrongNodes = new Set();
+    const expectedEdges = sortedEdgeKeys(item.after.edges);
+    const actualEdges = sortedEdgeKeys(state.edges);
     item.after.nodes.forEach((expectedNode) => {
       const node = state.nodes[expectedNode.id];
       if (!node) {
@@ -4849,6 +4926,12 @@ function initTreeOperationLab() {
         wrongNodes.add(expectedNode.id);
       }
     });
+    if (expectedEdges.join("|") !== actualEdges.join("|")) {
+      const actual = new Set(actualEdges);
+      const missing = expectedEdges.filter((edge) => !actual.has(edge));
+      misses.push(`rewire edges: missing ${missing.join(", ") || "the repaired topology"}`);
+      missing.forEach((edge) => edge.split("->").forEach((id) => wrongNodes.add(id)));
+    }
     state.validationMisses = [...wrongNodes];
     renderTreeCanvas();
     if (misses.length) {
@@ -4900,6 +4983,16 @@ function initTreeOperationLab() {
     guideToggle.setAttribute("aria-pressed", String(state.showGuide));
     guideToggle.textContent = state.showGuide ? "Hide guide" : "Show guide";
     renderTreeCanvas();
+  });
+
+  wireToggle?.addEventListener("click", () => {
+    state.wireMode = !state.wireMode;
+    state.wireParent = null;
+    setWireToggle();
+    renderTreeCanvas();
+    setFeedback("", state.wireMode
+      ? "Rewire mode on: click the parent node first, then click the child node."
+      : "Rewire mode off: dragging moves nodes; clicking only selects nodes.");
   });
 
   colorTools?.querySelectorAll("[data-tree-set-color]").forEach((button) => {
