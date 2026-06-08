@@ -872,7 +872,7 @@ Must say: database index/range queries -> B+ tree because high fanout, page/bloc
               </div>
             </div>
             <div class="module-head-side">
-              <span class="time-pill">55-70 min</span>
+              <span class="time-pill">75-95 min</span>
               <label class="module-check"><input type="checkbox" data-progress-key="automata"> Done</label>
             </div>
           </header>
@@ -880,6 +880,27 @@ Must say: database index/range queries -> B+ tree because high fanout, page/bloc
           <div class="block">
             <p class="block-label watch">Watch first</p>
             <div class="video-grid triple">
+              <article class="video-card">
+                <h3>DFA basics</h3>
+                <p>Lydia. Verified duration: 6:27. Watch all for the tuple and one-active-state idea.</p>
+                <div class="video-frame" data-video-id="PK3wL7DXuuw" data-start="0" title="Regular Languages: Deterministic Finite Automaton"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="PK3wL7DXuuw" data-start="0">DFA tuple</button>
+                  <button type="button" data-video-target="PK3wL7DXuuw" data-start="210">Accepted language</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=PK3wL7DXuuw">Open fallback</a>
+              </article>
+              <article class="video-card">
+                <h3>NFA to DFA</h3>
+                <p>Neso Academy. Verified duration: 11:34. Watch all for subset construction.</p>
+                <div class="video-frame" data-video-id="Y92dtMnarAU" data-start="0" title="Conversion of NFA to DFA"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="Y92dtMnarAU" data-start="0">NFA states</button>
+                  <button type="button" data-video-target="Y92dtMnarAU" data-start="160">Subset states</button>
+                  <button type="button" data-video-target="Y92dtMnarAU" data-start="450">DFA table</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=Y92dtMnarAU">Open fallback</a>
+              </article>
               <article class="video-card">
                 <h3>Regular expressions</h3>
                 <p>Computerphile. Verified duration: 17:18. Watch all if automata feel foggy.</p>
@@ -911,6 +932,17 @@ Must say: database index/range queries -> B+ tree because high fanout, page/bloc
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=MiqoA-yF-0M">Open fallback</a>
               </article>
+              <article class="video-card">
+                <h3>Aho-Corasick</h3>
+                <p>Niema Moshiri. Verified duration: 9:55. Watch for dictionary automata.</p>
+                <div class="video-frame" data-video-id="O7_w001f58c" data-start="0" title="Aho-Corasick Automaton"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="O7_w001f58c" data-start="0">Trie idea</button>
+                  <button type="button" data-video-target="O7_w001f58c" data-start="210">Failure links</button>
+                  <button type="button" data-video-target="O7_w001f58c" data-start="430">Scan text</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=O7_w001f58c">Open fallback</a>
+              </article>
             </div>
           </div>
 
@@ -926,6 +958,17 @@ Must say: database index/range queries -> B+ tree because high fanout, page/bloc
                 <li>Hamming distance allows substitutions on equal-length strings; Levenshtein allows insert/delete/substitute.</li>
                 <li>Levenshtein allows insert/delete/substitute and standard DP is <code>O(mn)</code>.</li>
                 <li>Aho-Corasick builds a trie with failure links for many-pattern matching.</li>
+              </ul>
+            </article>
+            <article class="recall-card">
+              <h3>What they may ask</h3>
+              <ul>
+                <li>Write the DFA tuple <code>(Q, Sigma, delta, q0, F)</code> and explain that <code>delta: Q x Sigma -> Q</code>.</li>
+                <li>Write the NFA transition type <code>delta: Q x (Sigma union {epsilon}) -> 2^Q</code> and explain active-state sets.</li>
+                <li>Explain subset construction: each DFA state is a subset of NFA states; accepting subset contains an NFA final state; worst case <code>2^|Q|</code>.</li>
+                <li>Name regular-language operations: union, intersection, complement, concatenation, Kleene star, difference, reversal, homomorphism.</li>
+                <li>Connect automata to text search: KMP is a prefix-length automaton, Shift-And is bitset NFA simulation, Aho-Corasick is a dictionary automaton.</li>
+                <li>For damaged words, distinguish Hamming substitutions from Levenshtein insert/delete/substitute and mention DP or bounded-error automata.</li>
               </ul>
             </article>
           </div>

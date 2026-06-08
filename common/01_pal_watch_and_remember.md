@@ -46,9 +46,12 @@ Durations were checked against live YouTube page metadata on 2026-06-04 where di
 | B-tree insertion | [B-trees in 6 minutes - Insertions](https://www.youtube.com/watch?v=tT2DT9Z4H-0) | Michael Sambol | about 6 min | 0:00-end | Directly supports the reported insertion/split prompt. |
 | k-d tree | [K-d Trees](https://www.youtube.com/watch?v=BK5x7IUTIyU) | Computerphile | 13:20 | 0:00-13:20 | Visual nearest-neighbor intuition. |
 | Skip list | no required video | Notes/lab only | - | - | PAL likely needs definition, expected `O(log n)`, random levels, and concurrent ordered-set motivation, not an 80-minute lecture. |
+| DFA basics | [Regular Languages: Deterministic Finite Automaton](https://www.youtube.com/watch?v=PK3wL7DXuuw) | Lydia | 6:27 | 0:00-6:27 | Directly covers the DFA tuple and one-active-state idea missing from the old video list. |
+| NFA to DFA | [Conversion of NFA to DFA](https://www.youtube.com/watch?v=Y92dtMnarAU) | Neso Academy | 11:34 | 0:00-11:34 | Direct subset-construction example; this is the exam bridge between NFA active-state sets and DFA subset states. |
 | Regular expressions | [Regular Expressions](https://www.youtube.com/watch?v=528Jc3q86F8) | Computerphile | 17:18 | 0:00-17:18 | Good bridge from regex to automata. |
 | KMP | [KMP Pattern Matching](https://www.youtube.com/watch?v=GTJr8OvyEVQ) | Tushar Roy | 12:49 | 0:00-12:49 | Direct prefix-table explanation. |
 | Levenshtein | [Edit Distance Between 2 Strings](https://www.youtube.com/watch?v=MiqoA-yF-0M) | Back To Back SWE | 16:15 | 0:00-16:15 | Slightly over 15 minutes but high value. |
+| Aho-Corasick | [Advanced Data Structures: Aho-Corasick Automaton](https://www.youtube.com/watch?v=O7_w001f58c) | Niema Moshiri | 9:55 | 0:00-9:55 | Direct dictionary automaton video: trie, failure links, and multi-pattern scan. |
 
 ## Embedded Video Blocks
 
@@ -63,6 +66,12 @@ Markdown viewers differ in whether they render iframes. If these do not show up,
 <iframe width="560" height="315" src="https://www.youtube.com/embed/axaOsCgpupk" title="Union-Find" frameborder="0" allowfullscreen></iframe>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GTJr8OvyEVQ" title="KMP Pattern Matching" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PK3wL7DXuuw" title="DFA basics" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Y92dtMnarAU" title="NFA to DFA subset construction" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O7_w001f58c" title="Aho-Corasick automaton" frameborder="0" allowfullscreen></iframe>
 
 ## How to use this
 
