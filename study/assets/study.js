@@ -2013,8 +2013,11 @@ async function validateRecall(area, button, output) {
     renderRecallValidationStatus(output, "error", { error: "Write your recall answer first." });
     return;
   }
-  const validatorUrl = "http://127.0.0.1:8787/api/validate-recall/stream";
-  const isHostedStaticSite = !["localhost", "127.0.0.1", ""].includes(location.hostname);
+  const localValidatorUrl = "http://127.0.0.1:8787/api/validate-recall/stream";
+  const hostedValidatorUrl = "https://oi-study-recall-validator.fabian-bodnar.workers.dev/api/validate-recall/stream";
+  const validatorUrl = ["localhost", "127.0.0.1", ""].includes(location.hostname)
+    ? localValidatorUrl
+    : hostedValidatorUrl;
 
   button.disabled = true;
   const originalButtonHtml = button.innerHTML;
@@ -2025,9 +2028,6 @@ async function validateRecall(area, button, output) {
   const timeout = setTimeout(() => controller.abort(), 125_000);
   let streamText = "";
   try {
-    if (isHostedStaticSite) {
-      throw new Error("Hosted static site: recall validation still needs the local validator server.");
-    }
     const response = await fetch(validatorUrl, {
       method: "POST",
       signal: controller.signal,
@@ -2087,15 +2087,15 @@ async function validateRecall(area, button, output) {
     });
   } catch (error) {
     const isNetworkError = error instanceof TypeError && String(error.message || "").includes("fetch");
-    const isHostedValidatorError = String(error?.message || "").includes("Hosted static site");
+    const isHostedSite = !["localhost", "127.0.0.1", ""].includes(location.hostname);
     renderRecallValidationStatus(output, "error", {
       error: error?.name === "AbortError"
-        ? "Validation timed out locally after 125 seconds."
+        ? `Validation timed out ${isHostedSite ? "on the hosted validator" : "locally"} after 125 seconds.`
         : error instanceof Error ? error.message : String(error),
-      help: isHostedValidatorError
-        ? "GitHub Pages can host the study app, but it cannot safely hold your OpenRouter API key. Use the local validator server for AI feedback, or add a hosted backend later."
-        : isNetworkError
-        ? "The local recall validator is not reachable on port 8787. Start or restart the validator server, then try again."
+      help: isNetworkError
+        ? isHostedSite
+          ? "The hosted recall validator is not reachable. Try again in a moment."
+          : "The local recall validator is not reachable on port 8787. Start or restart the validator server, then try again."
         : "OpenRouter or the selected validation model may be busy. Try again, or restart the local validator server if this keeps happening."
     });
   } finally {
@@ -4553,6 +4553,120 @@ function initRecallTeachingInteractions() {
   });
 }
 
+const portableProgressPages = ["pal", "tal", "ko", "smu", "lup", "ssu", "pui", "mas", "uir", "index"];
+
+function portableProgressKeySet() {
+  const keys = new Set(["exam-timetable-progress-v1"]);
+  portableProgressPages.forEach((page) => {
+    keys.add(storageKey(page));
+    keys.add(recallKey(page));
+    keys.add(recallValidationKey(page));
+    keys.add(labCollapseKey(page));
+  });
+  return keys;
+}
+
+function isPortableProgressKey(key) {
+  if (!key) return false;
+  if (portableProgressKeySet().has(key)) return true;
+  return key.startsWith("studyQuiz:");
+}
+
+function collectPortableProgress() {
+  const entries = {};
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    if (!isPortableProgressKey(key)) continue;
+    const value = localStorage.getItem(key);
+    if (value !== null) entries[key] = value;
+  }
+  return {
+    version: 1,
+    app: "oi-state-exam-study",
+    exportedAt: progressTimestamp(),
+    origin: location.origin,
+    entries
+  };
+}
+
+function importPortableProgress(payload) {
+  if (!payload || payload.app !== "oi-state-exam-study" || !payload.entries || typeof payload.entries !== "object") {
+    throw new Error("This does not look like an OI study progress export.");
+  }
+
+  let imported = 0;
+  Object.entries(payload.entries).forEach(([key, value]) => {
+    if (!isPortableProgressKey(key)) return;
+    const stringValue = typeof value === "string" ? value : JSON.stringify(value);
+    localStorage.setItem(key, stringValue);
+    imported += 1;
+  });
+  return imported;
+}
+
+function setProgressSyncStatus(message, kind = "") {
+  const status = document.querySelector("[data-progress-sync-status]");
+  if (!status) return;
+  status.textContent = message;
+  status.classList.toggle("is-good", kind === "good");
+  status.classList.toggle("is-error", kind === "error");
+}
+
+function initProgressSyncPanel() {
+  const panel = document.querySelector(".progress-sync-panel");
+  if (!panel) return;
+
+  const textarea = panel.querySelector("[data-progress-payload]");
+  const exportButton = panel.querySelector("[data-progress-export]");
+  const importButton = panel.querySelector("[data-progress-import]");
+  const copyButton = panel.querySelector("[data-progress-copy]");
+  const seedButton = panel.querySelector("[data-progress-import-seed]");
+
+  exportButton?.addEventListener("click", () => {
+    const payload = collectPortableProgress();
+    textarea.value = JSON.stringify(payload, null, 2);
+    const count = Object.keys(payload.entries).length;
+    setProgressSyncStatus(`Exported ${count} progress records. Copy this text to move progress to another browser.`, "good");
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!textarea.value.trim()) {
+      setProgressSyncStatus("Export progress first, then copy it.", "error");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(textarea.value);
+      setProgressSyncStatus("Progress JSON copied.", "good");
+    } catch {
+      textarea.focus();
+      textarea.select();
+      setProgressSyncStatus("Select the text and copy it manually.", "error");
+    }
+  });
+
+  importButton?.addEventListener("click", () => {
+    try {
+      const imported = importPortableProgress(JSON.parse(textarea.value));
+      setProgressSyncStatus(`Imported ${imported} progress records. Reloading...`, "good");
+      setTimeout(() => location.reload(), 600);
+    } catch (error) {
+      setProgressSyncStatus(error instanceof Error ? error.message : String(error), "error");
+    }
+  });
+
+  seedButton?.addEventListener("click", async () => {
+    try {
+      const response = await fetch("assets/progress-seed.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("No published progress snapshot was found.");
+      const imported = importPortableProgress(await response.json());
+      setProgressSyncStatus(`Loaded ${imported} records from the published snapshot. Reloading...`, "good");
+      setTimeout(() => location.reload(), 600);
+    } catch (error) {
+      setProgressSyncStatus(error instanceof Error ? error.message : String(error), "error");
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initIcons();
   initModuleDonePlacement();
@@ -4560,6 +4674,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initRecallTeachingInteractions();
   initNavDropdown();
   initLocalFileNotice();
+  initProgressSyncPanel();
   initProgress();
   initVideos();
   initFlashcards();

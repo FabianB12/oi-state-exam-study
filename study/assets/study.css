@@ -1583,6 +1583,74 @@ h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
   margin-bottom: 1.5rem;
 }
 
+.progress-sync-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.9rem 1rem;
+  align-items: start;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-sync-copy h2,
+.progress-sync-copy p {
+  margin: 0;
+}
+
+.progress-sync-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.progress-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.progress-sync-paste {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.progress-sync-paste textarea {
+  width: 100%;
+  min-height: 7rem;
+  resize: vertical;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink);
+  font: 0.82rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.progress-sync-paste textarea:focus {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.progress-sync-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  min-height: 1.2em;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.progress-sync-status.is-good { color: var(--good); }
+.progress-sync-status.is-error { color: var(--panic); }
+
 .overview-card {
   display: flex;
   flex-direction: column;
@@ -4174,6 +4242,14 @@ template + .free-recall {
   .timetable-heading {
     align-items: start;
     flex-direction: column;
+  }
+
+  .progress-sync-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-sync-actions {
+    justify-content: flex-start;
   }
 
   .loop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

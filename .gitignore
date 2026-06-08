@@ -2,6 +2,7 @@
 .env
 .env.*
 node_modules/
+.wrangler/
 
 # Local agent/browser scratch output
 .claude/

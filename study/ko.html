@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=timetable-1">
+  <link rel="stylesheet" href="assets/study.css?v=progress-sync-1">
   <style>
     .ko-quiz-only { grid-template-columns: minmax(0, 1fr); }
     .ko-recall-stack { display: grid; gap: 1rem; }
@@ -978,7 +978,7 @@
   <template data-recall-reference="ko-csp-limit">The standard AC3 time bound is O(e d^3), where e is the number of binary constraints and d is the maximum domain size. It is a propagation algorithm, not a complete decision method for general CSP. Example intuition: constraints can be locally supported pairwise while no global assignment satisfies all constraints, so after AC3 leaves nonempty domains, backtracking search with propagation may still be necessary.</template>
   <template data-recall-reference="ko-csp-search-ilp">CSP asks for a feasible assignment to variables from finite domains satisfying constraints; ILP optimizes a linear objective under linear constraints with integer variables. CSPs can often be encoded as binary ILPs, but CSP solving usually talks about domains and propagation. Backtracking assigns variables recursively and undoes bad choices. Forward checking removes immediately incompatible values from unassigned neighbors. MAC maintains arc consistency, often by running AC3 after each assignment. Local search starts from a complete assignment and repairs conflicts; it is useful but incomplete unless embedded in exhaustive search.</template>
 
-  <script src="assets/study.js?v=validator-persist-1"></script>
+  <script src="assets/study.js?v=progress-sync-1"></script>
   <script>
     (() => {
       const koKeys = ["ko-ilp", "ko-shortest", "ko-flow", "ko-knapsack", "ko-tsp", "ko-scheduling", "ko-csp"];

@@ -18,7 +18,11 @@ On GitHub Pages, the repository root redirects there automatically.
 
 ## Local Recall Validator
 
-The study app itself is static and works on GitHub Pages. The AI free-recall validator is intentionally local-only because it needs an OpenRouter API key.
+The study app itself is static and works on GitHub Pages.
+
+The deployed app uses a small Cloudflare Worker proxy for AI free-recall validation. The OpenRouter key is stored as a server-side Cloudflare secret, not in the browser bundle or repository.
+
+For local-only validation without the hosted Worker:
 
 To use validation locally:
 
@@ -34,3 +38,13 @@ python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
 Open `http://127.0.0.1:8765/study/index.html`.
+
+## Progress Portability
+
+Progress is stored in browser `localStorage`, so each browser/device has its own state. The hub page includes a portable progress panel:
+
+- export progress as JSON
+- import pasted progress JSON
+- load the published sanitized progress snapshot
+
+The published snapshot omits free-text recall answers and validator feedback.
