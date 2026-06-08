@@ -1400,6 +1400,149 @@ const treeData = {
   skip: "<h4>Skip list</h4><p>Random towers over a sorted linked list. Expected O(log n) without rotations.</p><p class='step-note'><strong>Why it matters:</strong> upper levels act like express lanes over the bottom list.</p>"
 };
 
+const avlRotationDrillCases = [
+  {
+    id: "LL",
+    title: "Inserted key went left-left",
+    before: {
+      nodes: [
+        { id: "30", x: 50, y: 17 },
+        { id: "20", x: 31, y: 47 },
+        { id: "10", x: 18, y: 78 }
+      ],
+      edges: [["30", "20"], ["20", "10"]]
+    },
+    after: {
+      nodes: [
+        { id: "20", x: 50, y: 18 },
+        { id: "10", x: 31, y: 70 },
+        { id: "30", x: 69, y: 70 }
+      ],
+      edges: [["20", "10"], ["20", "30"]]
+    },
+    answer: "LL",
+    fix: "Outside-left case: one right rotation at 30.",
+    why: "The heavy path goes from the unbalanced node to its left child, then left again."
+  },
+  {
+    id: "LR",
+    title: "Inserted key went left-right",
+    before: {
+      nodes: [
+        { id: "30", x: 50, y: 17 },
+        { id: "10", x: 28, y: 53 },
+        { id: "20", x: 42, y: 82 }
+      ],
+      edges: [["30", "10"], ["10", "20"]]
+    },
+    after: {
+      nodes: [
+        { id: "20", x: 50, y: 18 },
+        { id: "10", x: 31, y: 70 },
+        { id: "30", x: 69, y: 70 }
+      ],
+      edges: [["20", "10"], ["20", "30"]]
+    },
+    answer: "LR",
+    fix: "Inside-left case: rotate left at 10, then rotate right at 30.",
+    why: "The heavy path bends: left from 30, then right from 10."
+  },
+  {
+    id: "RR",
+    title: "Inserted key went right-right",
+    before: {
+      nodes: [
+        { id: "10", x: 50, y: 17 },
+        { id: "20", x: 69, y: 47 },
+        { id: "30", x: 82, y: 78 }
+      ],
+      edges: [["10", "20"], ["20", "30"]]
+    },
+    after: {
+      nodes: [
+        { id: "20", x: 50, y: 18 },
+        { id: "10", x: 31, y: 70 },
+        { id: "30", x: 69, y: 70 }
+      ],
+      edges: [["20", "10"], ["20", "30"]]
+    },
+    answer: "RR",
+    fix: "Outside-right case: one left rotation at 10.",
+    why: "The heavy path goes from the unbalanced node to its right child, then right again."
+  },
+  {
+    id: "RL",
+    title: "Inserted key went right-left",
+    before: {
+      nodes: [
+        { id: "10", x: 50, y: 17 },
+        { id: "30", x: 72, y: 53 },
+        { id: "20", x: 58, y: 82 }
+      ],
+      edges: [["10", "30"], ["30", "20"]]
+    },
+    after: {
+      nodes: [
+        { id: "20", x: 50, y: 18 },
+        { id: "10", x: 31, y: 70 },
+        { id: "30", x: 69, y: 70 }
+      ],
+      edges: [["20", "10"], ["20", "30"]]
+    },
+    answer: "RL",
+    fix: "Inside-right case: rotate right at 30, then rotate left at 10.",
+    why: "The heavy path bends: right from 10, then left from 30."
+  }
+];
+
+const btreeSplitDrillCases = [
+  {
+    title: "Split leaf [5 | 10 | 20 | 30 | 40]",
+    keys: [5, 10, 20, 30, 40],
+    answer: 20,
+    left: [5, 10],
+    right: [30, 40]
+  },
+  {
+    title: "Split leaf [3 | 8 | 12 | 16 | 21]",
+    keys: [3, 8, 12, 16, 21],
+    answer: 12,
+    left: [3, 8],
+    right: [16, 21]
+  },
+  {
+    title: "Split internal node [7 | 14 | 18 | 25 | 33]",
+    keys: [7, 14, 18, 25, 33],
+    answer: 18,
+    left: [7, 14],
+    right: [25, 33]
+  }
+];
+
+const rbRepairDrillCases = [
+  {
+    title: "Red parent, red uncle",
+    caseText: "Inserted node is red. Its parent is red, and the uncle is also red.",
+    answer: "recolor",
+    fix: "Recolor parent and uncle black; recolor grandparent red. Then continue upward if needed.",
+    why: "When the uncle is red, rotations are not the first repair. The black-height can be preserved by recoloring."
+  },
+  {
+    title: "Red parent, black uncle, outside shape",
+    caseText: "Inserted node is left-left or right-right relative to the grandparent, and the uncle is black/null.",
+    answer: "single",
+    fix: "Do one rotation at the grandparent, then swap the colors of parent and grandparent.",
+    why: "Outside shapes are straight. One rotation fixes the red-red edge and restores the local balance."
+  },
+  {
+    title: "Red parent, black uncle, inside shape",
+    caseText: "Inserted node is left-right or right-left relative to the grandparent, and the uncle is black/null.",
+    answer: "double",
+    fix: "Rotate at the parent first to turn it into an outside shape, then rotate at the grandparent.",
+    why: "Inside shapes bend. The first rotation straightens the bend; the second rotation repairs the grandparent."
+  }
+];
+
 const mstNodes = {
   A: [18, 22],
   B: [48, 14],
@@ -3767,6 +3910,291 @@ function initTreeTabs() {
   render("bst");
 }
 
+function renderSimpleTreeSvg(tree, options = {}) {
+  const nodes = tree.nodes || [];
+  const nodeById = Object.fromEntries(nodes.map((node) => [node.id, node]));
+  const nodeRadius = options.nodeRadius || 7;
+  const edgeLines = (tree.edges || []).map(([from, to]) => {
+    const a = nodeById[from];
+    const b = nodeById[to];
+    if (!a || !b) return "";
+    return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" class="tree-svg-edge"></line>`;
+  }).join("");
+  const nodeCircles = nodes.map((node) => `
+    <g class="tree-svg-node" transform="translate(${node.x} ${node.y})">
+      <circle r="${nodeRadius}"></circle>
+      <text y="0.6">${escapeFeedbackText(node.id)}</text>
+    </g>
+  `).join("");
+  return `
+    <svg class="tree-svg" viewBox="0 0 100 100" role="img" aria-label="${escapeFeedbackText(options.label || "Tree shape")}">
+      ${edgeLines}
+      ${nodeCircles}
+    </svg>
+  `;
+}
+
+function initAvlRotationDrill() {
+  const root = document.querySelector("[data-avl-rotation-drill]");
+  if (!root) return;
+
+  let index = 0;
+  let score = 0;
+  let answered = false;
+  const before = root.querySelector("[data-avl-before]");
+  const after = root.querySelector("[data-avl-after]");
+  const title = root.querySelector("[data-avl-drill-title]");
+  const count = root.querySelector("[data-avl-drill-count]");
+  const feedback = root.querySelector("[data-avl-feedback]");
+  const choices = [...root.querySelectorAll("[data-avl-answer]")];
+  const next = root.querySelector("[data-avl-next]");
+  const reset = root.querySelector("[data-avl-reset]");
+
+  const render = () => {
+    const item = avlRotationDrillCases[index];
+    answered = false;
+    if (title) title.textContent = item.title;
+    if (count) count.textContent = `${index + 1} / ${avlRotationDrillCases.length}`;
+    if (before) before.innerHTML = renderSimpleTreeSvg(item.before, { label: `${item.answer} imbalance before repair` });
+    if (after) after.innerHTML = `<div class="tree-drill-placeholder">Pick a rotation first.</div>`;
+    if (feedback) {
+      feedback.className = "tree-feedback";
+      feedback.textContent = "Choose the rotation that repairs the imbalance.";
+    }
+    choices.forEach((button) => {
+      button.disabled = false;
+      button.classList.remove("is-correct", "is-wrong");
+    });
+  };
+
+  const answer = (button) => {
+    if (answered) return;
+    const item = avlRotationDrillCases[index];
+    const chosen = button.dataset.avlAnswer;
+    const correct = chosen === item.answer;
+    answered = true;
+    if (correct) score += 1;
+    choices.forEach((choice) => {
+      choice.disabled = true;
+      choice.classList.toggle("is-correct", choice.dataset.avlAnswer === item.answer);
+      choice.classList.toggle("is-wrong", choice === button && !correct);
+    });
+    if (after) after.innerHTML = renderSimpleTreeSvg(item.after, { label: `${item.answer} imbalance after repair` });
+    if (feedback) {
+      feedback.className = `tree-feedback ${correct ? "is-correct" : "is-wrong"}`;
+      feedback.innerHTML = `<strong>${correct ? "Correct." : "Not quite."}</strong> ${escapeFeedbackText(item.fix)} <span>${escapeFeedbackText(item.why)}</span>`;
+    }
+  };
+
+  choices.forEach((button) => {
+    button.addEventListener("click", () => answer(button));
+  });
+  if (next) {
+    next.addEventListener("click", () => {
+      if (index >= avlRotationDrillCases.length - 1) {
+        if (feedback) {
+          feedback.className = "tree-feedback is-correct";
+          feedback.innerHTML = `<strong>Round complete.</strong> Score: ${score} / ${avlRotationDrillCases.length}. Restart if you want another pass.`;
+        }
+        return;
+      }
+      index += 1;
+      render();
+    });
+  }
+  if (reset) {
+    reset.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      render();
+    });
+  }
+  render();
+}
+
+function renderBtreeNode(keys) {
+  return `<div class="btree-node" aria-label="B-tree node with keys ${keys.join(", ")}">${keys.map((key) => `<span>${key}</span>`).join("")}</div>`;
+}
+
+function initBtreeSplitDrill() {
+  const root = document.querySelector("[data-btree-split-drill]");
+  if (!root) return;
+
+  let index = 0;
+  let score = 0;
+  let answered = false;
+  const title = root.querySelector("[data-btree-title]");
+  const count = root.querySelector("[data-btree-count]");
+  const node = root.querySelector("[data-btree-node]");
+  const choices = root.querySelector("[data-btree-choices]");
+  const result = root.querySelector("[data-btree-result]");
+  const feedback = root.querySelector("[data-btree-feedback]");
+  const next = root.querySelector("[data-btree-next]");
+  const reset = root.querySelector("[data-btree-reset]");
+
+  const render = () => {
+    const item = btreeSplitDrillCases[index];
+    answered = false;
+    if (title) title.textContent = item.title;
+    if (count) count.textContent = `${index + 1} / ${btreeSplitDrillCases.length}`;
+    if (node) node.innerHTML = renderBtreeNode(item.keys);
+    if (choices) {
+      choices.innerHTML = item.keys.map((key) => `<button type="button" class="tree-choice" data-btree-answer="${key}">Promote ${key}</button>`).join("");
+      choices.querySelectorAll("[data-btree-answer]").forEach((button) => {
+        button.addEventListener("click", () => answer(button));
+      });
+    }
+    if (result) result.innerHTML = `<div class="tree-drill-placeholder">The split appears after you choose.</div>`;
+    if (feedback) {
+      feedback.className = "tree-feedback";
+      feedback.textContent = "Pick the key that should be promoted to the parent.";
+    }
+  };
+
+  const answer = (button) => {
+    if (answered) return;
+    const item = btreeSplitDrillCases[index];
+    const chosen = Number(button.dataset.btreeAnswer);
+    const correct = chosen === item.answer;
+    answered = true;
+    if (correct) score += 1;
+    root.querySelectorAll("[data-btree-answer]").forEach((choice) => {
+      const isAnswer = Number(choice.dataset.btreeAnswer) === item.answer;
+      choice.disabled = true;
+      choice.classList.toggle("is-correct", isAnswer);
+      choice.classList.toggle("is-wrong", choice === button && !correct);
+    });
+    if (result) {
+      result.innerHTML = `
+        <div class="btree-split-visual">
+          <div>
+            <span class="tree-drill-label">Left child</span>
+            ${renderBtreeNode(item.left)}
+          </div>
+          <div class="btree-promoted">
+            <span class="tree-drill-label">Promote</span>
+            <strong>${item.answer}</strong>
+          </div>
+          <div>
+            <span class="tree-drill-label">Right child</span>
+            ${renderBtreeNode(item.right)}
+          </div>
+        </div>
+      `;
+    }
+    if (feedback) {
+      feedback.className = `tree-feedback ${correct ? "is-correct" : "is-wrong"}`;
+      feedback.innerHTML = `<strong>${correct ? "Correct." : "Not quite."}</strong> The middle key ${item.answer} goes up. Smaller keys stay in the left child; larger keys stay in the right child.`;
+    }
+  };
+
+  if (next) {
+    next.addEventListener("click", () => {
+      if (index >= btreeSplitDrillCases.length - 1) {
+        if (feedback) {
+          feedback.className = "tree-feedback is-correct";
+          feedback.innerHTML = `<strong>Round complete.</strong> Score: ${score} / ${btreeSplitDrillCases.length}. Restart if you want another pass.`;
+        }
+        return;
+      }
+      index += 1;
+      render();
+    });
+  }
+  if (reset) {
+    reset.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      render();
+    });
+  }
+  render();
+}
+
+function initRbRepairDrill() {
+  const root = document.querySelector("[data-rb-repair-drill]");
+  if (!root) return;
+
+  let index = 0;
+  let score = 0;
+  let answered = false;
+  const title = root.querySelector("[data-rb-title]");
+  const count = root.querySelector("[data-rb-count]");
+  const caseBox = root.querySelector("[data-rb-case]");
+  const choices = [...root.querySelectorAll("[data-rb-answer]")];
+  const feedback = root.querySelector("[data-rb-feedback]");
+  const next = root.querySelector("[data-rb-next]");
+  const reset = root.querySelector("[data-rb-reset]");
+
+  const render = () => {
+    const item = rbRepairDrillCases[index];
+    answered = false;
+    if (title) title.textContent = item.title;
+    if (count) count.textContent = `${index + 1} / ${rbRepairDrillCases.length}`;
+    if (caseBox) {
+      caseBox.innerHTML = `
+        <div class="rb-node-row">
+          <span class="rb-node rb-black">G</span>
+          <span class="rb-edge-label">parent/uncle relation</span>
+          <span class="rb-node rb-red">P</span>
+          <span class="rb-node rb-red">N</span>
+        </div>
+        <p>${escapeFeedbackText(item.caseText)}</p>
+      `;
+    }
+    if (feedback) {
+      feedback.className = "tree-feedback";
+      feedback.textContent = "Pick the repair family.";
+    }
+    choices.forEach((button) => {
+      button.disabled = false;
+      button.classList.remove("is-correct", "is-wrong");
+    });
+  };
+
+  const answer = (button) => {
+    if (answered) return;
+    const item = rbRepairDrillCases[index];
+    const correct = button.dataset.rbAnswer === item.answer;
+    answered = true;
+    if (correct) score += 1;
+    choices.forEach((choice) => {
+      choice.disabled = true;
+      choice.classList.toggle("is-correct", choice.dataset.rbAnswer === item.answer);
+      choice.classList.toggle("is-wrong", choice === button && !correct);
+    });
+    if (feedback) {
+      feedback.className = `tree-feedback ${correct ? "is-correct" : "is-wrong"}`;
+      feedback.innerHTML = `<strong>${correct ? "Correct." : "Not quite."}</strong> ${escapeFeedbackText(item.fix)} <span>${escapeFeedbackText(item.why)}</span>`;
+    }
+  };
+
+  choices.forEach((button) => {
+    button.addEventListener("click", () => answer(button));
+  });
+  if (next) {
+    next.addEventListener("click", () => {
+      if (index >= rbRepairDrillCases.length - 1) {
+        if (feedback) {
+          feedback.className = "tree-feedback is-correct";
+          feedback.innerHTML = `<strong>Round complete.</strong> Score: ${score} / ${rbRepairDrillCases.length}. Restart if you want another pass.`;
+        }
+        return;
+      }
+      index += 1;
+      render();
+    });
+  }
+  if (reset) {
+    reset.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      render();
+    });
+  }
+  render();
+}
+
 function initTextPreviews() {
   const kmp = document.getElementById("kmp-output");
   if (kmp) {
@@ -4687,6 +5115,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initGraphPreview();
   initDirectedGraphLab();
   initTreeTabs();
+  initAvlRotationDrill();
+  initBtreeSplitDrill();
+  initRbRepairDrill();
   initTextPreviews();
   initTalProofTabs();
   initTmStepper();
