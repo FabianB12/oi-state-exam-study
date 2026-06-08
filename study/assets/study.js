@@ -1403,95 +1403,119 @@ const treeData = {
 const avlRotationDrillCases = [
   {
     id: "LL",
-    title: "Inserted key went left-left",
+    title: "AVL insertion repair: LL at 30 after inserting 5",
     before: {
       nodes: [
-        { id: "30", x: 50, y: 17 },
-        { id: "20", x: 31, y: 47 },
-        { id: "10", x: 18, y: 78 }
+        { id: "30", x: 52, y: 14 },
+        { id: "20", x: 34, y: 34 },
+        { id: "40", x: 70, y: 34 },
+        { id: "10", x: 22, y: 56 },
+        { id: "25", x: 44, y: 56 },
+        { id: "5", x: 14, y: 78 }
       ],
-      edges: [["30", "20"], ["20", "10"]]
+      edges: [["30", "20"], ["30", "40"], ["20", "10"], ["20", "25"], ["10", "5"]]
     },
     after: {
       nodes: [
-        { id: "20", x: 50, y: 18 },
-        { id: "10", x: 31, y: 70 },
-        { id: "30", x: 69, y: 70 }
+        { id: "20", x: 50, y: 16 },
+        { id: "10", x: 28, y: 40 },
+        { id: "30", x: 72, y: 40 },
+        { id: "5", x: 18, y: 66 },
+        { id: "25", x: 62, y: 66 },
+        { id: "40", x: 84, y: 66 }
       ],
-      edges: [["20", "10"], ["20", "30"]]
+      edges: [["20", "10"], ["20", "30"], ["10", "5"], ["30", "25"], ["30", "40"]]
     },
     answer: "LL",
-    fix: "Outside-left case: one right rotation at 30.",
-    why: "The heavy path goes from the unbalanced node to its left child, then left again."
+    fix: "Outside-left case: rotate right at 30. The middle subtree 25 becomes the left subtree of 30.",
+    why: "The heavy path goes from 30 to 20 to 10. Rotation preserves BST order: 10 < 20 < 25 < 30 < 40."
   },
   {
     id: "LR",
-    title: "Inserted key went left-right",
+    title: "AVL insertion repair: LR at 30 after inserting 15",
     before: {
       nodes: [
-        { id: "30", x: 50, y: 17 },
-        { id: "10", x: 28, y: 53 },
-        { id: "20", x: 42, y: 82 }
+        { id: "30", x: 54, y: 14 },
+        { id: "10", x: 30, y: 36 },
+        { id: "40", x: 74, y: 36 },
+        { id: "20", x: 42, y: 58 },
+        { id: "15", x: 34, y: 80 },
+        { id: "25", x: 50, y: 80 }
       ],
-      edges: [["30", "10"], ["10", "20"]]
+      edges: [["30", "10"], ["30", "40"], ["10", "20"], ["20", "15"], ["20", "25"]]
     },
     after: {
       nodes: [
-        { id: "20", x: 50, y: 18 },
-        { id: "10", x: 31, y: 70 },
-        { id: "30", x: 69, y: 70 }
+        { id: "20", x: 50, y: 16 },
+        { id: "10", x: 28, y: 40 },
+        { id: "30", x: 72, y: 40 },
+        { id: "15", x: 38, y: 66 },
+        { id: "25", x: 62, y: 66 },
+        { id: "40", x: 84, y: 66 }
       ],
-      edges: [["20", "10"], ["20", "30"]]
+      edges: [["20", "10"], ["20", "30"], ["10", "15"], ["30", "25"], ["30", "40"]]
     },
     answer: "LR",
-    fix: "Inside-left case: rotate left at 10, then rotate right at 30.",
-    why: "The heavy path bends: left from 30, then right from 10."
+    fix: "Inside-left case: rotate left at 10, then rotate right at 30. Subtree 15 moves under 10, subtree 25 moves under 30.",
+    why: "The heavy path bends: 30 left to 10, then right to 20. The double rotation makes 20 the local root."
   },
   {
     id: "RR",
-    title: "Inserted key went right-right",
+    title: "AVL insertion repair: RR at 10 after inserting 40",
     before: {
       nodes: [
-        { id: "10", x: 50, y: 17 },
-        { id: "20", x: 69, y: 47 },
-        { id: "30", x: 82, y: 78 }
+        { id: "10", x: 48, y: 14 },
+        { id: "5", x: 30, y: 36 },
+        { id: "20", x: 66, y: 36 },
+        { id: "15", x: 56, y: 58 },
+        { id: "30", x: 78, y: 58 },
+        { id: "40", x: 86, y: 80 }
       ],
-      edges: [["10", "20"], ["20", "30"]]
+      edges: [["10", "5"], ["10", "20"], ["20", "15"], ["20", "30"], ["30", "40"]]
     },
     after: {
       nodes: [
-        { id: "20", x: 50, y: 18 },
-        { id: "10", x: 31, y: 70 },
-        { id: "30", x: 69, y: 70 }
+        { id: "20", x: 50, y: 16 },
+        { id: "10", x: 28, y: 40 },
+        { id: "30", x: 72, y: 40 },
+        { id: "5", x: 16, y: 66 },
+        { id: "15", x: 38, y: 66 },
+        { id: "40", x: 84, y: 66 }
       ],
-      edges: [["20", "10"], ["20", "30"]]
+      edges: [["20", "10"], ["20", "30"], ["10", "5"], ["10", "15"], ["30", "40"]]
     },
     answer: "RR",
-    fix: "Outside-right case: one left rotation at 10.",
-    why: "The heavy path goes from the unbalanced node to its right child, then right again."
+    fix: "Outside-right case: rotate left at 10. The middle subtree 15 becomes the right subtree of 10.",
+    why: "The heavy path goes from 10 to 20 to 30. Rotation preserves BST order: 5 < 10 < 15 < 20 < 30 < 40."
   },
   {
     id: "RL",
-    title: "Inserted key went right-left",
+    title: "AVL insertion repair: RL at 10 after inserting 25",
     before: {
       nodes: [
-        { id: "10", x: 50, y: 17 },
-        { id: "30", x: 72, y: 53 },
-        { id: "20", x: 58, y: 82 }
+        { id: "10", x: 46, y: 14 },
+        { id: "5", x: 26, y: 36 },
+        { id: "30", x: 70, y: 36 },
+        { id: "20", x: 58, y: 58 },
+        { id: "15", x: 50, y: 80 },
+        { id: "25", x: 66, y: 80 }
       ],
-      edges: [["10", "30"], ["30", "20"]]
+      edges: [["10", "5"], ["10", "30"], ["30", "20"], ["20", "15"], ["20", "25"]]
     },
     after: {
       nodes: [
-        { id: "20", x: 50, y: 18 },
-        { id: "10", x: 31, y: 70 },
-        { id: "30", x: 69, y: 70 }
+        { id: "20", x: 50, y: 16 },
+        { id: "10", x: 28, y: 40 },
+        { id: "30", x: 72, y: 40 },
+        { id: "5", x: 16, y: 66 },
+        { id: "15", x: 38, y: 66 },
+        { id: "25", x: 62, y: 66 }
       ],
-      edges: [["20", "10"], ["20", "30"]]
+      edges: [["20", "10"], ["20", "30"], ["10", "5"], ["10", "15"], ["30", "25"]]
     },
     answer: "RL",
-    fix: "Inside-right case: rotate right at 30, then rotate left at 10.",
-    why: "The heavy path bends: right from 10, then left from 30."
+    fix: "Inside-right case: rotate right at 30, then rotate left at 10. Subtree 15 moves under 10, subtree 25 moves under 30.",
+    why: "The heavy path bends: 10 right to 30, then left to 20. The double rotation makes 20 the local root."
   }
 ];
 
@@ -1543,22 +1567,33 @@ const rbRepairDrillCases = [
   }
 ];
 
+const rbBeforeRedByCase = {
+  LL: ["20", "10"],
+  LR: ["10", "20"],
+  RR: ["20", "30"],
+  RL: ["30", "20"]
+};
+
 const rbInsertionDragCases = avlRotationDrillCases.map((item) => {
-  const rootId = item.before.nodes[0].id;
+  const beforeRed = new Set(rbBeforeRedByCase[item.answer] || []);
+  const afterRoot = [...item.after.nodes].sort((a, b) => a.y - b.y)[0]?.id;
+  const afterRed = new Set(item.after.edges
+    .filter(([from]) => from === afterRoot)
+    .map(([, to]) => to));
   return {
     ...item,
     title: `RB insertion repair: ${item.answer}`,
     before: {
       nodes: item.before.nodes.map((node) => ({
         ...node,
-        color: node.id === rootId ? "black" : "red"
+        color: beforeRed.has(node.id) ? "red" : "black"
       })),
       edges: item.before.edges
     },
     after: {
       nodes: item.after.nodes.map((node) => ({
         ...node,
-        color: node.id === "20" ? "black" : "red"
+        color: node.id === afterRoot ? "black" : afterRed.has(node.id) ? "red" : "black"
       })),
       edges: item.after.edges
     },
@@ -4230,20 +4265,29 @@ function initRbRepairDrill() {
   render();
 }
 
-function treeSlotsFromAfter(after, mode) {
-  const nodes = after.nodes || [];
-  const byY = [...nodes].sort((a, b) => a.y - b.y);
-  const root = byY[0];
-  const children = byY.slice(1).sort((a, b) => a.x - b.x);
-  const shape = {
-    root: { id: root?.id || "", color: root?.color || "" },
-    left: { id: children[0]?.id || "", color: children[0]?.color || "" },
-    right: { id: children[1]?.id || "", color: children[1]?.color || "" }
-  };
-  if (mode !== "rb") {
-    Object.values(shape).forEach((slot) => { slot.color = ""; });
-  }
-  return shape;
+function treeNodeMap(nodes) {
+  return Object.fromEntries((nodes || []).map((node) => [node.id, { ...node }]));
+}
+
+function treePointDistance(a, b) {
+  if (!a || !b) return Number.POSITIVE_INFINITY;
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function closestTreeTarget(point, targets) {
+  return (targets || []).reduce((best, target) => {
+    const distance = treePointDistance(point, target);
+    return !best || distance < best.distance ? { target, distance } : best;
+  }, null);
+}
+
+function treeSvgPoint(svg, event) {
+  const matrix = svg?.getScreenCTM?.();
+  if (!svg || !matrix) return null;
+  const point = svg.createSVGPoint();
+  point.x = event.clientX;
+  point.y = event.clientY;
+  return point.matrixTransform(matrix.inverse());
 }
 
 function initTreeOperationLab() {
@@ -4255,6 +4299,12 @@ function initTreeOperationLab() {
     index: { avl: 0, rb: 0, btree: 0 },
     score: { avl: 0, rb: 0, btree: 0 },
     selectedNode: null,
+    activeNode: null,
+    dragOffset: { x: 0, y: 0 },
+    dragStart: null,
+    dragMoved: false,
+    nodes: {},
+    validationMisses: [],
     btreeChoice: null,
     answered: false
   };
@@ -4271,8 +4321,10 @@ function initTreeOperationLab() {
   const instruction = root.querySelector("[data-tree-op-instruction]");
   const rotationArea = root.querySelector("[data-tree-op-rotation-area]");
   const btreeArea = root.querySelector("[data-tree-op-btree-area]");
-  const before = root.querySelector("[data-tree-op-before]");
-  const tray = root.querySelector("[data-tree-node-tray]");
+  const svg = root.querySelector("[data-tree-edit-svg]");
+  const targetLayer = root.querySelector("[data-tree-target-layer]");
+  const edgeLayer = root.querySelector("[data-tree-edge-layer]");
+  const nodeLayer = root.querySelector("[data-tree-node-layer]");
   const colorTools = root.querySelector("[data-tree-color-tools]");
   const feedback = root.querySelector("[data-tree-op-feedback]");
   const btreeNode = root.querySelector("[data-tree-op-btree-node]");
@@ -4281,7 +4333,6 @@ function initTreeOperationLab() {
   const validate = root.querySelector("[data-tree-op-validate]");
   const reset = root.querySelector("[data-tree-op-reset]");
   const next = root.querySelector("[data-tree-op-next]");
-  const slots = [...root.querySelectorAll("[data-tree-slot]")];
 
   const currentItems = () => dataForMode[state.mode] || [];
   const currentItem = () => currentItems()[state.index[state.mode]];
@@ -4292,84 +4343,145 @@ function initTreeOperationLab() {
     feedback.innerHTML = html;
   };
 
-  const selectNode = (node) => {
-    root.querySelectorAll(".tree-drag-node").forEach((item) => item.classList.toggle("is-selected", item === node));
-    state.selectedNode = node;
+  const svgElement = (name, attrs = {}) => {
+    const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+    Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
+    return element;
   };
 
-  const updateSlotFill = () => {
-    slots.forEach((slot) => slot.classList.toggle("is-filled", Boolean(slot.querySelector(".tree-drag-node"))));
+  const drawTreeLine = (layer, from, to, className) => {
+    if (!layer || !from || !to) return;
+    layer.appendChild(svgElement("line", {
+      class: className,
+      x1: from.x,
+      y1: from.y,
+      x2: to.x,
+      y2: to.y
+    }));
   };
 
-  const findDragNode = (id) => {
-    return [...root.querySelectorAll(".tree-drag-node")].find((node) => node.dataset.node === id);
-  };
+  const isNodeWrong = (id) => state.validationMisses.includes(id);
 
-  const clearSlots = () => {
-    slots.forEach((slot) => {
-      const node = slot.querySelector(".tree-drag-node");
-      if (node) tray?.appendChild(node);
-      slot.classList.remove("is-filled", "is-correct", "is-wrong");
+  const renderTreeCanvas = () => {
+    const item = currentItem();
+    if (!item || !targetLayer || !edgeLayer || !nodeLayer) return;
+    const targets = treeNodeMap(item.after.nodes);
+    targetLayer.innerHTML = "";
+    edgeLayer.innerHTML = "";
+    nodeLayer.innerHTML = "";
+
+    item.after.edges.forEach(([from, to]) => drawTreeLine(targetLayer, targets[from], targets[to], "tree-target-edge"));
+    item.after.nodes.forEach((node) => {
+      const target = svgElement("g", { class: "tree-target-node", transform: `translate(${node.x} ${node.y})` });
+      target.appendChild(svgElement("circle", { r: 6.9 }));
+      const label = svgElement("text", { y: 0.5 });
+      label.textContent = node.id;
+      target.appendChild(label);
+      targetLayer.appendChild(target);
+    });
+
+    item.after.edges.forEach(([from, to]) => drawTreeLine(edgeLayer, state.nodes[from], state.nodes[to], "tree-live-edge"));
+    item.before.nodes.forEach((sourceNode) => {
+      const node = state.nodes[sourceNode.id];
+      if (!node) return;
+      const group = svgElement("g", {
+        class: [
+          "tree-edit-node",
+          node.color ? `is-${node.color}` : "",
+          state.selectedNode === node.id ? "is-selected" : "",
+          state.activeNode === node.id ? "is-dragging" : "",
+          isNodeWrong(node.id) ? "is-wrong" : ""
+        ].filter(Boolean).join(" "),
+        transform: `translate(${node.x} ${node.y})`,
+        "data-tree-node-id": node.id,
+        tabindex: "0",
+        role: "button",
+        "aria-label": `Tree node ${node.id}`
+      });
+      group.appendChild(svgElement("circle", { class: "tree-edit-hit", r: 9.8 }));
+      group.appendChild(svgElement("circle", { r: 6.8 }));
+      const text = svgElement("text", { y: 0.6 });
+      text.textContent = node.id;
+      group.appendChild(text);
+      group.addEventListener("pointerdown", (event) => {
+        if (state.mode === "btree") return;
+        const point = treeSvgPoint(svg, event);
+        if (!point) return;
+        event.preventDefault();
+        state.activeNode = node.id;
+        state.selectedNode = node.id;
+        state.validationMisses = [];
+        state.dragStart = { x: point.x, y: point.y };
+        state.dragMoved = false;
+        state.dragOffset = { x: node.x - point.x, y: node.y - point.y };
+        svg?.setPointerCapture?.(event.pointerId);
+      });
+      group.addEventListener("click", () => {
+        state.selectedNode = node.id;
+        renderTreeCanvas();
+      });
+      nodeLayer.appendChild(group);
     });
   };
 
-  const placeNode = (slot, node) => {
-    if (!slot || !node) return;
-    const existing = slot.querySelector(".tree-drag-node");
-    if (existing && existing !== node) tray?.appendChild(existing);
-    slot.appendChild(node);
-    updateSlotFill();
-    selectNode(node);
+  const resetTreeState = () => {
+    const item = currentItem();
+    state.nodes = treeNodeMap(item?.before?.nodes || []);
+    state.selectedNode = null;
+    state.activeNode = null;
+    state.dragStart = null;
+    state.dragMoved = false;
+    state.validationMisses = [];
   };
 
-  const makeDragNode = (node) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `tree-drag-node ${node.color ? `is-${node.color}` : ""}`;
-    button.draggable = true;
-    button.dataset.node = node.id;
-    button.dataset.color = node.color || "";
-    button.textContent = node.id;
-    button.title = state.mode === "rb" ? "Drag into position. Select and use color buttons if recoloring is needed." : "Drag into the repaired-tree position.";
-    button.addEventListener("dragstart", (event) => {
-      event.dataTransfer?.setData("text/plain", node.id);
-      selectNode(button);
-    });
-    button.addEventListener("click", () => selectNode(button));
-    return button;
+  const snapActiveNode = () => {
+    if (!state.activeNode || !state.dragMoved) return;
+    const node = state.nodes[state.activeNode];
+    const nearest = closestTreeTarget(node, currentItem()?.after?.nodes || []);
+    if (nearest && nearest.distance <= 12) {
+      node.x = nearest.target.x;
+      node.y = nearest.target.y;
+    }
   };
 
-  const markSlotStates = (expected) => {
-    slots.forEach((slot) => {
-      const expectedNode = expected[slot.dataset.treeSlot];
-      const node = slot.querySelector(".tree-drag-node");
-      const idOk = node?.dataset.node === expectedNode?.id;
-      const colorOk = !expectedNode?.color || node?.dataset.color === expectedNode.color;
-      const ok = Boolean(idOk && colorOk);
-      slot.classList.toggle("is-correct", ok);
-      slot.classList.toggle("is-wrong", Boolean(node) && !ok);
-    });
+  const finishDrag = (event) => {
+    if (!state.activeNode) return;
+    snapActiveNode();
+    state.activeNode = null;
+    state.dragStart = null;
+    state.dragMoved = false;
+    if (event?.pointerId !== undefined) svg?.releasePointerCapture?.(event.pointerId);
+    renderTreeCanvas();
+  };
+
+  svg?.addEventListener("pointermove", (event) => {
+    if (!state.activeNode) return;
+    const point = treeSvgPoint(svg, event);
+    const node = state.nodes[state.activeNode];
+    if (!point || !node) return;
+    event.preventDefault();
+    if (state.dragStart && treePointDistance(point, state.dragStart) > 1.5) {
+      state.dragMoved = true;
+    }
+    node.x = Math.max(8, Math.min(92, point.x + state.dragOffset.x));
+    node.y = Math.max(10, Math.min(90, point.y + state.dragOffset.y));
+    renderTreeCanvas();
+  });
+
+  svg?.addEventListener("pointerup", finishDrag);
+  svg?.addEventListener("pointercancel", finishDrag);
+
+  const describeCanvasStart = () => {
+    return state.mode === "rb"
+      ? "Drag the actual nodes into the repaired red-black shape, then select nodes and set final colors. Faint circles show where nodes should end up."
+      : "Drag the actual nodes into the repaired AVL shape. Nodes snap to target circles, and edges stay connected while you move them.";
   };
 
   const renderRotationMode = () => {
-    const item = currentItem();
-    const expected = treeSlotsFromAfter(item.after, state.mode);
-    if (before) before.innerHTML = renderSimpleTreeSvg(item.before, { label: `${state.mode.toUpperCase()} tree before repair` });
-    clearSlots();
-    if (tray) {
-      tray.innerHTML = "";
-      item.before.nodes.forEach((node) => tray.appendChild(makeDragNode(node)));
-    }
-    slots.forEach((slot) => {
-      slot.dataset.expectedNode = expected[slot.dataset.treeSlot]?.id || "";
-      slot.dataset.expectedColor = expected[slot.dataset.treeSlot]?.color || "";
-    });
+    resetTreeState();
+    renderTreeCanvas();
     if (colorTools) colorTools.hidden = state.mode !== "rb";
-    if (instruction) {
-      instruction.textContent = state.mode === "rb"
-        ? "Drag nodes, or click a node then a slot, into the final rotated shape. Then select placed nodes and set final colors: new root black, children red."
-        : "Drag nodes, or click a node then a slot, into the final shape after the AVL rotation. The slots snap into root, left child, and right child positions.";
-    }
+    if (instruction) instruction.textContent = describeCanvasStart();
     setFeedback("", "Build the repaired tree, then validate.");
   };
 
@@ -4411,23 +4523,26 @@ function initTreeOperationLab() {
 
   const validateRotation = () => {
     const item = currentItem();
-    const expected = treeSlotsFromAfter(item.after, state.mode);
     const misses = [];
-    slots.forEach((slot) => {
-      const slotName = slot.dataset.treeSlot;
-      const expectedNode = expected[slotName];
-      const node = slot.querySelector(".tree-drag-node");
+    const wrongNodes = new Set();
+    item.after.nodes.forEach((expectedNode) => {
+      const node = state.nodes[expectedNode.id];
       if (!node) {
-        misses.push(`${slotName}: missing ${expectedNode.id}`);
+        misses.push(`${expectedNode.id}: missing from canvas`);
+        wrongNodes.add(expectedNode.id);
         return;
       }
-      if (node.dataset.node !== expectedNode.id) {
-        misses.push(`${slotName}: should be ${expectedNode.id}, not ${node.dataset.node}`);
-      } else if (expectedNode.color && node.dataset.color !== expectedNode.color) {
-        misses.push(`${slotName}: ${expectedNode.id} should be ${expectedNode.color}`);
+      if (treePointDistance(node, expectedNode) > 4.5) {
+        misses.push(`${expectedNode.id}: drag it to its faint target circle`);
+        wrongNodes.add(expectedNode.id);
+      }
+      if (state.mode === "rb" && expectedNode.color && node.color !== expectedNode.color) {
+        misses.push(`${expectedNode.id}: should be ${expectedNode.color}`);
+        wrongNodes.add(expectedNode.id);
       }
     });
-    markSlotStates(expected);
+    state.validationMisses = [...wrongNodes];
+    renderTreeCanvas();
     if (misses.length) {
       setFeedback("wrong", `<strong>Not yet.</strong> ${escapeFeedbackText(misses.join("; "))}. <span>${escapeFeedbackText(item.why)}</span>`);
       return;
@@ -4463,31 +4578,6 @@ function initTreeOperationLab() {
     setFeedback("correct", `<strong>Correct.</strong> Promote ${item.answer}; smaller keys stay left, larger keys stay right.`);
   };
 
-  slots.forEach((slot) => {
-    slot.addEventListener("dragover", (event) => event.preventDefault());
-    slot.addEventListener("drop", (event) => {
-      event.preventDefault();
-      const id = event.dataTransfer?.getData("text/plain");
-      const node = findDragNode(id);
-      placeNode(slot, node);
-    });
-    slot.addEventListener("click", () => {
-      if (state.selectedNode) placeNode(slot, state.selectedNode);
-    });
-  });
-
-  tray?.addEventListener("dragover", (event) => event.preventDefault());
-  tray?.addEventListener("drop", (event) => {
-    event.preventDefault();
-    const id = event.dataTransfer?.getData("text/plain");
-    const node = findDragNode(id);
-    if (node) {
-      tray.appendChild(node);
-      updateSlotFill();
-      selectNode(node);
-    }
-  });
-
   root.querySelectorAll("[data-tree-op-mode]").forEach((button) => {
     button.addEventListener("click", () => {
       state.mode = button.dataset.treeOpMode;
@@ -4499,9 +4589,12 @@ function initTreeOperationLab() {
     button.addEventListener("click", () => {
       if (!state.selectedNode || state.mode !== "rb") return;
       const color = button.dataset.treeSetColor;
-      state.selectedNode.dataset.color = color;
-      state.selectedNode.classList.toggle("is-red", color === "red");
-      state.selectedNode.classList.toggle("is-black", color === "black");
+      if (state.nodes[state.selectedNode]) {
+        state.nodes[state.selectedNode].color = color;
+        state.validationMisses = state.validationMisses.filter((id) => id !== state.selectedNode);
+        renderTreeCanvas();
+        setFeedback("", `${state.selectedNode} set to ${color}. Validate when the whole tree is repaired.`);
+      }
     });
   });
 
