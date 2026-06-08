@@ -108,10 +108,10 @@ Local validation:
 - Page-component audit:
   - SMU: 5 content modules plus panic/oral sections; 13 video/resource cards; flashcards, quizzes, and free recall present.
   - LUP: 5 content modules plus panic/oral sections; 16 video/resource cards; flashcards, quizzes, and free recall present.
-  - SSU: 5 content modules plus panic/oral sections; 15 video/resource cards; flashcards, quizzes, and free recall present.
-  - PUI: 5 content modules plus panic/oral sections; 14 video/resource cards; flashcards, quizzes, and free recall present.
-  - MAS: 5 content modules; 26 video/resource cards; flashcards, quizzes, and free recall present.
-  - UIR: 5 content modules; 21 video/resource cards; flashcards, quizzes, and free recall present.
+  - SSU: 5 content modules plus panic/oral sections; 11 grouped video/resource cards; flashcards, quizzes, and free recall present.
+  - PUI: 5 content modules plus panic/oral sections; 12 grouped video/resource cards; flashcards, quizzes, and free recall present.
+  - MAS: 5 content modules; 9 grouped video cards covering 27 embedded videos; flashcards, quizzes, and free recall present.
+  - UIR: 5 content modules; 14 grouped video cards; flashcards, quizzes, and free recall present.
 
 External-resource validation:
 
