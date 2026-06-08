@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=tree-svg-lab-4">
+  <link rel="stylesheet" href="assets/study.css?v=tree-svg-lab-5">
 </head>
 <body data-page="pal">
   <header class="site-header">
@@ -776,7 +776,9 @@ Must say: trial division tests divisors up to sqrt(n), O(sqrt n) divisions. Siev
                   <div class="tree-edit-panel">
                     <div class="tree-edit-head">
                       <span class="tree-drill-label">Repair canvas</span>
-                      <span class="tree-edit-hint">Faint tree = target; solid tree = your attempt</span>
+                      <button type="button" class="tree-guide-toggle" data-tree-guide-toggle aria-pressed="false">
+                        Show guide
+                      </button>
                     </div>
                     <svg class="tree-edit-svg" data-tree-edit-svg viewBox="0 0 100 100" role="img" aria-label="Interactive tree operation canvas">
                       <g data-tree-target-layer></g>
@@ -1174,7 +1176,7 @@ Must say: Hamming distance counts substitutions only and requires equal-length s
     </div>
   </main>
 
-  <script src="assets/study.js?v=tree-svg-lab-4"></script>
+  <script src="assets/study.js?v=tree-svg-lab-5"></script>
   <script>
     ["complexity", "graphs", "generation", "trees", "automata"].forEach((key) => {
       flashcards[key] = [];

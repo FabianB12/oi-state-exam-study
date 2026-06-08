@@ -4304,6 +4304,7 @@ function initTreeOperationLab() {
     dragStart: null,
     dragMoved: false,
     nodes: {},
+    showGuide: false,
     validationMisses: [],
     btreeChoice: null,
     answered: false
@@ -4325,6 +4326,7 @@ function initTreeOperationLab() {
   const targetLayer = root.querySelector("[data-tree-target-layer]");
   const edgeLayer = root.querySelector("[data-tree-edge-layer]");
   const nodeLayer = root.querySelector("[data-tree-node-layer]");
+  const guideToggle = root.querySelector("[data-tree-guide-toggle]");
   const colorTools = root.querySelector("[data-tree-color-tools]");
   const feedback = root.querySelector("[data-tree-op-feedback]");
   const btreeNode = root.querySelector("[data-tree-op-btree-node]");
@@ -4370,15 +4372,17 @@ function initTreeOperationLab() {
     edgeLayer.innerHTML = "";
     nodeLayer.innerHTML = "";
 
-    item.after.edges.forEach(([from, to]) => drawTreeLine(targetLayer, targets[from], targets[to], "tree-target-edge"));
-    item.after.nodes.forEach((node) => {
-      const target = svgElement("g", { class: "tree-target-node", transform: `translate(${node.x} ${node.y})` });
-      target.appendChild(svgElement("circle", { r: 6.9 }));
-      const label = svgElement("text", { y: 0.5 });
-      label.textContent = node.id;
-      target.appendChild(label);
-      targetLayer.appendChild(target);
-    });
+    if (state.showGuide) {
+      item.after.edges.forEach(([from, to]) => drawTreeLine(targetLayer, targets[from], targets[to], "tree-target-edge"));
+      item.after.nodes.forEach((node) => {
+        const target = svgElement("g", { class: "tree-target-node", transform: `translate(${node.x} ${node.y})` });
+        target.appendChild(svgElement("circle", { r: 6.9 }));
+        const label = svgElement("text", { y: 0.5 });
+        label.textContent = node.id;
+        target.appendChild(label);
+        targetLayer.appendChild(target);
+      });
+    }
 
     item.after.edges.forEach(([from, to]) => drawTreeLine(edgeLayer, state.nodes[from], state.nodes[to], "tree-live-edge"));
     item.before.nodes.forEach((sourceNode) => {
@@ -4431,6 +4435,7 @@ function initTreeOperationLab() {
     state.activeNode = null;
     state.dragStart = null;
     state.dragMoved = false;
+    state.showGuide = false;
     state.validationMisses = [];
   };
 
@@ -4480,6 +4485,11 @@ function initTreeOperationLab() {
   const renderRotationMode = () => {
     resetTreeState();
     renderTreeCanvas();
+    if (guideToggle) {
+      guideToggle.hidden = false;
+      guideToggle.setAttribute("aria-pressed", "false");
+      guideToggle.textContent = "Show guide";
+    }
     if (colorTools) colorTools.hidden = state.mode !== "rb";
     if (instruction) instruction.textContent = describeCanvasStart();
     setFeedback("", "Build the repaired tree, then validate.");
@@ -4488,6 +4498,8 @@ function initTreeOperationLab() {
   const renderBtreeMode = () => {
     const item = currentItem();
     state.btreeChoice = null;
+    state.showGuide = false;
+    if (guideToggle) guideToggle.hidden = true;
     if (btreeNode) btreeNode.innerHTML = renderBtreeNode(item.keys);
     if (btreeChoices) {
       btreeChoices.innerHTML = item.keys.map((key) => `<button type="button" class="tree-choice" data-tree-op-btree-answer="${key}">Promote ${key}</button>`).join("");
@@ -4583,6 +4595,13 @@ function initTreeOperationLab() {
       state.mode = button.dataset.treeOpMode;
       render();
     });
+  });
+
+  guideToggle?.addEventListener("click", () => {
+    state.showGuide = !state.showGuide;
+    guideToggle.setAttribute("aria-pressed", String(state.showGuide));
+    guideToggle.textContent = state.showGuide ? "Hide guide" : "Show guide";
+    renderTreeCanvas();
   });
 
   colorTools?.querySelectorAll("[data-tree-set-color]").forEach((button) => {
