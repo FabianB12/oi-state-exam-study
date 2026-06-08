@@ -50,7 +50,7 @@ Durations were checked against live YouTube page metadata on 2026-06-04 where di
 | NFA to DFA | [Conversion of NFA to DFA](https://www.youtube.com/watch?v=Y92dtMnarAU) | Neso Academy | 11:34 | 0:00-11:34 | Direct subset-construction example; this is the exam bridge between NFA active-state sets and DFA subset states. |
 | Regular expressions | [Regular Expressions](https://www.youtube.com/watch?v=528Jc3q86F8) | Computerphile | 17:18 | 0:00-17:18 | Good bridge from regex to automata. |
 | KMP | [KMP Pattern Matching](https://www.youtube.com/watch?v=GTJr8OvyEVQ) | Tushar Roy | 12:49 | 0:00-12:49 | Direct prefix-table explanation. |
-| Levenshtein | [Edit Distance Between 2 Strings](https://www.youtube.com/watch?v=MiqoA-yF-0M) | Back To Back SWE | 16:15 | 0:00-16:15 | Slightly over 15 minutes but high value. |
+| Levenshtein | [Minimum Edit Distance Dynamic Programming](https://www.youtube.com/watch?v=We3YDTzNXEk) | Tushar Roy | 9:46 | 0:00-9:46 | Short learning-focused DP explanation without the LeetCode framing. |
 | Aho-Corasick | [Advanced Data Structures: Aho-Corasick Automaton](https://www.youtube.com/watch?v=O7_w001f58c) | Niema Moshiri | 9:55 | 0:00-9:55 | Direct dictionary automaton video: trie, failure links, and multi-pattern scan. |
 
 ## Embedded Video Blocks
@@ -257,7 +257,7 @@ Videos:
 
 - [Regular expressions, Computerphile](https://www.youtube.com/watch?v=528Jc3q86F8).
 - [Knuth-Morris-Pratt string matching, Tushar Roy](https://www.youtube.com/watch?v=GTJr8OvyEVQ).
-- [Levenshtein edit distance, Back To Back SWE](https://www.youtube.com/watch?v=MiqoA-yF-0M) - about 16 minutes, slightly over target but worth it.
+- [Minimum edit distance dynamic programming, Tushar Roy](https://www.youtube.com/watch?v=We3YDTzNXEk) - about 10 minutes, focused on edit operations and the DP table.
 - Optional search: [Aho-Corasick algorithm short explanation](https://www.youtube.com/results?search_query=Aho-Corasick+algorithm+short+explanation).
 
 Must be able to say:
