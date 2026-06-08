@@ -59,11 +59,33 @@ Watch segments:
 
 Fallback link: https://www.youtube.com/watch?v=5Cow2SYdnm4
 
+**Lecture 10-1 Satisfiability Modulo Theory(SMT) solver**
+
+Creator: **Automated Reasoning**
+
+Duration verified during audit: **11:22**
+Quality reason: closes the previous SMT video gap with a compact DPLL(T) explanation: Boolean CDCL structure plus theory consistency checks and conflict learning.
+
+Watch segments:
+
+- 0:00 SMT solvers.
+- 0:50 Boolean structure vs theory reasoning.
+- 6:40 theory checks/deduction.
+- 8:30 conflict learning/backtracking.
+
+Fallback link: https://www.youtube.com/watch?v=vrA4zFl0zd0
+
 Useful text backups:
 
 - CMU SMT notes: https://www.cs.cmu.edu/~15414/s22/lectures/19-smt.pdf
 - SMT beginner tutorial abstract: https://theory.stanford.edu/~barrett/pubs/BTB%2B24-abstract.html
 - Fields Institute CDCL overview: https://www.fields.utoronto.ca/talks/cdcl-sat-solving-past-present-future
+
+What they may ask:
+
+- Show why Tseitin CNF is equisatisfiable and linear-size.
+- Trace DPLL/CDCL from unit propagation to learned clause.
+- Explain lazy SMT as SAT/CDCL over Boolean abstractions plus a theory solver.
 
 ## Module 2: Logic Programming, Prolog, SLDNF, Negation As Failure, And Cut
 
@@ -111,8 +133,26 @@ Useful text backups:
 
 ### Primary Videos
 
+**Logic 9 - First Order Resolution | Stanford CS221: AI (Autumn 2022)**
+
+Creator: **Stanford Online / CS221**
+
+Duration verified during audit: **10:52**
+Quality reason: replaces the old text-only primary coverage with a short, high-quality FOL resolution video from Stanford. The public YouTube mirror is not embeddable, so the HTML page links the official Stanford Panopto/course version instead of showing a broken player.
+
+Watch segments:
+
+- 0:00 first-order resolution.
+- 1:30 CNF setup.
+- 1:55 why unification/substitution is needed.
+- 4:45 clause-form example.
+
+Video link: https://stanford-pilot.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=df9f49dd-4d5e-4476-be61-af4d00f26034
+
+Fallback module page: https://stanford-cs221.github.io/autumn2022/modules/
+
 **Stanford CS221 first-order resolution slides**  
-Quality reason: the short Stanford video mirror is not reliably embeddable. The CS221 slides are stable and exactly cover clause form, Skolemization, unification, lifted resolution, subsumption, and saturation.
+Quality reason: stable text backup for the full pipeline beyond the short video: clause form, Skolemization, unification, lifted resolution, subsumption, and saturation.
 
 Study targets:
 
@@ -139,6 +179,12 @@ Useful text backups:
 - Stanford CS221 logic slides: https://stanford-cs221.github.io/spring2024-extra/modules/logic/logic2.pdf
 - Stanford Introduction to Logic: Resolution: http://intrologic.stanford.edu/extras/resolution.html
 
+What they may ask:
+
+- Give the exact FOL clause-form pipeline and say which step only preserves satisfiability.
+- State lifted resolution with an MGU.
+- Explain subsumption and saturation as redundancy/search-control ideas.
+
 ## Module 4: Equality In First-Order Logic
 
 ### Optional Video Segment
@@ -163,7 +209,7 @@ Useful text backups:
 
 ## Module 5: Model Search In Generic Domains
 
-### Primary Video
+### Primary Videos
 
 **Propositional satisfiability, DPLL / model finding**  
 Duration verified during implementation: **8:05**  
@@ -176,17 +222,55 @@ Watch segments:
 
 Fallback link: https://www.youtube.com/watch?v=ENHKXZg-a4c
 
+**Lecture 11-1 Encoding into SAT (Lecture 8 in CS433)**
+
+Creator: **Automated Reasoning**
+
+Duration verified during audit: **7:54**
+Quality reason: fills the practical SAT-encoding gap: choose Boolean variables, add constraints/clauses, and remember that redundant constraints can guide search.
+
+Watch segments:
+
+- 0:00 encoding goal.
+- 1:45 redundant constraints.
+- 4:08 Boolean variables.
+- 4:35 constraints as clauses.
+
+Fallback link: https://www.youtube.com/watch?v=DO9ZGkhPr8A
+
+**Lecture 11-2 Encoding cardinality constraints (Lecture 8 in CS433)**
+
+Creator: **Automated Reasoning**
+
+Duration verified during audit: **14:58**
+Quality reason: directly covers exactly-one style constraints, including at-least-one, at-most-one, pairwise quadratic encoding, and compact encodings.
+
+Watch segments:
+
+- 0:00 cardinality constraints.
+- 1:05 at least one.
+- 1:28 at most one / pairwise clauses.
+- 1:55 compact encodings.
+
+Fallback link: https://www.youtube.com/watch?v=PKbAICDB9tM
+
 Useful text backup:
 
 - Stanford CS221 logic slides, propositionalization and FOL model sections: https://stanford-cs221.github.io/spring2024-extra/modules/logic/logic2.pdf
 
+What they may ask:
+
+- Ground a quantified formula over a finite domain and count possible atoms as n^k.
+- Encode implication, at least one, at most one, and exactly one in CNF.
+- Explain why grounding explodes and how typing, symmetry breaking, compact cardinality encodings, and lazy grounding help.
+
 ## Panic Pass
 
-1. Watch Tseitin 0:00-7:50, DPLL 0:00-7:00, and CDCL 0:00-2:40.
+1. Watch Tseitin 0:00-7:50, DPLL 0:00-7:00, CDCL 0:00-2:40, and SMT 0:00-1:10.
 2. Run the SAT/SMT lab and say the lazy SMT loop out loud.
 3. Watch SLD 0:00-6:00, then memorize negation-as-failure and cut caveats.
 4. Watch Stanford FOL resolution 0:00-10:52 and step through the clause-form lab.
-5. Finish equality and grounding with the labs plus oral skeleton.
+5. Finish equality with the lab, then watch SAT encoding 4:08-4:55 and cardinality 1:05-1:55.
 
 ## Final Oral Skeleton
 

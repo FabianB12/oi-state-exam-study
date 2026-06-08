@@ -18,6 +18,17 @@ Use this as the learning checklist for Common Question 3. Watch the targeted seg
 **Watch segment:** 0:00-9:39  
 **Why this one:** Short, clean search-tree intuition if the ILP-specific video feels too operational.
 
+**Cutting-plane supplement:** How to solve an Integer Programming Problem using Cutting-Plane Method, Shokoufeh Mirzaei, 14:10
+**Link:** <https://www.youtube.com/watch?v=4Qu4EjsIKI8>
+**Watch segment:** 0:00-14:10, especially the first worked cut around 6:00
+**Use for:** Cutting planes and branch-and-cut vocabulary; you only need the oral idea, not tableau mechanics.
+
+**Optional TU refresher:** Total unimodularity 1/2 and 2/2, mathapptician, 6:54 + 4:16
+**Links:** <https://www.youtube.com/watch?v=KtTSqPBjTY0>, <https://www.youtube.com/watch?v=6bIyLoKCS_g>
+**Use for:** Why some network-style ILP relaxations are integral and polynomially solvable by LP.
+
+**What they may ask:** Why a valid cut removes the current fractional LP solution but preserves every integer-feasible solution; why branch-and-cut is branch-and-bound plus dynamically generated cuts; why total unimodularity gives integral LP extreme points.
+
 **Must recall:** LP vs ILP, binary variables, shortest path ILP flow conservation, TSP degree and subtour constraints, branch-and-bound pruning, cutting planes, branch-and-cut, totally unimodular polynomial cases.
 
 ## 2. Shortest Paths
@@ -52,9 +63,21 @@ Use this as the learning checklist for Common Question 3. Watch the targeted seg
 **Watch segment:** 0:00-35:00 for max flow, residual graph, augmenting paths, and min-cut intuition  
 **Why this one:** Longer than ideal, but high-quality university treatment for the proof/certificate side.
 
+**Lower-bound flow supplement:** Circulation with demands and lower bounds, Susan Haynes, 14:32
+**Link:** <https://www.youtube.com/watch?v=GXx-j06OtWg>
+**Watch segment:** 0:00-14:32, especially the super-source reduction around 8:40
+**Use for:** Feasible flow with balances/lower bounds, which the max-flow videos do not cover directly.
+
+**Min-cost flow supplement:** CSE 550: The Minimum-Cost-Flow Problem, Joshua J. Daymude, 14:30
+**Link:** <https://www.youtube.com/watch?v=0tjpC0MCwY8>
+**Watch segment:** 0:00-14:30, especially the formulation view around 8:40
+**Use for:** The definition and LP/network view before reading cycle-canceling.
+
 **Min-cost flow fallback:** TUM cycle-canceling applet  
 **Link:** <https://algorithms.discrete.ma.tum.de/flow/cycle-cancelling/>  
 **Use:** Read/play only the negative-cycle optimality idea.
+
+**What they may ask:** How to remove lower bounds using `f' = f-l`; how balances change; why a negative-cost residual cycle means the current feasible flow is not min-cost; how matching becomes unit-capacity max flow.
 
 **Must recall:** capacities, conservation, value, residual graph, augmenting path and bottleneck, Ford-Fulkerson, Edmonds-Karp O(nm^2), max-flow min-cut, lower bounds/balances, min-cost flow, matching by flow, and standard flow formulations such as assignment, transportation, project selection, disjoint paths, image segmentation, and time-expanded scheduling.
 
@@ -86,16 +109,23 @@ Use this as the learning checklist for Common Question 3. Watch the targeted seg
 
 ## 6. Scheduling
 
-Good short videos for this exact exam section are weak, so the HTML page uses internal explanation cards plus selected course materials.
+Short videos now cover the two most useful entry points: list scheduling and earliest-deadline-first. Bratley, McNaughton, fixed-machine DP, and project-scheduling ILPs are still best learned from the formal notes and the HTML lab.
 
-**Warm-up lecture:** MIT OCW Interval Scheduling lecture  
-**Link:** <https://www.ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-1-course-overview-interval-scheduling/>  
-**Watch segment:** first 15-20 minutes only  
-**Use for:** Greedy scheduling and proof mindset, not the full KO scheduling checklist.
+**Primary video:** The List Scheduling Algorithm, Computer Science Theory Explained, 11:10
+**Link:** <https://www.youtube.com/watch?v=wxi_9LKe78M>
+**Watch segment:** 0:00-11:10, especially 6:00 approximation intuition
+**Use for:** Parallel identical machine list scheduling and the approximation-proof mindset.
+
+**EDF/Horn supplement:** Earliest Deadline First, Manoj MVR, 8:25
+**Link:** <https://www.youtube.com/watch?v=ejPXTOcMRPA>
+**Watch segment:** 0:00-8:25, especially the preemptive example around 5:00
+**Use for:** The scheduling rule behind Horn's algorithm; map it back to `1|r_j,pmtn|Lmax`.
 
 **Formal backup:** Loris Marchal, Scheduling on Parallel Machines lecture PDF  
 **Link:** <https://perso.ens-lyon.fr/loris.marchal/scheduling/02.classical-P-machines-2012.pdf>  
-**Use for:** list scheduling, LPT, and preemptive identical-machine scheduling.
+**Use for:** LPT and McNaughton's preemptive identical-machine scheduling.
+
+**What they may ask:** Decode `alpha|beta|gamma`; match Bratley to one-machine release/deadline branch-and-bound; match Horn/EDF to `1|r_j,pmtn|Lmax`; state list scheduling and LPT ratios; state McNaughton's `max(max p_j, sum p_j/m)` formula; distinguish relative-order and time-indexed project ILPs.
 
 **Must recall:** Graham notation, job parameters, Bratley branch-and-bound, Horn/EDF, list scheduling ratio, LPT ratio, McNaughton formula, fixed-m DP, relative-order ILP, time-indexed ILP.
 

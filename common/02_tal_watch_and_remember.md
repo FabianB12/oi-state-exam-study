@@ -24,22 +24,37 @@ The page uses retrieval practice and feedback based on CMU Eberly's retrieval-pr
 
 | Module | Video | Creator / Source | Duration | Required segment | Why accepted | Fallback |
 |---|---|---:|---:|---|---|---|
+| Correctness/asymptotics | Big O and friends | Ryan O'Donnell / CMU CS Theory Toolkit | 28:10 | 0:00-20:00 | Covers Big O, little-o, Big Omega, little-omega, and examples; fills the asymptotic-notation video gap. | <https://www.youtube.com/watch?v=_gKb855_3bk> |
 | Correctness | Loop invariants online lesson | Cornell CS2110 | short lesson sequence | First 10-15 min | Directly explains invariant reasoning; better than a weak generic video. | <https://www.cs.cornell.edu/courses/cs2110/2017sp/online/loops/01aloop1.html> |
+| Correctness | The While Theorem Total Correctness | UTAustinX LAFF-On Programming for Correctness | 7:48 | 0:00-7:48 | Short direct support for total correctness: invariant plus termination reasoning. | <https://www.youtube.com/watch?v=WGXKmx1X3c4> |
 | Turing machines | Turing Machines Explained | Computerphile | 5:24 | 0:00-5:24 | Short visual intuition for tape, head, and transition rules. | <https://www.youtube.com/watch?v=dNRDvLACg5Q> |
 | Turing machines | Lecture 5: CF Pumping Lemma, Turing Machines | MIT OpenCourseWare | 1:13:59 | 41:40-60:00 | Longer but formal university source for the actual model vocabulary. | <https://www.youtube.com/watch?v=IycOPFmEQk8&t=2500s> |
 | P/NP | P vs. NP and the Computational Complexity Zoo | hackerdashery | 10:44 | 0:00-10:44 | Short and high-level, good before formal definitions. | <https://www.youtube.com/watch?v=YX40hbAHx3s> |
 | P/NP/reductions | Lecture 14: P and NP, SAT, Poly-Time Reducibility | MIT OpenCourseWare | 1:19:22 | 0:00-20:00, 46:00-66:00 | Formal course segment for NP and reduction direction. | <https://www.youtube.com/watch?v=1VhnDdQsELo> |
-| Cook-Levin | Lecture 16: Cook-Levin Theorem | MIT OpenCourseWare | 1:18:27 | 0:00-25:00 | Formal source for SAT NP-completeness and tableau idea. | <https://www.youtube.com/watch?v=6Az1gtDRaAU> |
+| Cook-Levin | Lecture 16: Cook-Levin Theorem | MIT OpenCourseWare | 1:18:27 | 0:00-20:00 | Formal source for SAT NP-completeness and tableau idea. | <https://www.youtube.com/watch?v=6Az1gtDRaAU> |
+| Approximation/heuristics | Introduction to Computation Theory: Approximation Algorithms | Complexity Explorer | 8:16 | 0:00-8:16 | Fills the NP-hard practice gap: approximate instead of exact, with a concrete vertex-cover style example. | <https://www.youtube.com/watch?v=GnEwosAJ0bA> |
 | PSPACE/Savitch | Lecture 17: Space Complexity, PSPACE, Savitch's Theorem | MIT OpenCourseWare | 1:20:09 | 0:00-20:00, 40:00-58:00 | Directly covers space classes, configuration graph, and Savitch. | <https://www.youtube.com/watch?v=cT_qwkTigv4> |
-| Randomization | Lecture 23: Probabilistic Computation, BPP | MIT OpenCourseWare | 1:23:41 | 0:00-35:00 | University source for randomized TMs, BPP, and amplification. | <https://www.youtube.com/watch?v=Vp_AzDGQyrA> |
-| Randomization optional | Undergrad Complexity: RP, coRP, and ZPP | CMU / Ryan O'Donnell via Class Central | 1:22 | First 20 min optional | Directly names RP, co-RP, and ZPP; optional because it is long. | <https://www.classcentral.com/course/youtube-undergrad-complexity-at-cmu-randomized-complexity-rp-corp-and-zpp-137837> |
+| Randomization | Lecture 23: Probabilistic Computation, BPP | MIT OpenCourseWare | 1:23:41 | 0:00-20:00 | University source for randomized TMs and BPP setup. | <https://www.youtube.com/watch?v=Vp_AzDGQyrA> |
+| Randomized classes | Comparison Between Randomized Complexity Classes | NPTEL / IIT Hyderabad | 11:20 | 0:00-11:20 | Short current course segment comparing RP, co-RP, ZPP, and BPP relationships. | <https://www.youtube.com/watch?v=k2nzRrQNoTg> |
 | Undecidability | Proof That Computers Can't Do Everything | udiprod | 7:52 | 0:00-7:52 | Short halting-problem intuition. | <https://www.youtube.com/watch?v=92WHN-pAFCs> |
 | Undecidability | The Halting Problem | Neso Academy | 7:26 | 0:00-7:26 | Short alternate explanation if the first one does not land. | <https://www.youtube.com/watch?v=6XZvw9W9QSc> |
-| Undecidability | Lecture 8: Undecidability | MIT OpenCourseWare | 1:17:02 | 0:00-35:00 | Formal source for decidable/recognizable, diagonalization, and acceptance/halting. | <https://www.youtube.com/watch?v=3PzuSPQPEU4> |
+| Undecidability | Lecture 8: Undecidability | MIT OpenCourseWare | 1:17:02 | 0:00-20:00, 20:00-35:00 optional | Formal source for decidable/recognizable, diagonalization, and acceptance/halting. | <https://www.youtube.com/watch?v=3PzuSPQPEU4> |
+
+## Conceptual Gap Checks
+
+After the approximation video, make sure you can answer: why a heuristic does not prove `P = NP`; what an approximation ratio promises; and how PTAS/FPTAS differ from a generic heuristic.
+
+After the randomized-class comparison, make sure you can answer: which side RP may err on; which side co-RP may err on; why `ZPP = RP intersection co-RP`; and why BPP is two-sided error rather than zero-error.
 
 ## Embedded Videos
 
 Markdown viewers differ in whether they render iframes. If these do not show up, use the fallback links above or the [TAL static study page](../study/tal.html).
+
+### Correctness And Asymptotics
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_gKb855_3bk?rel=0" title="CMU Big O and friends" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WGXKmx1X3c4?rel=0" title="UTAustinX Total Correctness" frameborder="0" allowfullscreen></iframe>
 
 ### Turing Machines
 
@@ -55,6 +70,10 @@ Markdown viewers differ in whether they render iframes. If these do not show up,
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6Az1gtDRaAU?start=900&rel=0" title="MIT Lecture 16 Cook-Levin" frameborder="0" allowfullscreen></iframe>
 
+### Approximation Algorithms
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GnEwosAJ0bA?rel=0" title="Complexity Explorer Approximation Algorithms" frameborder="0" allowfullscreen></iframe>
+
 ### PSPACE And Savitch
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cT_qwkTigv4?start=2400&rel=0" title="MIT Lecture 17 PSPACE Savitch" frameborder="0" allowfullscreen></iframe>
@@ -62,6 +81,8 @@ Markdown viewers differ in whether they render iframes. If these do not show up,
 ### Randomized Classes
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Vp_AzDGQyrA?start=900&rel=0" title="MIT Lecture 23 Probabilistic Computation BPP" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k2nzRrQNoTg?rel=0" title="NPTEL Comparison Between Randomized Complexity Classes" frameborder="0" allowfullscreen></iframe>
 
 ### Undecidability
 

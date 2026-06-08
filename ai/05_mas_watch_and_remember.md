@@ -40,7 +40,13 @@ Say after watching:
 2. [GTO-3-05: Correlated Equilibrium: Intuition](https://www.youtube.com/watch?v=sQOrIpARr5E) - Game Theory Online, 5:08.
    - Watch: 0:00-5:08.
    - Remember: a mediator recommends actions; no player wants to deviate after seeing their recommendation.
-3. [Security Games: Key Algorithmic Principles, Deployed Applications and Research Challenges](https://www.youtube.com/watch?v=9x2w-Qi6ENk&t=273s) - Microsoft Research, 64:35 total.
+3. [Finding Zero Sum Nash Equilibria with Linear Programming](https://www.youtube.com/watch?v=XrQpLcKXvgY) - Professor Bryce, 16:13.
+   - Watch: 0:00-16:13.
+   - Remember: player 1 maximizes a guaranteed value with one constraint per opponent pure action; the dual is player 2's problem.
+4. [Stackelberg's First-Mover Advantage](https://www.youtube.com/watch?v=_CZn6UrmaM0) - William Spaniel, 8:35.
+   - Watch: 0:00-8:35.
+   - Remember: the leader chooses while anticipating the follower's best response.
+5. [Security Games: Key Algorithmic Principles, Deployed Applications and Research Challenges](https://www.youtube.com/watch?v=9x2w-Qi6ENk&t=273s) - Microsoft Research, 64:35 total.
    - Optional segment: 4:33-12:30.
    - Remember: Stackelberg equilibrium is leader commitment followed by follower best response, often used in security games.
 
@@ -54,15 +60,21 @@ Say after watching:
 
 ## 3. Extensive-form games
 
-1. [Game Theory 101 (#16): Subgame Perfect Equilibrium](https://www.youtube.com/watch?v=hSYXkDnCpHM) - William Spaniel, 7:36.
+1. [The Basics of Extensive Form Games](https://www.youtube.com/watch?v=m1uBcxoopNA) - Selcuk Ozyurt, 18:44.
+   - Watch: 0:00-18:44.
+   - Remember: an extensive-form game is a game tree plus actions, players, terminal utilities, and strategy rules.
+2. [Game Theory 101 (#16): Subgame Perfect Equilibrium](https://www.youtube.com/watch?v=hSYXkDnCpHM) - William Spaniel, 7:36.
    - Watch: 0:00-7:36.
    - Remember: subgame perfection removes noncredible threats.
-2. [Game Theory 101 (#17): Backward Induction](https://www.youtube.com/watch?v=pyLKkN5HpDY) - William Spaniel, 4:49.
+3. [Game Theory 101 (#17): Backward Induction](https://www.youtube.com/watch?v=pyLKkN5HpDY) - William Spaniel, 4:49.
    - Watch: 0:00-4:49.
    - Remember: solve finite perfect-information games from the leaves backward.
-3. [18. Imperfect information: information sets and sub-game perfection](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
+4. [18. Imperfect information: information sets and sub-game perfection](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
    - Main segment: 0:00-18:56 for information sets and perfect recall.
    - Optional segment: 49:59-1:10:17 for subgames and subgame-perfect equilibrium.
+5. [Counterfactual Regret Minimization](https://www.youtube.com/watch?v=ygDt_AumPr0) - Professor Bryce, 41:43 total.
+   - Optional segment: 0:00-18:00 for the regret/CFR idea.
+   - Remember: this is for the algorithmic keyword "CFR"; you need the intuition, not poker-solver implementation details.
 
 Say after watching:
 
@@ -81,10 +93,16 @@ Say after watching:
 2. [7-5 Comparing the Core and Shapley value in an Example - Game Theory](https://www.youtube.com/watch?v=N4iA9_HREOM) - Do Huu Canh, 10:45.
    - Watch: 0:00-10:45.
    - Remember: the core is stability; Shapley is fairness. They answer different questions.
+3. [Weighted Voting: The Shapley-Shubik Power Index](https://www.youtube.com/watch?v=6T7g4AyMIm0) - Mathispower4u, 9:04.
+   - Watch: 0:00-9:04.
+   - Remember: Shapley-Shubik counts how often a voter is pivotal in a random ordering.
+4. [Banzhaf power index 1](https://www.youtube.com/watch?v=mCZQ_ZEM7XQ) - OCLPhase2, 3:55.
+   - Watch: 0:00-3:55.
+   - Remember: Banzhaf counts swing/critical coalitions rather than random arrival orders.
 
 Text backup:
 
-- Use the formal notes for compact representations, convex games, simple voting games, Shapley-Shubik, and Banzhaf. These are formula-heavy and quicker to rehearse from text.
+- Use the formal notes for compact representations, additive/superadditive/convex classes, and exact Shapley formula details.
 
 Say after watching:
 
@@ -105,11 +123,19 @@ Say after watching:
 3. [ETTINGER / Auction Theory: Auction and Revenue](https://www.youtube.com/watch?v=SUEaaMOuEcM) - Learn IOE, 9:17.
    - Watch: 0:00-9:17.
    - Remember: revenue equivalence needs strong assumptions; changing assumptions can change revenue rankings.
+4. [The Ideal Auction](https://www.youtube.com/watch?v=4kWuxfVbIaU) - Numberphile, 14:17.
+   - Watch: 0:00-14:17.
+   - Remember: the Myerson intuition is "optimize revenue by excluding low virtual values"; for i.i.d. regular bidders this becomes a reserve-price Vickrey auction.
+5. [Vickrey-Clarke-Groves Mechanism](https://www.youtube.com/watch?v=etmmDIC2DW0) - Selcuk Ozyurt, 14:18.
+   - Watch: 0:00-14:18.
+   - Remember: VCG payments charge the externality a winner imposes on everyone else.
+6. [VCG in Combinatorial Allocations](https://www.youtube.com/watch?v=BajoxrSeBYU) - NPTEL IIT Bombay, 15:36.
+   - Watch: 0:00-15:36.
+   - Remember: bundles make allocation expressive, but winner determination becomes a hard combinatorial optimization problem.
 
-Optional text/video backup:
+Text backup:
 
-- Myerson optimal auctions are often covered in longer mechanism-design lectures. For the exam, know the virtual-value rule and the reserve-price interpretation for i.i.d. regular distributions.
-- Combinatorial auctions are best learned from the formal notes: values are over bundles, winner determination is NP-hard, and VCG is truthful/efficient but computationally and revenue-problematic.
+- For the exam, still rehearse Myerson's virtual-value formula and the exact assumptions behind revenue equivalence from the formal notes.
 
 Say after watching:
 

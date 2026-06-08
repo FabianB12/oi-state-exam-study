@@ -157,10 +157,9 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=X4Oxst5huQA" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>Caltech VC dimension of perceptrons segment (19 min)</h3>
-                <div class="video-frame" title="Caltech VC Dimension of Perceptrons" data-video-id="Dc0sr0kdBVI" data-start="0"></div>
+                <h3>Caltech VC dimension of perceptrons - optional segment (73:31, watch 7:00-26:00)</h3>
+                <div class="video-frame" title="Caltech VC Dimension of Perceptrons" data-video-id="Dc0sr0kdBVI" data-start="420"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="Dc0sr0kdBVI" data-start="0">0:00 lecture start</button>
                   <button type="button" data-video-target="Dc0sr0kdBVI" data-start="420">7:00 shattering intuition</button>
                   <button type="button" data-video-target="Dc0sr0kdBVI" data-start="1500">25:00 VC examples</button>
                 </div>
@@ -574,18 +573,36 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=MI8ByADMh20" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>On-policy vs off-policy algorithms (14:47)</h3>
-                <div class="video-frame" title="On-policy vs off-policy algorithms" data-video-id="YUKUXoUg3Nc"></div>
+                <h3>Temporal Difference Learning incl. Q-Learning - Mutual Information (28:38, watch 1:18-20:50)</h3>
+                <div class="video-frame" title="Temporal Difference Learning including Q-Learning" data-video-id="AJiG3ykOxmY" data-start="78"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="YUKUXoUg3Nc" data-start="0">0:00 definitions</button>
-                  <button type="button" data-video-target="YUKUXoUg3Nc" data-start="440">7:20 examples</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="78">1:18 TD from MC</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="388">6:28 bootstrapping</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="929">15:29 SARSA</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="1142">19:02 Q-learning</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=YUKUXoUg3Nc" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=AJiG3ykOxmY" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>Text backup: Stanford CS229 RL lecture and David Silver control slides</h3>
+                <h3>Policy Gradient Methods - Mutual Information (29:00, optional watch 0:00-12:30)</h3>
+                <div class="video-frame" title="Policy Gradient Methods" data-video-id="e20EY4tFC_Q"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="e20EY4tFC_Q" data-start="0">0:00 policy search idea</button>
+                  <button type="button" data-video-target="e20EY4tFC_Q" data-start="170">2:50 policy parameters</button>
+                  <button type="button" data-video-target="e20EY4tFC_Q" data-start="720">12:00 REINFORCE</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=e20EY4tFC_Q" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Text backup: CTU passive RL, Stanford CS229, and David Silver slides</h3>
                 <div class="resource-card">
-                  <p>The old Stanford YouTube mirror for this lecture is not reliably embeddable. Use the official SEE page and the Stanford-hosted David Silver slides for ADP/model learning, temporal-difference control, Q-learning, SARSA, and policy search.</p>
+                  <p>Short video coverage for direct utility estimation and adaptive dynamic programming is weak. Use the official SMU tutorial for the exact DUE/ADP style calculations, then use the Stanford and David Silver backups for broader RL control.</p>
+                  <ul>
+                    <li>DUE: average observed returns for each state under a fixed policy.</li>
+                    <li>ADP: estimate the transition/reward model, then solve the learned MDP.</li>
+                    <li>TD: bootstrap from reward plus the next estimated utility.</li>
+                  </ul>
+                  <a class="button" href="https://cw.fel.cvut.cz/b182/courses/smu/tutorials/tutorial9" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open CTU SMU tutorial</a>
                   <a class="button" href="https://see.stanford.edu/Course/CS229/38" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open Stanford lecture</a>
                   <a class="fallback-link" href="https://web.stanford.edu/class/cme241/lecture_slides/david_silver_slides/control.pdf" target="_blank" rel="noreferrer">David Silver control slides</a>
                 </div>
@@ -716,8 +733,8 @@
               <li>Watch the PAC/VC short video at 0:00-12:40 and memorize PAC vs online plus VC definition.</li>
               <li>Do the Boolean lab once and say the conjunction/disjunction algorithms out loud.</li>
               <li>Watch the bandit videos at their UCB/Thompson timestamps and memorize the regret formulas.</li>
-              <li>Watch Stanford MDP timestamps 5:00, 27:10, and 35:40; write the Bellman and value-iteration equations.</li>
-              <li>Finish with the Q-learning/SARSA video and the RL update selector.</li>
+              <li>Watch the CS188 MDP timestamps 0:00, 7:00, and 13:00; then use the value-iteration video at 7:30 to write the Bellman backup.</li>
+              <li>Finish with the Q-learning/SARSA video, the Mutual Information TD segment at 1:18-20:50, and the RL update selector.</li>
             </ol>
           </div>
         </section>

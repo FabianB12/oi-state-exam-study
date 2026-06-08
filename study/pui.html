@@ -335,19 +335,39 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>CS188 SP24 LEC03 - A* heuristic properties (74:18, watch 37:00-52:00)</h3>
-                <div class="video-frame" title="CS188 SP24 LEC03 - Search: Informed Search, A*, Heuristics" data-video-id="zRFZwAUQT8U" data-start="2220"></div>
+                <h3>Edinburgh AIPLAN 4.8 - Planning Graph Heuristics (9:50)</h3>
+                <div class="video-frame" title="4.8. AIPLAN - Planning Graph Heuristics" data-video-id="RY1MmecU1FY"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2220">37:00 admissible</button>
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2580">43:00 consistency</button>
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2940">49:00 dominance</button>
+                  <button type="button" data-video-target="RY1MmecU1FY" data-start="0">0:00 graph levels</button>
+                  <button type="button" data-video-target="RY1MmecU1FY" data-start="180">3:00 heuristic estimates</button>
+                  <button type="button" data-video-target="RY1MmecU1FY" data-start="390">6:30 relaxed-plan link</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=zRFZwAUQT8U&t=2220s" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=RY1MmecU1FY" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>Resource backup: CTU and Basel planning heuristic slides</h3>
+                <h3>Edinburgh AIPLAN 4.10 - The FF Planner (14:12)</h3>
+                <div class="video-frame" title="4.10. AIPLAN - The FF Planner" data-video-id="7XH60fuMlIM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="7XH60fuMlIM" data-start="0">0:00 FF overview</button>
+                  <button type="button" data-video-target="7XH60fuMlIM" data-start="210">3:30 relaxed planning graph</button>
+                  <button type="button" data-video-target="7XH60fuMlIM" data-start="480">8:00 relaxed plan</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=7XH60fuMlIM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Edinburgh AIPLAN 4.9 - Pattern Databases (12:47)</h3>
+                <div class="video-frame" title="4.9. AIPLAN - Pattern Databases" data-video-id="HZWV4uOJWk8"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="HZWV4uOJWk8" data-start="0">0:00 abstraction idea</button>
+                  <button type="button" data-video-target="HZWV4uOJWk8" data-start="240">4:00 database lookup</button>
+                  <button type="button" data-video-target="HZWV4uOJWk8" data-start="480">8:00 pattern tradeoff</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=HZWV4uOJWk8" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Resource backup: CTU and Basel formulas</h3>
                 <div class="resource-card">
-                  <p>Short videos for <code>hmax</code>, <code>hadd</code>, <code>hff</code>, pattern databases, and merge-and-shrink are scarce. Use these slides after the A* segment for the exam-specific formulas.</p>
+                  <p>Use this for the exact exam formulas after the clips: <code>hmax</code> admissible/weak, <code>hadd</code> double-counts, <code>hff</code> extracts one relaxed plan, and PDBs are exact abstract distances.</p>
                   <a class="button" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>CTU PUI lecture plan</a>
                   <a class="fallback-link" href="https://ai.dmi.unibas.ch/_files/teaching/fs25/ai/slides/ai-f04-handout4.pdf" target="_blank" rel="noreferrer">Basel delete-relaxation handout</a>
                 </div>
@@ -448,9 +468,20 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
+                <h3>Optional ICAPS 2015 - New Optimization Functions for Potential Heuristics (16:26)</h3>
+                <div class="video-frame" title="ICAPS 2015: New Optimization Functions for Potential Heuristics" data-video-id="RbIdVjs4PT0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="RbIdVjs4PT0" data-start="0">0:00 potential heuristic</button>
+                  <button type="button" data-video-target="RbIdVjs4PT0" data-start="300">5:00 optimization view</button>
+                  <button type="button" data-video-target="RbIdVjs4PT0" data-start="660">11:00 constraints/results</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=RbIdVjs4PT0" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
                 <h3>Resource: CTU Landmarks and LM-Cut</h3>
                 <div class="resource-card">
                   <p>Use the CTU lecture deck for landmark orders, discovery, and LM-Cut. The companion tutorial is a short worked reference for the cut loop.</p>
+                  <p><strong>What they may ask:</strong> define landmarks, distinguish natural/greedy necessary/reasonable orders, then describe LM-Cut as repeated <code>hmax</code>-based cuts with cost subtraction.</p>
                   <a class="button" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open CTU lecture list</a>
                   <a class="fallback-link" href="https://cw.fel.cvut.cz/b192/_media/courses/be4m36pui/tut-lm-cut.pdf" target="_blank" rel="noreferrer">LM-Cut tutorial PDF</a>
                 </div>
@@ -459,6 +490,7 @@
                 <h3>Resource: LP/operator-counting heuristics</h3>
                 <div class="resource-card">
                   <p>Fast Downward's docs are a practical cross-check: delete-relaxation constraints, LM-Cut constraints, posthoc optimization, and state-equation constraints are all operator-counting constraints.</p>
+                  <p><strong>What they may ask:</strong> action-count variables, necessary linear constraints, LP relaxation as an admissible lower bound, and potential weights constrained by every action.</p>
                   <a class="button" href="https://www.fast-downward.org/23.06/documentation/search/ConstraintGenerator/" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open Fast Downward docs</a>
                   <a class="fallback-link" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer">CTU LP heuristics and portfolios</a>
                 </div>
@@ -558,6 +590,15 @@
           <div class="block">
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
+              <article class="video-card">
+                <h3>Resource: CTU nondeterministic planning scope</h3>
+                <div class="resource-card">
+                  <p>I did not find a short public video that cleanly teaches weak, strong, and strong cyclic planning at exam depth. Use the CTU nondeterministic-planning deck for this narrow slice before switching to MDP videos.</p>
+                  <p><strong>What they may ask:</strong> sequence versus policy, weak/strong/strong-cyclic guarantees, fairness, and why AND/OR search has OR action choices but AND outcome branches.</p>
+                  <a class="button" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">school</span>Open CTU lecture list</a>
+                  <a class="fallback-link" href="https://cw.fel.cvut.cz/b212/courses/be4m36pui/lectures" target="_blank" rel="noreferrer">Lecture 8: Nondeterministic Planning</a>
+                </div>
+              </article>
               <article class="video-card">
                 <h3>CS188 SP24 LEC17 - MDP states, values, policies, Q-values (83:20, watch 0:00-18:00)</h3>
                 <div class="video-frame" title="CS188 SP24 LEC17 - MDPs: States, Values, Policies, Q-values" data-video-id="i2hHZRhzy-k"></div>

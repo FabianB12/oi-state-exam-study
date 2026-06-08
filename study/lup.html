@@ -192,6 +192,17 @@
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=5Cow2SYdnm4" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
+              <article class="video-card">
+                <h3>SMT solver / DPLL(T) (11:22)</h3>
+                <div class="video-frame" title="Satisfiability Modulo Theory solver" data-video-id="vrA4zFl0zd0"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="vrA4zFl0zd0" data-start="0">0:00 SMT solver</button>
+                  <button type="button" data-video-target="vrA4zFl0zd0" data-start="50">0:50 Boolean vs theory</button>
+                  <button type="button" data-video-target="vrA4zFl0zd0" data-start="400">6:40 theory checks</button>
+                  <button type="button" data-video-target="vrA4zFl0zd0" data-start="510">8:30 conflict learning</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=vrA4zFl0zd0" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
             </div>
           </div>
 
@@ -390,9 +401,23 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>Text backup: Stanford CS221 first-order resolution slides</h3>
+                <h3>Stanford CS221 first-order resolution video (10:52)</h3>
                 <div class="resource-card">
-                  <p>The short Stanford video mirror is not reliably embeddable. Use these CS221 slides for the exact pipeline: clause conversion, Skolemization, unification, lifted resolution, subsumption, and saturation.</p>
+                  <p>The YouTube mirror for this short Stanford clip is not embeddable, so use the official Stanford Panopto/course link. Watch the whole short video, then use the slides for the exact clause-form pipeline.</p>
+                  <ul class="compact-list">
+                    <li>0:00 first-order resolution</li>
+                    <li>1:30 CNF setup</li>
+                    <li>1:55 unification/substitution</li>
+                    <li>4:45 clause-form example</li>
+                  </ul>
+                  <a class="button" href="https://stanford-pilot.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=df9f49dd-4d5e-4476-be61-af4d00f26034" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">play_circle</span>Open Stanford video</a>
+                  <a class="fallback-link" href="https://stanford-cs221.github.io/autumn2022/modules/" target="_blank" rel="noreferrer">CS221 module page</a>
+                </div>
+              </article>
+              <article class="video-card">
+                <h3>Text backup: CS221 slides and Stanford notes</h3>
+                <div class="resource-card">
+                  <p>Use these CS221 slides for the full pipeline beyond the short video: clause conversion, Skolemization, unification, lifted resolution, subsumption, and saturation.</p>
                   <a class="button" href="https://stanford-cs221.github.io/spring2024-extra/modules/logic/logic2.pdf" target="_blank" rel="noreferrer"><span class="material-symbols-rounded">description</span>Open CS221 slides</a>
                   <a class="fallback-link" href="http://intrologic.stanford.edu/extras/resolution.html" target="_blank" rel="noreferrer">Stanford resolution notes</a>
                 </div>
@@ -601,6 +626,28 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=ENHKXZg-a4c" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
+                <h3>Encoding into SAT (7:54)</h3>
+                <div class="video-frame" title="Encoding into SAT" data-video-id="DO9ZGkhPr8A"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="DO9ZGkhPr8A" data-start="0">0:00 encoding goal</button>
+                  <button type="button" data-video-target="DO9ZGkhPr8A" data-start="105">1:45 redundant constraints</button>
+                  <button type="button" data-video-target="DO9ZGkhPr8A" data-start="248">4:08 Boolean variables</button>
+                  <button type="button" data-video-target="DO9ZGkhPr8A" data-start="275">4:35 clauses</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=DO9ZGkhPr8A" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Encoding cardinality constraints (14:58)</h3>
+                <div class="video-frame" title="Encoding cardinality constraints" data-video-id="PKbAICDB9tM"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="PKbAICDB9tM" data-start="0">0:00 cardinality</button>
+                  <button type="button" data-video-target="PKbAICDB9tM" data-start="65">1:05 at least one</button>
+                  <button type="button" data-video-target="PKbAICDB9tM" data-start="88">1:28 at most one</button>
+                  <button type="button" data-video-target="PKbAICDB9tM" data-start="115">1:55 compact encodings</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=PKbAICDB9tM" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
                 <h3>Text backup: CS221 propositionalization</h3>
                 <div class="resource-card">
                   <p>The exam's model-search part is mostly a technique, not a standalone video topic. The useful mental model is CS221's propositionalization: finite objects make first-order atoms into Boolean variables.</p>
@@ -676,11 +723,11 @@
           <div class="block">
             <p class="block-label practice">Route</p>
             <ol class="compact-list">
-              <li>Watch Tseitin 0:00-7:50, DPLL 0:00-7:00, and CDCL 0:00-2:40.</li>
+              <li>Watch Tseitin 0:00-7:50, DPLL 0:00-7:00, CDCL 0:00-2:40, and SMT 0:00-1:10.</li>
               <li>Run the SAT/SMT lab and say the lazy SMT loop out loud.</li>
               <li>Watch SLD 0:00-6:00, then memorize NAF and cut caveats.</li>
               <li>Watch Stanford FOL resolution 0:00-10:52 and step through the clause-form lab.</li>
-              <li>Finish equality and grounding with the labs plus oral skeleton.</li>
+              <li>Finish equality with the lab, then watch SAT encoding 4:08-4:55 and cardinality 1:05-1:55.</li>
             </ol>
           </div>
         </section>

@@ -1,12 +1,12 @@
 # SSU Watch and Remember Guide
 
-Study page: [study/ssu.html](../study/ssu.html)  
+Study page: [study/ssu.html](../study/ssu.html)
 Formal notes: [03_ssu_erm_mle_em_deep_networks.md](03_ssu_erm_mle_em_deep_networks.md)
 
 ## 1. ERM, Generalization, and VC Dimension
 
-**PAC Learning and VC Dimension**  
-John Mount, 17:16  
+**PAC Learning and VC Dimension**
+John Mount, 17:16
 https://www.youtube.com/watch?v=X4Oxst5huQA
 
 - 0:00 - Learning setup and error guarantees.
@@ -20,21 +20,77 @@ Remember:
 - Hoeffding handles one fixed hypothesis; the finite-class bound adds a union bound over `H`.
 - VC dimension is the capacity term for infinite binary classes.
 
-Optional text backup: MIT 6.790, **Learnability and VC Dimension**  
+Optional text backup: MIT 6.790, **Learnability and VC Dimension**
 https://gradml.mit.edu/supervised/learnability_and_vc/
+
+### Exam-pivot ML fundamentals
+
+These are not in the state-exam headline, but they are in the formal SSU notes and oral pivots. Use them when the examiner asks for "basic ML classifiers/evaluation" around ERM.
+
+**Machine Learning Fundamentals: Bias and Variance**
+StatQuest with Josh Starmer, 6:35
+https://www.youtube.com/watch?v=EuBBz3bI-aA
+
+- 0:29 - Data example and train/test split.
+- 2:15 - Bias as underfitting/systematic error.
+- 3:57 - Variance as overfitting/sample sensitivity.
+- 5:22 - Choose model complexity by generalization, not training fit.
+
+**Machine Learning Fundamentals: The Confusion Matrix**
+StatQuest with Josh Starmer, 7:12
+https://www.youtube.com/watch?v=Kdsp6soqA7o
+
+- 0:24 - Why model evaluation needs more than one score.
+- 1:38 - True/false positives and true/false negatives.
+- 3:41 - Compare algorithms by their error pattern.
+- 4:38 - Multiclass confusion matrices.
+
+**Decision and Classification Trees, Clearly Explained!!!**
+StatQuest with Josh Starmer, 18:07
+https://www.youtube.com/watch?v=_L39rN6gz7Y
+
+- 0:18 - Tree concepts: root, branches, leaves, decisions.
+- 3:16 - Gini impurity and split choice.
+- 9:15 - Numeric variables and thresholds.
+- 15:38 - Preventing overfitting with growth limits/pruning.
+
+**StatQuest: Random Forests Part 1 - Building, Using and Evaluating**
+StatQuest with Josh Starmer, 9:54
+https://www.youtube.com/watch?v=J4Wdy0Wc_xQ
+
+- 0:23 - Why single trees can be unstable.
+- 1:17 - Bootstrap datasets.
+- 2:24 - Random feature subsets.
+- 5:46 - Bagging: bootstrap plus aggregation.
+
+**Optional: AdaBoost, Clearly Explained**
+StatQuest with Josh Starmer, 20:53. Use the 0:56-19:51 segment for the exam idea; skip the full derivation unless boosting is explicitly asked.
+https://www.youtube.com/watch?v=LsK-xG1cLYA
+
+- 0:56 - Three main ideas behind AdaBoost.
+- 3:58 - Building the first stump.
+- 10:27 - Reweighting errors for the next weak learner.
+- 19:06 - Combining stumps for classification.
+
+What they may ask:
+
+- Bias versus variance: say underfitting, overfitting, and train/test behavior.
+- Confusion-matrix metrics: derive accuracy, precision, recall, specificity, F1, ROC-AUC/PR-AUC, and explain imbalance.
+- Decision trees: split by impurity reduction such as Gini or entropy/information gain; control overfitting by depth, pruning, and leaf size.
+- Ensembles: bagging/random forests reduce variance by averaging decorrelated trees; boosting trains weak learners sequentially and focuses on previous mistakes.
 
 ## 2. Support Vector Machines
 
-**Support Vector Machines Part 1 (of 3): Main Ideas!!!**  
-StatQuest with Josh Starmer, 20:32. Use the 0:00-18:40 segment for the main exam ideas.  
+**Support Vector Machines Part 1 (of 3): Main Ideas!!!**
+StatQuest with Josh Starmer, 20:32. Use the 0:00-18:40 segment for the main exam ideas.
 https://www.youtube.com/watch?v=efR1C6CvhmE
 
 - 0:00 - Maximum-margin idea.
 - 7:10 - Support vectors.
 - 13:40 - Soft margins.
 
-**Support Vector Machines Part 2: The Polynomial Kernel (Part 2 of 3)**  
-StatQuest with Josh Starmer, 7:15  
+**Support Vector Machines Part 2: The Polynomial Kernel (Part 2 of 3)**
+StatQuest with Josh Starmer, 7:15
 https://www.youtube.com/watch?v=Toet3EiSFcM
 
 - 0:00 - Why kernels are needed.
@@ -50,16 +106,16 @@ Remember:
 
 ## 3. MLE and EM
 
-**Maximum Likelihood, clearly explained!!!**  
-StatQuest with Josh Starmer, 6:12  
+**Maximum Likelihood, clearly explained!!!**
+StatQuest with Josh Starmer, 6:12
 https://www.youtube.com/watch?v=XepXtl9YKwc
 
 - 0:00 - Likelihood intuition.
 - 2:25 - Fitting distribution parameters.
 - 4:05 - Likelihood curve.
 
-**EM algorithm: how it works**  
-Victor Lavrenko, 7:53  
+**EM algorithm: how it works**
+Victor Lavrenko, 7:53
 https://www.youtube.com/watch?v=REypj2sy_5U
 
 - 0:00 - Hidden labels / latent variables.
@@ -76,16 +132,16 @@ Remember:
 
 ## 4. Neural Networks and Backpropagation
 
-**But what is a neural network? | Deep learning chapter 1**  
-3Blue1Brown, 18:40  
+**But what is a neural network? | Deep learning chapter 1**
+3Blue1Brown, 18:40
 https://www.youtube.com/watch?v=aircAruvnKk
 
 - 0:00 - Network picture.
 - 5:10 - Weights and biases.
 - 11:40 - Activations and learned features.
 
-**Backpropagation, intuitively | Deep Learning Chapter 3**  
-3Blue1Brown, 12:47  
+**Backpropagation, intuitively | Deep Learning Chapter 3**
+3Blue1Brown, 12:47
 https://www.youtube.com/watch?v=Ilg3gGewQ5U
 
 - 0:00 - Recap.
@@ -101,16 +157,16 @@ Remember:
 
 ## 5. SGD, CNNs, Initialization, and Regularization
 
-**Stochastic Gradient Descent, Clearly Explained!!!**  
-StatQuest with Josh Starmer, 10:53  
+**Stochastic Gradient Descent, Clearly Explained!!!**
+StatQuest with Josh Starmer, 10:53
 https://www.youtube.com/watch?v=vMh0zPT0tLI
 
 - 0:00 - Full gradient.
 - 3:10 - Stochastic-gradient idea.
 - 7:15 - Minibatches.
 
-**Neural Networks Part 8: Image Classification with Convolutional Neural Networks (CNNs)**  
-StatQuest with Josh Starmer, 15:23  
+**Neural Networks Part 8: Image Classification with Convolutional Neural Networks (CNNs)**
+StatQuest with Josh Starmer, 15:23
 https://www.youtube.com/watch?v=HGwBXDKFk9I
 
 - 0:00 - Image features.

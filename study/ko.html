@@ -157,7 +157,7 @@
 
           <div class="block">
             <p class="block-label watch">Watch first</p>
-            <div class="video-grid">
+            <div class="video-grid triple">
               <article class="video-card">
                 <h3>Branch and Bound for ILP - Decision Making 101 (16:15)</h3>
                 <div class="video-frame" title="Branch and Bound for ILP" data-video-id="WNRRmXZkRi0"></div>
@@ -176,6 +176,17 @@
                   <button type="button" data-video-target="3RBNPc0_Q6g" data-start="220">3:40 bounding intuition</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=3RBNPc0_Q6g" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Cutting-plane method - Shokoufeh Mirzaei (14:10)</h3>
+                <div class="video-frame" title="Cutting-plane method for integer programming" data-video-id="4Qu4EjsIKI8"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="4Qu4EjsIKI8" data-start="0">0:00 worked IP example</button>
+                  <button type="button" data-video-target="4Qu4EjsIKI8" data-start="360">6:00 cut construction</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=4Qu4EjsIKI8" target="_blank" rel="noreferrer">Fallback link</a>
+                <p><strong>What they may ask:</strong> why a valid cut removes the current fractional LP solution but keeps every integer-feasible solution.</p>
+                <p class="fallback-link">Optional TU refresher: <a href="https://www.youtube.com/watch?v=KtTSqPBjTY0" target="_blank" rel="noreferrer">Total unimodularity 1/2 - mathapptician (6:54)</a> and <a href="https://www.youtube.com/watch?v=6bIyLoKCS_g" target="_blank" rel="noreferrer">2/2 (4:16)</a>.</p>
               </article>
             </div>
           </div>
@@ -372,6 +383,26 @@
                   <button type="button" data-video-target="VYZGlgzr_As" data-start="1700">28:20 min-cut idea</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=VYZGlgzr_As&t=720s" target="_blank" rel="noreferrer">Fallback link</a>
+              </article>
+              <article class="video-card">
+                <h3>Circulation with demands and lower bounds - Susan Haynes (14:32)</h3>
+                <div class="video-frame" title="Circulation with demands and lower bounds" data-video-id="GXx-j06OtWg"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="GXx-j06OtWg" data-start="0">0:00 lower-bound setup</button>
+                  <button type="button" data-video-target="GXx-j06OtWg" data-start="520">8:40 super-source reduction</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=GXx-j06OtWg" target="_blank" rel="noreferrer">Fallback link</a>
+                <p><strong>What they may ask:</strong> replace each edge by capacity <code>u-l</code>, adjust balances, then test feasibility with a circulation/max-flow construction.</p>
+              </article>
+              <article class="video-card">
+                <h3>Minimum-cost-flow problem - Joshua J. Daymude (14:30)</h3>
+                <div class="video-frame" title="Minimum-cost-flow problem" data-video-id="0tjpC0MCwY8"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="0tjpC0MCwY8" data-start="0">0:00 problem definition</button>
+                  <button type="button" data-video-target="0tjpC0MCwY8" data-start="520">8:40 LP/formulation view</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=0tjpC0MCwY8" target="_blank" rel="noreferrer">Fallback link</a>
+                <p><strong>What they may ask:</strong> min-cost flow adds edge costs to feasible flow; cycle-canceling improves along negative-cost residual cycles until none remain.</p>
               </article>
             </div>
           </div>
@@ -646,16 +677,31 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>MIT interval scheduling lecture</h3>
-                <p>Use the opening part as a gentle greedy-scheduling warm-up. It is not a perfect match for Bratley/Horn/Graham notation, but it builds the scheduling proof mindset quickly.</p>
-                <p><a class="button" href="https://www.ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-1-course-overview-interval-scheduling/" target="_blank" rel="noreferrer">Open MIT OCW lecture</a></p>
-                <p class="fallback-link">Suggested segment: first 15-20 minutes only.</p>
+                <h3>List Scheduling Algorithm - Computer Science Theory Explained (11:10)</h3>
+                <div class="video-frame" title="The List Scheduling Algorithm" data-video-id="wxi_9LKe78M"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="wxi_9LKe78M" data-start="0">0:00 list scheduling</button>
+                  <button type="button" data-video-target="wxi_9LKe78M" data-start="360">6:00 approximation intuition</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=wxi_9LKe78M" target="_blank" rel="noreferrer">Fallback link</a>
+                <p><strong>What they may ask:</strong> state the <code>P|prec|Cmax</code> setting and the <code>2 - 1/m</code> list-scheduling ratio.</p>
+              </article>
+              <article class="video-card">
+                <h3>Earliest Deadline First - Manoj MVR (8:25)</h3>
+                <div class="video-frame" title="Earliest Deadline First scheduling" data-video-id="ejPXTOcMRPA"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="ejPXTOcMRPA" data-start="0">0:00 EDF rule</button>
+                  <button type="button" data-video-target="ejPXTOcMRPA" data-start="300">5:00 preemptive example</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=ejPXTOcMRPA" target="_blank" rel="noreferrer">Fallback link</a>
+                <p><strong>What they may ask:</strong> Horn's algorithm is earliest-deadline-first for <code>1|r_j,pmtn|Lmax</code>; mention release times, preemption, and maximum lateness.</p>
               </article>
               <article class="video-card">
                 <h3>Parallel-machine scheduling notes</h3>
                 <p>The exact exam subtopic is niche, so use the notes as a quick confirmation source for list scheduling and McNaughton. The interactive lab below is the main learning path.</p>
                 <p><a class="button" href="https://perso.ens-lyon.fr/loris.marchal/scheduling/02.classical-P-machines-2012.pdf" target="_blank" rel="noreferrer">Open lecture PDF</a></p>
-                <p class="fallback-link">Look for list scheduling, LPT, and preemptive identical-machine makespan.</p>
+                <p class="fallback-link">Look for LPT and McNaughton's preemptive identical-machine makespan construction.</p>
+                <p><strong>What they may ask:</strong> McNaughton achieves <code>max(max p_j, sum p_j / m)</code>; Bratley is still best learned from the formal notes plus the ILP branch-and-bound videos above.</p>
               </article>
             </div>
           </div>
