@@ -1521,25 +1521,227 @@ const avlRotationDrillCases = [
 
 const btreeSplitDrillCases = [
   {
-    title: "Split leaf [5 | 10 | 20 | 30 | 40]",
-    keys: [5, 10, 20, 30, 40],
-    answer: 20,
-    left: [5, 10],
-    right: [30, 40]
+    title: "Insert 15 into a leaf, then split",
+    insertKey: 15,
+    orderNote: "Practice convention here: a node may hold at most 4 keys; 5 keys means overflow.",
+    before: {
+      keys: [30],
+      children: [
+        { keys: [5, 10, 20, 25] },
+        { keys: [40, 50] }
+      ]
+    },
+    focusPath: [0],
+    overflow: [5, 10, 15, 20, 25],
+    split: { promote: 15, left: [5, 10], right: [20, 25] },
+    final: {
+      keys: [15, 30],
+      children: [
+        { keys: [5, 10] },
+        { keys: [20, 25] },
+        { keys: [40, 50] }
+      ]
+    },
+    steps: [
+      {
+        prompt: "1. Which child interval receives key 15?",
+        answer: "left of 30",
+        options: ["left of 30", "right of 30", "create a new root", "split before descending"],
+        explain: "Compare in the root first. Since 15 < 30, descend into the left child."
+      },
+      {
+        prompt: "2. After inserting 15 in sorted order, what does the leaf contain?",
+        answer: "[5 | 10 | 15 | 20 | 25]",
+        options: ["[5 | 10 | 15 | 20 | 25]", "[5 | 10 | 20 | 25 | 15]", "[15 | 5 | 10 | 20 | 25]", "[5 | 10 | 20 | 25]"],
+        explain: "Keys inside a B-tree node are always kept sorted."
+      },
+      {
+        prompt: "3. The leaf overflowed. Which median key is promoted?",
+        answer: "15",
+        options: ["10", "15", "20", "25"],
+        explain: "For 5 sorted keys, the middle key is promoted; smaller keys stay left and larger keys stay right."
+      },
+      {
+        prompt: "4. What does the parent/root become after the split?",
+        answer: "[15 | 30]",
+        options: ["[15 | 30]", "[30]", "[20 | 30]", "[10 | 15 | 30]"],
+        explain: "The promoted separator 15 is inserted into the parent before 30."
+      }
+    ]
   },
   {
-    title: "Split leaf [3 | 8 | 12 | 16 | 21]",
-    keys: [3, 8, 12, 16, 21],
-    answer: 12,
-    left: [3, 8],
-    right: [16, 21]
+    title: "Insert 32 into the middle child",
+    insertKey: 32,
+    orderNote: "The child interval is selected by the separators in the root.",
+    before: {
+      keys: [20, 40],
+      children: [
+        { keys: [5, 10] },
+        { keys: [25, 30, 35, 38] },
+        { keys: [45, 50] }
+      ]
+    },
+    focusPath: [1],
+    overflow: [25, 30, 32, 35, 38],
+    split: { promote: 32, left: [25, 30], right: [35, 38] },
+    final: {
+      keys: [20, 32, 40],
+      children: [
+        { keys: [5, 10] },
+        { keys: [25, 30] },
+        { keys: [35, 38] },
+        { keys: [45, 50] }
+      ]
+    },
+    steps: [
+      {
+        prompt: "1. Which child interval receives key 32?",
+        answer: "between 20 and 40",
+        options: ["left of 20", "between 20 and 40", "right of 40", "the root itself"],
+        explain: "32 is larger than 20 and smaller than 40, so it goes to the middle child."
+      },
+      {
+        prompt: "2. After inserting 32 in sorted order, what does the leaf contain?",
+        answer: "[25 | 30 | 32 | 35 | 38]",
+        options: ["[25 | 30 | 32 | 35 | 38]", "[25 | 30 | 35 | 38 | 32]", "[20 | 25 | 30 | 32 | 35]", "[30 | 32 | 35 | 38]"],
+        explain: "Insertion happens in the leaf, but the leaf's keys still remain sorted."
+      },
+      {
+        prompt: "3. Which key is promoted from the overflowing leaf?",
+        answer: "32",
+        options: ["30", "32", "35", "40"],
+        explain: "32 is the median of the 5-key overflow node."
+      },
+      {
+        prompt: "4. What does the parent/root become?",
+        answer: "[20 | 32 | 40]",
+        options: ["[20 | 32 | 40]", "[20 | 40]", "[25 | 32 | 40]", "[20 | 30 | 32 | 40]"],
+        explain: "The separator 32 is inserted between 20 and 40."
+      }
+    ]
   },
   {
-    title: "Split internal node [7 | 14 | 18 | 25 | 33]",
-    keys: [7, 14, 18, 25, 33],
-    answer: 18,
-    left: [7, 14],
-    right: [25, 33]
+    title: "Insert 55 into the right child",
+    insertKey: 55,
+    orderNote: "Only the full leaf splits; untouched siblings stay exactly where they are.",
+    before: {
+      keys: [15, 35],
+      children: [
+        { keys: [2, 8, 12] },
+        { keys: [18, 22, 28, 32] },
+        { keys: [40, 50, 60, 70] }
+      ]
+    },
+    focusPath: [2],
+    overflow: [40, 50, 55, 60, 70],
+    split: { promote: 55, left: [40, 50], right: [60, 70] },
+    final: {
+      keys: [15, 35, 55],
+      children: [
+        { keys: [2, 8, 12] },
+        { keys: [18, 22, 28, 32] },
+        { keys: [40, 50] },
+        { keys: [60, 70] }
+      ]
+    },
+    steps: [
+      {
+        prompt: "1. Which child interval receives key 55?",
+        answer: "right of 35",
+        options: ["left of 15", "between 15 and 35", "right of 35", "new child between 35 and 55"],
+        explain: "55 is larger than both root separators, so descend into the right child."
+      },
+      {
+        prompt: "2. After inserting 55 in sorted order, what does the leaf contain?",
+        answer: "[40 | 50 | 55 | 60 | 70]",
+        options: ["[40 | 50 | 55 | 60 | 70]", "[40 | 50 | 60 | 70 | 55]", "[35 | 40 | 50 | 55 | 60]", "[50 | 55 | 60 | 70]"],
+        explain: "The inserted key belongs between 50 and 60."
+      },
+      {
+        prompt: "3. Which key is promoted?",
+        answer: "55",
+        options: ["50", "55", "60", "70"],
+        explain: "The median becomes the separator copied upward into the parent."
+      },
+      {
+        prompt: "4. What does the parent/root become?",
+        answer: "[15 | 35 | 55]",
+        options: ["[15 | 35 | 55]", "[15 | 35]", "[15 | 50 | 55]", "[35 | 55 | 60]"],
+        explain: "55 is inserted after 35; the split creates two children around it."
+      }
+    ]
+  },
+  {
+    title: "Insert 35 and split upward to a new root",
+    insertKey: 35,
+    orderNote: "This one shows the exam-critical cascade: a split can propagate upward.",
+    before: {
+      keys: [20, 40, 60, 80],
+      children: [
+        { keys: [5, 10] },
+        { keys: [25, 30, 38, 39] },
+        { keys: [45, 50] },
+        { keys: [65, 70] },
+        { keys: [85, 90] }
+      ]
+    },
+    focusPath: [1],
+    overflow: [25, 30, 35, 38, 39],
+    split: { promote: 35, left: [25, 30], right: [38, 39] },
+    parentOverflow: [20, 35, 40, 60, 80],
+    final: {
+      keys: [40],
+      children: [
+        {
+          keys: [20, 35],
+          children: [
+            { keys: [5, 10] },
+            { keys: [25, 30] },
+            { keys: [38, 39] }
+          ]
+        },
+        {
+          keys: [60, 80],
+          children: [
+            { keys: [45, 50] },
+            { keys: [65, 70] },
+            { keys: [85, 90] }
+          ]
+        }
+      ]
+    },
+    steps: [
+      {
+        prompt: "1. Which child interval receives key 35?",
+        answer: "between 20 and 40",
+        options: ["left of 20", "between 20 and 40", "between 40 and 60", "right of 80"],
+        explain: "35 lies between root separators 20 and 40."
+      },
+      {
+        prompt: "2. After inserting 35 in sorted order, what does the leaf contain?",
+        answer: "[25 | 30 | 35 | 38 | 39]",
+        options: ["[25 | 30 | 35 | 38 | 39]", "[25 | 30 | 38 | 39 | 35]", "[20 | 25 | 30 | 35 | 38]", "[30 | 35 | 38 | 39]"],
+        explain: "Insert into the leaf first, preserving sorted key order."
+      },
+      {
+        prompt: "3. Which key is promoted from the leaf split?",
+        answer: "35",
+        options: ["30", "35", "38", "40"],
+        explain: "35 is the median; it separates [25 | 30] from [38 | 39]."
+      },
+      {
+        prompt: "4. After promoting 35, what happens to the parent?",
+        answer: "[20 | 35 | 40 | 60 | 80] overflows",
+        options: ["[20 | 35 | 40 | 60 | 80] overflows", "[20 | 40 | 60 | 80] stays unchanged", "[35 | 40 | 60 | 80] replaces 20", "[20 | 35 | 40] becomes the final root"],
+        explain: "The parent was already full. Inserting 35 gives it 5 keys, so the split propagates upward."
+      },
+      {
+        prompt: "5. Which key becomes the new root after splitting the overflowing root?",
+        answer: "40",
+        options: ["35", "40", "60", "80"],
+        explain: "The median of [20 | 35 | 40 | 60 | 80] is 40, so 40 becomes the new root."
+      }
+    ]
   }
 ];
 
@@ -4086,6 +4288,85 @@ function renderBtreeNode(keys) {
   return `<div class="btree-node" aria-label="B-tree node with keys ${keys.join(", ")}">${keys.map((key) => `<span>${key}</span>`).join("")}</div>`;
 }
 
+function renderBtreeTreeNode(node, options = {}, path = []) {
+  if (!node) return "";
+  const pathKey = path.join(".");
+  const isFocus = options.focusPath && options.focusPath.join(".") === pathKey;
+  const children = node.children || [];
+  return `
+    <div class="btree-tree-node ${isFocus ? "is-focus" : ""}">
+      ${renderBtreeNode(node.keys || [])}
+      ${children.length ? `
+        <div class="btree-tree-children">
+          ${children.map((child, index) => renderBtreeTreeNode(child, options, [...path, index])).join("")}
+        </div>
+      ` : ""}
+    </div>
+  `;
+}
+
+function renderBtreeTree(tree, options = {}) {
+  return `<div class="btree-tree">${renderBtreeTreeNode(tree, options)}</div>`;
+}
+
+function renderBtreeStageVisual(item, stepIndex, isComplete = false) {
+  const showFocus = stepIndex > 0 && !isComplete;
+  const panels = [
+    `<div class="btree-stage-panel">
+      <span class="tree-drill-label">Current tree</span>
+      ${renderBtreeTree(item.before, { focusPath: showFocus ? item.focusPath : null })}
+    </div>`
+  ];
+
+  if (stepIndex >= 1 && !isComplete) {
+    panels.push(`<div class="btree-stage-panel">
+      <span class="tree-drill-label">Insert key</span>
+      <div class="btree-insert-key">${item.insertKey}</div>
+      <p>Find the correct leaf interval first, then insert this key inside that leaf.</p>
+    </div>`);
+  }
+
+  if (stepIndex >= 2 && !isComplete) {
+    panels.push(`<div class="btree-stage-panel">
+      <span class="tree-drill-label">Overflowing leaf</span>
+      ${renderBtreeNode(item.overflow)}
+      <p>Five keys is too many in this practice tree, so split around the median.</p>
+    </div>`);
+  }
+
+  if (stepIndex >= 3 && !isComplete) {
+    panels.push(`<div class="btree-stage-panel">
+      <span class="tree-drill-label">Leaf split</span>
+      <div class="btree-split-visual">
+        <div><span class="tree-drill-label">Left child</span>${renderBtreeNode(item.split.left)}</div>
+        <div class="btree-promoted"><span class="tree-drill-label">Promote</span><strong>${item.split.promote}</strong></div>
+        <div><span class="tree-drill-label">Right child</span>${renderBtreeNode(item.split.right)}</div>
+      </div>
+      <p>The promoted key is inserted into the parent as a separator between the two split children.</p>
+    </div>`);
+  }
+
+  if (item.parentOverflow && stepIndex >= 4 && !isComplete) {
+    panels.push(`<div class="btree-stage-panel">
+      <span class="tree-drill-label">Parent after promotion</span>
+      ${renderBtreeNode(item.parentOverflow)}
+      <p>The parent also overflowed, so the split continues upward.</p>
+    </div>`);
+  }
+
+  if (isComplete) {
+    panels.push(`<div class="btree-stage-panel is-final">
+      <span class="tree-drill-label">Final tree</span>
+      ${renderBtreeTree(item.final)}
+    </div>`);
+  }
+
+  return `<div class="btree-stage">
+    <div class="btree-case-note"><strong>Insert ${item.insertKey}</strong><span>${escapeFeedbackText(item.orderNote || "")}</span></div>
+    <div class="btree-stage-grid">${panels.join("")}</div>
+  </div>`;
+}
+
 function initBtreeSplitDrill() {
   const root = document.querySelector("[data-btree-split-drill]");
   if (!root) return;
@@ -4307,6 +4588,7 @@ function initTreeOperationLab() {
     showGuide: false,
     validationMisses: [],
     btreeChoice: null,
+    btreeStep: 0,
     answered: false
   };
 
@@ -4500,20 +4782,27 @@ function initTreeOperationLab() {
     state.btreeChoice = null;
     state.showGuide = false;
     if (guideToggle) guideToggle.hidden = true;
-    if (btreeNode) btreeNode.innerHTML = renderBtreeNode(item.keys);
+    if (btreeNode) btreeNode.innerHTML = renderBtreeStageVisual(item, state.btreeStep, state.answered);
     if (btreeChoices) {
-      btreeChoices.innerHTML = item.keys.map((key) => `<button type="button" class="tree-choice" data-tree-op-btree-answer="${key}">Promote ${key}</button>`).join("");
+      const step = item.steps[state.btreeStep];
+      btreeChoices.innerHTML = step
+        ? `<p class="btree-step-prompt">${escapeFeedbackText(step.prompt)}</p>${step.options.map((option) => `<button type="button" class="tree-choice" data-tree-op-btree-answer="${escapeFeedbackText(option)}">${escapeFeedbackText(option)}</button>`).join("")}`
+        : "";
       btreeChoices.querySelectorAll("[data-tree-op-btree-answer]").forEach((button) => {
         button.addEventListener("click", () => {
-          state.btreeChoice = Number(button.dataset.treeOpBtreeAnswer);
+          state.btreeChoice = button.dataset.treeOpBtreeAnswer;
           btreeChoices.querySelectorAll("[data-tree-op-btree-answer]").forEach((choice) => choice.classList.toggle("is-active", choice === button));
           setFeedback("", `Selected ${state.btreeChoice}. Validate when ready.`);
         });
       });
     }
-    if (btreeResult) btreeResult.innerHTML = `<div class="tree-drill-placeholder">Choose the promoted middle key, then validate.</div>`;
-    if (instruction) instruction.textContent = "Split the overflowing node by promoting the middle key. This is the B-tree insertion step exam reports explicitly mention.";
-    setFeedback("", "Pick the promoted key, then validate.");
+    if (btreeResult) {
+      btreeResult.innerHTML = state.answered
+        ? `<div class="tree-drill-placeholder">Case complete. Use Next case for another insertion.</div>`
+        : `<div class="tree-drill-placeholder">Step ${state.btreeStep + 1} / ${item.steps.length}: choose an answer, then validate.</div>`;
+    }
+    if (instruction) instruction.textContent = "Practice the full B-tree insertion path: choose the child interval, insert in sorted order, split the overflow, promote the median, and continue upward if the parent overflows.";
+    setFeedback("", state.answered ? "Case complete. Move to the next insertion." : "Choose an answer for this insertion step, then validate.");
   };
 
   const render = () => {
@@ -4529,6 +4818,7 @@ function initTreeOperationLab() {
     if (rotationArea) rotationArea.hidden = state.mode === "btree";
     if (btreeArea) btreeArea.hidden = state.mode !== "btree";
     state.selectedNode = null;
+    if (state.mode === "btree") state.btreeStep = Math.min(state.btreeStep, item.steps.length - 1);
     if (state.mode === "btree") renderBtreeMode();
     else renderRotationMode();
   };
@@ -4566,33 +4856,35 @@ function initTreeOperationLab() {
 
   const validateBtree = () => {
     const item = currentItem();
-    const correct = state.btreeChoice === item.answer;
+    const step = item.steps[state.btreeStep];
+    if (!step) return;
+    const correct = state.btreeChoice === step.answer;
     btreeChoices?.querySelectorAll("[data-tree-op-btree-answer]").forEach((button) => {
-      const isAnswer = Number(button.dataset.treeOpBtreeAnswer) === item.answer;
+      const isAnswer = button.dataset.treeOpBtreeAnswer === step.answer;
       button.classList.toggle("is-correct", isAnswer);
       button.classList.toggle("is-wrong", button.classList.contains("is-active") && !isAnswer);
     });
-    if (btreeResult) {
-      btreeResult.innerHTML = `
-        <div class="btree-split-visual">
-          <div><span class="tree-drill-label">Left child</span>${renderBtreeNode(item.left)}</div>
-          <div class="btree-promoted"><span class="tree-drill-label">Promote</span><strong>${item.answer}</strong></div>
-          <div><span class="tree-drill-label">Right child</span>${renderBtreeNode(item.right)}</div>
-        </div>
-      `;
-    }
     if (!correct) {
-      setFeedback("wrong", `<strong>Not quite.</strong> The promoted key is the middle key: ${item.answer}.`);
+      setFeedback("wrong", `<strong>Not quite.</strong> ${escapeFeedbackText(step.explain)}`);
+      return;
+    }
+    if (state.btreeStep < item.steps.length - 1) {
+      state.btreeStep += 1;
+      state.btreeChoice = null;
+      renderBtreeMode();
+      setFeedback("correct", `<strong>Correct.</strong> ${escapeFeedbackText(step.explain)} <span>Next step: ${escapeFeedbackText(item.steps[state.btreeStep].prompt)}</span>`);
       return;
     }
     if (!state.answered) state.score.btree += 1;
     state.answered = true;
-    setFeedback("correct", `<strong>Correct.</strong> Promote ${item.answer}; smaller keys stay left, larger keys stay right.`);
+    renderBtreeMode();
+    setFeedback("correct", `<strong>Correct.</strong> ${escapeFeedbackText(step.explain)} <span>The insertion is complete: all leaves stay at the same depth and separators route the child intervals.</span>`);
   };
 
   root.querySelectorAll("[data-tree-op-mode]").forEach((button) => {
     button.addEventListener("click", () => {
       state.mode = button.dataset.treeOpMode;
+      if (state.mode === "btree") state.btreeStep = 0;
       render();
     });
   });
@@ -4622,7 +4914,10 @@ function initTreeOperationLab() {
     else validateRotation();
   });
 
-  reset?.addEventListener("click", () => render());
+  reset?.addEventListener("click", () => {
+    if (state.mode === "btree") state.btreeStep = 0;
+    render();
+  });
 
   next?.addEventListener("click", () => {
     const items = currentItems();
@@ -4631,6 +4926,7 @@ function initTreeOperationLab() {
       return;
     }
     state.index[state.mode] += 1;
+    if (state.mode === "btree") state.btreeStep = 0;
     render();
   });
 
