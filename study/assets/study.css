@@ -2937,6 +2937,18 @@ p.fallback-link { margin-top: 0.5rem; }
   pointer-events: none;
 }
 
+.tree-snap-target {
+  pointer-events: none;
+}
+
+.tree-snap-target circle {
+  fill: transparent;
+  stroke: color-mix(in srgb, var(--brand) 44%, var(--line-strong));
+  stroke-width: 1.8;
+  stroke-dasharray: 1.8 2.4;
+  vector-effect: non-scaling-stroke;
+}
+
 .tree-target-node circle {
   fill: color-mix(in srgb, var(--lab-tint) 70%, transparent);
   stroke: color-mix(in srgb, var(--lab) 40%, transparent);

@@ -4654,6 +4654,12 @@ function initTreeOperationLab() {
     edgeLayer.innerHTML = "";
     nodeLayer.innerHTML = "";
 
+    item.after.nodes.forEach((node) => {
+      const target = svgElement("g", { class: "tree-snap-target", transform: `translate(${node.x} ${node.y})` });
+      target.appendChild(svgElement("circle", { r: 7.1 }));
+      targetLayer.appendChild(target);
+    });
+
     if (state.showGuide) {
       item.after.edges.forEach(([from, to]) => drawTreeLine(targetLayer, targets[from], targets[to], "tree-target-edge"));
       item.after.nodes.forEach((node) => {
@@ -4760,8 +4766,8 @@ function initTreeOperationLab() {
 
   const describeCanvasStart = () => {
     return state.mode === "rb"
-      ? "Drag the actual nodes into the repaired red-black shape, then select nodes and set final colors. Faint circles show where nodes should end up."
-      : "Drag the actual nodes into the repaired AVL shape. Nodes snap to target circles, and edges stay connected while you move them.";
+      ? "Drag nodes into the empty snap rings, then set final colors. Use Show guide only if you want to reveal the labeled answer."
+      : "Drag nodes into the empty snap rings. Edges stay connected while you move them; Show guide reveals the labeled answer only if needed.";
   };
 
   const renderRotationMode = () => {
