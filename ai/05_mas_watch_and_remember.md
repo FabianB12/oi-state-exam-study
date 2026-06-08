@@ -6,13 +6,22 @@ Use this guide as the video-first path for **AI question 05: Autonomous Agents a
 
 ## 1. Normal-form games
 
-1. [Game Theory 101 (#5): What Is a Nash Equilibrium?](https://www.youtube.com/watch?v=5TcYV6CZ7mI) - William Spaniel, 5:23.
+1. [Game Theory 101 (#1): Introduction](https://www.youtube.com/watch?v=NSVmOC_5zrE) - William Spaniel, 6:44.
+   - Watch: 0:00-6:44.
+   - Remember: game theory studies strategic interdependence; a payoff matrix is the first simple representation.
+2. [Game Theory 101 (#2): The Prisoner's Dilemma and Strict Dominance](https://www.youtube.com/watch?v=DanTKx1FLY8) - William Spaniel, 5:56.
+   - Watch: 0:00-5:56.
+   - Remember: strict dominance means one strategy is better against every opponent action.
+3. [Game Theory 101 (#3): Iterated Elimination of Strictly Dominated Strategies](https://www.youtube.com/watch?v=O8T9spKHVWQ) - William Spaniel, 7:11.
+   - Watch: 0:00-7:11.
+   - Remember: remove strategies that rational players should never choose; strict deletion is order-independent.
+4. [Game Theory 101 (#5): What Is a Nash Equilibrium?](https://www.youtube.com/watch?v=5TcYV6CZ7mI) - William Spaniel, 5:23.
    - Watch: 0:00-5:23.
    - Remember: Nash equilibrium means no profitable unilateral deviation; it does not mean globally best.
-2. [Game Theory 101 (#7): Mixed Strategy Nash Equilibrium and Matching Pennies](https://www.youtube.com/watch?v=fvEQujUcPv4) - William Spaniel, 7:14.
+5. [Game Theory 101 (#7): Mixed Strategy Nash Equilibrium and Matching Pennies](https://www.youtube.com/watch?v=fvEQujUcPv4) - William Spaniel, 7:14.
    - Watch: 0:00-7:14.
    - Remember: mixing makes the opponent indifferent among the pure strategies in their support.
-3. [Game Theory 101 (#8): The Mixed Strategy Algorithm](https://www.youtube.com/watch?v=aa8USttcDoE) - William Spaniel, 9:34.
+6. [Game Theory 101 (#8): The Mixed Strategy Algorithm](https://www.youtube.com/watch?v=aa8USttcDoE) - William Spaniel, 9:34.
    - Watch: 0:00-9:34.
    - Remember: solve simple mixed equilibria by equating the opponent's expected payoffs.
 
