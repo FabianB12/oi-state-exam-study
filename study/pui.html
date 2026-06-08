@@ -247,8 +247,13 @@
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-strips-lab">
               <h3>STRIPS state updater</h3>
-              <p class="preview-text">Try the tiny logistics plan. Preconditions block illegal actions; add/delete effects update the state.</p>
+              <p class="preview-text">First choose the applicable action that moves the plan forward, then apply it. Feedback names the missing precondition or successor formula.</p>
               <p class="step-note"><strong>Use this when:</strong> you need to explain applicability first, then the successor formula.</p>
+              <div class="pui-action-row" aria-label="STRIPS exam check">
+                <button type="button" data-pui-strips-check="load">check load</button>
+                <button type="button" data-pui-strips-check="drive">check drive</button>
+                <button type="button" data-pui-strips-check="unload">check unload</button>
+              </div>
               <div class="pui-action-row">
                 <button type="button" data-pui-action="load">load package</button>
                 <button type="button" data-pui-action="drive">drive truck</button>
@@ -627,7 +632,17 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-policy-tabs">
-              <h3>Policy type selector</h3>
+              <h3>Nondeterministic plan classifier</h3>
+              <p class="preview-text">Classify the guarantee before opening the definition. Instant feedback explains the success condition.</p>
+              <div id="pui-policy-case" class="preview-box"></div>
+              <div class="pui-action-row" aria-label="Classify nondeterministic planning guarantee">
+                <button type="button" data-pui-policy-answer="weak">weak</button>
+                <button type="button" data-pui-policy-answer="strong">strong</button>
+                <button type="button" data-pui-policy-answer="cyclic">strong cyclic</button>
+              </div>
+              <div class="pui-action-row">
+                <button type="button" data-pui-policy-next>next case</button>
+              </div>
               <div class="mini-tabs">
                 <button type="button" data-pui-policy="weak">weak</button>
                 <button type="button" data-pui-policy="strong">strong</button>
@@ -700,23 +715,17 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>Monte Carlo Tree Search - John Levine (15:49)</h3>
+                <h3>MCTS core loop and UCT backup clips</h3>
                 <div class="video-frame" title="Monte Carlo Tree Search by John Levine" data-video-id="UXW2yZndl7U"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="UXW2yZndl7U" data-start="0">0:00 idea</button>
                   <button type="button" data-video-target="UXW2yZndl7U" data-start="300">5:00 tree policy</button>
                   <button type="button" data-video-target="UXW2yZndl7U" data-start="600">10:00 rollout/backprop</button>
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4320">CS188 72:00 rollouts</button>
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4560">CS188 76:00 UCB/UCT</button>
+                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4680">CS188 78:00 summary</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=UXW2yZndl7U" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>CS188 SP24 LEC06 - MCTS segment (79:14, optional watch 72:00-79:00)</h3>
-                <div class="video-frame" title="CS188 SP24 LEC06 - Games: Expectimax, Monte Carlo Tree Search" data-video-id="_-xH1CAfoxM" data-start="4320"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4320">72:00 rollouts</button>
-                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4560">76:00 UCB/UCT</button>
-                  <button type="button" data-video-target="_-xH1CAfoxM" data-start="4680">78:00 summary</button>
-                </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=_-xH1CAfoxM&t=4320s" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
             </div>
@@ -1120,14 +1129,44 @@
       let puiState = new Set(["at(package,A)", "at(truck,A)", "road(A,B)"]);
       let puiMessage = "Initial state loaded.";
 
+      function expectedStripsAction() {
+        if (puiState.has("at(package,B)")) return null;
+        if (puiState.has("at(package,A)") && puiState.has("at(truck,A)")) return "load";
+        if (puiState.has("in(package,truck)") && puiState.has("at(truck,A)")) return "drive";
+        if (puiState.has("in(package,truck)") && puiState.has("at(truck,B)")) return "unload";
+        return "reset";
+      }
+
       function renderStrips() {
         const output = document.getElementById("pui-strips-output");
         if (!output) return;
         const stateHtml = [...puiState].sort().map((fact) => `<span class="pui-chip ${fact === "at(package,B)" ? "good" : ""}">${fact}</span>`).join("");
-        output.innerHTML = `<h4>Current state</h4><div class="pui-state-row">${stateHtml}</div><p>${puiMessage}</p><p><strong>Goal:</strong> <code>at(package,B)</code></p><p class="step-note"><strong>Remember:</strong> failed preconditions mean there is no edge for that action from this state.</p>`;
+        const expected = expectedStripsAction();
+        const prompt = expected === "reset" ? "No goal-reaching action remains in this one-way toy; reset and explain why." : expected ? `Exam check: choose the next useful action before applying it.` : "Goal reached.";
+        output.innerHTML = `<h4>Current state</h4><div class="pui-state-row">${stateHtml}</div><p>${puiMessage}</p><p><strong>Goal:</strong> <code>at(package,B)</code></p><p><strong>${prompt}</strong></p><p class="step-note"><strong>Remember:</strong> failed preconditions mean there is no edge for that action from this state.</p>`;
       }
 
       function initStripsLab() {
+        document.querySelectorAll("[data-pui-strips-check]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const key = button.dataset.puiStripsCheck;
+            const action = stripsActions[key];
+            const missing = action.pre.filter((fact) => !puiState.has(fact));
+            const expected = expectedStripsAction();
+            if (expected === null) {
+              puiMessage = "Already at the goal: <code>at(package,B)</code> is true, so the plan can stop.";
+            } else if (expected === "reset") {
+              puiMessage = "No forward STRIPS action remains. Driving away deleted <code>at(truck,A)</code>, so loading the package is now impossible in this toy domain.";
+            } else if (missing.length) {
+              puiMessage = `Not applicable: <strong>${action.label}</strong> is missing ${missing.map((fact) => `<code>${fact}</code>`).join(", ")}.`;
+            } else if (key === expected) {
+              puiMessage = `Correct: <strong>${action.label}</strong> has <code>pre(a) subset s</code>; applying it gives <code>(s \\ del(a)) union add(a)</code>.`;
+            } else {
+              puiMessage = `Applicable but not the useful next step here. Choose <strong>${stripsActions[expected].label}</strong> so the package, not just the truck, progresses toward <code>at(package,B)</code>.`;
+            }
+            renderStrips();
+          });
+        });
         document.querySelectorAll("[data-pui-action]").forEach((button) => {
           button.addEventListener("click", () => {
             const key = button.dataset.puiAction;
@@ -1206,6 +1245,33 @@
         pomdp: "<h4>POMDP belief state</h4><p>When the state is hidden, the planner maintains <code>b(s)</code>, a probability distribution over possible states, and updates it after actions and observations.</p><p class=\"step-note\"><strong>Remember:</strong> the belief state is the planner's best current summary of hidden reality.</p>"
       };
 
+      const policyCases = [
+        {
+          text: "A policy reaches the goal only if the first nondeterministic outcome is favorable; another outcome enters a dead end.",
+          answer: "weak",
+          why: "Only one successful execution is enough, so this is weak and not guaranteed."
+        },
+        {
+          text: "Every outcome branch reaches a goal state after finitely many policy steps, with no need to revisit a state.",
+          answer: "strong",
+          why: "All branches are solved in finite time, so this is a strong plan."
+        },
+        {
+          text: "The policy may return to the same state after an unlucky outcome, but whenever the progress outcome remains enabled, fairness eventually takes it.",
+          answer: "cyclic",
+          why: "Loops are present, but fair executions still reach the goal, so this is strong cyclic."
+        }
+      ];
+      let puiPolicyCaseIndex = 0;
+      let puiPolicyFeedback = "";
+
+      function renderPolicyCase() {
+        const output = document.getElementById("pui-policy-case");
+        if (!output) return;
+        const item = policyCases[puiPolicyCaseIndex];
+        output.innerHTML = `<h4>Case ${puiPolicyCaseIndex + 1}</h4><p>${item.text}</p>${puiPolicyFeedback}`;
+      }
+
       function initPolicyTabs() {
         const output = document.getElementById("pui-policy-output");
         if (!output) return;
@@ -1218,7 +1284,26 @@
         document.querySelectorAll("[data-pui-policy]").forEach((button) => {
           button.addEventListener("click", () => render(button.dataset.puiPolicy));
         });
+        document.querySelectorAll("[data-pui-policy-answer]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const item = policyCases[puiPolicyCaseIndex];
+            const answer = button.dataset.puiPolicyAnswer;
+            const correct = answer === item.answer;
+            puiPolicyFeedback = `<p><span class="pui-chip ${correct ? "good" : "bad"}">${correct ? "Correct" : "Check again"}</span> ${item.why}</p>`;
+            document.querySelectorAll("[data-pui-policy-answer]").forEach((choice) => {
+              choice.classList.toggle("active", choice.dataset.puiPolicyAnswer === answer);
+            });
+            renderPolicyCase();
+          });
+        });
+        document.querySelector("[data-pui-policy-next]")?.addEventListener("click", () => {
+          puiPolicyCaseIndex = (puiPolicyCaseIndex + 1) % policyCases.length;
+          puiPolicyFeedback = "";
+          document.querySelectorAll("[data-pui-policy-answer]").forEach((choice) => choice.classList.remove("active"));
+          renderPolicyCase();
+        });
         render("weak");
+        renderPolicyCase();
       }
 
       const uctActions = [

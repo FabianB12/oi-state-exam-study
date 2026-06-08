@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -89,7 +89,7 @@
           <button type="button" class="btn-ghost-sm" data-reset-progress><span class="material-symbols-rounded">restart_alt</span>Reset progress</button>
         </div>
 
-        <nav class="rail-modules" data-progress-group>
+        <nav class="rail-modules" data-progress-group aria-label="SMU module sections">
           <div class="rail-item">
             <input type="checkbox" data-progress-key="smu-pac" aria-label="Mark PAC and online module complete">
             <a href="#pac-online"><span class="rail-num">1</span> PAC, online, VC</a>
@@ -218,7 +218,7 @@
               <span>State a formal PAC guarantee and the usual VC sample-complexity message.</span>
               <textarea rows="4" data-recall="smu-pac-formal" placeholder="Use epsilon, delta, err_D(h), polynomial sample size, finite VC dimension..."></textarea>
             </label>
-            <template data-recall-reference="smu-pac-formal">Define true error err_D(h)=Pr_{x~D}[h(x) != c(x)]. For every epsilon, delta in (0,1), every distribution D, and target c in C, after m polynomial in 1/epsilon, 1/delta, n, and size(c), the learner outputs h with Pr[err_D(h) <= epsilon] >= 1-delta. Efficient PAC adds polynomial runtime. For VC dimension d, typical realizable sample complexity is O((d log(1/epsilon)+log(1/delta))/epsilon), agnostic is O((d+log(1/delta))/epsilon^2), and finite VC dimension is necessary and sufficient for distribution-free binary PAC learnability.</template>
+            <template data-recall-reference="smu-pac-formal">Define true error err_D(h)=Pr_{x~D}[h(x) != c(x)]. For every epsilon, delta in (0,1), every distribution D, and target c in C, after m polynomial in 1/epsilon, 1/delta, n, and size(c), the learner outputs h with Pr[err_D(h) &lt;= epsilon] >= 1-delta. Efficient PAC adds polynomial runtime. For VC dimension d, typical realizable sample complexity is O((d log(1/epsilon)+log(1/delta))/epsilon), agnostic is O((d+log(1/delta))/epsilon^2), and finite VC dimension is necessary and sufficient for distribution-free binary PAC learnability.</template>
             <label class="free-recall">
               <span>Compare VC dimension and Littlestone dimension as exam characterizations.</span>
               <textarea rows="4" data-recall="smu-pac-vc-littlestone" placeholder="Shattering vs online trees, PAC vs adversarial online, finite dimension condition..."></textarea>
@@ -281,12 +281,11 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="smu-boolean-stepper">
-              <h3>Literal elimination preview</h3>
-              <p class="step-note"><strong>Why:</strong> every deletion is safe because a true positive example cannot violate any literal that belongs in the target conjunction.</p>
+              <h3>Literal elimination check</h3>
+              <p class="step-note"><strong>Exam move:</strong> decide which examples matter, delete the right literals, and name the conjunction/disjunction dual.</p>
               <div id="smu-boolean-output" class="preview-box"></div>
               <div class="step-controls">
-                <button type="button" data-smu-boolean-prev>Previous</button>
-                <button type="button" data-smu-boolean-next>Next</button>
+                <button type="button" data-smu-boolean-check-next>Next check</button>
               </div>
             </article>
           </div>
@@ -343,7 +342,7 @@
 
           <div class="block">
             <p class="block-label watch">Watch first</p>
-            <div class="video-grid triple">
+            <div class="video-grid">
               <article class="video-card">
                 <h3>Multi-Armed Bandit - ritvikmath (11:43)</h3>
                 <div class="video-frame" title="Multi-Armed Bandit Data Science Concepts" data-video-id="e3L4VocZnnQ"></div>
@@ -355,23 +354,16 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=e3L4VocZnnQ" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>UCB vs Thompson sampling comparison (9:07)</h3>
+                <h3>UCB and Thompson sampling comparison/detail (9:07 + 13:16)</h3>
                 <div class="video-frame" title="UCB vs Thompson Sampling" data-video-id="dI7I7iuuZrA"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="0">0:00 comparison</button>
-                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="140">2:20 UCB</button>
-                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="330">5:30 Thompson</button>
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="0">UCB vs Thompson comparison</button>
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="140">UCB</button>
+                  <button type="button" data-video-target="dI7I7iuuZrA" data-start="330">Thompson contrast</button>
+                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="0">Thompson detail</button>
+                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="360">Beta updates</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=dI7I7iuuZrA" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Thompson Sampling - ritvikmath (13:16)</h3>
-                <div class="video-frame" title="Thompson Sampling Data Science Concepts" data-video-id="Zgwfw3bzSmQ"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="0">0:00 posterior idea</button>
-                  <button type="button" data-video-target="Zgwfw3bzSmQ" data-start="360">6:00 beta updates</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=Zgwfw3bzSmQ" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
             </div>
           </div>
@@ -461,23 +453,16 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>CS188 MDPs: states, values, policies, Q-values (83:20, watch 0:00-18:00)</h3>
+                <h3>MDPs, values, policies, and value iteration (83:20 + 16:39)</h3>
                 <div class="video-frame" title="CS188 MDPs States Values Policies Q-values" data-video-id="i2hHZRhzy-k"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="0">0:00 MDP setup</button>
-                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="420">7:00 values/utilities</button>
-                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="780">13:00 policy/value link</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="0">CS188 MDP setup</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="420">Values/utilities</button>
+                  <button type="button" data-video-target="i2hHZRhzy-k" data-start="780">Policy/value link</button>
+                  <button type="button" data-video-target="l87rgLg90HI" data-start="0">Value-iteration intuition</button>
+                  <button type="button" data-video-target="l87rgLg90HI" data-start="450">Iteration backup</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=i2hHZRhzy-k" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Policy and Value Iteration - Mutual Information (16:39)</h3>
-                <div class="video-frame" title="Policy and Value Iteration" data-video-id="l87rgLg90HI"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="l87rgLg90HI" data-start="0">0:00 intuition</button>
-                  <button type="button" data-video-target="l87rgLg90HI" data-start="450">7:30 iteration</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=l87rgLg90HI" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
             </div>
           </div>
@@ -564,24 +549,17 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid triple">
               <article class="video-card">
-                <h3>Q Learning simply explained: SARSA and Q-learning (9:45)</h3>
+                <h3>TD, SARSA, and Q-learning timestamps (9:45 + 28:38)</h3>
                 <div class="video-frame" title="Q Learning SARSA and Q-Learning Explanation" data-video-id="MI8ByADMh20"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="MI8ByADMh20" data-start="0">0:00 Q-learning setup</button>
-                  <button type="button" data-video-target="MI8ByADMh20" data-start="330">5:30 SARSA contrast</button>
+                  <button type="button" data-video-target="MI8ByADMh20" data-start="0">Q-learning setup</button>
+                  <button type="button" data-video-target="MI8ByADMh20" data-start="330">SARSA contrast</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="78">TD from MC</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="388">Bootstrapping</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="929">SARSA segment</button>
+                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="1142">Q-learning segment</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=MI8ByADMh20" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Temporal Difference Learning incl. Q-Learning - Mutual Information (28:38, watch 1:18-20:50)</h3>
-                <div class="video-frame" title="Temporal Difference Learning including Q-Learning" data-video-id="AJiG3ykOxmY" data-start="78"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="78">1:18 TD from MC</button>
-                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="388">6:28 bootstrapping</button>
-                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="929">15:29 SARSA</button>
-                  <button type="button" data-video-target="AJiG3ykOxmY" data-start="1142">19:02 Q-learning</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=AJiG3ykOxmY" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
                 <h3>Policy Gradient Methods - Mutual Information (29:00, optional watch 0:00-12:30)</h3>
@@ -630,16 +608,12 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="smu-rl-tabs">
-              <h3>RL update selector</h3>
-              <div class="mini-tabs">
-                <button type="button" data-smu-rl-tab="mc">Monte Carlo</button>
-                <button type="button" data-smu-rl-tab="adp">ADP</button>
-                <button type="button" data-smu-rl-tab="td">TD</button>
-                <button type="button" data-smu-rl-tab="q">Q vs SARSA</button>
-                <button type="button" data-smu-rl-tab="policy">Policy search</button>
-              </div>
-              <p class="step-note"><strong>Use this:</strong> first identify what is learned, then ask whether the target is a full return, a model solve, or a one-step bootstrap.</p>
+              <h3>RL formula classifier</h3>
+              <p class="step-note"><strong>Use this:</strong> identify whether the target is a full return, a learned model, a one-step value bootstrap, a max next action, or the actual next action.</p>
               <div id="smu-rl-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-smu-rl-check-next>Next formula</button>
+              </div>
             </article>
           </div>
 
@@ -657,7 +631,7 @@
               <span>Compare MC, ADP, TD, Q-learning, SARSA, and policy search as if answering orally.</span>
               <textarea rows="5" data-recall="smu-rl-control" placeholder="What is learned, target/update, model-free/model-based, on/off-policy..."></textarea>
             </label>
-            <template data-recall-reference="smu-rl-control">Direct utility estimation is Monte Carlo prediction: average sampled returns G_t for states under a policy; model-free, can be unbiased but high variance and often episodic. ADP is model-based: estimate transition probabilities and rewards from experience, then solve the learned MDP by value or policy iteration. TD uses bootstrapping: V(s) <- V(s)+alpha(r+gamma V(s')-V(s)). Q-learning is off-policy TD control with target r+gamma max_{a'}Q(s',a'); SARSA is on-policy with target r+gamma Q(s',a') where a' is actually chosen. Exploration methods include epsilon-greedy, softmax, optimistic initialization, UCB bonuses, posterior sampling. Policy search directly optimizes J(theta) for a parameterized policy, e.g. finite differences, policy gradient, REINFORCE, actor-critic.</template>
+            <template data-recall-reference="smu-rl-control">Direct utility estimation is Monte Carlo prediction: average sampled returns G_t for states under a policy; model-free, can be unbiased but high variance and often episodic. ADP is model-based: estimate transition probabilities and rewards from experience, then solve the learned MDP by value or policy iteration. TD uses bootstrapping: V(s) &lt;- V(s)+alpha(r+gamma V(s')-V(s)). Q-learning is off-policy TD control with target r+gamma max_{a'}Q(s',a'); SARSA is on-policy with target r+gamma Q(s',a') where a' is actually chosen. Exploration methods include epsilon-greedy, softmax, optimistic initialization, UCB bonuses, posterior sampling. Policy search directly optimizes J(theta) for a parameterized policy, e.g. finite differences, policy gradient, REINFORCE, actor-critic.</template>
             <label class="free-recall">
               <span>Contrast direct utility estimation, ADP, and TD learning.</span>
               <textarea rows="4" data-recall="smu-rl-prediction" placeholder="Full returns, learned model, one-step bootstrap, bias/variance..."></textarea>
@@ -667,7 +641,7 @@
               <span>Give the Q-learning and SARSA updates and explain on-policy versus off-policy.</span>
               <textarea rows="4" data-recall="smu-rl-q-sarsa" placeholder="Both formulas, actual next action vs max next action, behavior policy..."></textarea>
             </label>
-            <template data-recall-reference="smu-rl-q-sarsa">Q-learning update: Q(s,a) <- Q(s,a)+alpha(r+gamma max_{a'}Q(s',a')-Q(s,a)); it is off-policy because it backs up the greedy next action even if the behavior policy explored. SARSA update: Q(s,a) <- Q(s,a)+alpha(r+gamma Q(s',a')-Q(s,a)), where a' is the next action actually selected by the current policy; it is on-policy because the target evaluates the policy being followed, including exploratory moves. Both require sufficient exploration and suitable learning rates for standard convergence results.</template>
+            <template data-recall-reference="smu-rl-q-sarsa">Q-learning update: Q(s,a) &lt;- Q(s,a)+alpha(r+gamma max_{a'}Q(s',a')-Q(s,a)); it is off-policy because it backs up the greedy next action even if the behavior policy explored. SARSA update: Q(s,a) &lt;- Q(s,a)+alpha(r+gamma Q(s',a')-Q(s,a)), where a' is the next action actually selected by the current policy; it is on-policy because the target evaluates the policy being followed, including exploratory moves. Both require sufficient exploration and suitable learning rates for standard convergence results.</template>
             <label class="free-recall">
               <span>Explain exploration versus exploitation and when policy search is attractive.</span>
               <textarea rows="4" data-recall="smu-rl-explore-policy-search" placeholder="Need to try actions, common strategies, direct optimization, continuous actions..."></textarea>
@@ -1090,6 +1064,128 @@
         }
       ];
     }
+
+    const smuBooleanChecks = [
+      {
+        prompt: "Conjunction learner over x1,x2 starts with x1 AND not x1 AND x2 AND not x2. A positive example has x=(1,0). What must be deleted?",
+        choices: ["not x1 and x2", "x1 and not x2", "nothing, because positives are ignored"],
+        correct: 0,
+        why: "Positive examples delete literals they falsify. At (1,0), not x1 is false and x2 is false, so neither can belong to the target conjunction."
+      },
+      {
+        prompt: "For a disjunction learner, a negative example has x1=1 and x2=0. Which candidate literals are unsafe?",
+        choices: ["x1 and not x2", "not x1 and x2", "all literals that are false on the negative example"],
+        correct: 0,
+        why: "A target disjunction must be false on every negative example. Any literal made true by a negative example would make the OR true, so delete it."
+      },
+      {
+        prompt: "In online conjunction learning, why is the clean realizable mistake/update bound at most 2n?",
+        choices: ["Each update deletes at least one literal, and each literal can disappear once", "Each positive example adds one literal until 2n are present", "The learner checks at most two examples per variable"],
+        correct: 0,
+        why: "The hypothesis only shrinks. There are 2n initial literals, so there can be at most 2n literal-removal updates."
+      },
+      {
+        prompt: "Fixed-k CNF becomes efficient conjunction learning by treating what as Boolean features?",
+        choices: ["All clauses of size at most k", "All complete assignments to n variables", "Only literals that appear in positive examples"],
+        correct: 0,
+        why: "For fixed k there are O(n^k) possible small clauses. A k-CNF is a conjunction over those clause-features."
+      }
+    ];
+
+    const smuRlChecks = [
+      {
+        prompt: "Classify the target: G_t, the complete sampled return observed after following a policy.",
+        choices: ["Monte Carlo / direct utility estimation", "TD(0)", "ADP"],
+        correct: 0,
+        why: "Monte Carlo prediction averages full returns. It is model-free and does not bootstrap from V(s')."
+      },
+      {
+        prompt: "Classify the method: estimate transition probabilities and rewards from counts, then solve the learned MDP.",
+        choices: ["ADP", "SARSA", "Policy gradient"],
+        correct: 0,
+        why: "Adaptive dynamic programming is model-based: learn P and R, then use planning such as value or policy iteration."
+      },
+      {
+        prompt: "Classify the target: r + gamma V(s').",
+        choices: ["TD prediction", "Q-learning", "Monte Carlo"],
+        correct: 0,
+        why: "The one-step bootstrapped value target is TD(0): sample the transition, then bootstrap from the current next-state value."
+      },
+      {
+        prompt: "Classify the target: r + gamma max_a' Q(s',a').",
+        choices: ["Q-learning", "SARSA", "Direct utility estimation"],
+        correct: 0,
+        why: "The max over next actions is the Q-learning signature, so the target is greedy and off-policy."
+      },
+      {
+        prompt: "Classify the target: r + gamma Q(s',a'), where a' is the next action actually selected by the behavior policy.",
+        choices: ["SARSA", "Q-learning", "ADP"],
+        correct: 0,
+        why: "SARSA backs up the actual next action. That makes it on-policy under the current exploratory behavior."
+      }
+    ];
+
+    function initSmuChoiceCheck(outputId, nextSelector, checks) {
+      const output = document.getElementById(outputId);
+      const next = document.querySelector(nextSelector);
+      if (!output || !next) return;
+
+      let index = 0;
+
+      const render = () => {
+        const item = checks[index];
+        output.innerHTML = "";
+
+        const heading = document.createElement("h4");
+        heading.textContent = `Check ${index + 1} of ${checks.length}`;
+        output.appendChild(heading);
+
+        const prompt = document.createElement("p");
+        prompt.className = "btree-step-prompt";
+        prompt.textContent = item.prompt;
+        output.appendChild(prompt);
+
+        const row = document.createElement("div");
+        row.className = "tree-choice-row";
+        output.appendChild(row);
+
+        const feedback = document.createElement("p");
+        feedback.className = "tree-feedback";
+        feedback.innerHTML = "<strong>Choose an answer.</strong><span>Feedback appears instantly.</span>";
+
+        item.choices.forEach((choice, choiceIndex) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "tree-choice";
+          button.textContent = choice;
+          button.addEventListener("click", () => {
+            const correct = choiceIndex === item.correct;
+            row.querySelectorAll("button").forEach((option, optionIndex) => {
+              option.disabled = true;
+              option.classList.toggle("is-correct", optionIndex === item.correct);
+              option.classList.toggle("is-wrong", optionIndex === choiceIndex && !correct);
+            });
+            feedback.className = `tree-feedback ${correct ? "is-correct" : "is-wrong"}`;
+            feedback.innerHTML = `<strong>${correct ? "Correct." : "Try again before the oral."}</strong><span>${item.why}</span>`;
+          });
+          row.appendChild(button);
+        });
+
+        output.appendChild(feedback);
+      };
+
+      next.addEventListener("click", () => {
+        index = (index + 1) % checks.length;
+        render();
+      });
+
+      render();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initSmuChoiceCheck("smu-boolean-output", "[data-smu-boolean-check-next]", smuBooleanChecks);
+      initSmuChoiceCheck("smu-rl-output", "[data-smu-rl-check-next]", smuRlChecks);
+    });
   </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -197,21 +197,29 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <div class="two-col">
-              <article class="interactive-card" data-lab-key="tal-proof-tabs">
-                <h3>Use the proof template</h3>
-                <p class="step-note"><strong>Why:</strong> oral correctness answers are safer when you name the template before filling in details.</p>
-                <div class="mini-tabs" data-tal-proof>
-                  <button type="button" data-proof="invariant">Invariant</button>
-                  <button type="button" data-proof="variant">Variant</button>
-                  <button type="button" data-proof="total">Total correctness</button>
+              <article class="interactive-card" data-lab-key="tal-growth-order">
+                <h3>Growth-rate ordering check</h3>
+                <p class="step-note"><strong>Task:</strong> choose the increasing asymptotic order. Instant feedback catches the common log/polynomial/exponential slips.</p>
+                <div class="quiz-options" data-tal-growth-options>
+                  <button type="button" class="quiz-option" data-tal-growth-choice="wrong-poly-first">n, log n, n log n, n^2, 2^n</button>
+                  <button type="button" class="quiz-option" data-tal-growth-choice="correct">log n, n, n log n, n^2, 2^n</button>
+                  <button type="button" class="quiz-option" data-tal-growth-choice="wrong-exp-mid">log n, n, 2^n, n log n, n^2</button>
                 </div>
-                <div id="tal-proof-output" class="preview-box"></div>
+                <div id="tal-growth-feedback" class="preview-box" aria-live="polite">
+                  <p>Pick an ordering to check it.</p>
+                </div>
               </article>
-              <article class="interactive-card">
-                <h3>Mini answer skeleton</h3>
-                <div class="proof-template">
-                  <p><strong>Resource answer:</strong> define input size n, count worst-case time/space, ignore constants and lower-order terms.</p>
-                  <p><strong>Correctness answer:</strong> invariant proves the loop preserves the needed truth; variant proves no infinite execution.</p>
+              <article class="interactive-card" data-lab-key="tal-proof-choice">
+                <h3>Invariant or variant selector</h3>
+                <p class="step-note"><strong>Task:</strong> classify what each proof sentence is doing.</p>
+                <div id="tal-proof-choice-prompt" class="preview-box" aria-live="polite"></div>
+                <div class="quiz-options" data-tal-proof-choice-options>
+                  <button type="button" class="quiz-option" data-tal-proof-choice="invariant">Invariant</button>
+                  <button type="button" class="quiz-option" data-tal-proof-choice="variant">Variant</button>
+                  <button type="button" class="quiz-option" data-tal-proof-choice="total">Total correctness conclusion</button>
+                </div>
+                <div class="step-controls">
+                  <button type="button" data-tal-proof-next>Next</button>
                 </div>
               </article>
             </div>
@@ -374,23 +382,17 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=YX40hbAHx3s" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>MIT Lecture 14 — P, NP, SAT, reductions (1:19:22)</h3>
-                <div class="video-frame" title="MIT P and NP" data-video-id="1VhnDdQsELo" data-start="0"></div>
+                <h3>MIT formal core — P/NP, reductions, Cook-Levin</h3>
+                <div class="video-frame" title="MIT P/NP and Cook-Levin" data-video-id="1VhnDdQsELo" data-start="0"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="1VhnDdQsELo" data-start="0">0:00 NP setup</button>
-                  <button type="button" data-video-target="1VhnDdQsELo" data-start="2760">46:00 SAT and reductions</button>
-                  <button type="button" data-video-target="1VhnDdQsELo" data-start="3660">61:00 reduction logic</button>
+                  <button type="button" data-video-target="1VhnDdQsELo" data-start="0">L14: NP setup</button>
+                  <button type="button" data-video-target="1VhnDdQsELo" data-start="2760">L14: SAT and reductions</button>
+                  <button type="button" data-video-target="1VhnDdQsELo" data-start="3660">L14: reduction logic</button>
+                  <button type="button" data-video-target="6Az1gtDRaAU" data-start="0">L16: theorem setup</button>
+                  <button type="button" data-video-target="6Az1gtDRaAU" data-start="900">L16: tableau idea</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=1VhnDdQsELo&t=2760s" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>MIT Lecture 16 — Cook-Levin (1:18:27)</h3>
-                <div class="video-frame" title="MIT Cook Levin" data-video-id="6Az1gtDRaAU" data-start="0"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="6Az1gtDRaAU" data-start="0">0:00 theorem setup</button>
-                  <button type="button" data-video-target="6Az1gtDRaAU" data-start="900">15:00 tableau idea</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=6Az1gtDRaAU&t=900s" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=1VhnDdQsELo&t=2760s" target="_blank" rel="noreferrer">Lecture 14 fallback</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=6Az1gtDRaAU&t=900s" target="_blank" rel="noreferrer">Lecture 16 fallback</a>
               </article>
               <article class="video-card">
                 <h3>Approximation algorithms — Complexity Explorer (8:16)</h3>
@@ -427,19 +429,22 @@
 
           <div class="block">
             <p class="block-label lab">Lab</p>
-            <article class="interactive-card" data-lab-key="tal-reduction-tabs">
-              <h3>Reduction lab</h3>
-              <p class="step-note"><strong>Why:</strong> the reduction direction transfers hardness from the old problem to the new target.</p>
+            <article class="interactive-card" data-lab-key="tal-reduction-classifier">
+              <h3>Reduction/classification check</h3>
+              <p class="step-note"><strong>Task:</strong> choose the missing exam label. The feedback names the exact proof obligation.</p>
               <div class="class-map">
                 <span class="class-node">P</span><span class="class-arrow">subset</span><span class="class-node">NP</span><span class="class-arrow">?</span><span class="class-node">co-NP</span><span class="class-arrow">NPC sits inside NP if hard</span>
               </div>
-              <div class="mini-tabs">
-                <button type="button" data-reduction-tab="direction">Direction</button>
-                <button type="button" data-reduction-tab="membership">In NP</button>
-                <button type="button" data-reduction-tab="cook">Cook-Levin</button>
-                <button type="button" data-reduction-tab="practical">Practical</button>
+              <div id="tal-reduction-prompt" class="preview-box" aria-live="polite"></div>
+              <div class="quiz-options" data-tal-reduction-options>
+                <button type="button" class="quiz-option" data-tal-reduction-choice="membership">Membership in NP</button>
+                <button type="button" class="quiz-option" data-tal-reduction-choice="hardness">NP-hardness direction</button>
+                <button type="button" class="quiz-option" data-tal-reduction-choice="complete">NP-complete conclusion</button>
+                <button type="button" class="quiz-option" data-tal-reduction-choice="conp">co-NP caution</button>
               </div>
-              <div id="reduction-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-tal-reduction-next>Next</button>
+              </div>
             </article>
           </div>
 
@@ -586,29 +591,21 @@
 
           <div class="block">
             <p class="block-label watch">Watch first</p>
-            <div class="video-grid">
-              <article class="video-card">
-                <h3>MIT Lecture 23 — Probabilistic computation, BPP (1:23:41)</h3>
-                <div class="video-frame" title="MIT Probabilistic Computation" data-video-id="Vp_AzDGQyrA"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="Vp_AzDGQyrA" data-start="0">0:00 randomized TMs</button>
-                  <button type="button" data-video-target="Vp_AzDGQyrA" data-start="900">15:00 BPP intuition</button>
-                  <button type="button" data-video-target="Vp_AzDGQyrA" data-start="1800">30:00 amplification</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=Vp_AzDGQyrA&t=900s" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>NPTEL comparison of randomized classes — IIT Hyderabad (11:20)</h3>
-                <div class="video-frame" title="NPTEL Randomized Complexity Classes" data-video-id="k2nzRrQNoTg"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="k2nzRrQNoTg" data-start="0">0:00 class map</button>
-                  <button type="button" data-video-target="k2nzRrQNoTg" data-start="240">4:00 one-sided classes</button>
-                  <button type="button" data-video-target="k2nzRrQNoTg" data-start="480">8:00 ZPP/BPP relations</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=k2nzRrQNoTg" target="_blank" rel="noreferrer">Fallback link</a>
-                <p class="step-note"><strong>Why this was added:</strong> the exam outline names RP, co-RP, and ZPP; this short comparison is a better fit than a long optional lecture listing.</p>
-              </article>
-            </div>
+            <article class="video-card">
+              <h3>Randomized classes — MIT + NPTEL comparison</h3>
+              <div class="video-frame" title="Randomized Complexity Classes" data-video-id="Vp_AzDGQyrA"></div>
+              <div class="timestamp-row">
+                <button type="button" data-video-target="Vp_AzDGQyrA" data-start="0">MIT: randomized TMs</button>
+                <button type="button" data-video-target="Vp_AzDGQyrA" data-start="900">MIT: BPP intuition</button>
+                <button type="button" data-video-target="Vp_AzDGQyrA" data-start="1800">MIT: amplification</button>
+                <button type="button" data-video-target="k2nzRrQNoTg" data-start="0">NPTEL: class map</button>
+                <button type="button" data-video-target="k2nzRrQNoTg" data-start="240">NPTEL: one-sided error</button>
+                <button type="button" data-video-target="k2nzRrQNoTg" data-start="480">NPTEL: ZPP/BPP</button>
+              </div>
+              <a class="fallback-link" href="https://www.youtube.com/watch?v=Vp_AzDGQyrA&t=900s" target="_blank" rel="noreferrer">MIT fallback</a>
+              <a class="fallback-link" href="https://www.youtube.com/watch?v=k2nzRrQNoTg" target="_blank" rel="noreferrer">NPTEL fallback</a>
+              <p class="step-note"><strong>Why this was added:</strong> the exam outline names RP, co-RP, and ZPP; the short comparison pairs well with the longer BPP lecture.</p>
+            </article>
           </div>
 
           <div class="block">
@@ -943,7 +940,7 @@
     Must say: a decision problem is encoded as a language L subset Sigma*, where yes-instances are members. P is languages decidable by a deterministic TM in polynomial time. NP is nondeterministic polynomial time, equivalently polynomial-size certificates verified deterministically in polynomial time. co-NP contains languages whose complements are in NP, so it captures efficiently verifiable no-certificates. P is contained in NP and co-NP; P vs NP and NP vs co-NP are open.
   </template>
   <template data-recall-reference="tal-complexity-npc-template">
-    Must say: to prove B NP-complete, first show B is in NP by giving a polynomial certificate and verifier. Then show NP-hardness by reducing a known NP-complete problem A to B, A <=p B. Construct a polynomial-time mapping f and prove x in A iff f(x) in B. The direction matters: known hard to target. If B were polynomial-time solvable, then A would be too.
+    Must say: to prove B NP-complete, first show B is in NP by giving a polynomial certificate and verifier. Then show NP-hardness by reducing a known NP-complete problem A to B, A &lt;=p B. Construct a polynomial-time mapping f and prove x in A iff f(x) in B. The direction matters: known hard to target. If B were polynomial-time solvable, then A would be too.
   </template>
   <template data-recall-reference="tal-complexity-three-coloring">
     Must say: 3-coloring is in NP because a certificate assigns one of three colors to every vertex and every edge can be checked for different endpoint colors in polynomial time. It is NP-hard by a standard polynomial reduction from a known NP-complete problem such as 3-SAT. Therefore 3-coloring is NP-complete. Its complement is in co-NP by definition; do not claim it is in NP unless NP = co-NP is known.
@@ -952,7 +949,7 @@
     Must say: Cook-Levin states SAT is NP-complete. SAT is in NP because a truth assignment can be checked in polynomial time. For every language in NP, take a polynomial-time NTM/verifier and input x, then build a Boolean formula describing an accepting computation tableau. Clauses enforce the start configuration, legal local transitions, and an accepting state. The formula is satisfiable iff the computation accepts.
   </template>
   <template data-recall-reference="tal-complexity-heuristics-approx">
-    Must say: for NP-hard optimization, exact polynomial algorithms are unlikely unless P=NP. Practical tools include exponential exact search with pruning such as branch and bound, local search, greedy/randomized/metaheuristics, and approximation algorithms. An approximation ratio bounds the solution value against OPT, for example A(I) <= rho OPT for minimization. PTAS gives a ratio for fixed epsilon; FPTAS is also polynomial in 1/epsilon.
+    Must say: for NP-hard optimization, exact polynomial algorithms are unlikely unless P=NP. Practical tools include exponential exact search with pruning such as branch and bound, local search, greedy/randomized/metaheuristics, and approximation algorithms. An approximation ratio bounds the solution value against OPT, for example A(I) &lt;= rho OPT for minimization. PTAS gives a ratio for fixed epsilon; FPTAS is also polynomial in 1/epsilon.
   </template>
   <template data-recall-reference="tal-space-classes-inclusions">
     Must say: DSPACE(s(n)) and NSPACE(s(n)) are languages decidable using O(s(n)) deterministic or nondeterministic working space. PSPACE is the union of DSPACE(n^k); NPSPACE is the union of NSPACE(n^k). P subset NP because deterministic polynomial time is a special case of nondeterminism. NP subset PSPACE because a polynomial-time nondeterministic computation tree can be searched depth-first using polynomial space.
@@ -1075,6 +1072,147 @@
         { q: "In the standard diagonal-language drill, L_D is...", a: ["Not RE, while its paired-enumeration complement is RE", "Decidable because every machine has an index", "In P because only one machine is simulated"], correct: 0, why: "The diagonal language escapes every recognizer; its complement can recognize acceptance on the paired machine/input." },
         { q: "Diagonal language is used to show...", a: ["Some languages are not RE", "All TMs halt on every input", "RP and co-RP are equal"], correct: 0, why: "The self-reference construction escapes every recognizer in the enumeration." }
       ];
+
+      const resetChoiceButtons = (buttons) => {
+        buttons.forEach((button) => {
+          button.classList.remove("correct", "incorrect");
+        });
+      };
+
+      const markChoice = (buttons, picked, isCorrect) => {
+        buttons.forEach((button) => {
+          button.classList.remove("correct", "incorrect");
+          if (button === picked) button.classList.add(isCorrect ? "correct" : "incorrect");
+        });
+      };
+
+      const initGrowthOrderLab = () => {
+        const feedback = document.getElementById("tal-growth-feedback");
+        const buttons = [...document.querySelectorAll("[data-tal-growth-choice]")];
+        if (!feedback || !buttons.length) return;
+        const answers = {
+          correct: {
+            correct: true,
+            html: "<h4>Correct.</h4><p><code>log n</code> grows slower than any positive polynomial, <code>n log n</code> is between linear and quadratic, and <code>2^n</code> eventually beats every polynomial.</p>"
+          },
+          wrongPolyFirst: {
+            correct: false,
+            html: "<h4>Not quite.</h4><p><code>log n</code> must come before <code>n</code>. Logs grow very slowly compared with polynomial terms.</p>"
+          },
+          wrongExpMid: {
+            correct: false,
+            html: "<h4>Not quite.</h4><p><code>2^n</code> belongs at the end here. Exponential growth eventually dominates <code>n log n</code> and <code>n^2</code>.</p>"
+          }
+        };
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const result = answers[button.dataset.talGrowthChoice];
+            markChoice(buttons, button, result.correct);
+            feedback.innerHTML = `${result.html}<p class="step-note"><strong>Exam phrase:</strong> asymptotic comparison ignores constants and lower-order terms, then orders functions by eventual growth.</p>`;
+          });
+        });
+      };
+
+      const initProofChoiceLab = () => {
+        const prompt = document.getElementById("tal-proof-choice-prompt");
+        const buttons = [...document.querySelectorAll("[data-tal-proof-choice]")];
+        const next = document.querySelector("[data-tal-proof-next]");
+        if (!prompt || !buttons.length) return;
+        const items = [
+          {
+            text: "For binary search, if the target occurs in the array, it remains inside the current interval after every comparison.",
+            correct: "invariant",
+            why: "That is the preserved truth used for partial correctness."
+          },
+          {
+            text: "The interval length is a non-negative integer and strictly decreases whenever the loop repeats.",
+            correct: "variant",
+            why: "That is the countdown proving termination."
+          },
+          {
+            text: "The invariant gives the right answer if the loop stops, and the decreasing interval proves that it must stop.",
+            correct: "total",
+            why: "Partial correctness plus termination is total correctness."
+          }
+        ];
+        let index = 0;
+        const render = () => {
+          resetChoiceButtons(buttons);
+          const item = items[index];
+          prompt.innerHTML = `<h4>Sentence ${index + 1} of ${items.length}</h4><p>${item.text}</p><p class="quiz-feedback">Choose the role of this sentence.</p>`;
+        };
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const item = items[index];
+            const isCorrect = button.dataset.talProofChoice === item.correct;
+            markChoice(buttons, button, isCorrect);
+            prompt.innerHTML = `<h4>${isCorrect ? "Correct." : "Not quite."}</h4><p>${item.text}</p><p>${item.why}</p>`;
+          });
+        });
+        if (next) {
+          next.addEventListener("click", () => {
+            index = (index + 1) % items.length;
+            render();
+          });
+        }
+        render();
+      };
+
+      const initReductionClassifierLab = () => {
+        const prompt = document.getElementById("tal-reduction-prompt");
+        const buttons = [...document.querySelectorAll("[data-tal-reduction-choice]")];
+        const next = document.querySelector("[data-tal-reduction-next]");
+        if (!prompt || !buttons.length) return;
+        const items = [
+          {
+            text: "A proposed 3-coloring assigns one of three colors to every vertex; checking every edge has differently colored endpoints is polynomial.",
+            correct: "membership",
+            why: "This proves the target is in NP by giving a polynomial verifier."
+          },
+          {
+            text: "Transform each instance of known NP-complete problem A into an instance of target problem B, so a polynomial solver for B would solve A.",
+            correct: "hardness",
+            why: "This is the hardness direction: known hard A reduces to target B."
+          },
+          {
+            text: "The target has a polynomial verifier, and a known NP-complete problem reduces to it.",
+            correct: "complete",
+            why: "Those two obligations together prove NP-completeness."
+          },
+          {
+            text: "The complement of 3-coloring is in co-NP by definition; do not claim it is in NP unless NP = co-NP is known.",
+            correct: "conp",
+            why: "This is the standard complement-class caution."
+          }
+        ];
+        let index = 0;
+        const render = () => {
+          resetChoiceButtons(buttons);
+          const item = items[index];
+          prompt.innerHTML = `<h4>Drill ${index + 1} of ${items.length}</h4><p>${item.text}</p><p class="quiz-feedback">Pick the proof label.</p>`;
+        };
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const item = items[index];
+            const isCorrect = button.dataset.talReductionChoice === item.correct;
+            markChoice(buttons, button, isCorrect);
+            prompt.innerHTML = `<h4>${isCorrect ? "Correct." : "Not quite."}</h4><p>${item.text}</p><p>${item.why}</p>`;
+          });
+        });
+        if (next) {
+          next.addEventListener("click", () => {
+            index = (index + 1) % items.length;
+            render();
+          });
+        }
+        render();
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initGrowthOrderLab();
+        initProofChoiceLab();
+        initReductionClassifierLab();
+      });
     })();
   </script>
 </body>

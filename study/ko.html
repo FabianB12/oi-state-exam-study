@@ -12,6 +12,64 @@
   <style>
     .ko-quiz-only { grid-template-columns: minmax(0, 1fr); }
     .ko-recall-stack { display: grid; gap: 1rem; }
+    .ko-check-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.55rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+    .ko-check-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+    .ko-check-choice {
+      padding: 0.42rem 0.68rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink-soft);
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .ko-check-choice:hover { background: var(--surface-3); }
+    .ko-check-choice.is-correct {
+      border-color: var(--good);
+      background: var(--good-tint);
+      color: var(--good);
+    }
+    .ko-check-choice.is-wrong {
+      border-color: var(--bad);
+      background: var(--bad-tint);
+      color: var(--bad);
+    }
+    .ko-check-feedback {
+      margin-top: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      font-weight: 650;
+    }
+    .ko-check-feedback.is-correct {
+      border-color: var(--good);
+      background: var(--good-tint);
+      color: var(--good);
+    }
+    .ko-check-feedback.is-wrong {
+      border-color: var(--bad);
+      background: var(--bad-tint);
+      color: var(--bad);
+    }
   </style>
 </head>
 <body data-page="ko">
@@ -157,25 +215,19 @@
 
           <div class="block">
             <p class="block-label watch">Watch first</p>
-            <div class="video-grid triple">
+            <div class="video-grid">
               <article class="video-card">
-                <h3>Branch and Bound for ILP - Decision Making 101 (16:15)</h3>
+                <h3>Branch and bound: relaxation, branching, and pruning</h3>
+                <p>Use the first video for the ILP relaxation story, then switch to the second for a compact tree intuition.</p>
                 <div class="video-frame" title="Branch and Bound for ILP" data-video-id="WNRRmXZkRi0"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="WNRRmXZkRi0" data-start="0">0:00 relaxation idea</button>
+                  <button type="button" data-video-target="WNRRmXZkRi0" data-start="0">Decision Making 101</button>
                   <button type="button" data-video-target="WNRRmXZkRi0" data-start="250">4:10 branching</button>
                   <button type="button" data-video-target="WNRRmXZkRi0" data-start="650">10:50 pruning</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=WNRRmXZkRi0" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Branch and Bound Introduction - Abdul Bari (9:39)</h3>
-                <div class="video-frame" title="Branch and Bound Introduction" data-video-id="3RBNPc0_Q6g"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="3RBNPc0_Q6g" data-start="0">0:00 search tree</button>
+                  <button type="button" data-video-target="3RBNPc0_Q6g" data-start="0">Abdul Bari tree</button>
                   <button type="button" data-video-target="3RBNPc0_Q6g" data-start="220">3:40 bounding intuition</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=3RBNPc0_Q6g" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=WNRRmXZkRi0" target="_blank" rel="noreferrer">Open current video on YouTube</a>
               </article>
               <article class="video-card">
                 <h3>Cutting-plane method - Shokoufeh Mirzaei (14:10)</h3>
@@ -1472,6 +1524,167 @@
             why: "CSPs may be encoded as ILPs, but the modeling and algorithms are presented differently."
           }
         ]
+      });
+    })();
+  </script>
+  <script>
+    (() => {
+      const labState = {
+        flow: 0,
+        ac3: 0
+      };
+
+      const flowChecks = [
+        {
+          title: "Max-flow augmentation",
+          context: "Residual path: s -> a has 4, a -> b has 2, b -> t has 3. What is the bottleneck you can augment by?",
+          choices: ["2", "3", "4"],
+          correct: 0,
+          feedback: [
+            "Correct. The path is limited by the smallest residual capacity, so you push 2.",
+            "Try again: 3 fits on b -> t but not on a -> b.",
+            "Try again: 4 fits on s -> a only; every edge on the path must carry the augmentation."
+          ]
+        },
+        {
+          title: "Residual update",
+          context: "After pushing 2 through edge a -> b, that edge is saturated. What residual edges should you remember?",
+          choices: ["forward 0, backward 2", "forward 2, backward 0", "forward 4, backward 2"],
+          correct: 0,
+          feedback: [
+            "Correct. No more flow can go forward on a -> b, but 2 units can be undone on b -> a.",
+            "Try again: the backward edge is exactly the current flow you may cancel.",
+            "Try again: residual forward capacity is unused capacity, not capacity plus flow."
+          ]
+        },
+        {
+          title: "Lower-bound transform",
+          context: "For one edge u -> v with lower bound 3 and upper bound 7, you set f' = f - 3. What does the transformed instance need to remember?",
+          choices: ["capacity 4, plus 3 forced units from u to v in the balances", "capacity 7, lower bound ignored", "capacity 3, because only the mandatory part remains"],
+          correct: 0,
+          feedback: [
+            "Correct. The new variable has range 0..4, and node balances account for the mandatory lower-bound flow.",
+            "Try again: removing the lower bound changes both capacity and balances.",
+            "Try again: 3 is already forced; the residual decision range is 7 - 3."
+          ]
+        },
+        {
+          title: "Max-flow certificate",
+          context: "No residual s-t path remains, and the vertices reachable from s are S = {s, a}. Which exam sentence closes the proof?",
+          choices: ["The cut (S, V\\S) has capacity equal to the current flow, so the flow is maximum.", "The largest original edge is saturated, so the flow is maximum.", "A lower-bound transform is needed before any cut argument applies."],
+          correct: 0,
+          feedback: [
+            "Correct. The residual reachable set gives the min-cut certificate.",
+            "Try again: one saturated edge is not enough; the whole residual reachable cut matters.",
+            "Try again: lower-bound feasibility is a separate reduction, not the ordinary max-flow certificate."
+          ]
+        }
+      ];
+
+      const ac3Checks = [
+        {
+          title: "Revise a directed arc",
+          context: "Domains: D_X = {1,2,3}, D_Y = {1,2}. Constraint on arc (X,Y): X < Y. What does Revise(X,Y) delete from D_X?",
+          choices: ["{2,3}", "{1}", "nothing"],
+          correct: 0,
+          feedback: [
+            "Correct. X=1 has support Y=2; X=2 and X=3 have no larger value in D_Y.",
+            "Try again: X=1 is supported by Y=2, so it survives.",
+            "Try again: revise deletes every value with no support on the other side."
+          ]
+        },
+        {
+          title: "Requeue after deletion",
+          context: "Suppose X also has neighbor Z. After Revise(X,Y) changed D_X, which arc must AC3 requeue?",
+          choices: ["(Z,X)", "(Y,X) only", "(X,Y) again only"],
+          correct: 0,
+          feedback: [
+            "Correct. Requeue arcs into X from other neighbors, because their supports may have disappeared.",
+            "Try again: the arc from the variable just checked is the one AC3 normally excludes.",
+            "Try again: the changed domain is D_X, so neighbors pointing into X need another look."
+          ]
+        },
+        {
+          title: "Empty-domain failure",
+          context: "Domains: D_Y = {1,2}, D_Z = {1}. Constraint on arc (Y,Z): Y < Z. What happens during Revise(Y,Z)?",
+          choices: ["D_Y becomes empty, so AC3 reports inconsistency", "D_Z becomes {2}, so AC3 continues", "Nothing changes because both domains are nonempty"],
+          correct: 0,
+          feedback: [
+            "Correct. Neither 1 nor 2 has a larger support in D_Z = {1}.",
+            "Try again: revise changes the first domain, and it never invents new values.",
+            "Try again: nonempty domains can still lose every unsupported value."
+          ]
+        },
+        {
+          title: "What AC3 proves",
+          context: "AC3 terminates with all domains nonempty. What is the careful conclusion?",
+          choices: ["The CSP is arc-consistent, but search may still be needed", "A satisfying assignment is guaranteed", "The problem has become an ILP relaxation"],
+          correct: 0,
+          feedback: [
+            "Correct. AC3 enforces local support, not global completeness.",
+            "Try again: local pairwise support does not always combine into a full assignment.",
+            "Try again: AC3 is constraint propagation, not an LP/ILP transformation."
+          ]
+        }
+      ];
+
+      function renderKoCheck(output, checks, index, key) {
+        const item = checks[index];
+        output.innerHTML = `
+          <div class="ko-check-meta"><span>Step ${index + 1} of ${checks.length}</span><span>${key === "flow" ? "Flow exam skill" : "AC3 exam skill"}</span></div>
+          <h4>${item.title}</h4>
+          <p>${item.context}</p>
+          <div class="ko-check-choice-row" role="group" aria-label="${item.title}">
+            ${item.choices.map((choice, choiceIndex) => `<button type="button" class="ko-check-choice" data-ko-check-choice="${choiceIndex}">${choice}</button>`).join("")}
+          </div>
+          <p class="ko-check-feedback" data-ko-check-feedback>Pick the next step.</p>
+        `;
+        output.querySelectorAll("[data-ko-check-choice]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const choice = Number(button.dataset.koCheckChoice);
+            const correct = choice === item.correct;
+            output.querySelectorAll("[data-ko-check-choice]").forEach((option) => {
+              option.classList.remove("is-correct", "is-wrong");
+            });
+            button.classList.add(correct ? "is-correct" : "is-wrong");
+            const feedback = output.querySelector("[data-ko-check-feedback]");
+            feedback.classList.toggle("is-correct", correct);
+            feedback.classList.toggle("is-wrong", !correct);
+            feedback.textContent = item.feedback[choice];
+          });
+        });
+      }
+
+      function wireKoCheckStepper({ outputId, prevSelector, nextSelector, checks, key }) {
+        const output = document.getElementById(outputId);
+        if (!output) return;
+        const render = () => renderKoCheck(output, checks, labState[key], key);
+        document.querySelector(prevSelector)?.addEventListener("click", () => {
+          labState[key] = Math.max(0, labState[key] - 1);
+          render();
+        });
+        document.querySelector(nextSelector)?.addEventListener("click", () => {
+          labState[key] = Math.min(checks.length - 1, labState[key] + 1);
+          render();
+        });
+        render();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        wireKoCheckStepper({
+          outputId: "ko-flow-output",
+          prevSelector: "[data-ko-flow-prev]",
+          nextSelector: "[data-ko-flow-next]",
+          checks: flowChecks,
+          key: "flow"
+        });
+        wireKoCheckStepper({
+          outputId: "ko-ac3-output",
+          prevSelector: "[data-ko-ac3-prev]",
+          nextSelector: "[data-ko-ac3-next]",
+          checks: ac3Checks,
+          key: "ac3"
+        });
       });
     })();
   </script>

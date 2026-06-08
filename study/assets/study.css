@@ -3999,6 +3999,8 @@ p.fallback-link { margin-top: 0.5rem; }
 .exam-practice {
   display: grid;
   gap: 0.85rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .written-practice h3,
@@ -4302,11 +4304,15 @@ p.fallback-link { margin-top: 0.5rem; }
   display: grid;
   gap: 0.5rem;
   margin-top: 0;
+  min-width: 0;
   color: var(--ink-soft);
   font-size: 0.93rem;
   font-weight: 600;
 }
-.free-recall span { font-weight: 600; }
+.free-recall span {
+  min-width: 0;
+  font-weight: 600;
+}
 
 .free-recall + .free-recall,
 template + .free-recall {
@@ -4345,6 +4351,7 @@ template + .free-recall {
 }
 
 .free-recall textarea {
+  box-sizing: border-box;
   width: 100%;
   min-height: 96px;
   max-height: 320px;

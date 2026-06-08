@@ -25,6 +25,46 @@
     .practice-grid .flashcards[hidden] + .quiz {
       grid-column: 1 / -1;
     }
+    .lup-check-panel {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.8rem;
+    }
+    .lup-mini-case {
+      padding: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+    }
+    .lup-mini-case strong {
+      display: block;
+      color: var(--lab);
+    }
+    .lup-mini-case p {
+      margin: 0.45rem 0 0;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+    .lup-clause-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--ink);
+    }
+    .lup-answer-row button.is-correct {
+      border-color: var(--good);
+      background: var(--good-tint);
+      color: var(--good);
+    }
+    .lup-answer-row button.is-wrong {
+      border-color: var(--panic);
+      background: var(--panic-tint);
+      color: var(--panic);
+    }
+    .lup-feedback {
+      min-height: 1.35rem;
+      font-weight: 700;
+    }
+    .lup-feedback.good { color: var(--good); }
+    .lup-feedback.warn { color: var(--panic); }
   </style>
 </head>
 <body data-page="lup">
@@ -225,7 +265,7 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="lup-sat-tabs">
-              <h3>Boolean proving selector</h3>
+              <h3>SAT move checks</h3>
               <div class="mini-tabs">
                 <button type="button" data-lup-sat-tab="cnf">CNF/Tseitin</button>
                 <button type="button" data-lup-sat-tab="resolution">Resolution</button>
@@ -234,6 +274,30 @@
               </div>
               <p class="step-note"><strong>Why:</strong> Tseitin keeps CNF small, resolution explains refutation, and DPLL/CDCL explain how solvers search.</p>
               <div id="lup-sat-output" class="preview-box"></div>
+              <div class="lup-check-panel">
+                <div class="lup-mini-case" data-lup-check-group>
+                  <strong>DPLL forced move</strong>
+                  <p class="lup-clause-line">CNF: (a) and (not a or b) and (not b or c) and (not c or d)</p>
+                  <p>After unit propagation has set <code>a=true</code>, <code>b=true</code>, and <code>c=true</code>, what should the solver do next?</p>
+                  <div class="step-controls lup-answer-row">
+                    <button type="button" data-lup-answer data-correct="true" data-feedback="Correct: (not c or d) becomes the unit clause d, so DPLL must propagate d=true before branching.">Unit-propagate d</button>
+                    <button type="button" data-lup-answer data-feedback="Not yet: DPLL branches only after all forced unit clauses are exhausted.">Branch on d</button>
+                    <button type="button" data-lup-answer data-feedback="No conflict has appeared; every satisfied clause is simply removed.">Backtrack</button>
+                  </div>
+                  <p class="lup-feedback" data-lup-feedback aria-live="polite">Choose the forced DPLL move.</p>
+                </div>
+                <div class="lup-mini-case" data-lup-check-group>
+                  <strong>Resolution resolvent</strong>
+                  <p class="lup-clause-line">C1 = (p or q), C2 = (not q or r)</p>
+                  <p>Resolve on the complementary pivot <code>q</code> / <code>not q</code>. Which clause is derived?</p>
+                  <div class="step-controls lup-answer-row">
+                    <button type="button" data-lup-answer data-feedback="Close, but the pivot literals disappear from the resolvent.">p or q or r</button>
+                    <button type="button" data-lup-answer data-correct="true" data-feedback="Correct: delete q and not q, then keep the remaining disjunction p or r.">p or r</button>
+                    <button type="button" data-lup-answer data-feedback="That would be a conjunction, not a resolution clause.">p and r</button>
+                  </div>
+                  <p class="lup-feedback" data-lup-feedback aria-live="polite">Pick the resolvent.</p>
+                </div>
+              </div>
             </article>
           </div>
 
@@ -453,12 +517,36 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="lup-fol-stepper">
-              <h3>Clause-form pipeline</h3>
+              <h3>Clause form, unification, and lifted resolution</h3>
               <p class="step-note"><strong>Use this:</strong> prepare the formula first, then let unification make complementary first-order literals line up for resolution.</p>
               <div id="lup-fol-output" class="preview-box"></div>
               <div class="step-controls">
                 <button type="button" data-lup-fol-prev>Previous</button>
                 <button type="button" data-lup-fol-next>Next</button>
+              </div>
+              <div class="lup-check-panel">
+                <div class="lup-mini-case" data-lup-check-group>
+                  <strong>MGU selection</strong>
+                  <p class="lup-clause-line">Unify P(x, f(y), y) with P(g(z), f(a), a)</p>
+                  <p>Choose the most general unifier.</p>
+                  <div class="step-controls lup-answer-row">
+                    <button type="button" data-lup-answer data-correct="true" data-feedback="Correct: y must be a, and x must be g(z); z stays unconstrained, so this is most general.">{x = g(z), y = a}</button>
+                    <button type="button" data-lup-answer data-feedback="Too specific: setting z=a is a valid instance, but not the most general unifier.">{x = g(a), y = a, z = a}</button>
+                    <button type="button" data-lup-answer data-feedback="There is a unifier; no occurs-check problem appears in this pair.">No unifier</button>
+                  </div>
+                  <p class="lup-feedback" data-lup-feedback aria-live="polite">Select the MGU, not just any unifier.</p>
+                </div>
+                <div class="lup-mini-case" data-lup-check-group>
+                  <strong>Lifted resolution step</strong>
+                  <p class="lup-clause-line">C1 = (not Parent(x,y) or Ancestor(x,y)), C2 = Parent(alice,bob)</p>
+                  <p>Resolve using theta = {x = alice, y = bob}. What is the resolvent?</p>
+                  <div class="step-controls lup-answer-row">
+                    <button type="button" data-lup-answer data-feedback="The complementary Parent literals are removed during resolution.">Parent(alice,bob) or Ancestor(alice,bob)</button>
+                    <button type="button" data-lup-answer data-correct="true" data-feedback="Correct: apply theta, cancel Parent with not Parent, and keep Ancestor(alice,bob).">Ancestor(alice,bob)</button>
+                    <button type="button" data-lup-answer data-feedback="This forgets to apply theta to the remaining literal.">Ancestor(x,y)</button>
+                  </div>
+                  <p class="lup-feedback" data-lup-feedback aria-live="polite">Pick the lifted resolvent.</p>
+                </div>
               </div>
             </article>
           </div>
@@ -626,26 +714,20 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=ENHKXZg-a4c" target="_blank" rel="noreferrer">Fallback link</a>
               </article>
               <article class="video-card">
-                <h3>Encoding into SAT (7:54)</h3>
+                <h3>SAT encoding and cardinality constraints</h3>
+                <p>Use one mini-sequence: first map facts to Boolean variables and clauses, then check exactly-one/cardinality encodings.</p>
                 <div class="video-frame" title="Encoding into SAT" data-video-id="DO9ZGkhPr8A"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="DO9ZGkhPr8A" data-start="0">0:00 encoding goal</button>
                   <button type="button" data-video-target="DO9ZGkhPr8A" data-start="105">1:45 redundant constraints</button>
                   <button type="button" data-video-target="DO9ZGkhPr8A" data-start="248">4:08 Boolean variables</button>
                   <button type="button" data-video-target="DO9ZGkhPr8A" data-start="275">4:35 clauses</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=DO9ZGkhPr8A" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Encoding cardinality constraints (14:58)</h3>
-                <div class="video-frame" title="Encoding cardinality constraints" data-video-id="PKbAICDB9tM"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="PKbAICDB9tM" data-start="0">0:00 cardinality</button>
+                  <button type="button" data-video-target="PKbAICDB9tM" data-start="0">Cardinality constraints</button>
                   <button type="button" data-video-target="PKbAICDB9tM" data-start="65">1:05 at least one</button>
                   <button type="button" data-video-target="PKbAICDB9tM" data-start="88">1:28 at most one</button>
                   <button type="button" data-video-target="PKbAICDB9tM" data-start="115">1:55 compact encodings</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=PKbAICDB9tM" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=DO9ZGkhPr8A" target="_blank" rel="noreferrer">Open current video on YouTube</a>
               </article>
               <article class="video-card">
                 <h3>Text backup: CS221 propositionalization</h3>
@@ -1116,6 +1198,36 @@ Must say: exactly-one over x1 to xn is at least one clause x1 or ... or xn plus 
           }
         ]
       });
+    })();
+  </script>
+  <script>
+    (() => {
+      const initLupAnswerChecks = () => {
+        document.querySelectorAll("[data-lup-check-group]").forEach((group) => {
+          const feedback = group.querySelector("[data-lup-feedback]");
+          const buttons = [...group.querySelectorAll("[data-lup-answer]")];
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              const isCorrect = button.dataset.correct === "true";
+              buttons.forEach((item) => {
+                item.classList.toggle("is-correct", item.dataset.correct === "true");
+                item.classList.toggle("is-wrong", item === button && !isCorrect);
+              });
+              if (feedback) {
+                feedback.textContent = button.dataset.feedback || "";
+                feedback.classList.toggle("good", isCorrect);
+                feedback.classList.toggle("warn", !isCorrect);
+              }
+            });
+          });
+        });
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLupAnswerChecks);
+      } else {
+        initLupAnswerChecks();
+      }
     })();
   </script>
 </body>

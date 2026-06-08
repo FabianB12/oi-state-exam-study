@@ -300,24 +300,18 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>SVM main ideas - StatQuest (20:32, watch 0:00-18:40)</h3>
+                <h3>SVM main ideas and polynomial kernel - StatQuest</h3>
+                <p>Use this as one SVM path: max margin, support vectors, soft margin, then the kernel trick.</p>
                 <div class="video-frame" title="Support Vector Machines Part 1 Main Ideas" data-video-id="efR1C6CvhmE"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="efR1C6CvhmE" data-start="0">0:00 max margin</button>
                   <button type="button" data-video-target="efR1C6CvhmE" data-start="430">7:10 support vectors</button>
                   <button type="button" data-video-target="efR1C6CvhmE" data-start="820">13:40 soft margin</button>
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="0">Kernel: need</button>
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="160">Kernel: feature lift</button>
+                  <button type="button" data-video-target="Toet3EiSFcM" data-start="300">Kernel: trick</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=efR1C6CvhmE" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>SVM polynomial kernel - StatQuest (7:15)</h3>
-                <div class="video-frame" title="Support Vector Machines Polynomial Kernel" data-video-id="Toet3EiSFcM"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="Toet3EiSFcM" data-start="0">0:00 kernel need</button>
-                  <button type="button" data-video-target="Toet3EiSFcM" data-start="160">2:40 feature lift</button>
-                  <button type="button" data-video-target="Toet3EiSFcM" data-start="300">5:00 kernel trick</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=Toet3EiSFcM" target="_blank" rel="noreferrer">Fallback link</a>
+                <p class="fallback-link"><a href="https://www.youtube.com/watch?v=efR1C6CvhmE" target="_blank" rel="noreferrer">Main ideas</a> &middot; <a href="https://www.youtube.com/watch?v=Toet3EiSFcM" target="_blank" rel="noreferrer">Polynomial kernel</a></p>
               </article>
             </div>
           </div>
@@ -341,7 +335,25 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="ssu-svm-tabs">
-              <h3>Margin and kernel selector</h3>
+              <h3>Margin/support-vector check</h3>
+              <div class="preview-box">
+                <p><strong>Classifier scores:</strong> compute <code>m_i = y_i f(x_i)</code>. Point A has <code>m=1.7</code>, B has <code>m=1.0</code>, C has <code>m=0.4</code>, and D has <code>m=-0.2</code>.</p>
+                <p>Support vectors sit on or inside the margin; soft-margin slack is <code>xi_i = max(0, 1 - m_i)</code>.</p>
+              </div>
+              <p class="step-note"><strong>Check 1:</strong> Which points are support vectors?</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-support" data-feedback="A is outside the margin, so it is not a support vector here.">A only</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-support" data-correct="true" data-feedback="Correct. B is on the margin, C is inside the margin, and D is misclassified; A is safely outside.">B, C, and D</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-support" data-feedback="B is a support vector, but soft-margin support vectors also include inside-margin and violated points.">B only</button>
+              </div>
+              <p class="quiz-feedback" data-ssu-feedback="ssu-svm-support"></p>
+              <p class="step-note"><strong>Check 2:</strong> What is the slack for point C?</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-slack" data-feedback="Zero slack only happens when m >= 1. Point C has m = 0.4.">0</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-slack" data-correct="true" data-feedback="Correct. xi_C = max(0, 1 - 0.4) = 0.6.">0.6</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-svm-slack" data-feedback="That would treat the margin as 1 + m. Slack is 1 - m when m < 1.">1.4</button>
+              </div>
+              <p class="quiz-feedback" data-ssu-feedback="ssu-svm-slack"></p>
               <div class="mini-tabs">
                 <button type="button" data-ssu-svm-tab="hard">Hard margin</button>
                 <button type="button" data-ssu-svm-tab="soft">Soft margin</button>
@@ -414,24 +426,18 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>Maximum likelihood, clearly explained - StatQuest (6:12)</h3>
+                <h3>Maximum likelihood and EM - short path</h3>
+                <p>MLE is the visible-data objective; EM is the latent-variable workaround.</p>
                 <div class="video-frame" title="Maximum Likelihood Clearly Explained" data-video-id="XepXtl9YKwc"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="XepXtl9YKwc" data-start="0">0:00 likelihood</button>
                   <button type="button" data-video-target="XepXtl9YKwc" data-start="145">2:25 fit parameters</button>
                   <button type="button" data-video-target="XepXtl9YKwc" data-start="245">4:05 likelihood curve</button>
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="0">EM: hidden labels</button>
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="140">EM: E-step</button>
+                  <button type="button" data-video-target="REypj2sy_5U" data-start="300">EM: M-step</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=XepXtl9YKwc" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>EM algorithm: how it works - Victor Lavrenko (7:53)</h3>
-                <div class="video-frame" title="EM algorithm how it works" data-video-id="REypj2sy_5U"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="REypj2sy_5U" data-start="0">0:00 hidden labels</button>
-                  <button type="button" data-video-target="REypj2sy_5U" data-start="140">2:20 E-step</button>
-                  <button type="button" data-video-target="REypj2sy_5U" data-start="300">5:00 M-step</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=REypj2sy_5U" target="_blank" rel="noreferrer">Fallback link</a>
+                <p class="fallback-link"><a href="https://www.youtube.com/watch?v=XepXtl9YKwc" target="_blank" rel="noreferrer">MLE video</a> &middot; <a href="https://www.youtube.com/watch?v=REypj2sy_5U" target="_blank" rel="noreferrer">EM video</a></p>
               </article>
             </div>
           </div>
@@ -455,13 +461,33 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="ssu-em-stepper">
-              <h3>Two-cluster EM preview</h3>
-              <div id="ssu-em-output" class="preview-box"></div>
-              <p class="step-note"><strong>Why:</strong> EM alternates between "what labels are likely?" and "what parameters fit those labels?"</p>
-              <div class="step-controls">
-                <button type="button" data-ssu-em-prev>Previous</button>
-                <button type="button" data-ssu-em-next>Next</button>
+              <h3>E-step or M-step classifier</h3>
+              <div class="preview-box">
+                <p><strong>Mixture setting:</strong> hidden cluster labels are missing. EM alternates soft label inference with parameter refitting.</p>
+                <ul>
+                  <li><strong>E-step:</strong> compute responsibilities <code>q_i(z)=p_{\theta_old}(z|x_i)</code>.</li>
+                  <li><strong>M-step:</strong> maximize expected complete-data log-likelihood using those soft counts.</li>
+                </ul>
               </div>
+              <p class="step-note"><strong>Check 1:</strong> "For point <code>x_i</code>, compute posterior weights 0.8 for cluster A and 0.2 for cluster B."</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-e1" data-correct="true" data-feedback="Correct. Responsibilities/posterior soft labels are the E-step.">E-step</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-e1" data-feedback="That uses old parameters to infer hidden labels, so it is not the refitting step.">M-step</button>
+              </div>
+              <p class="quiz-feedback" data-ssu-feedback="ssu-em-e1"></p>
+              <p class="step-note"><strong>Check 2:</strong> "Set the new mixture weight to the average responsibility for cluster A."</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-m1" data-feedback="The E-step computes responsibilities; this sentence updates a parameter from them.">E-step</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-m1" data-correct="true" data-feedback="Correct. Updating mixture weights, means, or variances from soft counts is the M-step.">M-step</button>
+              </div>
+              <p class="quiz-feedback" data-ssu-feedback="ssu-em-m1"></p>
+              <p class="step-note"><strong>Check 3:</strong> "Choose <code>q</code> equal to the current posterior so the Jensen bound is tight."</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-e2" data-correct="true" data-feedback="Correct. Making the bound tight by setting q to the posterior is the E-step.">E-step</button>
+                <button type="button" class="quiz-option" data-ssu-check="ssu-em-e2" data-feedback="The M-step improves parameters after q is fixed; this sentence chooses q.">M-step</button>
+              </div>
+              <p class="quiz-feedback" data-ssu-feedback="ssu-em-e2"></p>
+              <p class="step-note"><strong>Why:</strong> EM alternates between "what labels are likely?" and "what parameters fit those labels?"</p>
             </article>
           </div>
 
@@ -526,24 +552,18 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>But what is a neural network? - 3Blue1Brown (18:40)</h3>
+                <h3>Neural networks and backpropagation - 3Blue1Brown</h3>
+                <p>Watch the forward-pass picture first, then jump to the backward signal.</p>
                 <div class="video-frame" title="But what is a neural network" data-video-id="aircAruvnKk"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="aircAruvnKk" data-start="0">0:00 network picture</button>
                   <button type="button" data-video-target="aircAruvnKk" data-start="310">5:10 weights/biases</button>
                   <button type="button" data-video-target="aircAruvnKk" data-start="700">11:40 activations</button>
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="0">Backprop: recap</button>
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="165">Backprop: output error</button>
+                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="470">Backprop: backward signal</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noreferrer">Fallback link</a>
-              </article>
-              <article class="video-card">
-                <h3>Backpropagation, intuitively - 3Blue1Brown (12:47)</h3>
-                <div class="video-frame" title="Backpropagation intuitively" data-video-id="Ilg3gGewQ5U"></div>
-                <div class="timestamp-row">
-                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="0">0:00 recap</button>
-                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="165">2:45 output error</button>
-                  <button type="button" data-video-target="Ilg3gGewQ5U" data-start="470">7:50 backward signal</button>
-                </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=Ilg3gGewQ5U" target="_blank" rel="noreferrer">Fallback link</a>
+                <p class="fallback-link"><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noreferrer">Network video</a> &middot; <a href="https://www.youtube.com/watch?v=Ilg3gGewQ5U" target="_blank" rel="noreferrer">Backprop video</a></p>
               </article>
             </div>
           </div>
@@ -944,13 +964,6 @@
         kernel: "<h4>Kernel prediction</h4><pre>f(x) = sum_i alpha_i y_i K(x_i,x) + b</pre><p class=\"step-note\"><strong>Why:</strong> kernels make nonlinear boundaries while the optimizer only sees pairwise similarities.</p>"
       };
 
-      const emSteps = [
-        "<p><strong>Observed data:</strong> imagine one-dimensional points from two hidden Gaussian clusters. The cluster label <code>z</code> is missing.</p><p>The likelihood needs <code>log(sum_z p_theta(x,z))</code>, so direct maximization is awkward.</p>",
-        "<p><strong>E-step:</strong> compute responsibilities using current parameters, for example point <code>x</code> may be 0.8 cluster A and 0.2 cluster B.</p><p>This sets <code>q_i(z)</code> equal to the current posterior and makes the lower bound tight.</p>",
-        "<p><strong>M-step:</strong> update means, variances, and mixture weights using those soft assignments.</p><p>The same point contributes 80% to A's parameter updates and 20% to B's.</p>",
-        "<p><strong>Repeat:</strong> EM performs coordinate ascent on the lower bound. Likelihood goes up each round, but initialization still matters because the optimum can be local.</p>"
-      ];
-
       const backpropSteps = [
         "<p><strong>Forward:</strong> compute <code>z^(l) = W^(l)a^(l-1)+b^(l)</code> and <code>a^(l)=sigma(z^(l))</code> layer by layer.</p>",
         "<p><strong>Output error:</strong> compare prediction to target and form the last-layer error signal <code>delta</code>.</p>",
@@ -1044,6 +1057,21 @@
         });
       }
 
+      function initChoiceChecks() {
+        document.querySelectorAll("[data-ssu-check]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const group = button.dataset.ssuCheck;
+            const correct = button.dataset.correct === "true";
+            document.querySelectorAll(`[data-ssu-check="${group}"]`).forEach((choice) => {
+              choice.classList.remove("correct", "incorrect");
+            });
+            button.classList.add(correct ? "correct" : "incorrect");
+            const feedback = document.querySelector(`[data-ssu-feedback="${group}"]`);
+            if (feedback) feedback.textContent = button.dataset.feedback || (correct ? "Correct." : "Try again.");
+          });
+        });
+      }
+
       function initTabs(selector, outputId, data, initial) {
         const output = document.getElementById(outputId);
         if (!output) return;
@@ -1083,10 +1111,10 @@
         initSsuProgress();
         initCards();
         initQuizzes();
+        initChoiceChecks();
         initTabs("[data-ssu-bound-tab]", "ssu-bound-output", boundData, "finite");
         initTabs("[data-ssu-svm-tab]", "ssu-svm-output", svmData, "hard");
         initTabs("[data-ssu-train-tab]", "ssu-training-output", trainingData, "sgd");
-        initStepper("ssu-em-output", emSteps, "[data-ssu-em-prev]", "[data-ssu-em-next]");
         initStepper("ssu-backprop-output", backpropSteps, "[data-ssu-backprop-prev]", "[data-ssu-backprop-next]");
       });
     })();
