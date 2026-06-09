@@ -186,6 +186,23 @@
     .mas-shap-cell { text-align: center; padding: 0.7rem 0.5rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); }
     .mas-shap-cell strong { display: block; font-size: 1.15rem; color: var(--lab); font-variant-numeric: tabular-nums; }
     .mas-shap-cell span { font-size: 0.76rem; color: var(--muted); font-weight: 700; }
+    /* Auction formats lab */
+    .mas-auc-scenario { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; padding: 0.65rem 0.8rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); margin: 0.6rem 0; }
+    .mas-auc-rivals { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+    .mas-auc-rival { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; font-weight: 750; color: var(--ink-soft); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.6rem; }
+    .mas-auc-rule { display: flex; gap: 0.5rem; align-items: flex-start; padding: 0.6rem 0.7rem; border: 1px solid var(--line); border-left: 3px solid var(--practice); border-radius: var(--radius-sm); background: var(--surface-2); font-size: 0.85rem; margin-top: 0.4rem; }
+    .mas-auc-rule .material-symbols-rounded { color: var(--practice); font-size: 18px; flex: none; }
+    .mas-auc-table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; font-size: 0.85rem; }
+    .mas-auc-table th, .mas-auc-table td { border: 1px solid var(--line); padding: 0.4rem 0.55rem; text-align: center; }
+    .mas-auc-table th { background: var(--surface-3); color: var(--ink-soft); }
+    .mas-auc-table tr.is-winner td { background: var(--good-tint); color: var(--good); font-weight: 800; }
+    .mas-auc-line { width: 100%; height: auto; margin-top: 0.5rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+    .mas-auc-compare { width: 100%; border-collapse: collapse; margin-top: 0.4rem; font-size: 0.81rem; }
+    .mas-auc-compare th, .mas-auc-compare td { border: 1px solid var(--line); padding: 0.45rem 0.55rem; text-align: left; vertical-align: top; }
+    .mas-auc-compare th { background: var(--surface-3); color: var(--ink-soft); }
+    .mas-auc-compare td:first-child { font-weight: 800; color: var(--ink); white-space: nowrap; }
+    .mas-auc-yes { color: var(--good); font-weight: 800; }
+    .mas-auc-no { color: var(--panic); font-weight: 800; }
     @media (max-width: 720px) {
       .mas-lab-grid { grid-template-columns: minmax(0, 1fr); }
       .mas-lp-check { grid-template-columns: minmax(0, 1fr); }
@@ -955,11 +972,15 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="mas-auction-lab">
-              <h3>Auction format simulator</h3>
-              <label class="mas-slider">Your private value: <span id="mas-auction-value-label">80</span>
-                <input id="mas-auction-value" type="range" min="10" max="100" value="80">
-              </label>
-              <p class="step-note"><strong>Use this when:</strong> compare paying your own bid with paying the next highest bid.</p>
+              <h3>Auction formats: run the same bidders four ways</h3>
+              <p class="step-note">Set your private value and your rivals' values, then run each format with the <em>same</em> bidders. Watch who wins, what the winner pays, and which formats let you bid honestly. The four canonical single-item auctions split into two open ("outcry") formats and two sealed-bid formats.</p>
+              <div class="mini-tabs">
+                <button type="button" data-mas-auc-tab="english">English</button>
+                <button type="button" data-mas-auc-tab="dutch">Dutch</button>
+                <button type="button" data-mas-auc-tab="first">First-price</button>
+                <button type="button" data-mas-auc-tab="second">Second-price (Vickrey)</button>
+                <button type="button" data-mas-auc-tab="compare">Compare</button>
+              </div>
               <div id="mas-auction-output" class="preview-box"></div>
             </article>
           </div>
@@ -1451,17 +1472,161 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
     }
 
     function initMasAuction() {
-      const slider = document.getElementById("mas-auction-value");
-      const label = document.getElementById("mas-auction-value-label");
       const output = document.getElementById("mas-auction-output");
-      if (!slider || !label || !output) return;
-      const render = () => {
-        const v = Number(slider.value);
-        const shaded = Math.round((2 / 3) * v);
-        label.textContent = String(v);
-        output.innerHTML = `<div class="mas-lab-grid"><div class="mas-lab-stat"><strong>Second price</strong>Bid ${v}; truthful bidding is weakly dominant.</div><div class="mas-lab-stat"><strong>First price, n=3</strong>Symmetric uniform shading suggests bid about ${shaded}.</div><div class="mas-lab-stat"><strong>Reserve intuition</strong>Myerson may reject low values if virtual value is negative.</div></div><p>Combinatorial version: if you bid on bundles, the mechanism must choose disjoint bundles maximizing total value, which is the hard winner-determination problem.</p><p class="step-note"><strong>Remember:</strong> shading protects surplus in first price; truthfulness is safe in second price.</p>`;
+      if (!output) return;
+
+      let tab = "english";
+      let vY = 65;
+      let rivals = [{ name: "R1", value: 80 }, { name: "R2", value: 40 }];
+      const act = { english: 65, dutch: 43, first: 43, second: 65 };
+      const shade = (v) => Math.round((2 / 3) * v); // (n-1)/n with n = 3
+
+      const reroll = () => {
+        rivals = [
+          { name: "R1", value: Math.floor(Math.random() * 91) + 5 },
+          { name: "R2", value: Math.floor(Math.random() * 91) + 5 }
+        ];
       };
-      slider.addEventListener("input", render);
+
+      const sortBids = (b) => b.slice().sort((x, y) => y.bid - x.bid || y.value - x.value);
+      const paySecond = (b) => { const s = sortBids(b); return { winner: s[0], price: s[1].bid }; };
+      const payOwn = (b) => { const s = sortBids(b); return { winner: s[0], price: s[0].bid }; };
+      const youEntry = (bid) => ({ name: "You", you: true, value: vY, bid });
+      const rivalEntries = (fn) => rivals.map((r) => ({ name: r.name, you: false, value: r.value, bid: fn(r.value) }));
+
+      const lineX = (v) => 30 + (v / 100) * 280;
+      const auctionLine = (markers, price, dir) => {
+        const y = 40;
+        const dots = markers.map((m) => {
+          const x = lineX(m.bid).toFixed(1);
+          const col = m.you ? "var(--brand)" : "var(--lab)";
+          return `<line x1="${x}" y1="${y - 6}" x2="${x}" y2="${y + 6}" stroke="${col}" stroke-width="2"/><text x="${x}" y="${y - 9}" text-anchor="middle" font-size="9" fill="${col}" font-weight="700">${m.name} ${m.bid}</text>`;
+        }).join("");
+        const pxp = lineX(price).toFixed(1);
+        const arrow = dir === "up"
+          ? `<text x="30" y="${y + 21}" font-size="9" fill="var(--muted)">price rises &rarr;</text>`
+          : `<text x="310" y="${y + 21}" text-anchor="end" font-size="9" fill="var(--muted)">&larr; price falls</text>`;
+        return `<svg class="mas-auc-line" viewBox="0 0 330 60" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Auction price line">
+            <line x1="30" y1="${y}" x2="310" y2="${y}" stroke="var(--line-strong)" stroke-width="1.5"/>
+            ${dots}
+            <line x1="${pxp}" y1="${y - 13}" x2="${pxp}" y2="${y + 4}" stroke="var(--good)" stroke-width="2.5"/>
+            <text x="${pxp}" y="${y + 15}" text-anchor="middle" font-size="9" fill="var(--good)" font-weight="800">pays ${price}</text>
+            ${arrow}
+          </svg>`;
+      };
+
+      const bidTable = (rows, winnerName, payCol) => `<table class="mas-auc-table">
+          <tr><th>Bidder</th><th>Private value</th><th>${payCol}</th></tr>
+          ${rows.map((r) => `<tr class="${r.name === winnerName ? "is-winner" : ""}"><td>${r.you ? "You" : r.name}</td><td>${r.value}</td><td>${r.bid}</td></tr>`).join("")}
+        </table>`;
+      const surplusBox = (out, surplus) => {
+        const won = out.winner.you;
+        const cls = !won ? "warn" : surplus < 0 ? "warn" : "good";
+        const title = won ? (surplus < 0 ? "You won &mdash; but at a loss" : "You won the item") : "You did not win";
+        const body = won
+          ? `You win and pay <strong>${out.price}</strong>. Surplus = value &minus; price = ${vY} &minus; ${out.price} = <strong>${surplus}</strong>.${surplus < 0 ? " Negative &mdash; you overpaid." : ""}`
+          : `<strong>${out.winner.name}</strong> wins. Your surplus = 0.`;
+        return `<div class="mas-lab-feedback ${cls}"><strong>${title}</strong><p>${body}</p></div>`;
+      };
+      const rule = (text) => `<div class="mas-auc-rule"><span class="material-symbols-rounded">gavel</span><span>${text}</span></div>`;
+      const actSlider = (label) => `<label class="mas-slider"><span>${label} = <strong>${act[tab]}</strong></span><input type="range" min="0" max="100" step="1" value="${act[tab]}" data-auc-act></label>`;
+      const recBtn = (text) => `<div class="mas-lab-toolbar"><button type="button" data-auc-rec>${text}</button></div>`;
+
+      const scenario = () => `<div class="mas-auc-scenario">
+          <label class="mas-slider" style="flex:1 1 230px;margin:0"><span>Your private value = <strong>${vY}</strong></span><input type="range" min="5" max="100" step="1" value="${vY}" data-auc-value></label>
+          <div class="mas-auc-rivals">${rivals.map((r) => `<span class="mas-auc-rival">${r.name}: value ${r.value}</span>`).join("")}<button type="button" data-auc-reroll>New rivals</button></div>
+        </div>`;
+
+      const renderEnglish = () => {
+        const entries = [youEntry(act.english), ...rivalEntries((v) => v)];
+        const out = paySecond(entries);
+        const surplus = out.winner.you ? vY - out.price : 0;
+        const note = act.english === vY
+          ? `You drop at exactly your value &mdash; the right move. Whoever values it most stays longest and wins, paying the runner-up's value.`
+          : act.english > vY
+            ? `You plan to stay until ${act.english}, past your value ${vY}. The only time this matters is when you win at a price above ${vY} &mdash; a loss. Drop at your value.`
+            : `You plan to drop at ${act.english}, below your value ${vY}. The only time this matters is when you quit and lose an item you'd have won profitably. Drop at your value.`;
+        return rule("<strong>Open, ascending.</strong> An auctioneer raises the price; bidders stay in until it passes their willingness to pay, then drop out. The last bidder standing wins and pays the price at which the second-to-last dropped &mdash; i.e. the second-highest value.")
+          + `<p class="step-note">Set the price at which <em>you</em> would drop out (rivals drop at their values):</p>`
+          + actSlider("Your drop-out price") + recBtn("Drop at your value")
+          + auctionLine(entries, out.price, "up")
+          + bidTable(entries, out.winner.name, "Drops out at")
+          + surplusBox(out, surplus)
+          + `<p class="step-note"><strong>Strategically &asymp; the second-price auction.</strong> ${note}</p>`;
+      };
+
+      const renderDutch = () => {
+        const entries = [youEntry(act.dutch), ...rivalEntries((v) => shade(v))];
+        const out = payOwn(entries);
+        const surplus = out.winner.you ? vY - act.dutch : 0;
+        return rule("<strong>Open, descending.</strong> The price starts high and falls; the first bidder to shout \"mine\" wins and pays the current price. Nothing is revealed as it falls, so you must pre-commit the price you'll claim at.")
+          + `<p class="step-note">Choose your claim price (rivals claim at their shaded values):</p>`
+          + actSlider("Your claim price") + recBtn("Use 2/3 · value")
+          + auctionLine(entries, out.price, "down")
+          + bidTable(entries, out.winner.name, "Claims at")
+          + surplusBox(out, surplus)
+          + `<p class="step-note"><strong>Strategically &equiv; the first-price sealed-bid auction.</strong> Because you commit a claim price with no feedback, it is the same decision as a sealed bid &mdash; shade below value. For n = 3 symmetric uniform bidders the equilibrium claim is (n&minus;1)/n &middot; value = <strong>${shade(vY)}</strong>.</p>`;
+      };
+
+      const renderFirst = () => {
+        const entries = [youEntry(act.first), ...rivalEntries((v) => shade(v))];
+        const out = payOwn(entries);
+        const surplus = out.winner.you ? vY - act.first : 0;
+        return rule("<strong>Sealed bid.</strong> Everyone submits one bid at once. The highest bid wins and the winner pays their own bid.")
+          + `<p class="step-note">Submit your bid (rivals bid their shaded values):</p>`
+          + actSlider("Your sealed bid") + recBtn("Use 2/3 · value")
+          + bidTable(entries, out.winner.name, "Bids")
+          + surplusBox(out, surplus)
+          + `<p class="step-note"><strong>You must shade.</strong> You pay your own bid, so bidding your full value ${vY} gives 0 surplus even when you win. Shade down to leave profit &mdash; but too low and you lose. For n = 3 symmetric uniform bidders the equilibrium bid is (n&minus;1)/n &middot; value = <strong>${shade(vY)}</strong>. Not truthful: your optimal bid depends on how many rivals you face.</p>`;
+      };
+
+      const renderSecond = () => {
+        const entries = [youEntry(act.second), ...rivalEntries((v) => v)];
+        const out = paySecond(entries);
+        const surplus = out.winner.you ? vY - out.price : 0;
+        const note = act.second === vY
+          ? `You bid exactly your value &mdash; the weakly dominant, truthful strategy. Whatever rivals do, no other bid beats it.`
+          : act.second > vY
+            ? `You bid ${act.second} &gt; your value ${vY}. The only time this changes the result is when you win at a price above your value (negative surplus). It can never help.`
+            : `You bid ${act.second} &lt; your value ${vY}. The only time this changes the result is when you lose an auction you'd have won profitably. It can never help.`;
+        return rule("<strong>Sealed bid (Vickrey).</strong> Everyone submits one bid. The highest bid wins, but the winner pays the <em>second</em>-highest bid.")
+          + `<p class="step-note">Submit your bid (rivals bid truthfully, since that is their best move too):</p>`
+          + actSlider("Your sealed bid") + recBtn("Bid your value")
+          + bidTable(entries, out.winner.name, "Bids")
+          + surplusBox(out, surplus)
+          + `<p class="step-note"><strong>Truthful bidding is weakly dominant.</strong> ${note} Because the price is set by someone else's bid, honesty is safe &mdash; this is why Vickrey auctions are called "strategy-proof." Strategically &asymp; the English auction.</p>`;
+      };
+
+      const renderCompare = () => {
+        const rows = [
+          ["English", "Open, ascending", "2nd-highest value", "Stay until price = your value", "yes", "&asymp; Second-price"],
+          ["Dutch", "Open, descending", "Winner's own claim price", "Shade below value", "no", "&equiv; First-price"],
+          ["First-price sealed", "Sealed", "Winner's own bid", "Shade: (n&minus;1)/n &middot; value", "no", "&equiv; Dutch"],
+          ["Second-price (Vickrey)", "Sealed", "2nd-highest bid", "Bid your value", "yes", "&asymp; English"]
+        ];
+        return `<h4>The four single-item auctions side by side</h4>
+          <table class="mas-auc-compare">
+            <tr><th>Format</th><th>Type</th><th>Winner pays</th><th>Your optimal strategy</th><th>Bid truthfully?</th><th>Equivalent to</th></tr>
+            ${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="${r[4] === "yes" ? "mas-auc-yes" : "mas-auc-no"}">${r[4]}</td><td>${r[5]}</td></tr>`).join("")}
+          </table>
+          <div class="mas-lab-feedback good"><strong>Revenue Equivalence Theorem</strong><p>With independent private values, risk-neutral and symmetric bidders, all four formats award the item to the highest valuer and yield the <strong>same expected revenue</strong> for the seller. They differ only in <em>strategy</em>: second-price and English are strategy-proof (just bid the truth), while first-price and Dutch force you to guess how much to shade.</p></div>
+          <p class="step-note"><strong>Two pairings to remember:</strong> Dutch &equiv; first-price (commit a price with no feedback = a sealed bid), and English &asymp; second-price (dropping out at your value makes the winner pay the runner-up's value). "Sealed-bid" covers the first-price and Vickrey formats; "open" / "outcry" covers English and Dutch.</p>`;
+      };
+
+      const render = () => {
+        const body = tab === "english" ? renderEnglish()
+          : tab === "dutch" ? renderDutch()
+          : tab === "first" ? renderFirst()
+          : tab === "second" ? renderSecond()
+          : renderCompare();
+        output.innerHTML = (tab === "compare" ? "" : scenario()) + body;
+        output.querySelector("[data-auc-value]")?.addEventListener("input", (e) => { vY = Number(e.target.value); render(); });
+        output.querySelector("[data-auc-reroll]")?.addEventListener("click", () => { reroll(); render(); });
+        output.querySelector("[data-auc-act]")?.addEventListener("input", (e) => { act[tab] = Number(e.target.value); render(); });
+        output.querySelector("[data-auc-rec]")?.addEventListener("click", () => { act[tab] = (tab === "first" || tab === "dutch") ? shade(vY) : vY; render(); });
+        document.querySelectorAll("[data-mas-auc-tab]").forEach((b) => b.classList.toggle("active", b.dataset.masAucTab === tab));
+      };
+      document.querySelectorAll("[data-mas-auc-tab]").forEach((b) => b.addEventListener("click", () => { tab = b.dataset.masAucTab; render(); }));
       render();
     }
 
