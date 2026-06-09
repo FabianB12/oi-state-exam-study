@@ -269,6 +269,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official UIR scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
+          <h2>Keep UIR centered on these exam asks</h2>
+          <p>Robot paradigms and architectures, path/motion planning in configuration space with roadmaps and replanning such as D*/D* Lite, exploration and informative path planning with MRTA, multi-goal/sequence-dependent robotic routing including profits and curvature constraints, and sampling-based planners with probabilistic completeness/asymptotic optimality.</p>
+        </section>
+
         <section id="robot" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -579,6 +585,7 @@
                 <li>A frontier is the boundary between known free space and unknown space in an occupancy grid.</li>
                 <li>Frontier utility can be <code>information_gain - lambda * travel_cost</code>; variants choose nearest frontier, largest gain, cost-utility score, or hierarchical frontiers.</li>
                 <li>Information-theoretic exploration uses entropy <code>H(X) = -sum p log p</code> and mutual information <code>I(X;Z)=H(X)-H(X|Z)</code>.</li>
+                <li>Frontier methods pick map boundaries; information-theoretic methods score expected uncertainty reduction, often over a whole candidate path.</li>
                 <li>Informative path planning maximizes expected information gain along a path minus travel cost, but exact evaluation is expensive, so approximations and sampling are common.</li>
                 <li>Centralized MRTA can optimize globally but has communication/computation bottlenecks and a single point of failure; decentralized MRTA scales and is robust but may be suboptimal.</li>
                 <li>Task allocation tools include greedy assignment, Hungarian assignment, auctions, consensus-based bundle algorithms, and distributed frontier selection.</li>
@@ -683,7 +690,7 @@
               <ul>
                 <li>Multi-goal planning asks a robot to visit several targets and is related to TSP, ATSP, GTSP, TSPN, Dubins TSP, orienteering, team orienteering, and prize-collecting TSP.</li>
                 <li>Robotic costs can depend on obstacles, start/final depot, heading, motion constraints, sensing radius, budget, rewards, and multiple robots.</li>
-                <li>Sequence-dependent TSP appears when travel cost from <code>i</code> to <code>j</code> depends on previous heading, order, or local path constraints.</li>
+                <li>Sequence-dependent TSP appears when travel cost from <code>i</code> to <code>j</code> depends on previous heading, order, or local path constraints; write it as costs like <code>c_{i,j}(q_i,q_j)</code> rather than one fixed distance matrix.</li>
                 <li>Dubins vehicle state is <code>(x,y,theta)</code>; it moves forward with bounded curvature. Shortest paths are combinations of circular arcs and straight segments such as LSL, RSR, LSR, RSL, RLR, and LRL.</li>
                 <li>With sensing radius, visiting a target can mean passing through a neighborhood, giving TSPN or Dubins TSPN.</li>
                 <li>Routing with profits maximizes collected reward under travel budget, often skipping low-value targets.</li>

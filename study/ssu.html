@@ -121,6 +121,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official SSU scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
+          <h2>Keep SSU centered on these exam asks</h2>
+          <p>ERM/risk/generalization/Hoeffding/VC, SVM and kernel SVMs, MLE consistency, EM as lower-bound block-coordinate optimization, and supervised training of classical/deep neural networks including architectures, convolution, backprop, initialization, and SGD.</p>
+        </section>
+
         <section id="erm" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -167,11 +173,11 @@
           </div>
 
           <div class="block">
-            <p class="block-label watch">Exam-pivot videos</p>
+            <p class="block-label watch">Optional exam-pivot videos</p>
             <div class="video-grid">
               <article class="video-card">
                 <h3>StatQuest exam-pivot ML fundamentals</h3>
-                <p>One compact path for common oral detours: bias/variance, metrics, trees, forests, and optional boosting.</p>
+                <p>Optional backup for oral detours: bias/variance, metrics, trees, forests, and boosting. These are not the official SSU spine, so watch only if you are shaky or the examiner pivots.</p>
                 <div class="video-frame" title="Machine Learning Fundamentals Bias and Variance" data-video-id="EuBBz3bI-aA"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="EuBBz3bI-aA" data-start="29">Bias and variance</button>
@@ -199,7 +205,7 @@
               </article>
             </div>
             <article class="recall-card">
-              <h3>What they may ask</h3>
+              <h3>Optional detour only</h3>
               <ul>
                 <li>Explain bias versus variance using underfitting, overfitting, and train/test behavior.</li>
                 <li>Build a confusion matrix and choose precision, recall, F1, ROC-AUC, or PR-AUC when accuracy is misleading.</li>
@@ -452,7 +458,7 @@
                 <li>An estimator is consistent if it converges in probability to the true parameter as sample size grows.</li>
                 <li>With latent <code>z</code>, likelihood has <code>log sum_z p_theta(x,z)</code>, which is hard to optimize directly.</li>
                 <li>EM uses Jensen's inequality to build a lower bound; the gap is a KL divergence to the true posterior.</li>
-                <li>E-step sets <code>q_i(z) = p_theta_old(z | x_i)</code>; M-step maximizes expected complete-data log-likelihood; likelihood increases monotonically but can stop at a local optimum.</li>
+                <li>EM is block-coordinate ascent on the lower bound: E-step sets <code>q_i(z) = p_theta_old(z | x_i)</code>, M-step maximizes expected complete-data log-likelihood, and the likelihood increases monotonically but can stop at a local optimum.</li>
               </ul>
             </article>
             <p class="step-note"><strong>Remember:</strong> MLE fits observed data; EM adds soft guesses for hidden data before fitting again.</p>
@@ -576,6 +582,7 @@
                 <li>A neuron computes <code>z = w^T x + b</code>, then activation <code>a = sigma(z)</code>.</li>
                 <li>Common activations include sigmoid, tanh, ReLU, leaky ReLU, and softmax at multiclass output.</li>
                 <li>A feedforward layer is <code>h^(l) = sigma(W^(l) h^(l-1) + b^(l))</code>.</li>
+                <li>Classical neural networks usually mean MLP/feedforward architectures; deep networks stack many layers and learn hierarchical representations under supervised loss functions.</li>
                 <li>Architectures include MLPs, CNNs, RNN/LSTM/GRU, residual networks, and autoencoders.</li>
                 <li>Backprop computes <code>delta^(l) = dL/dz^(l)</code>, gradients <code>dL/dW^(l) = delta^(l)(a^(l-1))^T</code>, and <code>dL/db^(l) = delta^(l)</code>.</li>
                 <li>The backward recursion multiplies by the next layer's weights and the local derivative: <code>delta^(l) = (W^(l+1)^T delta^(l+1)) * sigma'(z^(l))</code>.</li>
@@ -746,7 +753,7 @@
           </div>
 
           <div class="block">
-            <p class="block-label recall">Exam-risk ML fundamentals</p>
+            <p class="block-label recall">Optional ML fundamentals detour</p>
             <article class="recall-card">
               <h3>Decision trees, ensembles, metrics, and bias/variance</h3>
               <ul>
@@ -847,7 +854,7 @@
             <li><strong>MLE:</strong> likelihood, log-likelihood, examples, consistency assumptions.</li>
             <li><strong>EM:</strong> latent variables, log-sum difficulty, Jensen lower bound, KL gap, E-step, M-step, local optimum.</li>
             <li><strong>Neural nets:</strong> neuron/layer equation, activations, backprop deltas, SGD/minibatches, initialization, CNNs, regularization.</li>
-            <li><strong>ML fundamentals:</strong> bias/variance, decision-tree split criteria and pruning, bagging/random forests, boosting, and confusion-matrix metrics.</li>
+            <li><strong>Optional detour:</strong> if the examiner pivots outside the official SSU spine, use bias/variance, decision-tree split criteria, ensembles, and confusion-matrix metrics briefly.</li>
           </ol>
         </section>
 
@@ -865,7 +872,7 @@
             <p><strong>3. MLE and EM:</strong> "MLE maximizes log-likelihood. With latent variables, likelihood contains a log of a sum, so EM optimizes a Jensen lower bound. The E-step sets responsibilities to the posterior under old parameters; the M-step maximizes expected complete-data log-likelihood. It increases likelihood monotonically but can converge locally."</p>
             <p><strong>4. Neural networks:</strong> "Layers compose affine maps and nonlinear activations. Backprop is the chain rule: compute output error, propagate deltas backward, and form gradients for weights and biases. Training uses SGD or minibatches with learning-rate choices and optimizers."</p>
             <p><strong>5. Deep-training details:</strong> "CNNs exploit local connectivity and weight sharing; initialization such as Xavier or He keeps signals stable; regularization such as dropout, weight decay, augmentation, validation, and early stopping fights overfitting."</p>
-            <p><strong>6. Nearby ML drills:</strong> "If the examiner pivots to classical classifiers, I can define decision trees by impurity-reducing splits, explain pruning against overfitting, compare bagging/random forests with boosting, and choose metrics from the confusion matrix instead of relying on accuracy alone."</p>
+            <p><strong>6. Optional nearby ML drills:</strong> "If the examiner pivots to classical classifiers, I can briefly define decision trees, ensembles, and metrics, then return to the official SSU spine: ERM, SVM, MLE/EM, and neural-network training."</p>
           </div>
         </section>
       </div>

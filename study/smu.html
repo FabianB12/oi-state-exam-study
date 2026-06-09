@@ -121,6 +121,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official SMU scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
+          <h2>Keep SMU centered on these exam asks</h2>
+          <p>PAC and online learnability, VC dimension and learnability conditions, conjunction/disjunction algorithms and reductions, bandit regret with epsilon-greedy/UCB/Thompson sampling, and RL value/policy learning: value iteration, DUE, ADP, TD, Q-learning, SARSA, exploration, and policy search.</p>
+        </section>
+
         <section id="pac-online" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -178,7 +184,7 @@
                 <li>Online learning predicts before seeing the label; performance is a mistake bound or regret against a comparator.</li>
                 <li>Finite mistake-bound online learning implies realizable PAC learnability, but PAC does not guarantee low adversarial online mistakes.</li>
                 <li>VC dimension is the largest shattered set size and characterizes distribution-free binary PAC learnability.</li>
-                <li>Littlestone dimension is the online analogue for realizable adversarial learning.</li>
+                <li>Finite VC dimension is the official PAC characterization; Littlestone dimension is a useful optional one-sentence online analogue for realizable adversarial learning.</li>
               </ul>
               <p class="step-note"><strong>Remember:</strong> PAC is about random training samples; online learning is about a sequence where each prediction happens before feedback.</p>
             </article>
@@ -272,6 +278,7 @@
                 <li>The algorithm is O(mn), because each example can check all literals.</li>
                 <li>Disjunctions use the dual: remove literals made true by negative examples, or reduce using De Morgan.</li>
                 <li>Online conjunction learning removes a literal after a false negative; each literal disappears at most once, so the update bound is at most 2n.</li>
+                <li>Online disjunction learning is the dual: false positives delete literals made true by the current negative example, again with at most one deletion per literal.</li>
                 <li>k-CNF becomes conjunction learning over all clauses of size at most k, which is efficient for fixed k because there are O(n^k) clauses.</li>
               </ul>
               <p class="step-note"><strong>Remember:</strong> for conjunctions, positive examples delete impossible literals; for disjunctions, swap the logic to negative examples.</p>
@@ -599,7 +606,7 @@
                 <li>Q-learning is off-policy: target r + gamma max_a' Q(s',a').</li>
                 <li>SARSA is on-policy: target r + gamma Q(s',a') where a' is the actually selected next action.</li>
                 <li>Exploration strategies include epsilon-greedy, softmax, optimistic initialization, UCB bonuses, and posterior sampling.</li>
-                <li>Policy search directly optimizes J(theta), for example by random search, finite differences, policy gradient, REINFORCE, or actor-critic.</li>
+                <li>Policy search directly optimizes a parameterized policy objective <code>J(theta)</code>; know the concept, with policy gradients/REINFORCE/actor-critic as optional examples.</li>
               </ul>
               <p class="step-note"><strong>Remember:</strong> Q-learning uses the best next action in the target; SARSA uses the action the current policy actually took.</p>
             </article>

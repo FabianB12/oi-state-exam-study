@@ -518,6 +518,76 @@ h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
 .section-heading { margin-bottom: 1rem; }
 .section-heading h2 { margin-top: 0.2rem; }
 
+.official-scope,
+.optional-scope {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0 0 1rem;
+  padding: clamp(0.9rem, 2vw, 1.15rem);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.optional-scope {
+  border-left-color: var(--muted);
+  background: var(--surface-2);
+}
+
+.official-scope h2,
+.official-scope h3,
+.optional-scope h2,
+.optional-scope h3 {
+  font-size: 1rem;
+}
+
+.official-scope p,
+.optional-scope p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.official-scope ul,
+.optional-scope ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.scope-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.scope-tag,
+.optional-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: fit-content;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.scope-tag {
+  background: var(--brand-tint);
+  color: var(--brand-strong);
+}
+
+.optional-tag {
+  background: var(--surface-3);
+  color: var(--muted);
+}
+
 /* ===================== Grids ================================== */
 
 .question-grid,

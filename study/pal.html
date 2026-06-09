@@ -121,6 +121,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official PAL scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
+          <h2>Keep PAL centered on these exam asks</h2>
+          <p>Complexity notation, graph vocabulary and representations, MST/SCC/Euler/union-find/isomorphism, combinatorial generation, primes and PRNGs, search trees, automata/regular languages, and exact/approximate/dictionary text search.</p>
+        </section>
+
         <section id="module-complexity" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -178,6 +184,7 @@
               <ul>
                 <li>Big-O is an upper asymptotic bound: <code>f(n) &in; O(g(n))</code>; Omega is lower: <code>f(n) &in; &Omega;(g(n))</code>; Theta is tight: <code>f(n) &in; &Theta;(g(n))</code>.</li>
                 <li>For graph algorithms, use <code>n = |V|</code> and <code>m = |E|</code>.</li>
+                <li>Degree counts incident edges; a path is a vertex sequence following edges; a circuit is a closed trail; a cycle is a closed path with no repeated internal vertices.</li>
                 <li>Adjacency matrix: <code>O(n^2)</code> memory, <code>O(1)</code> edge lookup, good for dense graphs.</li>
                 <li>Adjacency list: <code>O(n + m)</code> memory, good for sparse traversal.</li>
                 <li>Distance matrix stores all-pairs shortest-path distances; it is often an output, not just an input representation.</li>
@@ -596,8 +603,9 @@ Must say: SCC is a maximal mutually reachable set in a directed graph; condensat
               <ul>
                 <li>All subsets: <code>2^n</code>; k-subsets: <code>C(n,k)</code>; permutations: <code>n!</code>.</li>
                 <li>Gray code changes one bit at a time; one formula is <code>i xor (i &gt;&gt; 1)</code>.</li>
+                <li>A prime number has exactly two positive divisors, <code>1</code> and itself; the sieve eliminates composites by marking multiples.</li>
                 <li>The sieve marks multiples and runs in about <code>O(N log log N)</code>.</li>
-                <li>An LCG is <code>x[i+1] = (a x[i] + c) mod m</code>; it is deterministic, so period and statistical quality matter.</li>
+                <li>An LCG is <code>x[i+1] = (a x[i] + c) mod m</code>; it is deterministic, so period, uniformity, low correlation, reproducibility, and non-cryptographic predictability matter.</li>
               </ul>
             </article>
           </div>

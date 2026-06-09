@@ -175,6 +175,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official PUI scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
+          <h2>Keep PUI centered on these exam asks</h2>
+          <p>STRIPS/SAS, satisficing vs optimal planning, heuristic search, hmax/hadd/hff, abstraction and pattern databases, merge-and-shrink, landmarks/LM-Cut, LP/state-equation/potential heuristics, nondeterministic/probabilistic planning, MDP value iteration, MCTS and UCT.</p>
+        </section>
+
         <section id="tasks" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -295,7 +301,7 @@
                   <template data-recall-reference="pui-tasks-a-star-implementation">Must say: keep an open priority queue ordered by f(s)=g(s)+h(s), store the best known g-value for each generated state, and keep parent/action pointers to reconstruct the plan. When a successor is generated with a better g, update it in open or reopen it if it was closed. With a consistent heuristic, closed states do not need reopening; with only admissibility, reopening may be required for graph search optimality.</template>
                 </label>
                 <label class="free-recall">
-                  <span>What are PDDL, SAT planning, and Graphplan in one compact comparison?</span>
+                  <span>Optional contrast: what are PDDL, SAT planning, and Graphplan in one compact comparison?</span>
                   <textarea rows="5" data-recall="pui-tasks-pddl-sat-graphplan" placeholder="PDDL syntax, bounded horizon, Boolean variables/actions, clauses, planning graph mutexes..."></textarea>
                   <template data-recall-reference="pui-tasks-pddl-sat-graphplan">Must say: PDDL is a modeling language for planning domains and problem instances, typically with predicates, typed objects, action parameters, preconditions, and effects. SAT planning fixes a horizon k and encodes action choices, state facts, initial state, goal, preconditions, effects, frame axioms, and mutual exclusions as propositional clauses; if SAT, the model yields a plan of length k. Graphplan builds alternating fact/action layers with mutex relations and extracts a plan backward; the planning graph also inspires relaxed-plan heuristics.</template>
                 </label>
@@ -438,7 +444,7 @@
           <header class="module-head">
             <div class="module-head-main">
               <span class="module-num">Module 3</span>
-              <h2>Landmarks, LM-Cut, linear programming heuristics, and portfolios</h2>
+              <h2>Landmarks, LM-Cut, and linear programming heuristics</h2>
               <p class="module-lead">Landmarks are necessary achievements. LM-Cut turns necessary relaxed action cuts into an admissible cost estimate; LP heuristics express necessary plan conditions as linear constraints.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
@@ -499,9 +505,10 @@
                 <li>Natural, greedy necessary, and reasonable orders describe how landmarks should appear relative to each other.</li>
                 <li>Landmarks can be found by relaxed planning graph analysis, backchaining from goals, necessary predecessors, and disjunctive choices.</li>
                 <li>LM-Cut repeatedly computes <code>hmax</code>, finds a relaxed action cut every relaxed plan must cross, adds the minimum cut cost, subtracts it from cut actions, and repeats until relaxed goal cost is zero.</li>
-                <li>State-equation heuristics use nonnegative action-count variables and necessary net-change constraints, then minimize action cost.</li>
-                <li>Potential heuristics assign weights to facts or SAS values and enforce Bellman-like action inequalities, giving admissible and consistent heuristics.</li>
-                <li>Planning portfolios combine heuristics and planners because performance is strongly domain-dependent.</li>
+                <li>A simple landmark-count heuristic counts not-yet-achieved landmarks; accepted-landmark variants count only landmarks whose prerequisites/order constraints allow them to be pursued now.</li>
+                <li>State-equation heuristics use nonnegative action-count variables <code>x_a</code> and necessary net-change constraints such as produced facts minus consumed facts reaching the goal, then minimize <code>sum_a c(a)x_a</code>.</li>
+                <li>Potential heuristics assign weights to facts or SAS values and enforce Bellman-like action inequalities <code>h(s) &lt;= c(a)+h(s')</code>, giving admissible and consistent heuristics.</li>
+                <li>Planning portfolios are practical optional context because planner performance is strongly domain-dependent.</li>
               </ul>
             </article>
             <p class="step-note"><strong>Remember:</strong> landmarks are not advice; they are achievements every real plan is forced to pass through.</p>
@@ -538,7 +545,7 @@
                   <template data-recall-reference="pui-landmarks-lmcut">Must say: LM-Cut repeatedly computes hmax values in the delete-relaxed problem, identifies a cut of actions that every relaxed plan must use to cross from reachable facts to goal-relevant facts, adds the minimum action cost in that cut, subtracts that amount from all actions in the cut, and repeats until relaxed goal cost is zero. The added amount is admissible because every real plan has a corresponding relaxed plan and must pay at least one action from each cut; subtracting avoids charging the same cost twice.</template>
                 </label>
                 <label class="free-recall">
-                  <span>Explain state-equation heuristics, potential heuristics, and planning portfolios.</span>
+                  <span>Explain state-equation heuristics and potential heuristics; mention portfolios only as optional practice context.</span>
                   <textarea rows="5" data-recall="pui-landmarks-lp-potentials" placeholder="Action-count LP variables, necessary constraints, potential weights, action inequalities, portfolios..."></textarea>
                   <template data-recall-reference="pui-landmarks-lp-potentials">Must say: state-equation/operator-counting heuristics introduce nonnegative action-count variables x_a and add necessary linear constraints expressing that action effects must support the net changes from the current state to the goal, then minimize total action cost. Because the constraints are necessary for any real plan, the LP optimum is a lower bound. Potential heuristics assign weights to facts or SAS values and enforce goal/action inequalities such as h(s) <= cost(a)+h(s') so the weighted state function is admissible and consistent. Portfolios run or combine several planners/heuristics because planning performance is highly domain-dependent.</template>
                 </label>
@@ -550,7 +557,7 @@
           <div class="block">
             <p class="block-label free">Free recall</p>
             <label class="free-recall">
-              <span>Explain landmarks, LM-Cut, state-equation heuristics, potential heuristics, and portfolios as one story.</span>
+              <span>Explain landmarks, LM-Cut, state-equation heuristics, and potential heuristics as one story.</span>
               <textarea rows="4" data-recall="pui-landmarks" placeholder="Necessary achievements, landmark orders, LM-Cut loop, LP action counts, potential weights, portfolios..."></textarea>
               <template data-recall-reference="pui-landmarks">Must say: landmarks are necessary achievements or actions in every valid plan, with useful orders such as natural, greedy necessary, and reasonable orders. They can be found by relaxed planning graph analysis, goal backchaining, and necessary-predecessor reasoning. LM-Cut uses delete-relaxed hmax values to find necessary action cuts, adds the minimum cut cost, subtracts it from cut actions, and repeats, preserving admissibility. State-equation heuristics are LP/operator-counting lower bounds over action counts and necessary net-change constraints. Potential heuristics learn fact/value weights satisfying action inequalities. Portfolios combine planners because no single heuristic dominates across domains.</template>
             </label>
@@ -569,7 +576,7 @@
                 <ul class="priority-topics">
                   <li>weak, strong, and strong cyclic policies for nondeterministic planning</li>
                   <li>MDP tuple, Bellman backup, value iteration, and policy extraction</li>
-                  <li>POMDP belief states and partial observability</li>
+                  <li>MDPs and value iteration; POMDP belief states only as optional contrast</li>
                 </ul>
               </div>
             </div>
@@ -623,7 +630,7 @@
                 <li>AND/OR search separates planner choices at OR nodes from environment outcomes at AND nodes.</li>
                 <li>Probabilistic planning attaches probabilities <code>P(s'|s,a)</code> and becomes an MDP <code>(S,A,P,R,gamma)</code>.</li>
                 <li>Value iteration repeatedly applies the Bellman optimality backup; stochastic shortest path planning often minimizes expected cost to terminal goals.</li>
-                <li>POMDPs maintain belief states, update beliefs after observations, and are much harder than fully observable MDPs.</li>
+                <li>POMDPs maintain belief states and are useful optional contrast, but the official core here is fully observable MDP/value iteration.</li>
               </ul>
             </article>
             <p class="step-note"><strong>Remember:</strong> uncertainty changes the answer from one sequence to a policy that can react.</p>
@@ -647,7 +654,7 @@
                 <button type="button" data-pui-policy="weak">weak</button>
                 <button type="button" data-pui-policy="strong">strong</button>
                 <button type="button" data-pui-policy="cyclic">strong cyclic</button>
-                <button type="button" data-pui-policy="pomdp">POMDP</button>
+                <button type="button" data-pui-policy="pomdp">POMDP optional</button>
               </div>
               <div id="pui-policy-output" class="preview-box"></div>
               <p class="step-note"><strong>Use this when:</strong> you need to separate optimistic, guaranteed, looping, and partially observable cases.</p>
@@ -670,7 +677,7 @@
                   <template data-recall-reference="pui-uncertainty-andor">Must say: the search graph alternates OR nodes, where the planner chooses an action, and AND nodes, where all possible environment outcomes of that action must be considered. For strong planning, an action choice is acceptable only if every outcome branch can be solved and reaches the goal. For weak planning, one successful branch may be enough. For strong cyclic planning, the solution graph may contain cycles but must satisfy fairness/progress conditions. The result is a policy/subgraph that says what to do after each possible observed outcome.</template>
                 </label>
                 <label class="free-recall">
-                  <span>Formulate probabilistic planning as an MDP and contrast it with a POMDP.</span>
+                  <span>Formulate probabilistic planning as an MDP; contrast POMDP only briefly if asked.</span>
                   <textarea rows="5" data-recall="pui-uncertainty-mdp-pomdp" placeholder="S,A,P,R,gamma, Bellman backup, greedy policy, belief states, observations..."></textarea>
                   <template data-recall-reference="pui-uncertainty-mdp-pomdp">Must say: probabilistic planning assigns transition probabilities P(s'|s,a) and is modeled as an MDP with states, actions, transition probabilities, rewards or costs, and discount factor or terminal goals. A policy chooses actions by state. Value iteration applies the Bellman optimality backup V_{k+1}(s)=max_a sum_{s'} P(s'|s,a)[R(s,a,s')+gamma V_k(s')] for reward maximization, or the analogous min-cost backup. A POMDP has hidden state and observations, so the planner maintains a belief distribution over states and updates it after actions and observations; this belief-state planning is much harder.</template>
                 </label>
@@ -682,7 +689,7 @@
           <div class="block">
             <p class="block-label free">Free recall</p>
             <label class="free-recall">
-              <span>Distinguish nondeterministic plans from probabilistic planning/MDPs and POMDPs.</span>
+              <span>Distinguish nondeterministic plans from probabilistic planning/MDPs; mention POMDP as optional partial-observability contrast.</span>
               <textarea rows="4" data-recall="pui-uncertainty" placeholder="Weak/strong/strong cyclic, AND/OR, MDP tuple, Bellman value iteration, SSP, belief state..."></textarea>
               <template data-recall-reference="pui-uncertainty">Must say: nondeterministic planning has actions with sets of possible outcomes and usually returns a policy. Weak plans need one successful execution, strong plans guarantee all executions reach the goal in finite time, and strong cyclic plans allow fair loops. AND/OR search models planner choices as OR nodes and environment outcomes as AND nodes. Probabilistic planning gives transition probabilities P(s'|s,a), forming an MDP with states, actions, rewards/costs, and discount or terminal goals; value iteration computes an optimal policy by Bellman backups. POMDPs add partial observability and use belief-state distributions updated from observations.</template>
             </label>
@@ -697,7 +704,7 @@
               <p class="module-lead">MCTS is online, sample-based planning. It does not solve the whole MDP up front; it spends simulations around the current decision and balances promising actions against uncertain actions.</p>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>MCTS is useful when connected to planning under uncertainty, but it should not crowd out the formal planning, heuristic, MDP, and POMDP spine.</p>
+                <p>MCTS is useful when connected to planning under uncertainty, but it should not crowd out the formal planning, heuristic, MDP, and value-iteration spine.</p>
                 <ul class="priority-topics">
                   <li>selection, expansion, rollout, and backpropagation</li>
                   <li>UCT exploitation/exploration rule</li>
@@ -969,7 +976,7 @@
                 <li>Define landmarks, landmark orders, and LM-Cut's repeated relaxed-action cuts.</li>
                 <li>Explain state-equation LP heuristics, potential heuristics, and why portfolios are practical.</li>
                 <li>Switch to uncertainty: weak, strong, strong cyclic plans and AND/OR search.</li>
-                <li>Finish with MDP value iteration, POMDP belief states, and MCTS/UCT as sample-based online planning.</li>
+                <li>Finish with MDP value iteration and MCTS/UCT as sample-based online planning; mention POMDP belief states only as optional contrast.</li>
               </ol>
             </article>
           </div>

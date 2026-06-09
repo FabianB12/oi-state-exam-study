@@ -22,6 +22,18 @@ Highest-priority cleanup:
 4. **MAS**: trim reported minimax/MCTS/planning bridges and add compact worked voting/EFG solving examples.
 5. **PAL/TAL/LUP/UIR/SMU**: mostly complete; add small weak official items and mark advanced material optional.
 
+## Cleanup Applied
+
+After this validation, the HTML pages were cleaned up to make the official scope clearer:
+
+- Added an `Official scope` callout to every question page so the state-exam boundary is visible before studying.
+- Re-centered **PUI** on STRIPS/SAS, heuristics, landmarks/LM-Cut, LP heuristics, MDP/value iteration, and MCTS; POMDP/SAT/Graphplan/portfolios are now optional contrast.
+- Re-centered **SSU** on ERM/SVM/MLE/EM/neural-network training; decision trees, ensembles, metrics, and bias/variance are now optional detours.
+- Re-centered **KO** on official ILP, Ford-Fulkerson, shortest paths, flows, knapsack, metric TSP, scheduling, and AC3; cutting planes, Edmonds-Karp, LPT, and McNaughton are labeled as extras.
+- Re-centered **TAL** randomized classes on RP, co-RP, and ZPP; BPP is now optional context.
+- Re-centered **MAS** on official normal-form, zero-sum LP, equilibrium alternatives, EFG solving, coalitions, voting indices, and auctions; reported minimax/game-tree material is now optional.
+- Added small missing official details for **PAL** graph vocabulary and PRNG properties, **PUI** landmark/state-equation/potential formulas, **MAS** voting-power example, and **UIR** frontier-vs-information planning plus sequence-dependent costs.
+
 ## Common Part
 
 ### PAL

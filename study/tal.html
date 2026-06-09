@@ -125,6 +125,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official TAL scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
+          <h2>Keep TAL centered on these exam asks</h2>
+          <p>Asymptotic growth, time/space complexity, correctness by invariant/variant, deterministic/multitape/nondeterministic Turing machines, P/NP/co-NP/NPC, PSPACE/NPSPACE and Savitch, RP/ZPP/co-RP, and decidable/RE/recursive languages.</p>
+        </section>
+
         <section id="correctness" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -419,6 +425,7 @@
               <ul>
                 <li>Convert a decision problem into a language.</li>
                 <li>Define P, NP, co-NP, polynomial many-one reduction, NP-hard, NP-complete.</li>
+                <li>Polynomial many-one reductions preserve yes/no answers and are stronger/different from just saying one problem is computable from another.</li>
                 <li>Use the correct reduction direction: known hard problem to target problem.</li>
                 <li>State Cook-Levin and the computation-tableau proof idea.</li>
                 <li>Name practical approaches: exact exponential, heuristic, approximation.</li>
@@ -581,7 +588,7 @@
             <div class="module-head-main">
               <span class="module-num">Module 5</span>
               <h2>Randomized algorithms &amp; classes</h2>
-              <p class="module-lead">Randomization is easiest if you memorize the direction of the allowed error. RP and co-RP are one-sided; ZPP is zero-error; BPP is bounded two-sided error.</p>
+              <p class="module-lead">Randomization is easiest if you memorize the direction of the allowed error. RP and co-RP are one-sided; ZPP is zero-error. BPP is useful two-sided context, but the official TAL bullet names RP, ZPP, and co-RP.</p>
             </div>
             <div class="module-head-side">
               <span class="time-pill">35-50 min</span>
@@ -604,7 +611,7 @@
               </div>
               <a class="fallback-link" href="https://www.youtube.com/watch?v=Vp_AzDGQyrA&t=900s" target="_blank" rel="noreferrer">MIT fallback</a>
               <a class="fallback-link" href="https://www.youtube.com/watch?v=k2nzRrQNoTg" target="_blank" rel="noreferrer">NPTEL fallback</a>
-              <p class="step-note"><strong>Why this was added:</strong> the exam outline names RP, co-RP, and ZPP; the short comparison pairs well with the longer BPP lecture.</p>
+              <p class="step-note"><strong>Why this was added:</strong> the exam outline names RP, co-RP, and ZPP. Treat BPP as optional context for two-sided error and amplification.</p>
             </article>
           </div>
 
@@ -615,7 +622,7 @@
               <ul>
                 <li>Define randomized algorithm and randomized TM.</li>
                 <li>Distinguish Monte Carlo and Las Vegas.</li>
-                <li>Define RP, co-RP, ZPP, and BPP.</li>
+                <li>Define RP, co-RP, and ZPP; mention BPP only as optional two-sided-error context.</li>
                 <li>Explain one-sided error, zero error, two-sided error, and amplification.</li>
               </ul>
             </article>
@@ -631,7 +638,7 @@
                 <button type="button" data-random-tab="rp">RP</button>
                 <button type="button" data-random-tab="corp">co-RP</button>
                 <button type="button" data-random-tab="zpp">ZPP</button>
-                <button type="button" data-random-tab="bpp">BPP</button>
+                <button type="button" data-random-tab="bpp">BPP optional</button>
               </div>
               <div id="randomized-output" class="preview-box"></div>
             </article>
@@ -657,7 +664,7 @@
                 <textarea rows="4" data-recall="tal-random-rp-corp" placeholder="Yes/no acceptance probabilities, one-sided error direction..."></textarea>
               </label>
               <label class="free-recall">
-                <span>Define ZPP and BPP, and explain amplification.</span>
+                <span>Define ZPP and, if asked, use BPP only to explain two-sided error and amplification.</span>
                 <textarea rows="4" data-recall="tal-random-zpp-bpp" placeholder="RP intersection co-RP, zero error, two-sided error, repetition..."></textarea>
               </label>
             </div>
@@ -898,7 +905,7 @@
             <li>Complexity: P deterministic polynomial time; NP polynomial certificate verification; co-NP complements; NPC means in NP and NP-hard.</li>
             <li>Reduction: to prove target hard, reduce known hard problem to target. Cook-Levin: SAT is NP-complete via tableau.</li>
             <li>Space: PSPACE/NPSPACE use polynomial space; configuration graph reachability; Savitch gives NSPACE(s) subset DSPACE(s^2).</li>
-            <li>Random: RP false negatives only, co-RP false positives only, ZPP = RP intersection co-RP, BPP two-sided bounded error.</li>
+            <li>Random: RP false negatives only, co-RP false positives only, ZPP = RP intersection co-RP. BPP is optional context, not the official core.</li>
             <li>Undecidable: decidable always halts; RE recognizes yes; A_TM is RE but undecidable; diagonalization also yields non-RE languages.</li>
           </ol>
         </section>

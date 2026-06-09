@@ -191,6 +191,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official KO scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
+          <h2>Keep KO centered on these exam asks</h2>
+          <p>ILP formulations and branch-and-bound, shortest paths, max/min-cost/feasible flows and matching, knapsack approximation/DP/FPTAS, metric TSP approximations and k-OPT, scheduling notation and named algorithms, and CSP/AC3.</p>
+        </section>
+
         <section id="ilp" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -230,14 +236,14 @@
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=WNRRmXZkRi0" target="_blank" rel="noreferrer">Open current video on YouTube</a>
               </article>
               <article class="video-card">
-                <h3>Cutting-plane method - Shokoufeh Mirzaei (14:10)</h3>
+                <h3>Optional: cutting-plane method - Shokoufeh Mirzaei (14:10)</h3>
                 <div class="video-frame" title="Cutting-plane method for integer programming" data-video-id="4Qu4EjsIKI8"></div>
                 <div class="timestamp-row">
                   <button type="button" data-video-target="4Qu4EjsIKI8" data-start="0">0:00 worked IP example</button>
                   <button type="button" data-video-target="4Qu4EjsIKI8" data-start="360">6:00 cut construction</button>
                 </div>
                 <a class="fallback-link" href="https://www.youtube.com/watch?v=4Qu4EjsIKI8" target="_blank" rel="noreferrer">Fallback link</a>
-                <p><strong>What they may ask:</strong> why a valid cut removes the current fractional LP solution but keeps every integer-feasible solution.</p>
+                <p><strong>Optional context:</strong> valid cuts explain branch-and-cut, but the official core is ILP formulation plus branch and bound.</p>
                 <p class="fallback-link">Optional TU refresher: <a href="https://www.youtube.com/watch?v=KtTSqPBjTY0" target="_blank" rel="noreferrer">Total unimodularity 1/2 - mathapptician (6:54)</a> and <a href="https://www.youtube.com/watch?v=6bIyLoKCS_g" target="_blank" rel="noreferrer">2/2 (4:16)</a>.</p>
               </article>
             </div>
@@ -251,8 +257,9 @@
                 <li>LP optimizes a linear objective over linear constraints; ILP adds integer or binary variables and is NP-hard in general.</li>
                 <li>Shortest path ILP uses edge variables and flow conservation; the relaxation is integral for the network matrix.</li>
                 <li>TSP ILP needs degree constraints and subtour elimination constraints.</li>
+                <li>Typical official formulations use the same patterns: binary choice variables, assignment variables, conservation constraints, capacity constraints, and big-M order/disjunction constraints.</li>
                 <li>Branch and bound solves relaxations for bounds, branches on fractional variables, and prunes impossible or dominated subproblems.</li>
-                <li>Cutting planes add valid inequalities; branch-and-cut combines them with branch and bound.</li>
+                <li>Cutting planes and branch-and-cut are useful optional context after branch and bound.</li>
                 <li>Totally unimodular matrices with integral right-hand sides explain why many flow/matching ILPs are polynomial via LP.</li>
               </ul>
             </article>
@@ -422,7 +429,7 @@
                 <p>Start with augmenting paths, then use the variants for lower-bound feasibility and cost minimization.</p>
                 <div class="video-frame" title="Edmonds Karp Algorithm" data-video-id="RppuJYwlcI8"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="RppuJYwlcI8" data-start="0">Edmonds-Karp</button>
+                  <button type="button" data-video-target="RppuJYwlcI8" data-start="0">BFS augmenting paths</button>
                   <button type="button" data-video-target="RppuJYwlcI8" data-start="270">4:30 BFS paths</button>
                   <button type="button" data-video-target="VYZGlgzr_As" data-start="0">MIT max-flow/min-cut</button>
                   <button type="button" data-video-target="VYZGlgzr_As" data-start="720">12:00 augmenting paths</button>
@@ -445,7 +452,7 @@
               <ul>
                 <li>A flow respects capacities and conservation; its value is net flow leaving s.</li>
                 <li>The residual graph has forward capacity u-f and backward capacity f.</li>
-                <li>Ford-Fulkerson augments by bottlenecks; Edmonds-Karp uses BFS and runs in O(nm^2).</li>
+                <li>Ford-Fulkerson repeatedly augments along any residual s-t path by its bottleneck; Edmonds-Karp is the BFS shortest-path variant and is optional implementation detail.</li>
                 <li>Max-flow min-cut says the maximum flow value equals the minimum cut capacity.</li>
                 <li>Lower bounds are removed by f' = f-l and adjusted balances; bipartite matching reduces to unit-capacity max flow.</li>
                 <li>Min-cost flow is optimal iff the residual graph has no negative-cost cycle.</li>
@@ -696,7 +703,7 @@
             <div class="module-head-main">
               <span class="module-num">Module 6</span>
               <h2>Scheduling</h2>
-              <p class="module-lead">Scheduling is vocabulary-heavy. Learn the notation first, then attach each named algorithm to exactly one problem class: Bratley for single-machine feasibility search, Horn for preemptive earliest deadline, list scheduling/LPT for parallel machines, McNaughton for preemptive makespan.</p>
+              <p class="module-lead">Scheduling is vocabulary-heavy. Learn the notation first, then attach each named official item to its problem class: Bratley for one resource, Horn for preemptive earliest deadline, list scheduling and DP for identical parallel resources, and ILP formulations for project scheduling. LPT and McNaughton are helpful extras, not the first-pass spine.</p>
             </div>
             <div class="module-head-side">
               <span class="time-pill">75-95 min</span>
@@ -994,10 +1001,10 @@
           <ol class="panic-list">
             <li>ILP: binary variables model choices; branch and bound uses relaxation bounds; totally unimodular network matrices make some LP relaxations integral.</li>
             <li>Shortest paths: Dijkstra nonnegative O((n+m)log n), Bellman-Ford negative edges and cycles O(nm), Floyd-Warshall all pairs O(n^3), DAG topological O(n+m).</li>
-            <li>Flows: residual graph, augmenting path, bottleneck, max-flow min-cut, Edmonds-Karp O(nm^2), min-cost flow no negative residual cycle.</li>
+            <li>Flows: residual graph, Ford-Fulkerson augmenting path, bottleneck, max-flow min-cut, lower-bound/balance reduction, min-cost flow no negative residual cycle.</li>
             <li>Knapsack: fractional greedy exact, 0/1 DP O(nW), pseudo-polynomial, 2-approx, FPTAS by profit scaling.</li>
             <li>TSP: metric assumption, double-tree 2-approx, Christofides 3/2-approx, k-OPT local search.</li>
-            <li>Scheduling: alpha|beta|gamma, Bratley, Horn/EDF, list scheduling ratio, LPT ratio, McNaughton, project scheduling ILPs.</li>
+            <li>Scheduling: alpha|beta|gamma, Bratley, Horn/EDF, list scheduling, dynamic programming for identical machines, project scheduling ILPs. LPT/McNaughton are useful extras if asked.</li>
             <li>CSP: variables/domains/constraints, arc consistency, AC3 queue/revise/requeue, O(ed^3), not complete.</li>
           </ol>
         </section>

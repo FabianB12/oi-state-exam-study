@@ -246,6 +246,12 @@
       </aside>
 
       <div class="module-main">
+        <section class="official-scope" aria-label="Official MAS scope">
+          <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
+          <h2>Keep MAS centered on these exam asks</h2>
+          <p>Normal-form games, mixed strategies, Nash/dominance, zero-sum LP, correlated and Stackelberg equilibria, extensive-form games with information/perfect recall/SPE and solving by LP/regret minimization, coalitional games/core/Shapley/voting indices, and auction mechanisms including revenue equivalence, optimal single-item auctions, and combinatorial auctions.</p>
+        </section>
+
         <section id="normal-form" class="module">
           <header class="module-head">
             <div class="module-head-main">
@@ -629,9 +635,9 @@
               <template data-recall-reference="mas-extensive-solving">Must say: sequence form represents realization probabilities of action sequences rather than exponentially many pure plans. Flow constraints set the empty sequence to probability 1 and make each information-set incoming realization equal the sum of outgoing child sequence probabilities. For two-player zero-sum perfect-recall EFGs this gives compact LPs for equilibrium. Regret minimization drives average play to coarse correlated equilibrium generally and to Nash average strategies in two-player zero-sum games; CFR decomposes regret by information sets using counterfactual values and regret matching.</template>
             </label>
             <label class="free-recall">
-              <span>Connect two-player game-tree search and multi-agent planning to MAS concepts.</span>
+              <span>Optional bridge: connect two-player game-tree search to MAS zero-sum/extensive-form concepts.</span>
               <textarea rows="4" data-recall="mas-extensive-minimax-planning" placeholder="Adversarial zero-sum tree, minimax, alpha-beta, evaluation depth, joint actions, centralized vs decentralized coordination..."></textarea>
-              <template data-recall-reference="mas-extensive-minimax-planning">Must say: in a deterministic two-player zero-sum game tree, minimax backs up max nodes for our choices and min nodes for the opponent's choices, giving a security value under optimal adversarial play. Alpha-beta pruning preserves the minimax result while skipping branches that cannot affect the backed-up value; depth limits require an evaluation function. Multi-agent planning can be centralized over joint actions or decentralized with communication/coordination limits; MAS solution concepts then ask whether the resulting joint behavior is stable, coordinated, or fair.</template>
+              <template data-recall-reference="mas-extensive-minimax-planning">Must say: this is optional context, not the official MAS spine. In a deterministic two-player zero-sum game tree, minimax backs up max nodes for our choices and min nodes for the opponent's choices, giving a security value under optimal adversarial play. Alpha-beta pruning preserves the minimax result while skipping branches that cannot affect the backed-up value; depth limits require an evaluation function. Connect it back to official MAS by saying it is a special extensive-form/zero-sum setting.</template>
             </label>
           </div>
         </section>
@@ -873,7 +879,7 @@
 
         <section id="reported-drills" class="band">
           <div class="section-heading">
-            <p class="eyebrow">Previous exam reports</p>
+            <p class="eyebrow">Optional reported detour</p>
             <h2>Reported-question drills</h2>
           </div>
           <p class="module-lead">These are reconstructed from student reports. Try the answer first, then reveal the model answer if needed.</p>
@@ -881,8 +887,8 @@
             <article class="reported-drill">
               <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Two-player games and minimax</h3></div>
               <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Reported AI/ZUI questions overlap directly with MAS zero-sum game-tree reasoning, so this drill is a likely oral detour from minimax or extensive form.</p>
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Optional detour</strong></div>
+                <p>Reported AI/ZUI questions overlap with zero-sum game-tree reasoning, but they are outside the official MAS core unless the examiner pivots from extensive form or zero-sum games.</p>
                 <ul class="priority-topics">
                   <li>game-state representation, terminal utilities, and winning criteria</li>
                   <li>minimax, alpha-beta pruning, and depth-limited evaluation</li>
@@ -920,7 +926,7 @@
             <li><strong>Zero-sum:</strong> state minimax and the LP idea; mention general Nash computation is much harder.</li>
             <li><strong>Alternatives:</strong> correlated equilibrium is mediated recommendation; Stackelberg is leader commitment.</li>
             <li><strong>Extensive form:</strong> define tree, information sets, perfect information, perfect recall, strategy types, SPE, backward induction, sequence form, and CFR.</li>
-            <li><strong>Game-tree bridge:</strong> minimax backs up adversarial values; alpha-beta prunes safely; depth-limited play needs evaluation.</li>
+            <li><strong>Optional game-tree bridge:</strong> minimax backs up adversarial values; alpha-beta/depth-limited search are useful only if the examiner pivots.</li>
             <li><strong>Coalitions:</strong> define <code>(N,v)</code>, core constraints, Shapley axioms/formula intuition, and voting power indices.</li>
             <li><strong>Auctions:</strong> allocation/payment/bidding language, truthfulness of second price, shading in first price, revenue equivalence assumptions, Myerson reserve idea, combinatorial winner determination.</li>
           </ol>
@@ -934,9 +940,8 @@
             <p><strong>2. Normal form.</strong> "For simultaneous games I define players, actions, utilities, pure and mixed strategies, dominated strategies, and Nash equilibrium. Nash is unilateral stability, not social optimality."</p>
             <p><strong>3. Computation and alternatives.</strong> "Zero-sum two-player games are solved by LP and minimax. General Nash computation is difficult. Correlated equilibrium uses recommendations and is LP-computable; Stackelberg uses leader commitment."</p>
             <p><strong>4. Extensive form.</strong> "Sequential games use a game tree, chance, terminal utilities, and information sets. Perfect recall lets behavioral and mixed strategies match. SPE plus backward induction handles perfect information; sequence form and regret/CFR handle larger zero-sum EFGs."</p>
-            <p><strong>5. Game-tree and planning bridge.</strong> "For deterministic adversarial games, minimax backs up max and min choices; alpha-beta prunes branches that cannot change the value. For multi-agent planning, centralized joint-action planning quickly explodes, while decentralized planning needs coordination or communication assumptions."</p>
-            <p><strong>6. Coalitions.</strong> "A TU coalitional game assigns value to coalitions. The core is stability against blocking coalitions; the Shapley value is fair expected marginal contribution; Shapley-Shubik and Banzhaf measure voting power."</p>
-            <p><strong>7. Auctions.</strong> "Auctions are mechanisms. Second-price is truthful; first-price shades; English and Dutch match those strategically under private values. Revenue equivalence needs strong assumptions. Myerson uses virtual values. Combinatorial auctions are expressive but winner determination is NP-hard."</p>
+            <p><strong>5. Coalitions.</strong> "A TU coalitional game assigns value to coalitions. The core is stability against blocking coalitions; the Shapley value is fair expected marginal contribution; Shapley-Shubik and Banzhaf measure voting power."</p>
+            <p><strong>6. Auctions.</strong> "Auctions are mechanisms. Second-price is truthful; first-price shades; English and Dutch match those strategically under private values. Revenue equivalence needs strong assumptions. Myerson uses virtual values. Combinatorial auctions are expressive but winner determination is NP-hard."</p>
           </div>
         </section>
       </div>
@@ -1322,7 +1327,7 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
         });
         return `<tr><td>${order.join(" -> ")}</td><td>${gains.A ?? ""}</td><td>${gains.B ?? ""}</td><td>${gains.C ?? ""}</td></tr>`;
       }).join("");
-      output.innerHTML = `<p>Average each player's marginal contribution across all six arrival orders.</p><table class="mas-payoff-matrix"><tr><th>Order</th><th>A</th><th>B</th><th>C</th></tr>${rows}<tr><th>Shapley</th><td class="best">${(sums.A / 6).toFixed(2)}</td><td class="best">${(sums.B / 6).toFixed(2)}</td><td class="best">${(sums.C / 6).toFixed(2)}</td></tr></table><p class="step-note"><strong>Why:</strong> averaging all orders removes bias from who arrives early or late.</p>`;
+      output.innerHTML = `<p>Average each player's marginal contribution across all six arrival orders.</p><table class="mas-payoff-matrix"><tr><th>Order</th><th>A</th><th>B</th><th>C</th></tr>${rows}<tr><th>Shapley</th><td class="best">${(sums.A / 6).toFixed(2)}</td><td class="best">${(sums.B / 6).toFixed(2)}</td><td class="best">${(sums.C / 6).toFixed(2)}</td></tr></table><p class="step-note"><strong>Why:</strong> averaging all orders removes bias from who arrives early or late.</p><div class="preview-box"><h4>Voting-power mini example</h4><p>Weighted vote <code>[3; 2,1,1]</code>: A has weight 2, B and C have weight 1, quota is 3.</p><ul><li><strong>Shapley-Shubik:</strong> count pivotal positions in all orders. A is pivotal in 4 of 6 orders; B and C in 1 each, so <code>(2/3, 1/6, 1/6)</code>.</li><li><strong>Banzhaf:</strong> count critical swings in winning coalitions. A is critical 3 times; B and C once each, so normalized power is <code>(3/5, 1/5, 1/5)</code>.</li></ul><p class="step-note"><strong>Exam punchline:</strong> Shapley-Shubik counts pivotal orderings; Banzhaf counts critical coalitions.</p></div>`;
     }
 
     function initMasAuction() {
