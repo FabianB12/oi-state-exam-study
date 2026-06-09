@@ -2738,7 +2738,7 @@ const VIDEO_METADATA = {
   "aircAruvnKk": { duration: "18:40" },
   "bQga6WqLUvs": { duration: "4:51" },
   "cwg3yNq-y5Y": { duration: "8:59" },
-  "_CZn6UrmaM0": { duration: "8:35" },
+  "PG7Al6X7AvE": { duration: "10:41" },
   "_D7DAsvx-z4": { duration: "9:22" },
   "aa8USttcDoE": { duration: "9:34" },
   "dFEvxGz_HP0": { duration: "5:03" },

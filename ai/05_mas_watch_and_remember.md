@@ -53,9 +53,10 @@ Say after watching:
 3. [Finding Zero Sum Nash Equilibria with Linear Programming](https://www.youtube.com/watch?v=XrQpLcKXvgY) - Professor Bryce, 16:13.
    - Watch only after using the zero-sum LP builder in `study/mas.html`.
    - Remember: this is the formal LP layer: player 1 maximizes a guaranteed value with one constraint per opponent pure action; the dual is player 2's problem.
-4. [Stackelberg's First-Mover Advantage](https://www.youtube.com/watch?v=_CZn6UrmaM0) - William Spaniel, 8:35.
-   - Watch: 0:00-8:35.
-   - Remember: the leader chooses while anticipating the follower's best response.
+4. [Stackelberg Competition](https://www.youtube.com/watch?v=PG7Al6X7AvE) - William Spaniel, 10:41.
+   - Watch: 0:00-8:20.
+   - Timestamps: 0:00 setup, 1:49 solution strategy/backward induction, 4:06 follower best response, 5:36 leader optimum, 7:50 follower equilibrium production.
+   - Remember: solve the follower's best-response function first, then let the leader choose the commitment that maximizes leader payoff given that response.
 5. [Security Games: Key Algorithmic Principles, Deployed Applications and Research Challenges](https://www.youtube.com/watch?v=9x2w-Qi6ENk&t=273s) - Microsoft Research, 64:35 total.
    - Optional segment: 4:33-12:30.
    - Remember: Stackelberg equilibrium is leader commitment followed by follower best response, often used in security games.
