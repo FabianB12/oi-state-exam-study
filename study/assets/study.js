@@ -3433,9 +3433,14 @@ function initRecall() {
         const show = referenceBox.hidden;
         if (show && !referenceBox.dataset.ready) {
           referenceBox.dataset.ready = "1";
+          const points = splitRecallReferencePoints(prettifyRecallReferenceText(reference));
           referenceBox.innerHTML = `
             <span class="recall-subhead">Reference answer</span>
-            <div class="recall-reference-text">${reference}</div>
+            <ul class="recall-reference-points">${points.map((point) => `<li>${point}</li>`).join("")}</ul>
+            <div class="recall-anchors" hidden>
+              <span class="recall-subhead">Key facts from this module</span>
+              <ul class="recall-anchor-list"></ul>
+            </div>
             <div class="recall-selfgrade">
               <span>Now grade yourself honestly &mdash; it decides what you revisit before the exam:</span>
               <div class="recall-selfgrade-row">
@@ -3444,6 +3449,15 @@ function initRecall() {
                 <button type="button" data-self-grade="wrong"><span class="material-symbols-rounded">replay</span>Forgot &mdash; revisit</button>
               </div>
             </div>`;
+          const promptText = label.querySelector("span")?.textContent?.trim() || "";
+          const anchors = collectRecallAnchors(area, promptText);
+          if (anchors.length) {
+            const wrap = referenceBox.querySelector(".recall-anchors");
+            const list = referenceBox.querySelector(".recall-anchor-list");
+            anchors.forEach((item) => list.appendChild(item));
+            wrap.hidden = false;
+          }
+          window.formatMathNotation?.(referenceBox);
           const saved = loadProgress()[`recall:${key}`] || {};
           referenceBox.querySelectorAll("[data-self-grade]").forEach((grade) => {
             if (saved.self && saved.verdict === grade.dataset.selfGrade) grade.classList.add("active");
@@ -3480,6 +3494,50 @@ function initRecall() {
       });
     }
   });
+}
+
+function prettifyRecallReferenceText(text) {
+  return String(text || "")
+    .replace(/^\s*Must say:\s*/i, "")
+    .replace(/-(?:&gt;|>)/g, "→")
+    .replace(/(?:&lt;|<)=/g, "≤")
+    .replace(/(?:&gt;|>)=/g, "≥")
+    .replace(/!=/g, "≠")
+    .replace(/\bsubset\b/g, "⊆")
+    .replace(/\bunion\b/g, "∪")
+    .replace(/\bintersection\b/g, "∩")
+    .replace(/\bemptyset\b/g, "∅")
+    .replace(/\binfinity\b/g, "∞")
+    .replace(/\bgamma\b/g, "γ")
+    .replace(/\bsigma\b/g, "σ")
+    .replace(/\bepsilon\b/g, "ε")
+    .replace(/\btheta\b/g, "θ")
+    .replace(/\blambda\b/g, "λ")
+    .replace(/\bphi\b/g, "φ")
+    .replace(/\bPi\b(?=\s*=)/g, "Π")
+    .replace(/_\{([^}]+)\}/g, (match, inner) => `_{${inner.replace(/\bin\b/g, "∈")}}`);
+}
+
+function splitRecallReferencePoints(text) {
+  return text
+    .split(/(?<=\.)\s+(?=[A-Z(γσπΠφ∅Σ∪⊆])/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function collectRecallAnchors(area, prompt, limit = 4) {
+  const module = area.closest(".module") || area.closest("section");
+  if (!module) return [];
+  const promptTokens = new Set(recallTokens(`${prompt} ${area.placeholder || ""}`));
+  return [...module.querySelectorAll(".recall-card li")]
+    .map((item, index) => {
+      const score = recallTokens(item.textContent).reduce((sum, token) => sum + (promptTokens.has(token) ? 1 : 0), 0);
+      return { item, index, score };
+    })
+    .filter((entry) => entry.score >= 2)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, limit)
+    .map((entry) => entry.item.cloneNode(true));
 }
 
 function recallDeckState(area) {

@@ -4609,6 +4609,8 @@ template + .free-recall {
   gap: 0.6rem;
 }
 
+.recall-reference-box[hidden] { display: none; }
+
 .recall-reference-box .recall-subhead {
   color: var(--practice);
   font-size: 0.74rem;
@@ -4617,11 +4619,38 @@ template + .free-recall {
   letter-spacing: 0.05em;
 }
 
-.recall-reference-text {
+.recall-reference-points {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.recall-reference-points li {
   color: var(--ink);
   font-size: 0.9rem;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.55;
+}
+
+.recall-anchors {
+  display: grid;
+  gap: 0.45rem;
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 0.65rem;
+}
+
+.recall-anchor-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.recall-anchor-list li {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .recall-selfgrade { display: grid; gap: 0.4rem; }

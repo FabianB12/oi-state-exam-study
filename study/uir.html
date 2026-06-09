@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=recall-deck-1">
+  <link rel="stylesheet" href="assets/study.css?v=recall-deck-3">
   <style>
     .uir-chip-row,
     .uir-step-row,
@@ -978,7 +978,7 @@
   <template data-recall-reference="uir-sampling-rrtstar">Must say: RRT* modifies RRT by considering a neighborhood around each new sample, choosing the parent that gives the cheapest path-to-come among feasible connections, and rewiring nearby nodes through the new node if their cost improves. This keeps the exploration idea of RRT but adds cost improvement over time. It is usually slower per iteration than basic RRT because of neighbor searches and extra collision checks. Under standard assumptions and suitable connection radius, RRT* is asymptotically optimal, while basic RRT is generally only probabilistically complete.</template>
   <template data-recall-reference="uir-sampling-guarantees">Must say: probabilistic completeness means that if a feasible path exists, the probability that the planner has found a path tends to 1 as the number of samples or time tends to infinity. PRM and RRT have this guarantee under standard assumptions such as adequate sampling, collision checking, and clearance. Asymptotic optimality is stronger: the best solution cost converges to the optimal cost as samples go to infinity. Basic RRT is generally not asymptotically optimal; PRM* and RRT* are asymptotically optimal under their assumptions. Completeness is about eventually finding any feasible path; optimality is about eventually improving path quality.</template>
 
-  <script src="assets/study.js?v=recall-deck-1"></script>
+  <script src="assets/study.js?v=recall-deck-3"></script>
   <script>
     pageModules.uir = ["uir-robot", "uir-path", "uir-explore", "uir-multigoal", "uir-sampling"];
 
