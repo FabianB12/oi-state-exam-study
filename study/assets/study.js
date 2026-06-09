@@ -6300,3 +6300,131 @@ document.addEventListener("DOMContentLoaded", () => {
   initLupModelStepper();
   initMathNotation();
 });
+
+/* ===================== <range-slider> custom element =====================
+   Drop-in replacement for <input type="range"> used by the labs.
+   Why it exists: several labs rebuild their HTML on every "input" event,
+   which destroys a native slider mid-drag and breaks dragging. This element
+   tracks the active drag at the document level, keyed by data-key (or id),
+   and re-finds the freshly rendered element on every pointer move, so a
+   drag survives any number of re-renders.
+   API: min/max/step/value attributes, .value property (string, like the
+   native input), bubbling "input" events, arrow-key support. */
+(() => {
+  if (window.customElements.get("range-slider")) return;
+
+  let drag = null; // { key, pointerId }
+  const findByKey = (key) =>
+    document.querySelector(`range-slider[data-key="${key}"]`) ||
+    (key ? document.getElementById(key) : null);
+
+  document.addEventListener("pointermove", (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    const el = findByKey(drag.key);
+    if (el && el.tagName === "RANGE-SLIDER") {
+      el._setFromClientX(event.clientX);
+      event.preventDefault();
+    }
+  }, { passive: false });
+  const endDrag = (event) => {
+    if (!drag || (event.pointerId !== undefined && event.pointerId !== drag.pointerId)) return;
+    const el = findByKey(drag.key);
+    drag = null;
+    if (el && el.tagName === "RANGE-SLIDER") {
+      el.classList.remove("is-dragging");
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  };
+  document.addEventListener("pointerup", endDrag);
+  document.addEventListener("pointercancel", endDrag);
+
+  class RangeSlider extends HTMLElement {
+    static get observedAttributes() { return ["value", "min", "max", "step"]; }
+
+    connectedCallback() {
+      if (!this._built) {
+        this._built = true;
+        this.innerHTML = `<span class="rs-track"><span class="rs-fill"></span><span class="rs-thumb"></span></span>`;
+        this._fill = this.querySelector(".rs-fill");
+        this._thumb = this.querySelector(".rs-thumb");
+        if (!this.hasAttribute("tabindex")) this.tabIndex = 0;
+        this.setAttribute("role", "slider");
+        this.addEventListener("pointerdown", (event) => {
+          if (event.button !== undefined && event.button !== 0) return;
+          drag = { key: this.dataset.key || this.id, pointerId: event.pointerId };
+          this.classList.add("is-dragging");
+          this.focus({ preventScroll: true });
+          this._setFromClientX(event.clientX);
+          event.preventDefault();
+        });
+        this.addEventListener("keydown", (event) => {
+          const step = this._num("step", 1);
+          const span = this._num("max", 100) - this._num("min", 0);
+          let delta = 0;
+          if (event.key === "ArrowRight" || event.key === "ArrowUp") delta = step;
+          else if (event.key === "ArrowLeft" || event.key === "ArrowDown") delta = -step;
+          else if (event.key === "PageUp") delta = step * 10;
+          else if (event.key === "PageDown") delta = -step * 10;
+          else if (event.key === "Home") delta = -span;
+          else if (event.key === "End") delta = span;
+          else return;
+          event.preventDefault();
+          this._commit(Number(this.value) + delta);
+        });
+      }
+      // If this element replaced one being dragged, the document handler
+      // resumes automatically because it re-queries by key on every move.
+      if (drag && drag.key === (this.dataset.key || this.id)) this.classList.add("is-dragging");
+      this._paint();
+    }
+
+    attributeChangedCallback() { if (this._built) this._paint(); }
+
+    _num(name, fallback) {
+      const v = Number(this.getAttribute(name));
+      return Number.isFinite(v) && this.hasAttribute(name) ? v : fallback;
+    }
+
+    get value() { return this.getAttribute("value") ?? String(this._num("min", 0)); }
+    set value(v) { this.setAttribute("value", String(v)); }
+
+    _decimals() {
+      const s = this.getAttribute("step") || "1";
+      const i = s.indexOf(".");
+      return i === -1 ? 0 : s.length - i - 1;
+    }
+
+    _commit(raw) {
+      const min = this._num("min", 0), max = this._num("max", 100), step = this._num("step", 1);
+      let v = Math.min(max, Math.max(min, raw));
+      v = min + Math.round((v - min) / step) * step;
+      v = Math.min(max, Math.max(min, v));
+      const text = v.toFixed(this._decimals());
+      if (text === this.value) return;
+      this.setAttribute("value", text);
+      this._paint();
+      this.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    _setFromClientX(clientX) {
+      const rect = this.getBoundingClientRect();
+      if (!rect.width) return;
+      const min = this._num("min", 0), max = this._num("max", 100);
+      const frac = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      this._commit(min + frac * (max - min));
+    }
+
+    _paint() {
+      const min = this._num("min", 0), max = this._num("max", 100);
+      const v = Number(this.value);
+      const pct = max > min ? ((Math.min(max, Math.max(min, v)) - min) / (max - min)) * 100 : 0;
+      if (this._fill) this._fill.style.width = `${pct}%`;
+      if (this._thumb) this._thumb.style.left = `${pct}%`;
+      this.setAttribute("aria-valuemin", String(min));
+      this.setAttribute("aria-valuemax", String(max));
+      this.setAttribute("aria-valuenow", this.value);
+    }
+  }
+
+  window.customElements.define("range-slider", RangeSlider);
+})();
