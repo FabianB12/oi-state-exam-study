@@ -90,6 +90,36 @@
       background: var(--surface-2);
     }
     .mas-lab-stat strong { display: block; color: var(--lab); }
+    .mas-lp-checks {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+    .mas-lp-check {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(12rem, 0.9fr);
+      gap: 0.65rem;
+      align-items: center;
+      padding: 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+    }
+    .mas-lp-check span {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+    .mas-lp-check select {
+      width: 100%;
+      min-height: 2.45rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 700;
+    }
     .mas-slider {
       display: grid;
       gap: 0.35rem;
@@ -101,6 +131,7 @@
     .mas-slider input { width: 100%; }
     @media (max-width: 720px) {
       .mas-lab-grid { grid-template-columns: minmax(0, 1fr); }
+      .mas-lp-check { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
@@ -381,12 +412,12 @@
             <div class="video-grid triple">
               <article class="video-card">
                 <h3>Zero-sum and minimax LP</h3>
-                <p>Watch the short intuition first, then the LP formulation so the minimax constraints are not just symbols.</p>
+                <p>Game Theory 101 gives the zero-sum intuition. The LP video is only the formal backup; use the builder below before trying to memorize its constraints.</p>
                 <div class="video-frame" title="Game Theory 101 symmetric zero-sum games" data-video-id="_D7DAsvx-z4"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="_D7DAsvx-z4" data-start="0">Zero-sum idea</button>
+                  <button type="button" data-video-target="_D7DAsvx-z4" data-start="0">Game Theory 101: zero-sum idea</button>
                   <button type="button" data-video-target="_D7DAsvx-z4" data-start="250">4:10 equilibrium</button>
-                  <button type="button" data-video-target="XrQpLcKXvgY" data-start="0">Zero-sum LP</button>
+                  <button type="button" data-video-target="XrQpLcKXvgY" data-start="0">Formal LP backup</button>
                   <button type="button" data-video-target="XrQpLcKXvgY" data-start="430">7:10 constraints</button>
                   <button type="button" data-video-target="XrQpLcKXvgY" data-start="720">12:00 equilibrium</button>
                 </div>
@@ -416,6 +447,7 @@
               <ul>
                 <li>In a two-player zero-sum matrix game, player 1 has payoff matrix <code>A</code> and player 2 has payoff <code>-A</code>.</li>
                 <li>The minimax theorem says <code>max_x min_y x^T A y = min_y max_x x^T A y</code>.</li>
+                <li>The LP idea is: choose your mixed strategy so the worst opponent column is as good as possible.</li>
                 <li>Player 1's LP maximizes value <code>v</code> subject to each column giving expected payoff at least <code>v</code>, probabilities summing to one, and nonnegativity.</li>
                 <li>General finite-game Nash computation includes support enumeration, Lemke-Howson, complementarity methods, and PPAD-completeness in general.</li>
                 <li>Correlated equilibrium uses a mediator recommending actions; no player wants to deviate after seeing the recommendation. It is LP-computable.</li>
@@ -436,6 +468,11 @@
               </div>
               <p class="step-note"><strong>Why:</strong> each tab changes what the player can rely on: worst-case opponent, recommendation, or commitment.</p>
               <div id="mas-zero-output" class="preview-box"></div>
+            </article>
+            <article class="interactive-card" data-lab-key="mas-zero-lp-builder">
+              <h3>Zero-sum LP builder</h3>
+              <p class="step-note"><strong>Task:</strong> translate matching pennies into LP constraints. Do not solve algebra first; just write what payoff player 1 guarantees against each pure column.</p>
+              <div id="mas-lp-builder-output" class="preview-box"></div>
             </article>
           </div>
 
@@ -1129,12 +1166,97 @@
       render();
     }
     const masZeroData = {
-      lp: `<h4>Zero-sum LP</h4><p>For player 1, choose probabilities <code>x_i</code> and value <code>v</code>.</p><p class="step-note"><strong>Remember:</strong> every column constraint protects player 1 against one pure response by player 2.</p><pre>maximize v
+      lp: `<h4>Zero-sum LP</h4><p>For player 1, choose row probabilities <code>x_i</code> and a guaranteed value <code>v</code>. Each column is one thing player 2 might do. Your constraint says: even if player 2 chooses this column, my expected payoff is at least <code>v</code>.</p><p class="step-note"><strong>Plain English:</strong> maximize the worst-case payoff.</p><pre>maximize v
 sum_i x_i A_ij >= v for every column j
-sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2's minimization problem.</p>`,
+sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: choose columns to keep player 1's best row payoff as low as possible.</p>`,
       correlated: `<h4>Correlated equilibrium</h4><p>A public or private signal can coordinate actions. After receiving the recommendation, each player asks: given this recommendation, would switching help me? If no for every player/action/deviation, it is correlated equilibrium.</p>`,
       stackelberg: `<h4>Stackelberg</h4><p>The leader commits first and the follower best-responds. Commitment can improve the leader's payoff because it changes the follower's incentives. In security games, a defender commits to a randomized patrol distribution.</p>`
     };
+
+    function initMasLpBuilder() {
+      const output = document.getElementById("mas-lp-builder-output");
+      if (!output) return;
+      const checks = [
+        {
+          key: "col-h",
+          label: "If player 2 chooses column H, player 1's expected payoff is...",
+          answer: "2p - 1",
+          why: "Row H gives 1 with probability p, row T gives -1 with probability 1-p, so p - (1-p) = 2p - 1."
+        },
+        {
+          key: "col-t",
+          label: "If player 2 chooses column T, player 1's expected payoff is...",
+          answer: "1 - 2p",
+          why: "Row H gives -1 with probability p, row T gives 1 with probability 1-p, so -p + (1-p) = 1 - 2p."
+        },
+        {
+          key: "direction",
+          label: "To guarantee value v, each column payoff must be...",
+          answer: "at least v",
+          why: "v is the promised worst-case payoff. Every opponent column must still give at least v."
+        },
+        {
+          key: "objective",
+          label: "Player 1's LP objective is...",
+          answer: "maximize v",
+          why: "Player 1 wants the largest guaranteed worst-case value."
+        }
+      ];
+      const options = [
+        "Choose...",
+        "2p - 1",
+        "1 - 2p",
+        "p + (1-p)",
+        "at most v",
+        "at least v",
+        "maximize v",
+        "minimize v"
+      ];
+      const render = (checked = false) => {
+        const rows = checks.map((item) => {
+          const select = output.querySelector(`[data-mas-lp-select="${item.key}"]`);
+          const selected = select?.value || "";
+          return { ...item, selected };
+        });
+        const allCorrect = checked && rows.every((item) => item.selected === item.answer);
+        output.innerHTML = `
+          <p>Player 1 chooses H with probability <code>p</code> and T with probability <code>1-p</code>.</p>
+          <table class="mas-payoff-matrix">
+            <tr><th></th><th>Player 2: H</th><th>Player 2: T</th></tr>
+            <tr><th>Player 1: H</th><td>1</td><td>-1</td></tr>
+            <tr><th>Player 1: T</th><td>-1</td><td>1</td></tr>
+          </table>
+          <div class="mas-lp-checks">
+            ${rows.map((item) => `
+              <label class="mas-lp-check">
+                <span>${item.label}</span>
+                <select data-mas-lp-select="${item.key}">
+                  ${options.map((option) => `<option value="${option === "Choose..." ? "" : option}" ${item.selected === option ? "selected" : ""}>${option}</option>`).join("")}
+                </select>
+              </label>
+            `).join("")}
+          </div>
+          <div class="mas-lab-toolbar">
+            <button type="button" data-mas-lp-check>Check LP translation</button>
+            <button type="button" data-mas-lp-reset>Reset</button>
+          </div>
+          ${checked ? `
+            <div class="mas-lab-feedback ${allCorrect ? "good" : "warn"}">
+              <strong>${allCorrect ? "Correct." : "Not quite yet."}</strong>
+              <p>The LP is <code>maximize v</code> subject to <code>2p - 1 >= v</code>, <code>1 - 2p >= v</code>, and <code>0 <= p <= 1</code>.</p>
+              <ul>${rows.map((item) => `<li><strong>${item.selected === item.answer ? "OK" : "Fix"}:</strong> ${item.why}</li>`).join("")}</ul>
+              <p class="step-note"><strong>Result intuition:</strong> balancing both constraints gives <code>p=1/2</code> and <code>v=0</code>. That is exactly matching pennies: randomize evenly so the opponent cannot exploit you.</p>
+            </div>
+          ` : ""}`;
+        output.querySelector("[data-mas-lp-check]")?.addEventListener("click", () => render(true));
+        output.querySelector("[data-mas-lp-reset]")?.addEventListener("click", () => {
+          output.querySelectorAll("[data-mas-lp-select]").forEach((select) => { select.value = ""; });
+          render(false);
+        });
+      };
+      render(false);
+    }
+
     const masEfgSteps = [
       `<h4>Step 1: draw the tree</h4><p>List decision nodes, who moves, actions on edges, chance probabilities if any, and terminal utilities.</p>`,
       `<h4>Step 2: add information sets</h4><p>If a player cannot distinguish two nodes, connect them in one information set. A behavioral strategy must choose the same action distribution at all nodes in that set.</p>`,
@@ -1218,6 +1340,7 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2's minimization problem.</p>
     document.addEventListener("DOMContentLoaded", () => {
       initMasNormalExercise();
       initMasTabs("[data-mas-zero-tab]", "mas-zero-output", masZeroData, "lp");
+      initMasLpBuilder();
       initMasEfgStepper();
       initMasShapley();
       initMasAuction();

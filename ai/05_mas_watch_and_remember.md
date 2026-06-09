@@ -43,13 +43,13 @@ Say after watching:
 
 1. [Game Theory 101 (#35): Symmetric, Zero Sum Games](https://www.youtube.com/watch?v=_D7DAsvx-z4) - William Spaniel, 9:22.
    - Watch: 0:00-9:22.
-   - Remember: in zero-sum games, one player's payoff is the other's loss; minimax and LP give the value.
+   - Remember: this is the intuition layer: one player's payoff is the other's loss, and zero-sum games have a security-value/minimax way of thinking.
 2. [GTO-3-05: Correlated Equilibrium: Intuition](https://www.youtube.com/watch?v=sQOrIpARr5E) - Game Theory Online, 5:08.
    - Watch: 0:00-5:08.
    - Remember: a mediator recommends actions; no player wants to deviate after seeing their recommendation.
 3. [Finding Zero Sum Nash Equilibria with Linear Programming](https://www.youtube.com/watch?v=XrQpLcKXvgY) - Professor Bryce, 16:13.
-   - Watch: 0:00-16:13.
-   - Remember: player 1 maximizes a guaranteed value with one constraint per opponent pure action; the dual is player 2's problem.
+   - Watch only after using the zero-sum LP builder in `study/mas.html`.
+   - Remember: this is the formal LP layer: player 1 maximizes a guaranteed value with one constraint per opponent pure action; the dual is player 2's problem.
 4. [Stackelberg's First-Mover Advantage](https://www.youtube.com/watch?v=_CZn6UrmaM0) - William Spaniel, 8:35.
    - Watch: 0:00-8:35.
    - Remember: the leader chooses while anticipating the follower's best response.
