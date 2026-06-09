@@ -27,6 +27,9 @@ Use this guide as the video-first path for **AI question 05: Autonomous Agents a
 7. [Game Theory 101 (#8): The Mixed Strategy Algorithm](https://www.youtube.com/watch?v=aa8USttcDoE) - William Spaniel, 9:34.
    - Watch: 0:00-9:34.
    - Remember: solve simple mixed equilibria by equating the opponent's expected payoffs.
+8. [Game Theory 101 (#36): Modified Rock Paper Scissors](https://www.youtube.com/watch?v=C6_72XPpKNQ) - William Spaniel, 10:03.
+   - Watch: 0:00-10:03 if you want the 3-strategy version.
+   - Remember: this is the same mixed-strategy algorithm generalized to three supported actions; more equations, same indifference logic.
 
 Say after watching:
 
