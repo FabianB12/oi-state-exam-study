@@ -129,9 +129,41 @@
       font-weight: 650;
     }
     .mas-slider input { width: 100%; }
+    /* IESDS solver */
+    .mas-elim-table { width: 100%; border-collapse: collapse; margin-top: 0.65rem; font-size: 0.9rem; }
+    .mas-elim-table td { border: 1px solid var(--line); padding: 0.5rem 0.4rem; text-align: center; }
+    .mas-elim-table th { padding: 0.25rem; }
+    .mas-elim-corner { border: none !important; }
+    .mas-elim-head {
+      cursor: pointer; font: inherit; font-weight: 800; color: var(--ink);
+      background: var(--surface-3); border: 1px solid var(--line); border-radius: var(--radius-sm);
+      padding: 0.35rem 0.5rem; width: 100%;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem;
+      transition: border-color 0.12s ease, background 0.12s ease, color 0.12s ease;
+    }
+    .mas-elim-head:hover:not(:disabled) { border-color: var(--panic); color: var(--panic); background: var(--panic-tint); }
+    .mas-elim-head:disabled { cursor: default; opacity: 0.85; }
+    .mas-elim-head .material-symbols-rounded { font-size: 14px; opacity: 0.55; }
+    .mas-elim-cell strong { font-size: 0.98rem; }
+    .mas-elim-cell.is-solution { background: var(--good-tint); color: var(--good); }
+    .mas-iesds-log { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.4rem; }
+    .mas-iesds-log li { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.84rem; color: var(--ink-soft); padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-left: 3px solid var(--lab); border-radius: var(--radius-sm); background: var(--surface-2); }
+    .mas-iesds-log .material-symbols-rounded { font-size: 16px; color: var(--lab); flex: none; }
+    /* Mixed-strategy solver */
+    .mas-mix-wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 1rem; margin-top: 0.5rem; align-items: start; }
+    .mas-mix-chart { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+    .mas-mix-side { display: grid; gap: 0.6rem; }
+    .mas-mix-readout { display: grid; gap: 0.45rem; }
+    .mas-mix-stat { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); font-size: 0.82rem; font-weight: 700; }
+    .mas-mix-stat .swatch { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: middle; }
+    .mas-mix-stat .val { font-variant-numeric: tabular-nums; }
+    .mas-mix-status { padding: 0.55rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface-2); font-size: 0.84rem; font-weight: 700; color: var(--ink-soft); }
+    .mas-mix-status.is-indifferent { border-color: var(--good); background: var(--good-tint); color: var(--good); }
+    .mas-mix-algebra pre { margin: 0.3rem 0 0; white-space: pre-wrap; font-size: 0.8rem; line-height: 1.5; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.55rem 0.65rem; }
     @media (max-width: 720px) {
       .mas-lab-grid { grid-template-columns: minmax(0, 1fr); }
       .mas-lp-check { grid-template-columns: minmax(0, 1fr); }
+      .mas-mix-wrap { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
@@ -358,6 +390,28 @@
               </div>
               <p class="step-note"><strong>Task:</strong> click every cell that is a pure Nash equilibrium. A cell is Nash only if player 1 is best-responding to the column and player 2 is best-responding to the row.</p>
               <div id="mas-normal-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-iesds">
+              <h3>Solve by iterated elimination (IESDS)</h3>
+              <p class="step-note"><strong>From Game Theory 101 (Spaniel), Lesson 1.2.</strong> Click the row or column label of a strategy you believe is <em>strictly</em> dominated. If it really is, it disappears and the game shrinks; keep going until a single cell remains. Order never changes the IESDS answer &mdash; but only one move is legal at each step here.</p>
+              <div id="mas-iesds-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-mixed-solver">
+              <h3>Mixed-strategy solver: the indifference method</h3>
+              <div class="mini-tabs">
+                <button type="button" data-mas-mix-tab="p1">Find Player 1's mix (&sigma;<sub>up</sub>)</button>
+                <button type="button" data-mas-mix-tab="p2">Find Player 2's mix (&sigma;<sub>left</sub>)</button>
+              </div>
+              <p class="step-note"><strong>From Game Theory 101 (Spaniel), Lesson 1.5.</strong> Game: <code>Up,Left=(3,&minus;3)</code>, <code>Up,Right=(&minus;2,2)</code>, <code>Down,Left=(&minus;1,1)</code>, <code>Down,Right=(0,0)</code>. Drag the slider and watch the other player's two expected-payoff lines. The Nash mixing probability is exactly where they cross &mdash; the mix that makes the opponent <em>indifferent</em>.</p>
+              <div id="mas-mixed-output" class="preview-box"></div>
             </article>
           </div>
 
@@ -1347,6 +1401,195 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
       render();
     }
 
+    const masIesdsBase = {
+      rows: ["Up", "Middle", "Down"],
+      cols: ["Left", "Center", "Right"],
+      p: {
+        Up:     { Left: [13, 3], Center: [1, 4], Right: [7, 3] },
+        Middle: { Left: [4, 1],  Center: [3, 3], Right: [6, 2] },
+        Down:   { Left: [-1, 9], Center: [2, 8], Right: [8, -1] }
+      }
+    };
+
+    function initMasIesds() {
+      const output = document.getElementById("mas-iesds-output");
+      if (!output) return;
+      const base = masIesdsBase;
+      let rows, cols, log, feedback;
+
+      const rowDom = (r) => rows.find((r2) => r2 !== r && cols.every((c) => base.p[r2][c][0] > base.p[r][c][0])) || null;
+      const colDom = (c) => cols.find((c2) => c2 !== c && rows.every((r) => base.p[r][c2][1] > base.p[r][c][1])) || null;
+      const rowReason = (r) => {
+        for (const r2 of rows) {
+          if (r2 === r) continue;
+          const c = cols.find((cc) => base.p[r2][cc][0] <= base.p[r][cc][0]);
+          if (c) return `${r2} does not beat ${r} everywhere &mdash; against ${c}, ${r} earns ${base.p[r][c][0]} vs ${base.p[r2][c][0]}.`;
+        }
+        return `No other row beats ${r} in every column yet.`;
+      };
+      const colReason = (c) => {
+        for (const c2 of cols) {
+          if (c2 === c) continue;
+          const r = rows.find((rr) => base.p[rr][c2][1] <= base.p[rr][c][1]);
+          if (r) return `${c2} does not beat ${c} everywhere &mdash; against ${r}, ${c} earns ${base.p[r][c][1]} vs ${base.p[r][c2][1]}.`;
+        }
+        return `No other column beats ${c} in every row yet.`;
+      };
+      const solved = () => rows.length === 1 && cols.length === 1;
+
+      const render = () => {
+        const done = solved();
+        const headerCells = cols.map((c) => `<th><button type="button" class="mas-elim-head" data-elim-col="${c}" ${done ? "disabled" : ""}>${c}${done ? "" : ` <span class="material-symbols-rounded">close</span>`}</button></th>`).join("");
+        const bodyRows = rows.map((r) => {
+          const rowHead = `<th><button type="button" class="mas-elim-head" data-elim-row="${r}" ${done ? "disabled" : ""}>${r}${done ? "" : ` <span class="material-symbols-rounded">close</span>`}</button></th>`;
+          const cells = cols.map((c) => `<td class="mas-elim-cell${done ? " is-solution" : ""}"><strong>${base.p[r][c][0]}, ${base.p[r][c][1]}</strong></td>`).join("");
+          return `<tr>${rowHead}${cells}</tr>`;
+        }).join("");
+        const logHtml = log.length ? `<ul class="mas-iesds-log">${log.map((l) => `<li><span class="material-symbols-rounded">do_not_disturb_on</span><span>${l}</span></li>`).join("")}</ul>` : "";
+        const fb = feedback ? `<div class="mas-lab-feedback ${feedback.ok ? "good" : "warn"}"><strong>${feedback.title}</strong><p>${feedback.body}</p></div>` : "";
+        const doneBox = done ? `<div class="mas-lab-feedback good"><strong>Solved: &lt;Middle, Center&gt; with payoff (3, 3).</strong><p>IESDS reduced the game to one cell, so it is the unique pure-strategy Nash equilibrium. The forced chain was Center&#8829;Right, then Middle&#8829;Down, then Center&#8829;Left, then Middle&#8829;Up.</p></div>` : "";
+        output.innerHTML = `
+          <p>Player 1 picks the row, Player 2 the column; each cell is <code>(Player 1, Player 2)</code>.</p>
+          <table class="mas-elim-table">
+            <tr><td class="mas-elim-corner"></td>${headerCells}</tr>
+            ${bodyRows}
+          </table>
+          <div class="mas-lab-toolbar">
+            <button type="button" data-iesds-hint ${done ? "disabled" : ""}>Hint</button>
+            <button type="button" data-iesds-reset>Reset</button>
+          </div>
+          ${fb}${doneBox}${logHtml}`;
+        output.querySelectorAll("[data-elim-row]").forEach((b) => b.addEventListener("click", () => attemptRow(b.dataset.elimRow)));
+        output.querySelectorAll("[data-elim-col]").forEach((b) => b.addEventListener("click", () => attemptCol(b.dataset.elimCol)));
+        output.querySelector("[data-iesds-reset]")?.addEventListener("click", reset);
+        output.querySelector("[data-iesds-hint]")?.addEventListener("click", hint);
+      };
+
+      const attemptRow = (r) => {
+        if (rows.length === 1) return;
+        const dom = rowDom(r);
+        if (dom) {
+          const detail = cols.map((c) => `${c}: ${base.p[dom][c][0]} &gt; ${base.p[r][c][0]}`).join("; ");
+          log.push(`<strong>${dom}</strong> strictly dominates <strong>${r}</strong> for Player 1 (${detail}). Removed ${r}.`);
+          rows = rows.filter((x) => x !== r);
+          feedback = null;
+        } else {
+          feedback = { ok: false, title: `${r} is not strictly dominated yet.`, body: rowReason(r) };
+        }
+        render();
+      };
+      const attemptCol = (c) => {
+        if (cols.length === 1) return;
+        const dom = colDom(c);
+        if (dom) {
+          const detail = rows.map((r) => `${r}: ${base.p[r][dom][1]} &gt; ${base.p[r][c][1]}`).join("; ");
+          log.push(`<strong>${dom}</strong> strictly dominates <strong>${c}</strong> for Player 2 (${detail}). Removed ${c}.`);
+          cols = cols.filter((x) => x !== c);
+          feedback = null;
+        } else {
+          feedback = { ok: false, title: `${c} is not strictly dominated yet.`, body: colReason(c) };
+        }
+        render();
+      };
+      const hint = () => {
+        for (const r of rows) { const d = rowDom(r); if (d) { feedback = { ok: true, title: "Try a row.", body: `${r} (Player 1) is strictly dominated by ${d} right now.` }; return render(); } }
+        for (const c of cols) { const d = colDom(c); if (d) { feedback = { ok: true, title: "Try a column.", body: `${c} (Player 2) is strictly dominated by ${d} right now.` }; return render(); } }
+        feedback = { ok: true, title: "Nothing left to eliminate.", body: "No remaining strategy is strictly dominated." };
+        render();
+      };
+      const reset = () => { rows = base.rows.slice(); cols = base.cols.slice(); log = []; feedback = null; render(); };
+      reset();
+    }
+
+    const masMixData = {
+      p1: {
+        title: "Player 2's expected payoffs vs Player 1's mix",
+        xlabel: "Player 1 plays Up with probability",
+        lineA: { label: "Player 2 plays Left", f: (s) => 1 - 4 * s, color: "var(--brand)" },
+        lineB: { label: "Player 2 plays Right", f: (s) => 2 * s, color: "var(--lab)" },
+        star: 1 / 6, starText: "&sigma;(Up) = 1/6",
+        meaning: "Player 1's equilibrium mix is Up 1/6, Down 5/6.",
+        algebra: "Player 1 plays Up with prob σ, Down with 1−σ.\nEU(Left)  = σ(−3) + (1−σ)(1) = 1 − 4σ\nEU(Right) = σ(2)  + (1−σ)(0) = 2σ\nSet equal:  1 − 4σ = 2σ  →  6σ = 1  →  σ = 1/6"
+      },
+      p2: {
+        title: "Player 1's expected payoffs vs Player 2's mix",
+        xlabel: "Player 2 plays Left with probability",
+        lineA: { label: "Player 1 plays Up", f: (s) => 5 * s - 2, color: "var(--brand)" },
+        lineB: { label: "Player 1 plays Down", f: (s) => -s, color: "var(--lab)" },
+        star: 1 / 3, starText: "&sigma;(Left) = 1/3",
+        meaning: "Player 2's equilibrium mix is Left 1/3, Right 2/3.",
+        algebra: "Player 2 plays Left with prob σ, Right with 1−σ.\nEU(Up)   = σ(3)  + (1−σ)(−2) = 5σ − 2\nEU(Down) = σ(−1) + (1−σ)(0)  = −σ\nSet equal:  5σ − 2 = −σ  →  6σ = 2  →  σ = 1/3"
+      }
+    };
+
+    function initMasMixedSolver() {
+      const output = document.getElementById("mas-mixed-output");
+      if (!output) return;
+      let tab = "p1";
+      let sigma = 0.5;
+
+      const render = () => {
+        const d = masMixData[tab];
+        const vals = [d.lineA.f(0), d.lineA.f(1), d.lineB.f(0), d.lineB.f(1)];
+        const pad = (Math.max(...vals) - Math.min(...vals)) * 0.12 || 1;
+        const lo = Math.min(...vals) - pad, hi = Math.max(...vals) + pad;
+        const W = 320, H = 190, mL = 34, mR = 14, mT = 14, mB = 28;
+        const px = (s) => mL + s * (W - mL - mR);
+        const py = (v) => mT + (hi - v) / (hi - lo) * (H - mT - mB);
+        const lineSvg = (ln) => `<line x1="${px(0).toFixed(1)}" y1="${py(ln.f(0)).toFixed(1)}" x2="${px(1).toFixed(1)}" y2="${py(ln.f(1)).toFixed(1)}" stroke="${ln.color}" stroke-width="2.5" />`;
+        const aV = d.lineA.f(sigma), bV = d.lineB.f(sigma), starV = d.lineA.f(d.star);
+        const zeroLine = (lo < 0 && hi > 0) ? `<line x1="${px(0).toFixed(1)}" y1="${py(0).toFixed(1)}" x2="${px(1).toFixed(1)}" y2="${py(0).toFixed(1)}" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" /><text x="${(mL - 4).toFixed(1)}" y="${(py(0) + 3).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--muted)">0</text>` : "";
+        const diff = Math.abs(aV - bV);
+        const indifferent = diff < 0.06;
+        const svg = `
+          <svg class="mas-mix-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Two expected-payoff lines that cross at the indifference point">
+            <rect x="${mL}" y="${mT}" width="${W - mL - mR}" height="${H - mT - mB}" fill="none" stroke="var(--line)" />
+            ${zeroLine}
+            ${lineSvg(d.lineA)}
+            ${lineSvg(d.lineB)}
+            <line x1="${px(sigma).toFixed(1)}" y1="${mT}" x2="${px(sigma).toFixed(1)}" y2="${H - mB}" stroke="var(--ink-soft)" stroke-width="1" stroke-dasharray="2 2" opacity="0.5" />
+            <circle cx="${px(d.star).toFixed(1)}" cy="${py(starV).toFixed(1)}" r="5" fill="none" stroke="var(--good)" stroke-width="2" />
+            <circle cx="${px(sigma).toFixed(1)}" cy="${py(aV).toFixed(1)}" r="3.5" fill="var(--brand)" />
+            <circle cx="${px(sigma).toFixed(1)}" cy="${py(bV).toFixed(1)}" r="3.5" fill="var(--lab)" />
+            <text x="${px(0).toFixed(1)}" y="${(H - mB + 14).toFixed(1)}" text-anchor="start" font-size="9" fill="var(--muted)">0</text>
+            <text x="${px(1).toFixed(1)}" y="${(H - mB + 14).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--muted)">1</text>
+            <text x="${px(0.5).toFixed(1)}" y="${(H - 4).toFixed(1)}" text-anchor="middle" font-size="9" fill="var(--ink-soft)">${d.xlabel} σ</text>
+          </svg>`;
+        output.innerHTML = `
+          <h4>${d.title}</h4>
+          <div class="mas-mix-wrap">
+            ${svg}
+            <div class="mas-mix-side">
+              <div class="mas-mix-readout">
+                <div class="mas-mix-stat"><span><span class="swatch" style="background:var(--brand)"></span>${d.lineA.label}</span><span class="val">${aV.toFixed(2)}</span></div>
+                <div class="mas-mix-stat"><span><span class="swatch" style="background:var(--lab)"></span>${d.lineB.label}</span><span class="val">${bV.toFixed(2)}</span></div>
+              </div>
+              <div class="mas-mix-status${indifferent ? " is-indifferent" : ""}">${indifferent ? `Indifferent! ${d.starText}. ${d.meaning}` : `Gap = ${diff.toFixed(2)}. Move the slider until both lines meet.`}</div>
+            </div>
+          </div>
+          <label class="mas-slider">${d.xlabel} <strong>&sigma; = ${sigma.toFixed(2)}</strong>
+            <input type="range" min="0" max="1" step="0.01" value="${sigma}" data-mix-slider>
+          </label>
+          <div class="mas-lab-toolbar">
+            <button type="button" data-mix-snap>Snap to indifference</button>
+          </div>
+          <div class="mas-mix-algebra"><p class="step-note"><strong>The algebra:</strong></p><pre>${d.algebra}</pre><p class="step-note"><strong>Write it as a fraction.</strong> 0.33 is not exactly 1/3; any value off the exact fraction breaks the opponent's indifference (Lesson 1.5.3).</p></div>`;
+        output.querySelector("[data-mix-slider]")?.addEventListener("input", (e) => { sigma = Number(e.target.value); render(); });
+        output.querySelector("[data-mix-snap]")?.addEventListener("click", () => { sigma = d.star; render(); });
+      };
+
+      document.querySelectorAll("[data-mas-mix-tab]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tab = btn.dataset.masMixTab;
+          sigma = 0.5;
+          document.querySelectorAll("[data-mas-mix-tab]").forEach((b) => b.classList.toggle("active", b === btn));
+          render();
+        });
+      });
+      document.querySelectorAll("[data-mas-mix-tab]").forEach((b) => b.classList.toggle("active", b.dataset.masMixTab === "p1"));
+      render();
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       initMasNormalExercise();
       initMasTabs("[data-mas-zero-tab]", "mas-zero-output", masZeroData, "lp");
@@ -1354,6 +1597,8 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
       initMasEfgStepper();
       initMasShapley();
       initMasAuction();
+      initMasIesds();
+      initMasMixedSolver();
     });
   </script>
 </body>
