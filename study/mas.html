@@ -160,6 +160,32 @@
     .mas-mix-status { padding: 0.55rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface-2); font-size: 0.84rem; font-weight: 700; color: var(--ink-soft); }
     .mas-mix-status.is-indifferent { border-color: var(--good); background: var(--good-tint); color: var(--good); }
     .mas-mix-algebra pre { margin: 0.3rem 0 0; white-space: pre-wrap; font-size: 0.8rem; line-height: 1.5; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.55rem 0.65rem; }
+    /* UN Security Council Shapley lab */
+    .mas-un-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.65rem 0; }
+    .mas-un-chip { cursor: pointer; font: inherit; font-weight: 750; font-size: 0.85rem; color: var(--ink-soft); background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.38rem 0.8rem; display: inline-flex; align-items: center; gap: 0.35rem; transition: border-color 0.12s ease, background 0.12s ease, color 0.12s ease; }
+    .mas-un-chip:hover { border-color: var(--lab); }
+    .mas-un-chip.is-in { background: color-mix(in srgb, var(--lab) 14%, #fff); border-color: var(--lab); color: var(--lab); }
+    .mas-un-chip .material-symbols-rounded { font-size: 16px; }
+    .mas-un-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.85rem; }
+    .mas-un-table th, .mas-un-table td { border: 1px solid var(--line); padding: 0.4rem 0.55rem; text-align: left; }
+    .mas-un-table th { background: var(--surface-3); color: var(--ink-soft); }
+    .mas-un-table tr.is-win td { background: var(--good-tint); color: var(--good); }
+    .mas-un-table .v { text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .mas-core-checks { display: grid; gap: 0.4rem; margin-top: 0.7rem; }
+    .mas-core-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--ink-soft); }
+    .mas-core-check .material-symbols-rounded { font-size: 17px; flex: none; }
+    .mas-core-check.ok { border-color: var(--good); } .mas-core-check.ok .material-symbols-rounded { color: var(--good); }
+    .mas-core-check.bad { border-color: var(--panic); } .mas-core-check.bad .material-symbols-rounded { color: var(--panic); }
+    .mas-perm-list { display: grid; gap: 0.45rem; margin-top: 0.5rem; }
+    .mas-perm { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; font-size: 0.82rem; padding: 0.45rem 0.55rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); }
+    .mas-perm-step { display: inline-flex; align-items: center; gap: 0.2rem; padding: 0.12rem 0.5rem; border-radius: 999px; background: var(--surface-3); color: var(--ink-soft); font-weight: 750; border: 1px solid var(--line); }
+    .mas-perm-step.is-pivot { background: var(--lab); color: #fff; border-color: var(--lab); }
+    .mas-perm-arrow { color: var(--muted); }
+    .mas-perm-who { margin-left: auto; font-weight: 800; color: var(--lab); }
+    .mas-shap-result { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.75rem; }
+    .mas-shap-cell { text-align: center; padding: 0.7rem 0.5rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); }
+    .mas-shap-cell strong { display: block; font-size: 1.15rem; color: var(--lab); font-variant-numeric: tabular-nums; }
+    .mas-shap-cell span { font-size: 0.76rem; color: var(--muted); font-weight: 700; }
     @media (max-width: 720px) {
       .mas-lab-grid { grid-template-columns: minmax(0, 1fr); }
       .mas-lp-check { grid-template-columns: minmax(0, 1fr); }
@@ -799,6 +825,20 @@
               <p class="preview-text">Values: <code>v(A)=2</code>, <code>v(B)=1</code>, <code>v(C)=0</code>, <code>v(AB)=5</code>, <code>v(AC)=4</code>, <code>v(BC)=3</code>, <code>v(ABC)=9</code>.</p>
               <p class="step-note"><strong>Remember:</strong> marginal contribution means value after a player joins minus value before they join.</p>
               <div id="mas-shapley-output" class="preview-box"></div>
+            </article>
+          </div>
+
+          <div class="block">
+            <p class="block-label lab">Lab</p>
+            <article class="interactive-card" data-lab-key="mas-un-council">
+              <h3>UN Security Council: core vs Shapley value</h3>
+              <p class="step-note"><strong>The real game.</strong> The UN Security Council has 15 members; 5 are permanent with a <em>veto</em>. A resolution passes only if no permanent member vetoes it <em>and</em> enough members vote yes. <strong>Spaniel's simplified version</strong> keeps the essence: one veto player <strong>P</strong> and two ordinary players <strong>A</strong> and <strong>B</strong>. A resolution passes when <strong>P agrees AND at least 2 of the 3 agree</strong>. We model power as a coalitional game: a winning coalition has value <code>v(S)=1</code>, a losing one <code>v(S)=0</code>.</p>
+              <div class="mini-tabs">
+                <button type="button" data-mas-un-tab="coalitions">1 &middot; Coalitions</button>
+                <button type="button" data-mas-un-tab="core">2 &middot; The core</button>
+                <button type="button" data-mas-un-tab="shapley">3 &middot; Shapley value</button>
+              </div>
+              <div id="mas-un-output" class="preview-box"></div>
             </article>
           </div>
 
@@ -1614,6 +1654,143 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
       render();
     }
 
+    function initMasUnCouncil() {
+      const output = document.getElementById("mas-un-output");
+      if (!output) return;
+      const players = ["P", "A", "B"];
+      const labelOf = { P: "P (veto)", A: "A", B: "B" };
+      const isWin = (set) => set.has("P") && set.size >= 2;
+      const v = (s) => (isWin(s) ? 1 : 0);
+      const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+      const frac = (x) => {
+        const n = Math.round(x * 12);
+        if (n === 0) return "0";
+        const g = gcd(Math.abs(n), 12);
+        const nn = n / g, dd = 12 / g;
+        return dd === 1 ? String(nn) : `${nn}/${dd}`;
+      };
+      const subsets = (() => {
+        const res = [];
+        for (let m = 0; m < 8; m++) {
+          const s = new Set();
+          players.forEach((p, i) => { if (m & (1 << i)) s.add(p); });
+          res.push(s);
+        }
+        return res.sort((a, b) => a.size - b.size);
+      })();
+      const setLabel = (s) => (s.size ? players.filter((p) => s.has(p)).join(", ") : "&empty; (nobody)");
+      const allPerms = [
+        ["P", "A", "B"], ["P", "B", "A"], ["A", "P", "B"],
+        ["A", "B", "P"], ["B", "P", "A"], ["B", "A", "P"]
+      ];
+      const pivotOf = (order) => {
+        const acc = new Set();
+        for (const pl of order) { acc.add(pl); if (isWin(acc)) return pl; }
+        return null;
+      };
+
+      let tab = "coalitions";
+      let chosen = new Set(["P", "A"]);
+      let xA12 = 0, xB12 = 0;
+
+      const renderCoalitions = () => {
+        const chips = players.map((p) => `<button type="button" class="mas-un-chip${chosen.has(p) ? " is-in" : ""}" data-un-chip="${p}"><span class="material-symbols-rounded">${chosen.has(p) ? "check_circle" : "radio_button_unchecked"}</span>${labelOf[p]}</button>`).join("");
+        const win = isWin(chosen);
+        const hasP = chosen.has("P");
+        const verdict = `<div class="mas-lab-feedback ${win ? "good" : "warn"}"><strong>${win ? "Resolution PASSES &mdash; v(S) = 1" : "Resolution FAILS &mdash; v(S) = 0"}</strong><p>Veto player P present? <strong>${hasP ? "yes" : "no"}</strong>. Members agreeing: <strong>${chosen.size}</strong> (need &ge; 2). ${win ? "Both rules met." : (!hasP ? "P is absent, so P would veto it." : "Not enough members agree.")}</p></div>`;
+        const rows = subsets.map((s) => `<tr class="${isWin(s) ? "is-win" : ""}"><td>{${setLabel(s)}}</td><td class="v">${v(s)}</td><td>${isWin(s) ? "winning" : "losing"}</td></tr>`).join("");
+        output.innerHTML = `
+          <h4>Build a coalition</h4>
+          <p>Click members to add them to the agreeing coalition <code>S</code>, then read off whether the resolution passes.</p>
+          <div class="mas-un-chips">${chips}</div>
+          ${verdict}
+          <h4 style="margin-top:1rem">Every coalition's value <code>v(S)</code></h4>
+          <table class="mas-un-table">
+            <tr><th>Coalition S</th><th class="v">v(S)</th><th>outcome</th></tr>
+            ${rows}
+          </table>
+          <p class="step-note"><strong>Read it:</strong> only the three coalitions that contain P and have at least two members win. P sits in <em>every</em> winning coalition &mdash; that is what a veto means. A and B are interchangeable.</p>`;
+        output.querySelectorAll("[data-un-chip]").forEach((b) => b.addEventListener("click", () => {
+          const p = b.dataset.unChip;
+          chosen.has(p) ? chosen.delete(p) : chosen.add(p);
+          renderCoalitions();
+        }));
+      };
+
+      const renderCore = () => {
+        const xA = xA12 / 12, xB = xB12 / 12, xP = 1 - xA - xB;
+        const feasible = xP >= -1e-9;
+        const checks = [
+          { label: "Efficiency: x_P + x_A + x_B = 1", ok: true, detail: "true by construction" },
+          { label: "x_P &ge; 0 (P is individually rational)", ok: xP >= -1e-9, detail: `x_P = ${frac(xP)}` },
+          { label: "{P,A} must receive &ge; 1", ok: xP + xA >= 1 - 1e-9, detail: `x_P + x_A = ${frac(xP + xA)}` },
+          { label: "{P,B} must receive &ge; 1", ok: xP + xB >= 1 - 1e-9, detail: `x_P + x_B = ${frac(xP + xB)}` }
+        ];
+        const inCore = feasible && checks.every((c) => c.ok);
+        const checkHtml = checks.map((c) => `<div class="mas-core-check ${c.ok ? "ok" : "bad"}"><span class="material-symbols-rounded">${c.ok ? "check_circle" : "cancel"}</span><span><strong>${c.label}</strong> &mdash; ${c.detail}</span></div>`).join("");
+        output.innerHTML = `
+          <h4>What is the core?</h4>
+          <p>Split <strong>1 unit of power</strong> among the players as <code>(x_P, x_A, x_B)</code> summing to 1. The <strong>core</strong> is every split that <em>no coalition can beat</em>: each coalition must already receive at least its own value <code>v(S)</code>. If a winning coalition is offered less than the 1 it can guarantee itself, its members walk away and "block" the deal &mdash; so that split is not stable.</p>
+          <p>Only the winning coalitions {P,A} and {P,B} impose real demands (each worth 1). Drag A's and B's shares; P gets the rest:</p>
+          <label class="mas-slider"><span>x_A (power to A) = <strong>${frac(xA)}</strong></span><input type="range" min="0" max="12" step="1" value="${xA12}" data-core-a></label>
+          <label class="mas-slider"><span>x_B (power to B) = <strong>${frac(xB)}</strong></span><input type="range" min="0" max="12" step="1" value="${xB12}" data-core-b></label>
+          <p class="step-note">x_P is whatever is left: <strong>x_P = ${frac(xP)}</strong>${feasible ? "" : " &mdash; negative, so this split is impossible."}</p>
+          <div class="mas-core-checks">${checkHtml}</div>
+          <div class="mas-lab-feedback ${inCore ? "good" : "warn"}"><strong>${inCore ? "This split is IN the core" : "Blocked &mdash; not in the core"}</strong><p>${inCore ? "No coalition can do better by leaving." : "A winning coalition is offered less than 1, so it would defect."}</p></div>
+          <div class="mas-lab-toolbar">
+            <button type="button" data-core-preset="equal">Equal split (1/3, 1/3, 1/3)</button>
+            <button type="button" data-core-preset="shapley">Shapley (2/3, 1/6, 1/6)</button>
+            <button type="button" data-core-preset="veto">Veto takes all (1, 0, 0)</button>
+          </div>
+          <p class="step-note"><strong>The punchline:</strong> <code>x_P + x_A &ge; 1</code> and <code>x_P + x_B &ge; 1</code> together force <code>x_A = x_B = 0</code>, so the core is the single point <strong>(1, 0, 0)</strong> &mdash; the veto player takes everything. Even the "fair" Shapley split (2/3, 1/6, 1/6) is <em>not</em> in the core, because {P,A} would get only 5/6 &lt; 1.</p>`;
+        output.querySelector("[data-core-a]")?.addEventListener("input", (e) => { xA12 = Number(e.target.value); if (xA12 + xB12 > 12) xB12 = 12 - xA12; renderCore(); });
+        output.querySelector("[data-core-b]")?.addEventListener("input", (e) => { xB12 = Number(e.target.value); if (xA12 + xB12 > 12) xA12 = 12 - xB12; renderCore(); });
+        output.querySelectorAll("[data-core-preset]").forEach((b) => b.addEventListener("click", () => {
+          const k = b.dataset.corePreset;
+          if (k === "equal") { xA12 = 4; xB12 = 4; }
+          else if (k === "shapley") { xA12 = 2; xB12 = 2; }
+          else { xA12 = 0; xB12 = 0; }
+          renderCore();
+        }));
+      };
+
+      const renderShapley = () => {
+        const tally = { P: 0, A: 0, B: 0 };
+        const permRows = allPerms.map((order) => {
+          const piv = pivotOf(order);
+          tally[piv] += 1;
+          const acc = new Set();
+          const steps = order.map((pl) => {
+            acc.add(pl);
+            const won = isWin(acc);
+            return `<span class="mas-perm-step${pl === piv ? " is-pivot" : ""}">${pl}${won ? " &check;" : ""}</span>`;
+          }).join('<span class="mas-perm-arrow">&rarr;</span>');
+          return `<div class="mas-perm">${steps}<span class="mas-perm-who">pivot: ${piv}</span></div>`;
+        }).join("");
+        output.innerHTML = `
+          <h4>The Shapley value = average marginal contribution</h4>
+          <p>Line the players up in a random order and let them join one at a time. The player whose arrival <strong>flips the coalition from losing to winning</strong> is the <em>pivot</em>: they earn a marginal contribution of 1, everyone else 0 in that ordering. The Shapley value is the fraction of orderings in which each player is the pivot.</p>
+          <p class="step-note">With 3 players there are 3! = 6 orderings. &check; marks the moment the coalition becomes winning (P present and &ge; 2 members), i.e. the pivot.</p>
+          <div class="mas-perm-list">${permRows}</div>
+          <p style="margin-top:0.7rem">Pivot counts out of 6 &mdash; P: <strong>${tally.P}</strong>, A: <strong>${tally.A}</strong>, B: <strong>${tally.B}</strong>.</p>
+          <div class="mas-shap-result">
+            <div class="mas-shap-cell"><strong>${tally.P}/6 = 2/3</strong><span>P (veto)</span></div>
+            <div class="mas-shap-cell"><strong>${tally.A}/6 = 1/6</strong><span>A</span></div>
+            <div class="mas-shap-cell"><strong>${tally.B}/6 = 1/6</strong><span>B</span></div>
+          </div>
+          <p class="step-note"><strong>Reading it:</strong> P is pivotal in 4 of 6 orderings, so the Shapley value is <code>(2/3, 1/6, 1/6)</code>. Unlike the core (which hands P everything), the Shapley value still credits A and B for the orderings where they complete a winning coalition &mdash; which is why it is used as a <em>fair</em> index of voting power (here it equals the Shapley&ndash;Shubik index).</p>`;
+      };
+
+      const render = () => {
+        if (tab === "core") renderCore();
+        else if (tab === "shapley") renderShapley();
+        else renderCoalitions();
+        document.querySelectorAll("[data-mas-un-tab]").forEach((b) => b.classList.toggle("active", b.dataset.masUnTab === tab));
+      };
+      document.querySelectorAll("[data-mas-un-tab]").forEach((b) => b.addEventListener("click", () => { tab = b.dataset.masUnTab; render(); }));
+      render();
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       initMasNormalExercise();
       initMasTabs("[data-mas-zero-tab]", "mas-zero-output", masZeroData, "lp");
@@ -1623,6 +1800,7 @@ sum_i x_i = 1, x_i >= 0</pre><p>The dual is player 2 doing the mirrored job: cho
       initMasAuction();
       initMasIesds();
       initMasMixedSolver();
+      initMasUnCouncil();
     });
   </script>
 </body>
