@@ -62,6 +62,40 @@
     }
     .pui-uct-table th { background: var(--surface-3); color: var(--ink-soft); }
     .pui-uct-table tr.best td { background: var(--good-tint); }
+    .pui-uct-table td.inf { color: var(--muted); }
+    .pui-world { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.7rem; }
+    .pui-loc { border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); padding: 0.55rem; min-height: 5rem; }
+    .pui-loc h5 { margin: 0 0 0.4rem; font-size: 0.76rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .pui-entity { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.55rem; border-radius: var(--radius-sm); font-weight: 750; font-size: 0.84rem; margin: 0.15rem 0.25rem 0.15rem 0; }
+    .pui-entity .material-symbols-rounded { font-size: 17px; }
+    .pui-entity.truck { background: var(--brand-tint); color: var(--brand); border: 1px solid var(--brand); }
+    .pui-entity.pkg { background: var(--lab-tint); color: var(--lab); border: 1px solid var(--lab); }
+    .pui-actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 0.6rem; margin-top: 0.7rem; }
+    .pui-action-card { text-align: left; font: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); padding: 0.6rem 0.7rem; transition: border-color 0.12s ease; }
+    .pui-action-card:hover:not(:disabled) { border-color: var(--brand); }
+    .pui-action-card:disabled { cursor: not-allowed; opacity: 0.72; }
+    .pui-action-card h5 { margin: 0 0 0.35rem; font-size: 0.85rem; color: var(--ink); }
+    .pui-action-card .pre span { display: inline-block; margin: 0.1rem 0.25rem 0.1rem 0; font-size: 0.72rem; font-weight: 750; padding: 0.1rem 0.4rem; border-radius: 999px; }
+    .pui-action-card .pre span.ok { background: var(--good-tint); color: var(--good); }
+    .pui-action-card .pre span.miss { background: var(--panic-tint); color: var(--panic); }
+    .pui-action-card .eff { font-size: 0.73rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+    .pui-log { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.35rem; }
+    .pui-log li { font-size: 0.82rem; color: var(--ink-soft); border: 1px solid var(--line); border-left: 3px solid var(--brand); border-radius: var(--radius-sm); background: var(--surface-2); padding: 0.4rem 0.6rem; }
+    .pui-svg { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); margin-top: 0.6rem; }
+    .pui-vi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.6rem; }
+    .pui-vi-cell { font: inherit; text-align: center; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 0.55rem 0.3rem; background: var(--surface); cursor: pointer; }
+    .pui-vi-cell.goal { background: var(--good-tint); border-color: var(--good); cursor: default; }
+    .pui-vi-cell.selected { border-color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); }
+    .pui-vi-cell strong { display: block; font-size: 1.02rem; font-variant-numeric: tabular-nums; }
+    .pui-vi-cell .pol { color: var(--brand); font-weight: 800; font-size: 0.8rem; }
+    .pui-vi-cell .nm { color: var(--muted); font-size: 0.72rem; font-weight: 750; }
+    .pui-mcts-children { display: grid; gap: 0.5rem; margin-top: 0.6rem; }
+    .pui-mcts-child { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.45rem 0.6rem; background: var(--surface-2); font-size: 0.82rem; }
+    .pui-mcts-child.selected { border-color: var(--lab); background: var(--lab-tint); }
+    .pui-mcts-child strong { font-size: 0.95rem; }
+    .pui-mcts-bar { height: 0.55rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+    .pui-mcts-bar span { display: block; height: 100%; background: var(--lab); }
+    .pui-mcts-stats { font-variant-numeric: tabular-nums; color: var(--ink-soft); font-weight: 700; white-space: nowrap; }
   </style>
 </head>
 <body data-page="pui">
@@ -277,20 +311,8 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-strips-lab">
-              <h3>STRIPS state updater</h3>
-              <p class="preview-text">First choose the applicable action that moves the plan forward, then apply it. Feedback names the missing precondition or successor formula.</p>
-              <p class="step-note"><strong>Use this when:</strong> you need to explain applicability first, then the successor formula.</p>
-              <div class="pui-action-row" aria-label="STRIPS exam check">
-                <button type="button" data-pui-strips-check="load">check load</button>
-                <button type="button" data-pui-strips-check="drive">check drive</button>
-                <button type="button" data-pui-strips-check="unload">check unload</button>
-              </div>
-              <div class="pui-action-row">
-                <button type="button" data-pui-action="load">load package</button>
-                <button type="button" data-pui-action="drive">drive truck</button>
-                <button type="button" data-pui-action="unload">unload package</button>
-                <button type="button" data-pui-action="reset">reset</button>
-              </div>
+              <h3>STRIPS planner: walk the state space yourself</h3>
+              <p class="step-note"><strong>The world:</strong> one truck, one package, two locations. The goal is <code>at(package,B)</code>. A state is just a set of facts; each action card shows its preconditions <em>live against the current state</em> &mdash; green facts hold, red facts are missing, and an action is applicable exactly when everything is green. Apply actions and watch <code>(s \ del(a)) &cup; add(a)</code> rewrite the fact set, step by step.</p>
               <div id="pui-strips-output" class="preview-box"></div>
             </article>
           </div>
@@ -418,15 +440,13 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-relax-tabs">
-              <h3>Heuristic family selector</h3>
-              <div class="mini-tabs">
-                <button type="button" data-pui-relax-tab="delete">Delete relaxation</button>
-                <button type="button" data-pui-relax-tab="hmax">hmax</button>
-                <button type="button" data-pui-relax-tab="hadd">hadd / hff</button>
-                <button type="button" data-pui-relax-tab="abstraction">Abstraction</button>
-              </div>
+              <h3>Compute hmax, hadd, and hff yourself on one tiny task</h3>
+              <p class="step-note"><strong>One task, three heuristics.</strong> Step through the exact computation every delete-relaxation heuristic shares: grow fact costs in waves from the initial state, then differ only in how preconditions/goals are <em>aggregated</em>. The example is built so the three answers split apart: <code>hmax = 4</code>, true relaxed optimum <code>h&#8314; = 5</code>, <code>hadd = 8</code> &mdash; and you will see exactly where hadd double-counts.</p>
               <div id="pui-relax-output" class="preview-box"></div>
-              <p class="step-note"><strong>Why:</strong> the exam comparison is mostly about what was ignored and whether the estimate stays admissible.</p>
+              <div class="step-controls">
+                <button type="button" data-pui-relax-prev>Previous</button>
+                <button type="button" data-pui-relax-next>Next</button>
+              </div>
             </article>
           </div>
 
@@ -542,15 +562,13 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-cut-lab">
-              <h3>LM-Cut cost intuition</h3>
-              <p class="preview-text">Each row is a cut: every relaxed plan must use at least one action in that row. LM-Cut may safely add the cheapest action cost in the cut, then reduce all actions in that cut by that amount.</p>
-              <p class="step-note"><strong>Why:</strong> adding the minimum cut cost counts unavoidable progress without charging too much.</p>
-              <div class="mini-tabs">
-                <button type="button" data-pui-cut="first">cut 1: [2, 5, 7]</button>
-                <button type="button" data-pui-cut="second">cut 2: [3, 3, 8]</button>
-                <button type="button" data-pui-cut="third">cut 3: [1, 4]</button>
-              </div>
+              <h3>LM-Cut, round by round, on a real task</h3>
+              <p class="step-note"><strong>The whole algorithm on one graph.</strong> Two roads lead to the goal: via <code>a</code> (cost 3 + 2) and via <code>b</code> (cost 5 + 1). Each LM-Cut round does the same four things: compute <code>hmax</code>, mark the <em>goal zone</em> (facts that still reach the goal through zero-cost actions), find the <em>cut</em> (the actions crossing into that zone &mdash; a disjunctive landmark every relaxed plan must use), then charge its cheapest member and subtract that cost. Repeat until <code>hmax = 0</code>.</p>
               <div id="pui-cut-output" class="preview-box"></div>
+              <div class="step-controls">
+                <button type="button" data-pui-cut-prev>Previous</button>
+                <button type="button" data-pui-cut-next>Next</button>
+              </div>
             </article>
           </div>
 
@@ -664,25 +682,12 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-policy-tabs">
-              <h3>Nondeterministic plan classifier</h3>
-              <p class="preview-text">Classify the guarantee before opening the definition. Instant feedback explains the success condition.</p>
-              <div id="pui-policy-case" class="preview-box"></div>
-              <div class="pui-action-row" aria-label="Classify nondeterministic planning guarantee">
-                <button type="button" data-pui-policy-answer="weak">weak</button>
-                <button type="button" data-pui-policy-answer="strong">strong</button>
-                <button type="button" data-pui-policy-answer="cyclic">strong cyclic</button>
-              </div>
-              <div class="pui-action-row">
-                <button type="button" data-pui-policy-next>next case</button>
-              </div>
+              <h3>Uncertainty lab: plan guarantees + value iteration</h3>
               <div class="mini-tabs">
-                <button type="button" data-pui-policy="weak">weak</button>
-                <button type="button" data-pui-policy="strong">strong</button>
-                <button type="button" data-pui-policy="cyclic">strong cyclic</button>
-                <button type="button" data-pui-policy="pomdp">POMDP optional</button>
+                <button type="button" data-pui-unc-tab="classify">1 &middot; Weak / strong / strong cyclic</button>
+                <button type="button" data-pui-unc-tab="vi">2 &middot; Value iteration, sweep by sweep</button>
               </div>
-              <div id="pui-policy-output" class="preview-box"></div>
-              <p class="step-note"><strong>Use this when:</strong> you need to separate optimistic, guaranteed, looping, and partially observable cases.</p>
+              <div id="pui-unc-output" class="preview-box"></div>
             </article>
           </div>
 
@@ -782,13 +787,8 @@
           <div class="block">
             <p class="block-label lab">Lab</p>
             <article class="interactive-card" data-lab-key="pui-uct-lab">
-              <h3>UCT calculator</h3>
-              <p class="preview-text">Change the parent visits or exploration constant. The row with the largest UCT score is selected.</p>
-              <p class="step-note"><strong>Why:</strong> the mean is exploitation; the bonus is exploration.</p>
-              <div class="pui-score-row">
-                <label>Parent N<input id="pui-parent-visits" type="number" min="2" value="120"></label>
-                <label>C<input id="pui-uct-c" type="number" min="0" step="0.1" value="1.4"></label>
-              </div>
+              <h3>MCTS live: selection &rarr; rollout &rarr; backup, iteration by iteration</h3>
+              <p class="step-note"><strong>A real (tiny) MCTS run.</strong> The root has three actions with <em>hidden</em> true win rates. Each iteration does the full loop: UCT picks a child (unvisited children first), a random rollout returns win/loss, and the result is backed up into that child's visit count and mean. Run iterations and watch two things happen: the estimates converge toward the hidden truth, and the visit bars grow <em>asymmetrically</em> toward the best action &mdash; that asymmetry is the whole point of MCTS.</p>
               <div id="pui-uct-output" class="preview-box"></div>
             </article>
           </div>
@@ -1139,228 +1139,391 @@
       }
 
       const stripsActions = {
-        load: {
-          pre: ["at(package,A)", "at(truck,A)"],
-          add: ["in(package,truck)"],
-          del: ["at(package,A)"],
-          label: "load package at A"
-        },
-        drive: {
-          pre: ["at(truck,A)"],
-          add: ["at(truck,B)"],
-          del: ["at(truck,A)"],
-          label: "drive truck A to B"
-        },
-        unload: {
-          pre: ["in(package,truck)", "at(truck,B)"],
-          add: ["at(package,B)"],
-          del: ["in(package,truck)"],
-          label: "unload package at B"
-        }
+        load: { pre: ["at(package,A)", "at(truck,A)"], add: ["in(package,truck)"], del: ["at(package,A)"], label: "load(package, truck, A)" },
+        driveAB: { pre: ["at(truck,A)"], add: ["at(truck,B)"], del: ["at(truck,A)"], label: "drive(truck, A, B)" },
+        driveBA: { pre: ["at(truck,B)"], add: ["at(truck,A)"], del: ["at(truck,B)"], label: "drive(truck, B, A)" },
+        unload: { pre: ["in(package,truck)", "at(truck,B)"], add: ["at(package,B)"], del: ["in(package,truck)"], label: "unload(package, truck, B)" }
       };
-      let puiState = new Set(["at(package,A)", "at(truck,A)", "road(A,B)"]);
-      let puiMessage = "Initial state loaded.";
-
-      function expectedStripsAction() {
-        if (puiState.has("at(package,B)")) return null;
-        if (puiState.has("at(package,A)") && puiState.has("at(truck,A)")) return "load";
-        if (puiState.has("in(package,truck)") && puiState.has("at(truck,A)")) return "drive";
-        if (puiState.has("in(package,truck)") && puiState.has("at(truck,B)")) return "unload";
-        return "reset";
-      }
-
-      function renderStrips() {
-        const output = document.getElementById("pui-strips-output");
-        if (!output) return;
-        const stateHtml = [...puiState].sort().map((fact) => `<span class="pui-chip ${fact === "at(package,B)" ? "good" : ""}">${fact}</span>`).join("");
-        const expected = expectedStripsAction();
-        const prompt = expected === "reset" ? "No goal-reaching action remains in this one-way toy; reset and explain why." : expected ? `Exam check: choose the next useful action before applying it.` : "Goal reached.";
-        output.innerHTML = `<h4>Current state</h4><div class="pui-state-row">${stateHtml}</div><p>${puiMessage}</p><p><strong>Goal:</strong> <code>at(package,B)</code></p><p><strong>${prompt}</strong></p><p class="step-note"><strong>Remember:</strong> failed preconditions mean there is no edge for that action from this state.</p>`;
-      }
+      const stripsInit = ["at(package,A)", "at(truck,A)"];
+      let puiState = new Set(stripsInit);
+      let puiTrace = [];
 
       function initStripsLab() {
-        document.querySelectorAll("[data-pui-strips-check]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const key = button.dataset.puiStripsCheck;
-            const action = stripsActions[key];
-            const missing = action.pre.filter((fact) => !puiState.has(fact));
-            const expected = expectedStripsAction();
-            if (expected === null) {
-              puiMessage = "Already at the goal: <code>at(package,B)</code> is true, so the plan can stop.";
-            } else if (expected === "reset") {
-              puiMessage = "No forward STRIPS action remains. Driving away deleted <code>at(truck,A)</code>, so loading the package is now impossible in this toy domain.";
-            } else if (missing.length) {
-              puiMessage = `Not applicable: <strong>${action.label}</strong> is missing ${missing.map((fact) => `<code>${fact}</code>`).join(", ")}.`;
-            } else if (key === expected) {
-              puiMessage = `Correct: <strong>${action.label}</strong> has <code>pre(a) subset s</code>; applying it gives <code>(s \\ del(a)) union add(a)</code>.`;
-            } else {
-              puiMessage = `Applicable but not the useful next step here. Choose <strong>${stripsActions[expected].label}</strong> so the package, not just the truck, progresses toward <code>at(package,B)</code>.`;
-            }
-            renderStrips();
-          });
-        });
-        document.querySelectorAll("[data-pui-action]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const key = button.dataset.puiAction;
-            if (key === "reset") {
-              puiState = new Set(["at(package,A)", "at(truck,A)", "road(A,B)"]);
-              puiMessage = "Reset to initial state.";
-              renderStrips();
-              return;
-            }
-            const action = stripsActions[key];
-            const missing = action.pre.filter((fact) => !puiState.has(fact));
-            if (missing.length) {
-              puiMessage = `Cannot apply ${action.label}; missing precondition ${missing.map((x) => `<code>${x}</code>`).join(", ")}.`;
-              renderStrips();
-              return;
-            }
-            action.del.forEach((fact) => puiState.delete(fact));
-            action.add.forEach((fact) => puiState.add(fact));
-            puiMessage = `Applied ${action.label}: deleted ${action.del.join(", ") || "nothing"} and added ${action.add.join(", ")}.`;
-            renderStrips();
-          });
-        });
-        renderStrips();
-      }
+        const output = document.getElementById("pui-strips-output");
+        if (!output) return;
 
-      const relaxData = {
-        delete: "<h4>Delete relaxation</h4><p>Set every <code>del(a)</code> to empty. If a fact becomes true in the relaxed task, it stays true.</p><pre>move(A,B): del at(A) becomes ignored</pre><p class=\"step-note\"><strong>Remember:</strong> the estimate is optimistic because real conflicts disappear.</p>",
-        hmax: "<h4>hmax</h4><p>To achieve a set of preconditions, pay only the most expensive subgoal.</p><pre>cost(pre(a)) = max_q h(q)</pre><p class=\"step-note\"><strong>Remember:</strong> max avoids double-counting, so it is admissible but often weak.</p>",
-        hadd: "<h4>hadd and hff</h4><p><code>hadd</code> sums subgoal costs, so it is stronger but may double-count. <code>hff</code> extracts one relaxed plan from the relaxed planning graph and counts its selected actions.</p><p class=\"step-note\"><strong>Remember:</strong> stronger guidance can lose admissibility when shared actions are counted twice.</p>",
-        abstraction: "<h4>Abstraction</h4><p>Map concrete states to fewer abstract states and solve exactly there. Projection/pattern databases keep selected variables. Merge-and-shrink repeatedly combines variables and compresses state spaces.</p><p class=\"step-note\"><strong>Use this when:</strong> exact search is possible only after hiding part of the state description.</p>"
-      };
+        const entityHtml = (loc) => {
+          const items = [];
+          if (puiState.has(`at(truck,${loc})`)) {
+            const carrying = puiState.has("in(package,truck)") ? ` <span class="material-symbols-rounded">package_2</span>` : "";
+            items.push(`<span class="pui-entity truck"><span class="material-symbols-rounded">local_shipping</span>truck${carrying}</span>`);
+          }
+          if (puiState.has(`at(package,${loc})`)) items.push(`<span class="pui-entity pkg"><span class="material-symbols-rounded">package_2</span>package</span>`);
+          return items.join("") || `<span class="pui-chip">empty</span>`;
+        };
+
+        const render = () => {
+          const goal = puiState.has("at(package,B)");
+          const cards = Object.entries(stripsActions).map(([key, a]) => {
+            const missing = a.pre.filter((f) => !puiState.has(f));
+            const applicable = missing.length === 0;
+            const preHtml = a.pre.map((f) => `<span class="${puiState.has(f) ? "ok" : "miss"}">${f}</span>`).join("");
+            return `<button type="button" class="pui-action-card" data-strips-apply="${key}" ${applicable && !goal ? "" : "disabled"}>
+                <h5>${a.label} ${applicable ? "" : "&mdash; not applicable"}</h5>
+                <div class="pre">pre: ${preHtml}</div>
+                <div class="eff">add: ${a.add.map((f) => `<code>${f}</code>`).join(", ")}<br>del: ${a.del.map((f) => `<code>${f}</code>`).join(", ")}</div>
+              </button>`;
+          }).join("");
+          const stateChips = [...puiState].sort().map((f) => `<span class="pui-chip ${f === "at(package,B)" ? "good" : ""}">${f}</span>`).join("");
+          const traceHtml = puiTrace.length ? `<h4 style="margin-top:0.8rem">Plan trace</h4><ol class="pui-log">${puiTrace.map((t) => `<li>${t}</li>`).join("")}</ol>` : "";
+          const goalBox = goal
+            ? `<div class="mas-lab-feedback good" style="margin-top:0.8rem"><strong>Goal reached: at(package,B) &isin; s.</strong><p>Your plan has ${puiTrace.length} action${puiTrace.length === 1 ? "" : "s"}${puiTrace.length === 3 ? " &mdash; that is optimal (load, drive, unload)." : puiTrace.length > 3 ? `; the optimal plan needs only 3 (load, drive A&rarr;B, unload). Reset and try the shortest route.` : "."}</p></div>`
+            : "";
+          output.innerHTML = `
+            <div class="pui-world">
+              <div class="pui-loc"><h5>Location A</h5>${entityHtml("A")}</div>
+              <div class="pui-loc"><h5>Location B &mdash; goal: package here</h5>${entityHtml("B")}</div>
+            </div>
+            <h4 style="margin-top:0.8rem">Current state s (a set of facts)</h4>
+            <div class="pui-state-row">${stateChips}</div>
+            <h4 style="margin-top:0.8rem">Actions &mdash; applicable iff every precondition is green</h4>
+            <div class="pui-actions-grid">${cards}</div>
+            <div class="pui-action-row"><button type="button" data-strips-reset>Reset to initial state</button></div>
+            ${goalBox}${traceHtml}`;
+
+          output.querySelectorAll("[data-strips-apply]").forEach((btn) => btn.addEventListener("click", () => {
+            const a = stripsActions[btn.dataset.stripsApply];
+            a.del.forEach((f) => puiState.delete(f));
+            a.add.forEach((f) => puiState.add(f));
+            puiTrace.push(`<strong>${a.label}</strong>: pre &sube; s held, so s' = (s \\ {${a.del.join(", ")}}) &cup; {${a.add.join(", ")}}.`);
+            render();
+          }));
+          output.querySelector("[data-strips-reset]")?.addEventListener("click", () => {
+            puiState = new Set(stripsInit);
+            puiTrace = [];
+            render();
+          });
+        };
+        render();
+      }
 
       function initRelaxTabs() {
         const output = document.getElementById("pui-relax-output");
         if (!output) return;
-        const render = (key) => {
-          output.innerHTML = relaxData[key];
-          document.querySelectorAll("[data-pui-relax-tab]").forEach((button) => {
-            button.classList.toggle("active", button.dataset.puiRelaxTab === key);
-          });
-        };
-        document.querySelectorAll("[data-pui-relax-tab]").forEach((button) => {
-          button.addEventListener("click", () => render(button.dataset.puiRelaxTab));
-        });
-        render("delete");
+        const taskTable = `<table class="pui-uct-table"><thead><tr><th>Action</th><th>pre</th><th>add</th><th>cost</th></tr></thead><tbody>
+            <tr><td>oP</td><td>{s}</td><td>{p}</td><td>3</td></tr>
+            <tr><td>o1</td><td>{p}</td><td>{g1}</td><td>1</td></tr>
+            <tr><td>o2</td><td>{p}</td><td>{g2}</td><td>1</td></tr>
+          </tbody></table>`;
+        const costTable = (s, p, g1, g2, hl) => `<table class="pui-uct-table"><thead><tr><th>fact</th><th>s</th><th>p</th><th>g1</th><th>g2</th></tr></thead><tbody>
+            <tr><td>cost</td><td class="${hl === "s" ? "" : ""}">${s}</td><td>${p}</td><td>${g1}</td><td>${g2}</td></tr>
+          </tbody></table>`;
+        const INF = `<span class="inf">&infin;</span>`;
+        const steps = [
+          `<h4>Step 0 of 6 &middot; The task (deletes already erased)</h4>
+           <p>Initial state: <code>{s}</code>. Goal: <code>{g1, g2}</code> &mdash; <em>both</em> facts. Delete relaxation has already happened: no action deletes anything, so facts only accumulate and achieving a fact never breaks anything else.</p>
+           ${taskTable}
+           <p class="step-note"><strong>Eyeball the true relaxed optimum first:</strong> the cheapest relaxed plan is {oP, o1, o2} &mdash; pay oP <em>once</em>, then both goal actions: <code>h&#8314; = 3 + 1 + 1 = 5</code>. Every heuristic below is an attempt to estimate this number cheaply.</p>`,
+          `<h4>Step 1 of 6 &middot; Wave 0: only the initial state is free</h4>
+           <p>All delete-relaxation heuristics start the same way: facts in the initial state cost 0, everything else costs &infin; until some action achieves it.</p>
+           ${costTable("0", INF, INF, INF)}
+           <p class="step-note">Read <code>cost(f)</code> as "cheapest known way to make f true in the relaxed task."</p>`,
+          `<h4>Step 2 of 6 &middot; Wave 1: oP becomes applicable</h4>
+           <p>oP's precondition {s} is reachable (cost 0), so it fires: <code>cost(p) = cost(oP) + cost({s}) = 3 + 0 = 3</code>.</p>
+           ${costTable("0", "3", INF, INF)}
+           <p class="step-note">o1 and o2 still wait: their precondition p only just became reachable.</p>`,
+          `<h4>Step 3 of 6 &middot; Wave 2: o1 and o2 fire &mdash; fixed point</h4>
+           <p><code>cost(g1) = 1 + cost(p) = 4</code> and <code>cost(g2) = 1 + cost(p) = 4</code>. No action can improve any fact further, so the fact costs have converged.</p>
+           ${costTable("0", "3", "4", "4")}
+           <p class="step-note">Up to here hmax and hadd agree completely. They only split on the next step: how to charge for a <em>set</em> of goals.</p>`,
+          `<h4>Step 4 of 6 &middot; hmax: charge the most expensive goal</h4>
+           <p><code>hmax({g1, g2}) = max(4, 4) = <strong>4</strong></code></p>
+           <p>The max says: "the relaxed plan is at least as expensive as its hardest subgoal." That is always a lower bound, so <strong>hmax is admissible</strong> (4 &le; h&#8314; = 5) &mdash; safe for optimal A*.</p>
+           <p class="step-note"><strong>The price:</strong> hmax is blind to the fact that you need <em>both</em> g1 and g2. It would give the same 4 if there were ten goals at cost 4 each. Admissible, but weakly informed.</p>`,
+          `<h4>Step 5 of 6 &middot; hadd: charge the sum &mdash; watch the double-count</h4>
+           <p><code>hadd({g1, g2}) = 4 + 4 = <strong>8</strong></code> &mdash; but h&#8314; is only 5. Where did the extra 3 come from?</p>
+           <p>Unfold the two 4s: g1's 4 = o1(1) + oP(3), and g2's 4 = o2(1) + oP(3). The sum charges <strong>oP twice</strong>, but a real plan runs it once and both goal actions share the resulting p.</p>
+           <p class="step-note"><strong>So:</strong> hadd is better informed (it knows both goals cost something) but <strong>not admissible</strong> &mdash; fine for satisficing search, unsafe for proving optimality.</p>`,
+          `<h4>Step 6 of 6 &middot; hff: extract one relaxed plan instead of adding numbers</h4>
+           <p>Walk backward from the goals through their cheapest achievers: g1 &larr; o1, g2 &larr; o2; both need p &larr; oP &mdash; and a <em>set</em> of actions contains oP only <strong>once</strong>. Relaxed plan: {oP, o1, o2}, cost <strong>5</strong>.</p>
+           <table class="pui-uct-table"><thead><tr><th>heuristic</th><th>value</th><th>admissible?</th><th>use for</th></tr></thead><tbody>
+             <tr><td>hmax</td><td>4</td><td>yes (&le; h&#8314;)</td><td>optimal planning (A*)</td></tr>
+             <tr class="best"><td>h&#8314; (truth)</td><td>5</td><td>&mdash;</td><td>NP-hard to compute exactly</td></tr>
+             <tr><td>hff</td><td>5</td><td>no in general (here exact)</td><td>satisficing (FF, LAMA)</td></tr>
+             <tr><td>hadd</td><td>8</td><td>no (double-counts)</td><td>satisficing guidance</td></tr>
+           </tbody></table>
+           <p class="step-note"><strong>The exam sentence:</strong> same fact-cost computation, different aggregation &mdash; max is admissible but weak, sum is informative but double-counts, and FF fixes the double-count by extracting an actual relaxed plan.</p>`
+        ];
+        let idx = 0;
+        const render = () => { output.innerHTML = steps[idx]; };
+        document.querySelector("[data-pui-relax-prev]")?.addEventListener("click", () => { idx = Math.max(0, idx - 1); render(); });
+        document.querySelector("[data-pui-relax-next]")?.addEventListener("click", () => { idx = Math.min(steps.length - 1, idx + 1); render(); });
+        render();
       }
-
-      const cuts = {
-        first: [2, 5, 7],
-        second: [3, 3, 8],
-        third: [1, 4]
-      };
 
       function initCutLab() {
         const output = document.getElementById("pui-cut-output");
         if (!output) return;
-        const render = (key) => {
-          const values = cuts[key];
-          const min = Math.min(...values);
-          const reduced = values.map((v) => v - min);
-          output.innerHTML = `<h4>Cut cost = ${min}</h4><p>Because every relaxed plan must use at least one action from this cut, adding the minimum action cost is safe.</p><div class="pui-state-row">${values.map((v, i) => `<span class="pui-chip ${v === min ? "good" : ""}">a${i + 1}: ${v}</span>`).join("")}</div><p>After subtracting ${min}: ${reduced.map((v, i) => `<code>a${i + 1}=${v}</code>`).join(" ")}</p><p class="step-note"><strong>Remember:</strong> subtracting prevents the same unavoidable cost from being counted again later.</p>`;
-          document.querySelectorAll("[data-pui-cut]").forEach((button) => {
-            button.classList.toggle("active", button.dataset.puiCut === key);
-          });
+        const edges = {
+          oa: { from: [45, 65], to: [160, 30], label: [95, 32] },
+          ob: { from: [45, 65], to: [160, 100], label: [95, 100] },
+          og1: { from: [160, 30], to: [290, 65], label: [228, 32] },
+          og2: { from: [160, 100], to: [290, 65], label: [228, 100] }
         };
-        document.querySelectorAll("[data-pui-cut]").forEach((button) => {
-          button.addEventListener("click", () => render(button.dataset.puiCut));
-        });
-        render("first");
-      }
-
-      const policyData = {
-        weak: "<h4>Weak plan</h4><p>There exists at least one execution path to the goal.</p><p class=\"step-note\"><strong>Remember:</strong> weak means the environment may cooperate; it is not a guarantee.</p>",
-        strong: "<h4>Strong plan</h4><p>Every possible execution reaches the goal in finite time.</p><p class=\"step-note\"><strong>Remember:</strong> strong means every outcome branch must be safe.</p>",
-        cyclic: "<h4>Strong cyclic plan</h4><p>The policy may loop, but under fairness it eventually reaches the goal.</p><p class=\"step-note\"><strong>Remember:</strong> loops are allowed only if fair executions cannot avoid progress forever.</p>",
-        pomdp: "<h4>POMDP belief state</h4><p>When the state is hidden, the planner maintains <code>b(s)</code>, a probability distribution over possible states, and updates it after actions and observations.</p><p class=\"step-note\"><strong>Remember:</strong> the belief state is the planner's best current summary of hidden reality.</p>"
-      };
-
-      const policyCases = [
-        {
-          text: "A policy reaches the goal only if the first nondeterministic outcome is favorable; another outcome enters a dead end.",
-          answer: "weak",
-          why: "Only one successful execution is enough, so this is weak and not guaranteed."
-        },
-        {
-          text: "Every outcome branch reaches a goal state after finitely many policy steps, with no need to revisit a state.",
-          answer: "strong",
-          why: "All branches are solved in finite time, so this is a strong plan."
-        },
-        {
-          text: "The policy may return to the same state after an unlucky outcome, but whenever the progress outcome remains enabled, fairness eventually takes it.",
-          answer: "cyclic",
-          why: "Loops are present, but fair executions still reach the goal, so this is strong cyclic."
-        }
-      ];
-      let puiPolicyCaseIndex = 0;
-      let puiPolicyFeedback = "";
-
-      function renderPolicyCase() {
-        const output = document.getElementById("pui-policy-case");
-        if (!output) return;
-        const item = policyCases[puiPolicyCaseIndex];
-        output.innerHTML = `<h4>Case ${puiPolicyCaseIndex + 1}</h4><p>${item.text}</p>${puiPolicyFeedback}`;
+        const nodes = { i: [45, 65], a: [160, 30], b: [160, 100], g: [290, 65] };
+        const drawGraph = (costs, zone = [], cut = []) => {
+          const edgeSvg = Object.entries(edges).map(([k, e]) => {
+            const inCut = cut.includes(k);
+            return `<line x1="${e.from[0]}" y1="${e.from[1]}" x2="${e.to[0]}" y2="${e.to[1]}" stroke="${inCut ? "var(--panic)" : "var(--line-strong)"}" stroke-width="${inCut ? 2.5 : 1.8}" ${inCut ? 'stroke-dasharray="5 4"' : ""}/>
+              <text x="${e.label[0]}" y="${e.label[1]}" text-anchor="middle" font-size="10" font-weight="800" fill="${inCut ? "var(--panic)" : "var(--ink-soft)"}">${k}: ${costs[k]}</text>`;
+          }).join("");
+          const nodeSvg = Object.entries(nodes).map(([k, p]) => {
+            const inZone = zone.includes(k);
+            return `<circle cx="${p[0]}" cy="${p[1]}" r="14" fill="${inZone ? "var(--good-tint)" : "var(--surface-2)"}" stroke="${inZone ? "var(--good)" : "var(--line-strong)"}" stroke-width="1.8"/>
+              <text x="${p[0]}" y="${p[1] + 4}" text-anchor="middle" font-size="11" font-weight="800" fill="${inZone ? "var(--good)" : "var(--ink)"}">${k}</text>`;
+          }).join("");
+          return `<svg class="pui-svg" viewBox="0 0 340 130" preserveAspectRatio="xMidYMid meet" role="img" aria-label="LM-Cut task graph">${edgeSvg}${nodeSvg}</svg>`;
+        };
+        const rounds = [
+          { costs: { oa: 3, ob: 5, og1: 2, og2: 1 }, hmaxText: "cost(a)=3, cost(b)=5, cost(g)=min(2+3, 1+5)=<strong>5</strong>", zone: ["g"], zoneText: "Only <code>g</code>: no zero-cost action reaches the goal yet.", cut: ["og1", "og2"], m: 1, cheap: "og2", after: { og1: 1, og2: 0 } },
+          { costs: { oa: 3, ob: 5, og1: 1, og2: 0 }, hmaxText: "cost(g)=min(1+3, 0+5)=<strong>4</strong>", zone: ["g", "b"], zoneText: "<code>b</code> joins the zone: og2 now costs 0, so from b the goal is free.", cut: ["og1", "ob"], m: 1, cheap: "og1", after: { og1: 0, ob: 4 } },
+          { costs: { oa: 3, ob: 4, og1: 0, og2: 0 }, hmaxText: "cost(g)=min(0+3, 0+4)=<strong>3</strong>", zone: ["g", "a", "b"], zoneText: "Both og1 and og2 cost 0 now, so a and b both reach the goal for free.", cut: ["oa", "ob"], m: 3, cheap: "oa", after: { oa: 0, ob: 1 } }
+        ];
+        const roundStep = (r, i, runningBefore) => `
+          <h4>Round ${i + 1} of 3 &middot; running total before this round: h = ${runningBefore}</h4>
+          ${drawGraph(r.costs, r.zone, r.cut)}
+          <ol class="pui-log">
+            <li><strong>1 &middot; hmax with current costs:</strong> ${r.hmaxText} &gt; 0, so keep going.</li>
+            <li><strong>2 &middot; Goal zone (green):</strong> ${r.zoneText}</li>
+            <li><strong>3 &middot; The cut (red dashed): {${r.cut.join(", ")}}.</strong> Every relaxed plan must cross from the non-zone into the zone, so it must use at least one of these &mdash; a <em>disjunctive action landmark</em>.</li>
+            <li><strong>4 &middot; Charge &amp; subtract:</strong> the plan is only guaranteed to pay the <em>cheapest</em> cut member (${r.cheap}), so add <code>m = ${r.m}</code> to the heuristic and subtract ${r.m} from every cut action: ${r.cut.map((k) => `<code>${k}: ${r.costs[k]} &rarr; ${r.after[k] !== undefined ? r.after[k] : r.costs[k] - r.m}</code>`).join(", ")}.</li>
+          </ol>
+          <p class="step-note"><strong>Why subtract?</strong> The ${r.m} you just charged is now "paid for." Leaving full prices would charge the same unavoidable cost again in a later round &mdash; subtraction is what keeps the total admissible.</p>`;
+        const steps = [
+          `<h4>The task &mdash; before any rounds</h4>
+           ${drawGraph({ oa: 3, ob: 5, og1: 2, og2: 1 })}
+           <p>Reach <code>g</code> from <code>i</code>. Top road: oa (3) then og1 (2) = 5. Bottom road: ob (5) then og2 (1) = 6. So the true optimum is <code>h* = 5</code>. LM-Cut will reconstruct that 5 without ever searching &mdash; just by repeatedly finding cuts.</p>
+           <p class="step-note"><strong>The loop you are about to watch:</strong> hmax &rarr; goal zone &rarr; cut (= landmark) &rarr; charge the minimum &amp; subtract &rarr; repeat until hmax hits 0.</p>`,
+          roundStep(rounds[0], 0, 0),
+          roundStep(rounds[1], 1, 1),
+          roundStep(rounds[2], 2, 2),
+          `<h4>Termination &mdash; hmax = 0, stop</h4>
+           ${drawGraph({ oa: 0, ob: 1, og1: 0, og2: 0 }, ["g", "a", "b", "i"])}
+           <p>With costs oa=0, og1=0 the goal is reachable at cost <code>cost(g)=min(0+0, 0+1)=0</code>. No cost is left to charge.</p>
+           <table class="pui-uct-table"><thead><tr><th>round</th><th>landmark (cut)</th><th>charged</th></tr></thead><tbody>
+             <tr><td>1</td><td>{og1, og2}</td><td>1</td></tr>
+             <tr><td>2</td><td>{og1, ob}</td><td>1</td></tr>
+             <tr><td>3</td><td>{oa, ob}</td><td>3</td></tr>
+             <tr class="best"><td colspan="2"><strong>h<sub>LM-Cut</sub> = 1 + 1 + 3</strong></td><td><strong>5 = h*</strong></td></tr>
+           </tbody></table>
+           <p class="step-note"><strong>The exam sentences:</strong> each cut is a disjunctive action landmark, charging its minimum cost is safe (every relaxed plan crosses it), subtracting prevents double-charging, so the sum is <strong>admissible</strong> (&le; h&#8314; &le; h*). Here it even hits h* exactly &mdash; in general it can be lower.</p>`
+        ];
+        let idx = 0;
+        const render = () => { output.innerHTML = steps[idx]; };
+        document.querySelector("[data-pui-cut-prev]")?.addEventListener("click", () => { idx = Math.max(0, idx - 1); render(); });
+        document.querySelector("[data-pui-cut-next]")?.addEventListener("click", () => { idx = Math.min(steps.length - 1, idx + 1); render(); });
+        render();
       }
 
       function initPolicyTabs() {
-        const output = document.getElementById("pui-policy-output");
+        const output = document.getElementById("pui-unc-output");
         if (!output) return;
-        const render = (key) => {
-          output.innerHTML = policyData[key];
-          document.querySelectorAll("[data-pui-policy]").forEach((button) => {
-            button.classList.toggle("active", button.dataset.puiPolicy === key);
+
+        const policyCases = [
+          { text: "A policy reaches the goal only if the first nondeterministic outcome is favorable; another outcome enters a dead end.", answer: "weak", why: "Only one successful execution exists, so this is weak: optimistic, not guaranteed." },
+          { text: "Every outcome branch reaches a goal state after finitely many policy steps, with no need to revisit a state.", answer: "strong", why: "All branches are solved in finite time with no loops: a strong plan." },
+          { text: "The policy may return to the same state after an unlucky outcome, but whenever the progress outcome remains enabled, fairness eventually takes it.", answer: "cyclic", why: "Loops happen, but fair executions cannot avoid progress forever: strong cyclic." }
+        ];
+        let tab = "classify";
+        let caseIdx = 0;
+        let caseFeedback = "";
+
+        const defsTable = `<table class="pui-uct-table"><thead><tr><th>guarantee</th><th>promise</th><th>loops?</th></tr></thead><tbody>
+            <tr><td>weak</td><td>at least one execution reaches the goal</td><td>&mdash;</td></tr>
+            <tr><td>strong</td><td>every execution reaches the goal in finite time</td><td>no</td></tr>
+            <tr><td>strong cyclic</td><td>every fair execution eventually reaches the goal</td><td>allowed</td></tr>
+            <tr><td>POMDP (optional)</td><td>state hidden &rarr; plan over belief states b(s)</td><td>&mdash;</td></tr>
+          </tbody></table>`;
+
+        const renderClassify = () => {
+          const item = policyCases[caseIdx];
+          output.innerHTML = `
+            <h4>Case ${caseIdx + 1} of ${policyCases.length} &mdash; what does this policy guarantee?</h4>
+            <p>${item.text}</p>
+            <div class="pui-action-row">
+              <button type="button" data-unc-answer="weak">weak</button>
+              <button type="button" data-unc-answer="strong">strong</button>
+              <button type="button" data-unc-answer="cyclic">strong cyclic</button>
+              <button type="button" data-unc-case-next>next case</button>
+            </div>
+            ${caseFeedback}
+            <h4 style="margin-top:0.9rem">The three guarantees side by side</h4>
+            ${defsTable}
+            <p class="step-note"><strong>The ladder:</strong> weak &sube; strong cyclic &sube; strong &mdash; each step asks for more. Fairness is the extra assumption that buys you loops: an outcome that stays enabled forever is eventually taken.</p>`;
+          output.querySelectorAll("[data-unc-answer]").forEach((b) => b.addEventListener("click", () => {
+            const ok = b.dataset.uncAnswer === item.answer;
+            caseFeedback = `<div class="mas-lab-feedback ${ok ? "good" : "warn"}"><strong>${ok ? "Correct." : "Not this one."}</strong><p>${item.why}</p></div>`;
+            renderClassify();
+          }));
+          output.querySelector("[data-unc-case-next]")?.addEventListener("click", () => {
+            caseIdx = (caseIdx + 1) % policyCases.length;
+            caseFeedback = "";
+            renderClassify();
           });
         };
-        document.querySelectorAll("[data-pui-policy]").forEach((button) => {
-          button.addEventListener("click", () => render(button.dataset.puiPolicy));
-        });
-        document.querySelectorAll("[data-pui-policy-answer]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const item = policyCases[puiPolicyCaseIndex];
-            const answer = button.dataset.puiPolicyAnswer;
-            const correct = answer === item.answer;
-            puiPolicyFeedback = `<p><span class="pui-chip ${correct ? "good" : "bad"}">${correct ? "Correct" : "Check again"}</span> ${item.why}</p>`;
-            document.querySelectorAll("[data-pui-policy-answer]").forEach((choice) => {
-              choice.classList.toggle("active", choice.dataset.puiPolicyAnswer === answer);
-            });
-            renderPolicyCase();
+
+        // --- Value iteration on a 4-cell corridor ---
+        const names = ["S1", "S2", "S3", "G"];
+        let V = [0, 0, 0, 0];
+        let k = 0;
+        let gamma = 0.9;
+        let viSelected = 2;
+        const reward = (sPrime) => (sPrime === 3 ? 10 : 0);
+        const qValue = (idx, dir) => {
+          const t = dir === "R" ? Math.min(idx + 1, 3) : Math.max(idx - 1, 0);
+          return 0.8 * (reward(t) + gamma * V[t]) + 0.2 * (reward(idx) + gamma * V[idx]);
+        };
+        const sweep = () => {
+          const next = V.slice();
+          for (let i = 0; i < 3; i++) next[i] = Math.max(qValue(i, "R"), qValue(i, "L"));
+          const delta = Math.max(...next.map((v, i) => Math.abs(v - V[i])));
+          V = next;
+          k += 1;
+          return delta;
+        };
+        const expansionHtml = (idx) => {
+          const tR = Math.min(idx + 1, 3), tL = Math.max(idx - 1, 0);
+          const qR = qValue(idx, "R"), qL = qValue(idx, "L");
+          const line = (dir, t, q) => `Q(${names[idx]}, ${dir === "R" ? "Right" : "Left"}) = 0.8 &middot; (${reward(t)} + ${gamma.toFixed(2)} &middot; ${V[t].toFixed(2)}) + 0.2 &middot; (0 + ${gamma.toFixed(2)} &middot; ${V[idx].toFixed(2)}) = <strong>${q.toFixed(2)}</strong>`;
+          return `<div class="mas-lab-feedback ${qR >= qL ? "good" : "warn"}" style="margin-top:0.7rem">
+              <strong>Bellman backup for ${names[idx]} (using current V<sub>${k}</sub>)</strong>
+              <p>${line("R", tR, qR)}<br>${line("L", tL, qL)}<br>V<sub>${k + 1}</sub>(${names[idx]}) = max(${qR.toFixed(2)}, ${qL.toFixed(2)}) = <strong>${Math.max(qR, qL).toFixed(2)}</strong> &rarr; policy: ${qR >= qL ? "Right" : "Left"}</p>
+            </div>`;
+        };
+        const renderVi = () => {
+          const cells = names.map((n, i) => {
+            if (i === 3) return `<div class="pui-vi-cell goal"><span class="nm">${n}</span><strong>+10</strong><span class="pol">terminal</span></div>`;
+            const pol = qValue(i, "R") >= qValue(i, "L") ? "&rarr;" : "&larr;";
+            return `<button type="button" class="pui-vi-cell${viSelected === i ? " selected" : ""}" data-vi-cell="${i}"><span class="nm">${n}</span><strong>${V[i].toFixed(2)}</strong><span class="pol">${pol}</span></button>`;
+          }).join("");
+          output.innerHTML = `
+            <h4>Corridor MDP &middot; after k = ${k} sweep${k === 1 ? "" : "s"}</h4>
+            <p>Move <em>Right</em> or <em>Left</em>; the move succeeds with probability 0.8 and you stay put with 0.2. Entering <code>G</code> pays reward 10 and ends the episode; everything else pays 0. Discount &gamma; = ${gamma.toFixed(2)}.</p>
+            <div class="pui-vi-row">${cells}</div>
+            <p class="step-note">Click a state to see its Bellman backup spelled out. The arrow under each value is the current greedy policy.</p>
+            ${expansionHtml(viSelected)}
+            <div class="pui-action-row">
+              <button type="button" data-vi-sweep>One sweep (k &rarr; k+1)</button>
+              <button type="button" data-vi-converge>Run to convergence</button>
+              <button type="button" data-vi-reset>Reset</button>
+            </div>
+            <label class="mas-slider" style="margin-top:0.7rem"><span>Discount &gamma; = <strong>${gamma.toFixed(2)}</strong> (resets V)</span><input type="range" min="0.5" max="0.95" step="0.05" value="${gamma}" data-vi-gamma></label>
+            <p class="step-note"><strong>Watch the values flow backward from the goal:</strong> after sweep 1 only S3 knows anything (8.00); each further sweep pushes value one state further left. That backward propagation <em>is</em> dynamic programming, and convergence is guaranteed because &gamma; &lt; 1 makes the update a contraction.</p>`;
+          output.querySelectorAll("[data-vi-cell]").forEach((b) => b.addEventListener("click", () => { viSelected = Number(b.dataset.viCell); renderVi(); }));
+          output.querySelector("[data-vi-sweep]")?.addEventListener("click", () => { sweep(); renderVi(); });
+          output.querySelector("[data-vi-converge]")?.addEventListener("click", () => {
+            for (let i = 0; i < 200; i++) { if (sweep() < 0.001) break; }
+            renderVi();
           });
-        });
-        document.querySelector("[data-pui-policy-next]")?.addEventListener("click", () => {
-          puiPolicyCaseIndex = (puiPolicyCaseIndex + 1) % policyCases.length;
-          puiPolicyFeedback = "";
-          document.querySelectorAll("[data-pui-policy-answer]").forEach((choice) => choice.classList.remove("active"));
-          renderPolicyCase();
-        });
-        render("weak");
-        renderPolicyCase();
-      }
+          output.querySelector("[data-vi-reset]")?.addEventListener("click", () => { V = [0, 0, 0, 0]; k = 0; renderVi(); });
+          output.querySelector("[data-vi-gamma]")?.addEventListener("input", (e) => { gamma = Number(e.target.value); V = [0, 0, 0, 0]; k = 0; renderVi(); });
+        };
 
-      const uctActions = [
-        { name: "A", value: 0.72, visits: 70 },
-        { name: "B", value: 0.60, visits: 8 },
-        { name: "C", value: 0.48, visits: 3 }
-      ];
-
-      function renderUct() {
-        const output = document.getElementById("pui-uct-output");
-        if (!output) return;
-        const parent = Math.max(2, Number(document.getElementById("pui-parent-visits").value || 120));
-        const c = Math.max(0, Number(document.getElementById("pui-uct-c").value || 1.4));
-        const rows = uctActions.map((action) => {
-          const bonus = c * Math.sqrt(Math.log(parent) / action.visits);
-          return { ...action, bonus, score: action.value + bonus };
-        });
-        const best = rows.reduce((a, b) => a.score > b.score ? a : b);
-        output.innerHTML = `<h4>Selected action: ${best.name}</h4><table class="pui-uct-table"><thead><tr><th>Action</th><th>Mean</th><th>Visits</th><th>Bonus</th><th>UCT</th></tr></thead><tbody>${rows.map((row) => `<tr class="${row.name === best.name ? "best" : ""}"><td>${row.name}</td><td>${row.value.toFixed(2)}</td><td>${row.visits}</td><td>${row.bonus.toFixed(3)}</td><td>${row.score.toFixed(3)}</td></tr>`).join("")}</tbody></table><p class="step-note"><strong>Remember:</strong> low-visit actions get a bigger bonus; increasing <code>C</code> makes the planner explore more.</p>`;
+        const render = () => {
+          if (tab === "vi") renderVi(); else renderClassify();
+          document.querySelectorAll("[data-pui-unc-tab]").forEach((b) => b.classList.toggle("active", b.dataset.puiUncTab === tab));
+        };
+        document.querySelectorAll("[data-pui-unc-tab]").forEach((b) => b.addEventListener("click", () => { tab = b.dataset.puiUncTab; render(); }));
+        render();
       }
 
       function initUctLab() {
-        document.getElementById("pui-parent-visits")?.addEventListener("input", renderUct);
-        document.getElementById("pui-uct-c")?.addEventListener("input", renderUct);
-        renderUct();
+        const output = document.getElementById("pui-uct-output");
+        if (!output) return;
+        const hidden = { A: 0.7, B: 0.5, C: 0.35 };
+        let children, rootN, lastLog, lastPick, revealed, C;
+        const resetState = () => {
+          children = { A: { n: 0, w: 0 }, B: { n: 0, w: 0 }, C: { n: 0, w: 0 } };
+          rootN = 0; lastLog = []; lastPick = null; revealed = false; C = 1.4;
+        };
+        resetState();
+
+        const uctOf = (name) => {
+          const ch = children[name];
+          if (ch.n === 0) return Infinity;
+          return ch.w / ch.n + C * Math.sqrt(Math.log(Math.max(rootN, 1)) / ch.n);
+        };
+        const iterate = () => {
+          lastLog = [];
+          const unvisited = Object.keys(children).find((nm) => children[nm].n === 0);
+          let pick;
+          if (unvisited) {
+            pick = unvisited;
+            lastLog.push(`<strong>1 &middot; Selection:</strong> ${pick} has never been tried, so its UCT bonus is effectively &infin; &mdash; MCTS must visit every child once before trusting any mean.`);
+          } else {
+            const scores = Object.keys(children).map((nm) => ({ nm, u: uctOf(nm) }));
+            scores.sort((a, b) => b.u - a.u);
+            pick = scores[0].nm;
+            lastLog.push(`<strong>1 &middot; Selection:</strong> UCT = mean + C&middot;&radic;(ln N / n) gives ${scores.map((s) => `${s.nm}: ${s.u.toFixed(3)}`).join(", ")} &rarr; pick <strong>${pick}</strong>.`);
+          }
+          const win = Math.random() < hidden[pick] ? 1 : 0;
+          lastLog.push(`<strong>2 &middot; Expansion + rollout:</strong> simulate a random playout below ${pick}; it returns <strong>${win ? "1 (win)" : "0 (loss)"}</strong>.`);
+          children[pick].n += 1;
+          children[pick].w += win;
+          rootN += 1;
+          const ch = children[pick];
+          lastLog.push(`<strong>3 &middot; Backpropagation:</strong> update the path: ${pick} becomes n=${ch.n}, mean=${(ch.w / ch.n).toFixed(2)}; root N becomes ${rootN}.`);
+          lastPick = pick;
+        };
+
+        const render = () => {
+          const rows = Object.keys(children).map((nm) => {
+            const ch = children[nm];
+            const mean = ch.n ? (ch.w / ch.n).toFixed(2) : "&mdash;";
+            const share = rootN ? Math.round((ch.n / rootN) * 100) : 0;
+            const truth = revealed ? ` &middot; truth ${hidden[nm].toFixed(2)}` : "";
+            return `<div class="pui-mcts-child${nm === lastPick ? " selected" : ""}">
+                <strong>${nm}</strong>
+                <div><div class="pui-mcts-bar"><span style="width:${share}%"></span></div></div>
+                <span class="pui-mcts-stats">n=${ch.n} &middot; mean ${mean}${truth}</span>
+              </div>`;
+          }).join("");
+          const uctRows = Object.keys(children).map((nm) => {
+            const ch = children[nm];
+            const u = uctOf(nm);
+            const mean = ch.n ? (ch.w / ch.n).toFixed(3) : "&mdash;";
+            const bonus = ch.n ? (C * Math.sqrt(Math.log(Math.max(rootN, 1)) / ch.n)).toFixed(3) : "&infin;";
+            return { nm, mean, bonus, u };
+          });
+          const bestU = Math.max(...uctRows.map((r) => (r.u === Infinity ? 1e9 : r.u)));
+          const logHtml = lastLog.length ? `<h4 style="margin-top:0.8rem">Last iteration, phase by phase</h4><ol class="pui-log">${lastLog.map((l) => `<li>${l}</li>`).join("")}</ol>` : `<p class="step-note">No iterations yet &mdash; run one and read the three phases below the tree.</p>`;
+          output.innerHTML = `
+            <h4>Root &middot; N = ${rootN} simulations ${revealed ? "&middot; true win rates shown" : ""}</h4>
+            <div class="pui-mcts-children">${rows}</div>
+            <h4 style="margin-top:0.8rem">UCT scores the <em>next</em> selection would use (C = ${C.toFixed(1)})</h4>
+            <table class="pui-uct-table"><thead><tr><th>Action</th><th>Mean (exploit)</th><th>Bonus (explore)</th><th>UCT</th></tr></thead><tbody>
+              ${uctRows.map((r) => `<tr class="${(r.u === Infinity ? 1e9 : r.u) === bestU ? "best" : ""}"><td>${r.nm}</td><td>${r.mean}</td><td>${r.bonus}</td><td>${r.u === Infinity ? "&infin;" : r.u.toFixed(3)}</td></tr>`).join("")}
+            </tbody></table>
+            ${logHtml}
+            <div class="pui-action-row">
+              <button type="button" data-mcts-run="1">Run 1 iteration</button>
+              <button type="button" data-mcts-run="10">Run 10</button>
+              <button type="button" data-mcts-run="50">Run 50</button>
+              <button type="button" data-mcts-reveal>${revealed ? "Hide" : "Reveal"} true win rates</button>
+              <button type="button" data-mcts-reset>Reset</button>
+            </div>
+            <label class="mas-slider" style="margin-top:0.7rem"><span>Exploration constant C = <strong>${C.toFixed(1)}</strong></span><input type="range" min="0" max="3" step="0.1" value="${C}" data-mcts-c></label>
+            <p class="step-note"><strong>Things to try:</strong> set C = 0 after ~10 iterations and watch it lock onto one child (pure exploitation, may miss the best); set C = 3 and watch visits spread out. With C &asymp; 1.4 the bars grow asymmetrically toward A &mdash; exploitation guided, exploration safe. MCTS is <em>anytime</em>: stop at any N and act on the most-visited child.</p>`;
+          output.querySelectorAll("[data-mcts-run]").forEach((b) => b.addEventListener("click", () => {
+            const times = Number(b.dataset.mctsRun);
+            for (let i = 0; i < times; i++) iterate();
+            render();
+          }));
+          output.querySelector("[data-mcts-reveal]")?.addEventListener("click", () => { revealed = !revealed; render(); });
+          output.querySelector("[data-mcts-reset]")?.addEventListener("click", () => { resetState(); render(); });
+          output.querySelector("[data-mcts-c]")?.addEventListener("input", (e) => { C = Number(e.target.value); render(); });
+        };
+        render();
       }
 
       document.addEventListener("DOMContentLoaded", () => {
