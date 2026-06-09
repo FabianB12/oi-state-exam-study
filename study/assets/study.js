@@ -3352,9 +3352,22 @@ function updateRecallProgressBadge(area, value = null) {
     else label.prepend(badge);
   }
   const progress = value || loadProgress()[`recall:${area.dataset.recall}`] || {};
-  const state = progress.validated ? "validated" : progress.attempted ? "attempted" : "empty";
+  let state = "empty";
+  let text = "Not started";
+  if (progress.validated) {
+    const verdict = progress.verdict || "checked";
+    state = verdict === "partial" ? "partial" : verdict === "wrong" ? "wrong" : "validated";
+    const verdictLabel = progress.self
+      ? (verdict === "right" ? "had it" : verdict === "partial" ? "partly" : verdict === "wrong" ? "forgot" : verdict)
+      : verdict;
+    text = `${progress.self ? "Self-checked" : "Validated"} · ${verdictLabel}`;
+  } else if (progress.attempted) {
+    state = "attempted";
+    text = "Draft saved";
+  }
   badge.dataset.state = state;
-  badge.textContent = progress.validated ? `Validated · ${progress.verdict || "checked"}` : progress.attempted ? "Draft saved" : "Not started";
+  badge.textContent = text;
+  window.__recallDeckRefresh?.();
 }
 
 function syncRecallProgress(area, patch = {}) {
@@ -3403,8 +3416,59 @@ function initRecall() {
 
     button.addEventListener("click", () => validateRecall(area, button, output));
     actions.appendChild(button);
+
+    const reference = explicitRecallReference(area, key);
+    const hasDrillAnswer = label.closest(".reported-drill")?.querySelector(".reported-answer");
+    let referenceBox = null;
+    if (reference && !hasDrillAnswer) {
+      const refButton = document.createElement("button");
+      refButton.type = "button";
+      refButton.className = "recall-validator-button";
+      refButton.dataset.recallReference = key;
+      refButton.innerHTML = `<span class="material-symbols-rounded">visibility</span>Show reference`;
+      referenceBox = document.createElement("div");
+      referenceBox.className = "recall-reference-box";
+      referenceBox.hidden = true;
+      refButton.addEventListener("click", () => {
+        const show = referenceBox.hidden;
+        if (show && !referenceBox.dataset.ready) {
+          referenceBox.dataset.ready = "1";
+          referenceBox.innerHTML = `
+            <span class="recall-subhead">Reference answer</span>
+            <div class="recall-reference-text">${reference}</div>
+            <div class="recall-selfgrade">
+              <span>Now grade yourself honestly &mdash; it decides what you revisit before the exam:</span>
+              <div class="recall-selfgrade-row">
+                <button type="button" data-self-grade="right"><span class="material-symbols-rounded">check_circle</span>Had it</button>
+                <button type="button" data-self-grade="partial"><span class="material-symbols-rounded">rule</span>Partly</button>
+                <button type="button" data-self-grade="wrong"><span class="material-symbols-rounded">replay</span>Forgot &mdash; revisit</button>
+              </div>
+            </div>`;
+          const saved = loadProgress()[`recall:${key}`] || {};
+          referenceBox.querySelectorAll("[data-self-grade]").forEach((grade) => {
+            if (saved.self && saved.verdict === grade.dataset.selfGrade) grade.classList.add("active");
+            grade.addEventListener("click", () => {
+              referenceBox.querySelectorAll("[data-self-grade]").forEach((other) => {
+                other.classList.toggle("active", other === grade);
+              });
+              syncRecallProgress(area, {
+                attempted: true,
+                validated: true,
+                verdict: grade.dataset.selfGrade,
+                self: true
+              });
+            });
+          });
+        }
+        referenceBox.hidden = !show;
+        refButton.innerHTML = `<span class="material-symbols-rounded">${show ? "visibility_off" : "visibility"}</span>${show ? "Hide reference" : "Show reference"}`;
+      });
+      actions.appendChild(refButton);
+    }
+
     label.appendChild(actions);
     label.appendChild(output);
+    if (referenceBox) label.appendChild(referenceBox);
 
     const savedResult = getRecallValidationResult(key, area.value.trim());
     if (savedResult) {
@@ -3416,6 +3480,101 @@ function initRecall() {
       });
     }
   });
+}
+
+function recallDeckState(area) {
+  const progress = loadProgress()[`recall:${area.dataset.recall}`] || {};
+  if (progress.validated) {
+    const verdict = progress.verdict || "right";
+    return verdict === "partial" ? "partial" : verdict === "wrong" ? "wrong" : "right";
+  }
+  return progress.attempted ? "draft" : "empty";
+}
+
+function initRecallDecks() {
+  const groups = new Map();
+  document.querySelectorAll("label.free-recall").forEach((label) => {
+    if (!label.querySelector("textarea[data-recall]")) return;
+    const container = label.closest(".written-prompts, .written-practice, .exam-practice, .reported-drill") || label.parentElement;
+    if (!groups.has(container)) groups.set(container, []);
+    groups.get(container).push(label);
+  });
+
+  const refreshers = [];
+  groups.forEach((labels, container) => {
+    if (labels.length < 2) return;
+
+    const deck = document.createElement("div");
+    deck.className = "recall-deck";
+    container.insertBefore(deck, labels[0]);
+
+    const head = document.createElement("div");
+    head.className = "recall-deck-head";
+    const title = document.createElement("span");
+    title.className = "recall-deck-title";
+    const dots = document.createElement("div");
+    dots.className = "recall-deck-dots";
+    head.appendChild(title);
+    head.appendChild(dots);
+
+    const body = document.createElement("div");
+    body.className = "recall-deck-body";
+    labels.forEach((label) => body.appendChild(label));
+
+    const nav = document.createElement("div");
+    nav.className = "recall-deck-nav";
+    nav.innerHTML = `
+      <button type="button" data-deck-prev>&larr; Previous</button>
+      <span class="recall-deck-count"></span>
+      <button type="button" data-deck-next>Next &rarr;</button>`;
+
+    deck.appendChild(head);
+    deck.appendChild(body);
+    deck.appendChild(nav);
+
+    const areas = labels.map((label) => label.querySelector("textarea[data-recall]"));
+    const doneCount = () => areas.filter((area) => recallDeckState(area) === "right" || recallDeckState(area) === "partial" || recallDeckState(area) === "wrong").length;
+    let index = areas.findIndex((area) => !["right", "partial", "wrong"].includes(recallDeckState(area)));
+    if (index < 0) index = 0;
+
+    const prevBtn = nav.querySelector("[data-deck-prev]");
+    const nextBtn = nav.querySelector("[data-deck-next]");
+    const countEl = nav.querySelector(".recall-deck-count");
+
+    const refresh = () => {
+      title.innerHTML = `<span class="material-symbols-rounded">stylus_note</span>Free recall <span class="recall-deck-done">&middot; ${doneCount()}/${labels.length} checked</span>`;
+      dots.querySelectorAll(".recall-deck-dot").forEach((dot, i) => {
+        dot.dataset.state = recallDeckState(areas[i]);
+        dot.classList.toggle("is-current", i === index);
+      });
+    };
+
+    labels.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "recall-deck-dot";
+      dot.textContent = String(i + 1);
+      dot.title = `Prompt ${i + 1}`;
+      dot.addEventListener("click", () => setActive(i));
+      dots.appendChild(dot);
+    });
+
+    const setActive = (next) => {
+      index = Math.max(0, Math.min(labels.length - 1, next));
+      labels.forEach((label, i) => label.classList.toggle("is-active", i === index));
+      countEl.textContent = `Prompt ${index + 1} of ${labels.length}`;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === labels.length - 1;
+      refresh();
+    };
+    prevBtn.addEventListener("click", () => setActive(index - 1));
+    nextBtn.addEventListener("click", () => setActive(index + 1));
+
+    setActive(index);
+    refreshers.push(refresh);
+  });
+
+  window.__recallDeckRefresh = () => refreshers.forEach((refresh) => refresh());
 }
 
 function updateLabProgressButton(container, value = null) {
@@ -6266,6 +6425,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFlashcards();
   initQuizzes();
   initRecall();
+  initRecallDecks();
   initLabProgress();
   initRepresentation();
   initLaplacianDemo();
