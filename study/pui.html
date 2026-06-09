@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=tree-rewire-lab-3">
+  <link rel="stylesheet" href="assets/study.css?v=range-slider-1">
   <style>
     .pui-state-row,
     .pui-action-row,
@@ -207,24 +207,49 @@
             <p class="block-label watch">Watch first</p>
             <div class="video-grid">
               <article class="video-card">
-                <h3>CS188 SP24 LEC07 - Propositional Logic and Planning (80:09, watch 45:00-65:00)</h3>
-                <div class="video-frame" title="CS188 SP24 LEC07 - Logic: Propositional Logic and Planning" data-video-id="WVaBk3ldQIo" data-start="2700"></div>
+                <h3>Step 1 &middot; Start from zero: what planning even is (Edinburgh AIPLAN)</h3>
+                <p>Short MOOC clips that build the topic from nothing: what a planner does, why planning is search over states, and what the standard example problems look like. Watch in order; each is under 15 minutes.</p>
+                <div class="video-frame" title="AIPLAN - What Is Planning?" data-video-id="yCZQ18SPP44"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="2700">45:00 planning frame</button>
-                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="3060">51:00 actions as logic</button>
-                  <button type="button" data-video-target="WVaBk3ldQIo" data-start="3600">60:00 plan constraints</button>
+                  <button type="button" data-video-target="yCZQ18SPP44" data-start="0">1.1 What is planning? (12:53)</button>
+                  <button type="button" data-video-target="lkazvZL0BEw" data-start="0">1.3a Planning and search (12:10)</button>
+                  <button type="button" data-video-target="b7cPjSBDAu0" data-start="0">1.3b Planning and search II (10:53)</button>
+                  <button type="button" data-video-target="WHohyPnn540" data-start="0">1.4 Example problems - optional (14:38)</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=WVaBk3ldQIo&t=2700s" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=yCZQ18SPP44" target="_blank" rel="noreferrer">Open current video on YouTube</a>
               </article>
               <article class="video-card">
-                <h3>CS188 SP24 LEC03 - A* and Heuristics (74:18, watch 25:00-43:00)</h3>
-                <div class="video-frame" title="CS188 SP24 LEC03 - Search: Informed Search, A*, Heuristics" data-video-id="zRFZwAUQT8U" data-start="1500"></div>
+                <h3>Step 2 &middot; STRIPS: states, operators, and forward search</h3>
+                <p>The representation half of this module: states as sets of facts, operators with preconditions/add/delete, applicability and the successor formula, then planning as forward state-space search.</p>
+                <div class="video-frame" title="AIPLAN - Structured States" data-video-id="k6w0YPmHwbY"></div>
                 <div class="timestamp-row">
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="1500">25:00 heuristic idea</button>
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="1860">31:00 A*</button>
-                  <button type="button" data-video-target="zRFZwAUQT8U" data-start="2220">37:00 admissibility</button>
+                  <button type="button" data-video-target="k6w0YPmHwbY" data-start="0">2.6a Structured states (7:35)</button>
+                  <button type="button" data-video-target="VADkKTqbBLg" data-start="0">2.7a Structured operators (10:21)</button>
+                  <button type="button" data-video-target="lqQ5l72i8EA" data-start="0">2.7b Applicability &amp; successor (12:53)</button>
+                  <button type="button" data-video-target="h2acQQGmZq0" data-start="0">2.9a Forward search (6:33)</button>
                 </div>
-                <a class="fallback-link" href="https://www.youtube.com/watch?v=zRFZwAUQT8U&t=1500s" target="_blank" rel="noreferrer">Fallback link</a>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=k6w0YPmHwbY" target="_blank" rel="noreferrer">Open current video on YouTube</a>
+              </article>
+              <article class="video-card">
+                <h3>Step 3 &middot; Heuristic search and A*</h3>
+                <p>The algorithm half: greedy vs A*, why admissibility gives optimality, and what changes in graph search (duplicates, closed list, reopening) &mdash; exactly the implementation details the committee asks for.</p>
+                <div class="video-frame" title="AIPLAN - Heuristic Strategies" data-video-id="bXr3Y8qdpcE"></div>
+                <div class="timestamp-row">
+                  <button type="button" data-video-target="bXr3Y8qdpcE" data-start="0">2.1 Heuristic strategies (11:00)</button>
+                  <button type="button" data-video-target="tH9GJiw4HEI" data-start="0">2.2 A* tree search (11:14)</button>
+                  <button type="button" data-video-target="AsZICAu2Vdw" data-start="0">2.3 Properties of A* (9:11)</button>
+                  <button type="button" data-video-target="UjMejBmDHqo" data-start="0">2.4a A* graph search (8:05)</button>
+                  <button type="button" data-video-target="AZuTTODTtvo" data-start="0">Feature: Nilsson on A* &amp; STRIPS (6:22)</button>
+                </div>
+                <a class="fallback-link" href="https://www.youtube.com/watch?v=bXr3Y8qdpcE" target="_blank" rel="noreferrer">Open current video on YouTube</a>
+              </article>
+              <article class="video-card">
+                <h3>Optional second pass: Berkeley CS188 segments</h3>
+                <div class="resource-card">
+                  <p>Denser university-lecture treatments of the same material. Only after the AIPLAN clips: these start mid-lecture and assume the vocabulary you just learned.</p>
+                  <a class="fallback-link" href="https://www.youtube.com/watch?v=WVaBk3ldQIo&t=2700s" target="_blank" rel="noreferrer">CS188 LEC07 from 45:00 - planning as logic (watch 45:00-65:00)</a>
+                  <a class="fallback-link" href="https://www.youtube.com/watch?v=zRFZwAUQT8U&t=1500s" target="_blank" rel="noreferrer">CS188 LEC03 from 25:00 - A* and heuristics (watch 25:00-43:00)</a>
+                </div>
               </article>
             </div>
           </div>
@@ -985,7 +1010,7 @@
     </div>
   </main>
 
-  <script src="assets/study.js?v=tree-rewire-lab-3"></script>
+  <script src="assets/study.js?v=range-slider-1"></script>
   <script>
     (() => {
       const puiModules = ["pui-tasks", "pui-relax", "pui-landmarks", "pui-uncertainty", "pui-mcts"];
