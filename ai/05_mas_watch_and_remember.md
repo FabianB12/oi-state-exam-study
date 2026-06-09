@@ -83,9 +83,9 @@ Say after watching:
 4. [The Basics of Extensive Form Games](https://www.youtube.com/watch?v=m1uBcxoopNA) - Selcuk Ozyurt, 18:44.
    - Optional backup: 0:00-12:00 if the game-tree/strategy representation still feels abstract.
    - Remember: a pure extensive-form strategy specifies actions even at decision points that are not reached.
-5. [18. Imperfect information: information sets and sub-game perfection](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
-   - Main segment: 0:00-18:56 for information sets and perfect recall.
-   - Optional segment: 49:59-1:10:17 for subgames and subgame-perfect equilibrium.
+5. [Yale clip: information sets and perfect recall](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
+   - Watch only: 0:00-18:56.
+   - Stop there. Do not watch the full lecture; Spaniel already covers the SPE/backward-induction part more efficiently.
 6. [Counterfactual Regret Minimization](https://www.youtube.com/watch?v=ygDt_AumPr0) - Professor Bryce, 41:43 total.
    - Optional segment: 0:00-18:00 for the regret/CFR idea.
    - Remember: this is for the algorithmic keyword "CFR"; you need the intuition, not poker-solver implementation details.

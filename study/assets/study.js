@@ -2699,7 +2699,7 @@ const VIDEO_METADATA = {
   "BZb-ozM2PWo": { duration: "9:50" },
   "BajoxrSeBYU": { duration: "15:36" },
   "C6_72XPpKNQ": { duration: "10:03" },
-  "D7aDIZ-KPEU": { duration: "75:58" },
+  "D7aDIZ-KPEU": { duration: "18:56 clip" },
   "DB1HFCEdLxA": { duration: "~5m" },
   "DanTKx1FLY8": { duration: "5:56" },
   "DO9ZGkhPr8A": { duration: "7:54" },
