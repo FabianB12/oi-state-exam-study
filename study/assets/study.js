@@ -2694,6 +2694,7 @@ const VIDEO_METADATA = {
   "A3JZinzkMpk": { duration: "~5m" },
   "AJiG3ykOxmY": { duration: "28:38" },
   "B-dSyKx4Fsc": { duration: "1:01" },
+  "B54IsC7s8iQ": { duration: "2:47" },
   "BK5x7IUTIyU": { duration: "13:20" },
   "BZb-ozM2PWo": { duration: "9:50" },
   "BajoxrSeBYU": { duration: "15:36" },

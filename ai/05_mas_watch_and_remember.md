@@ -71,19 +71,22 @@ Say after watching:
 
 ## 3. Extensive-form games
 
-1. [The Basics of Extensive Form Games](https://www.youtube.com/watch?v=m1uBcxoopNA) - Selcuk Ozyurt, 18:44.
-   - Watch: 0:00-18:44.
-   - Remember: an extensive-form game is a game tree plus actions, players, terminal utilities, and strategy rules.
+1. [Game Theory 101: Extensive Form and Subgame Perfect Equilibrium](https://www.youtube.com/watch?v=B54IsC7s8iQ) - William Spaniel, 2:47.
+   - Watch: 0:00-2:47.
+   - Remember: extensive-form games are game trees, and subgame perfection is the sequential-game refinement of Nash.
 2. [Game Theory 101 (#16): Subgame Perfect Equilibrium](https://www.youtube.com/watch?v=hSYXkDnCpHM) - William Spaniel, 7:36.
    - Watch: 0:00-7:36.
    - Remember: subgame perfection removes noncredible threats.
 3. [Game Theory 101 (#17): Backward Induction](https://www.youtube.com/watch?v=pyLKkN5HpDY) - William Spaniel, 4:49.
    - Watch: 0:00-4:49.
    - Remember: solve finite perfect-information games from the leaves backward.
-4. [18. Imperfect information: information sets and sub-game perfection](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
+4. [The Basics of Extensive Form Games](https://www.youtube.com/watch?v=m1uBcxoopNA) - Selcuk Ozyurt, 18:44.
+   - Optional backup: 0:00-12:00 if the game-tree/strategy representation still feels abstract.
+   - Remember: a pure extensive-form strategy specifies actions even at decision points that are not reached.
+5. [18. Imperfect information: information sets and sub-game perfection](https://www.youtube.com/watch?v=D7aDIZ-KPEU) - YaleCourses / Open Yale Courses, 75:58 total.
    - Main segment: 0:00-18:56 for information sets and perfect recall.
    - Optional segment: 49:59-1:10:17 for subgames and subgame-perfect equilibrium.
-5. [Counterfactual Regret Minimization](https://www.youtube.com/watch?v=ygDt_AumPr0) - Professor Bryce, 41:43 total.
+6. [Counterfactual Regret Minimization](https://www.youtube.com/watch?v=ygDt_AumPr0) - Professor Bryce, 41:43 total.
    - Optional segment: 0:00-18:00 for the regret/CFR idea.
    - Remember: this is for the algorithmic keyword "CFR"; you need the intuition, not poker-solver implementation details.
 
