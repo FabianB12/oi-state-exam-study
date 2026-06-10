@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
   <style>
     .ko-quiz-only { grid-template-columns: minmax(0, 1fr); }
     .ko-recall-stack { display: grid; gap: 1rem; }
@@ -138,6 +138,11 @@
         <a class="button primary" href="#ilp"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>60-min panic pass</a>
       </div>
+      <div class="committee-bet bet-warm">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Likely draw</span>
+        <p>CSP/AC3 (<strong>Komenda</strong>) and ILP (<strong>Kroupa</strong>) fit your committee &mdash; drill those ends.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -196,10 +201,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
           <h2>Keep KO centered on these exam asks</h2>
           <p>ILP formulations and branch-and-bound, shortest paths, max/min-cost/feasible flows and matching, knapsack approximation/DP/FPTAS, metric TSP approximations and k-OPT, scheduling notation and named algorithms, and CSP/AC3.</p>
-          <div class="committee-bet bet-warm">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: likely common draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p>CSP/AC3 is native ground for an AI/planning committee (<strong>Komenda</strong>) and carries a fresh 2026 master confirmation; ILP/LP formulations border <strong>Kroupa's</strong> optimization work and scheduling borders Komenda's planning. If the common question is KO, CSP/AC3 and ILP are the hot ends.</p>
-          </div>
         </section>
 
         <section id="ilp" class="module">
@@ -210,7 +211,7 @@
               <p class="module-lead">ILP is the modeling language of discrete decisions. Learn the four patterns: yes/no variables, assignment variables, flow conservation, and ordering variables. Branch and bound is the exact search wrapper when the formulation is hard.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Komenda/CSP overlap and Bureš-style constrained testing both reward clean formulations and exact-search reasoning.</p>
+                <p>CSP/AC3 (Komenda) and ILP (Kroupa) are the committee-fit ends of KO.</p>
                 <ul class="priority-topics">
                   <li>binary, assignment, flow, and ordering variables</li>
                   <li>branch and bound bounds, incumbents, and pruning</li>
@@ -606,9 +607,9 @@
               <span class="module-num">Module 5</span>
               <h2>Traveling salesman problem</h2>
               <p class="module-lead">The exam wants the approximation proofs, not just the names. Double-tree and Christofides both start from MST <= OPT, then use triangle inequality to shortcut repeated vertices.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Reports keep returning to approximation versus heuristic answers, so the proof skeleton is higher yield than extra variants.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Master report (2025): heuristic vs approximation + 20-OPT implications. Know Christofides and k-OPT.</p>
                 <ul class="priority-topics">
                   <li>metric TSP assumptions and shortcutting</li>
                   <li>double-tree and Christofides guarantees</li>
@@ -809,7 +810,7 @@
               <p class="module-lead">This is the palate cleanser at the end: variables, domains, constraints, then prune impossible values. AC3 is not magic search; it is local consistency before or during search.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>Multiple 2026 and AI-specialization reports explicitly ask for CSPs, arc consistency, AC3, CSP vs ILP, and Sudoku-style examples.</p>
+                <p>Three reports incl. a 2026 master confirmation ask CSP/AC3. Write AC3 cold &mdash; top KO priority.</p>
                 <ul class="priority-topics">
                   <li>CSP definition: variables, domains, constraints, solution</li>
                   <li>arc consistency, support, revise, and AC3 pseudocode</li>
@@ -916,7 +917,7 @@
               <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>CSP and AC3</h3></div>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>Directly matches reported CSP/AC3 prompts from the Mgr archive and AI reports.</p>
+                <p>Matches the 2026-confirmed CSP/AC3 prompt exactly.</p>
                 <ul class="priority-topics">
                   <li>formal CSP definition with Sudoku anchor</li>
                   <li>arc consistency and AC3 queue mechanics</li>
@@ -1089,7 +1090,7 @@
   <template data-recall-reference="ko-csp-limit">The standard AC3 time bound is O(e d^3), where e is the number of binary constraints and d is the maximum domain size. It is a propagation algorithm, not a complete decision method for general CSP. Example intuition: constraints can be locally supported pairwise while no global assignment satisfies all constraints, so after AC3 leaves nonempty domains, backtracking search with propagation may still be necessary.</template>
   <template data-recall-reference="ko-csp-search-ilp">CSP asks for a feasible assignment to variables from finite domains satisfying constraints; ILP optimizes a linear objective under linear constraints with integer variables. CSPs can often be encoded as binary ILPs, but CSP solving usually talks about domains and propagation. Backtracking assigns variables recursively and undoes bad choices. Forward checking removes immediately incompatible values from unassigned neighbors. MAC maintains arc consistency, often by running AC3 after each assignment. Local search starts from a complete assignment and repairs conflicts; it is useful but incomplete unless embedded in exhaustive search.</template>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     (() => {
       const koKeys = ["ko-ilp", "ko-shortest", "ko-flow", "ko-knapsack", "ko-tsp", "ko-scheduling", "ko-csp"];

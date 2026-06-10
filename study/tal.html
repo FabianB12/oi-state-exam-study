@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
 </head>
 <body data-page="tal">
   <header class="site-header">
@@ -76,6 +76,11 @@
         <a class="button primary" href="#correctness"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-cold">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Unlikely draw</span>
+        <p>No theorist on your committee &mdash; keep definitions fluent, skip proof depth.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -130,10 +135,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
           <h2>Keep TAL centered on these exam asks</h2>
           <p>Asymptotic growth, time/space complexity, correctness by invariant/variant, deterministic/multitape/nondeterministic Turing machines, P/NP/co-NP/NPC, PSPACE/NPSPACE and Savitch, RP/ZPP/co-RP, and decidable/RE/recursive languages.</p>
-          <div class="committee-bet bet-cold">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: lower-probability draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p>No mathematician/theorist sits on your committee — in every collected report the TAL slot was held by a math-department member (Horčík, Žukovec, Demlová, Gollová). A TAL draw is still possible, so keep the panic-pass definitions fluent — but skip the deep proof drills and reinvest those hours into PAL and KO.</p>
-          </div>
         </section>
 
         <section id="correctness" class="module">
@@ -143,8 +144,8 @@
               <h2>Growth, complexity &amp; correctness</h2>
               <p class="module-lead">The warm-up, but do not skip it. The examiner can ask you to prove an algorithm correct, and the safe answer is always: invariant for truth, variant for termination, asymptotic notation for resource growth.</p>
               <div class="exam-priority priority-baseline" data-exam-priority="1">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Baseline/common-core</strong></div>
-                <p>Common-core TAL proof hygiene; important as support material but not a top committee-specific signal.</p>
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Background only</strong></div>
+                <p>Support material only &mdash; no theorist on your committee.</p>
                 <ul class="priority-topics">
                   <li>Asymptotic notation and resource complexity</li>
                   <li>Partial vs total correctness</li>
@@ -364,9 +365,9 @@
               <span class="module-num">Module 3</span>
               <h2>P, NP, co-NP, reductions &amp; NP-completeness</h2>
               <p class="module-lead">The highest-yield TAL chunk. Your answer should sound like a checklist: language, class definition, verifier, reduction direction, NP-hard plus in-NP, Cook-Levin tableau.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Not committee-specific like robotics, but reported common-question evidence makes strict definitions and reduction direction high-yield.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Definitions only: deterministic vs nondeterministic machines, configurations. No proof drilling.</p>
                 <ul class="priority-topics">
                   <li>P, NP, coNP, NP-hard, and NP-complete definitions</li>
                   <li>Polynomial reductions and direction of implication</li>
@@ -682,9 +683,9 @@
               <span class="module-num">Module 6</span>
               <h2>Decidability &amp; undecidability</h2>
               <p class="module-lead">Where the exam gets philosophical but the answer is mechanical. Decidable means always halts. RE means accepts yes cases eventually. Undecidable proofs usually say: assume a decider, build a contradiction or reduce from a known impossible problem.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Common-core reported questions can be strict here, especially on recursive vs RE language classifications.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>Know the statements (Savitch, class inclusions) and the diagonal/universal classifications.</p>
                 <ul class="priority-topics">
                   <li>Decidable/recursive vs RE/recognizable</li>
                   <li>Complement, co-RE, and decidability iff both sides are RE</li>
@@ -808,7 +809,7 @@
               <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>P, NP, coNP, NPC</h3></div>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Reported common-question evidence makes this the TAL drill most likely to punish vague definitions.</p>
+                <p>If TAL is drawn anyway, these reported prompts are the likeliest shape &mdash; definitions word-perfect.</p>
                 <ul class="priority-topics">
                   <li>P/NP/coNP/NPC definitions</li>
                   <li>3-coloring classification</li>
@@ -1031,7 +1032,7 @@
     Must say: A_TM or the universal language is RE but undecidable because a universal TM can simulate and accept yes-instances, but no decider exists. Its complement is not RE; otherwise both sides would be RE and A_TM would be decidable. The diagonal language L_D = {w_i | M_i does not accept w_i} is not RE by the self-reference/enumeration contradiction. In the standard paired enumeration, complement(L_D) is RE by simulating M_i on w_i and accepting if it accepts.
   </template>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     (() => {
       const talPracticeKeys = [

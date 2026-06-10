@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
 </head>
 <body data-page="pal">
   <header class="site-header">
@@ -76,6 +76,11 @@
         <a class="button primary" href="#module-complexity"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic-pass"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-warm">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Likely draw</span>
+        <p><strong>Bača</strong> (your committee) researches B-trees &amp; k-d indexing &mdash; drill search trees first.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -126,10 +131,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
           <h2>Keep PAL centered on these exam asks</h2>
           <p>Complexity notation, graph vocabulary and representations, MST/SCC/Euler/union-find/isomorphism, combinatorial generation, primes and PRNGs, search trees, automata/regular languages, and exact/approximate/dictionary text search.</p>
-          <div class="committee-bet bet-warm">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: likely common draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p>External member <strong>Radim Bača</strong> (VŠB) researches B-tree variants and multidimensional indexing — search trees, B/B+ and k-d nearest-neighbor are literally his publication record. Master reports also hit B-trees, SCC, and automata. If the common question is PAL, expect the trees/automata end at specialist depth.</p>
-          </div>
         </section>
 
         <section id="module-complexity" class="module">
@@ -140,7 +141,7 @@
               <p class="module-lead">Before any graph algorithm, you need two instincts: how the input size grows, and what representation makes the operations cheap. Not glamorous, but it prevents almost every later complexity mistake.</p>
               <div class="exam-priority priority-normal" data-exam-priority="2">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
-                <p>Useful common-core support for PAL answers, especially when reports ask for implementation memory and runtime tradeoffs.</p>
+                <p>Background for everything else &mdash; one fluent pass, no drilling.</p>
                 <ul class="priority-topics">
                   <li>asymptotic notation and input-size reasoning</li>
                   <li>adjacency matrix, list, and incidence matrix tradeoffs</li>
@@ -403,7 +404,7 @@ Must say: for sparse graphs choose adjacency lists because memory is O(n+m) and 
               <p class="module-lead">The heart of PAL. Separate the families: MSTs choose safe edges, union-find maintains components, SCCs compress directed cycles, Euler trails use degree conditions, and isomorphism asks whether two structures are secretly the same.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Student reports include SCC and MST prompts, so these core graph proofs and data structures deserve extra rehearsal.</p>
+                <p>SCC asked at master level (2025); MST in bachelor archives. Run both algorithms aloud.</p>
                 <ul class="priority-topics">
                   <li>MST definitions, cut property, Kruskal, Prim, Boruvka</li>
                   <li>union-find with path compression and rank or size</li>
@@ -661,7 +662,7 @@ Must say: trial division tests divisors up to sqrt(n), O(sqrt n) divisions. Siev
               <p class="module-lead">Every structure here is a different answer to the same question: how do we keep search from degenerating into a long chain?</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>Radim Bača makes indexing and search-tree material especially likely, and reports directly ask for B-tree insertion and B+ tree comparison.</p>
+                <p>Bača (your committee) researches exactly this: B-tree insertion, B+ leaves, k-d nearest neighbor. Top PAL priority.</p>
                 <ul class="priority-topics">
                   <li>B-tree find, insertion, split, and median promotion</li>
                   <li>B+ tree records in linked leaves and range scans</li>
@@ -874,9 +875,9 @@ Must say: database index/range queries -> B+ tree because high fanout, page/bloc
               <span class="module-num">Module 5</span>
               <h2>Automata &amp; text search</h2>
               <p class="module-lead">Text search looks like a zoo until you see the pattern: keep enough memory about the prefix you have matched so you do not restart blindly.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Reports include automata and text-search prompts, especially exact search, damaged words, and dictionary automata.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>A master report asked dictionary automata and damaged-word search. Second PAL priority.</p>
                 <ul class="priority-topics">
                   <li>DFA, NFA, regular expressions, and subset construction</li>
                   <li>KMP or automaton exact pattern matching</li>
@@ -1050,7 +1051,7 @@ Must say: Hamming distance counts substitutions only and requires equal-length s
               <div class="reported-drill-head"><span class="reported-badge">Clearly relevant</span><h3>Automata for text search</h3></div>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Direct report evidence covers automata, damaged words, dictionary automata, and multiple-pattern search.</p>
+                <p>Drills mirror the strongest PAL reports: automata and multi-word search.</p>
                 <ul class="priority-topics">
                   <li>KMP-style automaton search</li>
                   <li>approximate matching with Hamming or Levenshtein distance</li>
@@ -1277,7 +1278,7 @@ Must say: Hamming distance counts substitutions only and requires equal-length s
     </div>
   </main>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     ["complexity", "graphs", "generation", "trees", "automata"].forEach((key) => {
       flashcards[key] = [];

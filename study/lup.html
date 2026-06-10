@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
   <style>
     .lup-exam-prompts {
       display: grid;
@@ -133,6 +133,11 @@
         <a class="button primary" href="#sat"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-cool">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Possible draw</span>
+        <p>Built on <strong>Šír's</strong> research logic &mdash; one solid scope pass.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -183,10 +188,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep LUP centered on these exam asks</h2>
           <p>Propositional normal forms, SAT with resolution/unit propagation/clause learning, lazy SMT, Prolog and Horn/definite clauses with SLDNF/cut, FOL normal forms, unification/resolution/subsumption/saturation, equality handling, and finite-domain grounding into SAT for model search.</p>
-          <div class="committee-bet bet-cool">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: live possibility</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p><strong>Gustav Šír's</strong> research (neural-symbolic integration, relational logic, lifted models) is built on exactly this material — resolution, grounding, model search. No student reports exist, but with a fluent examiner at the table this is a real draw; prepare from the official scope.</p>
-          </div>
         </section>
 
         <section id="sat" class="module">
@@ -197,7 +198,7 @@
               <p class="module-lead">This is the Boolean proving core. CNF makes formulas solver-friendly, resolution proves unsatisfiability, DPLL searches with propagation, CDCL learns from conflicts, and lazy SMT adds a theory solver behind the Boolean layer.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>SAT and SMT are the search-engine layer behind LUP model search and automated proving, so they are high-yield under &Scaron;ir's logic/knowledge-representation signal.</p>
+                <p>Resolution, unit propagation, clause learning &mdash; the machinery under Šír's research.</p>
                 <ul class="priority-topics">
                   <li>CNF/Tseitin and propositional resolution</li>
                   <li>DPLL, unit propagation, and CDCL learning</li>
@@ -345,9 +346,9 @@
               <span class="module-num">Module 2</span>
               <h2>Logic programming, Prolog, SLDNF, negation as failure, and cut</h2>
               <p class="module-lead">Prolog is proof search over Horn clauses. Declaratively, definite programs have a least Herbrand model; operationally, Prolog uses depth-first left-to-right SLD search, which is powerful but order-sensitive.</p>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Prolog connects relational logic to executable proof search, matching the committee's relational-logic emphasis.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>SLDNF and negation-as-failure: one fluent pass, no drilling.</p>
                 <ul class="priority-topics">
                   <li>Horn clauses and Herbrand least-model semantics</li>
                   <li>SLD and SLDNF operational proof search</li>
@@ -458,7 +459,7 @@
               <p class="module-lead">First-order resolution is propositional resolution plus unification. The hard part is preparing the formula: standardize variables, Skolemize existentials, drop universals, then resolve fairly while simplifying aggressively.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>This is the central LUP overlap with &Scaron;ir's relational logic and knowledge-representation signal: formulas, clauses, unification, and saturation proof search.</p>
+                <p>Closest to Šír's research: unification, resolution, saturation. Top LUP priority.</p>
                 <ul class="priority-topics">
                   <li>first-order clause-form conversion and Skolemization</li>
                   <li>unification, MGU, occurs check, and lifted resolution</li>
@@ -595,9 +596,9 @@
               <span class="module-num">Module 4</span>
               <h2>Equality: axioms, paramodulation, and superposition</h2>
               <p class="module-lead">Equality can be encoded with axioms, but that creates a huge search space. Modern theorem provers reason with equality directly: replace equals by equals, order terms, and simplify by rewriting.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Equality is a natural extension of saturation proving, but the main exam payoff is the contrast between noisy axioms and direct equality inference.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>One-sentence depth: axioms vs paramodulation, and when each is used.</p>
                 <ul class="priority-topics">
                   <li>reflexivity, symmetry, transitivity, congruence, and substitutivity</li>
                   <li>paramodulation as replace-equals-by-equals inference</li>
@@ -698,7 +699,7 @@
               <p class="module-lead">Model search turns finite first-order structure into propositional search. Pick a finite domain, ground variables, encode atoms as Booleans, add constraints, and let SAT solve the finite problem.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Grounding is the bridge from relational knowledge representation to SAT-based model search, which is a direct high-potential LUP exam pattern.</p>
+                <p>Grounding-to-SAT is the lifted/ground trade-off Šír works on &mdash; be precise here.</p>
                 <ul class="priority-topics">
                   <li>finite-domain grounding and ground-atom counts</li>
                   <li>SAT encodings for implication and exactly-one constraints</li>
@@ -911,7 +912,7 @@ Must say: for a finite domain D, replace each universally quantified variable by
 Must say: exactly-one over x1 to xn is at least one clause x1 or ... or xn plus at most one constraints, commonly pairwise not xi or not xj for every pair. Implication a implies b becomes not a or b. Pairwise at-most-one is simple but quadratic; sequential counters, cardinality networks, or other compact encodings can be smaller. Reduce grounding blow-up with typed objects, symmetry breaking, early propagation, lazy grounding, and incremental solving.
   </template>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     (() => {
       const lupKeys = ["lup-sat", "lup-prolog", "lup-fol", "lup-equality", "lup-models"];

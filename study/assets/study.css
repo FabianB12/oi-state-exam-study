@@ -5597,41 +5597,54 @@ range-slider.is-dragging .rs-thumb {
 /* ===================== Committee bet banners ================== */
 
 .committee-bet {
-  margin-top: 0.85rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 0.65rem 0.8rem;
-  background: var(--surface);
-}
-
-.committee-bet .bet-topline {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.79rem;
-  font-weight: 850;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  border: 1px solid;
+}
+
+.committee-bet .bet-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  color: #fff;
+  flex: none;
 }
 
-.committee-bet .bet-topline .material-symbols-rounded { font-size: 18px; }
+.committee-bet .bet-badge .material-symbols-rounded { font-size: 18px; }
 
-.committee-bet .bet-topline a {
-  margin-left: auto;
-  font-size: 0.78rem;
-  font-weight: 750;
-  text-transform: none;
-  letter-spacing: 0;
+.committee-bet p {
+  margin: 0;
+  flex: 1 1 16rem;
+  color: var(--ink);
+  font-size: 0.93rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.committee-bet .bet-link {
+  flex: none;
+  font-weight: 800;
+  font-size: 0.84rem;
   color: var(--brand);
+  white-space: nowrap;
 }
 
-.committee-bet p { margin: 0.4rem 0 0; color: var(--ink-soft); font-size: 0.86rem; }
-
-.committee-bet.bet-hot { border-left: 3px solid var(--panic); background: color-mix(in srgb, var(--panic) 3%, var(--surface)); }
-.committee-bet.bet-hot .bet-topline { color: var(--panic); }
-.committee-bet.bet-warm { border-left: 3px solid var(--recall); background: color-mix(in srgb, var(--recall) 4%, var(--surface)); }
-.committee-bet.bet-warm .bet-topline { color: var(--recall); }
-.committee-bet.bet-cool { border-left: 3px solid var(--brand); }
-.committee-bet.bet-cool .bet-topline { color: var(--brand); }
-.committee-bet.bet-cold { border-left: 3px solid var(--line-strong); }
-.committee-bet.bet-cold .bet-topline { color: var(--muted); }
+.committee-bet.bet-hot { border-color: var(--panic); background: var(--panic-tint); }
+.committee-bet.bet-hot .bet-badge { background: var(--panic); }
+.committee-bet.bet-warm { border-color: var(--recall); background: var(--recall-tint); }
+.committee-bet.bet-warm .bet-badge { background: #b97d10; }
+.committee-bet.bet-cool { border-color: var(--brand); background: var(--brand-tint); }
+.committee-bet.bet-cool .bet-badge { background: var(--brand); }
+.committee-bet.bet-cold { border-color: var(--line-strong); background: var(--surface-2); }
+.committee-bet.bet-cold .bet-badge { background: #6b7280; }

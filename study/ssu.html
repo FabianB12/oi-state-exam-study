@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
 </head>
 <body data-page="ssu">
   <header class="site-header">
@@ -76,6 +76,11 @@
         <a class="button primary" href="#erm"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-warm">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Strong secondary</span>
+        <p><strong>Šír's</strong> research field &mdash; backprop and SVM first.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -126,10 +131,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep SSU centered on these exam asks</h2>
           <p>ERM/risk/generalization/Hoeffding/VC, SVM and kernel SVMs, MLE consistency, EM as lower-bound block-coordinate optimization, and supervised training of classical/deep neural networks including architectures, convolution, backprop, initialization, and SGD.</p>
-          <div class="committee-bet bet-warm">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: strong secondary</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p><strong>Gustav Šír's</strong> research is deep relational learning — backprop, architectures, and training mechanics are comfortable probing ground for him, and the bachelor archives drill SVM + neural networks repeatedly. The strongest bet after SMU/PUI/MAS.</p>
-          </div>
         </section>
 
         <section id="erm" class="module">
@@ -140,7 +141,7 @@
               <p class="module-lead">ERM chooses the hypothesis with the lowest training loss. The exam question is really about when this is trustworthy: Hoeffding for fixed hypotheses, a union bound for finite classes, and VC dimension for infinite classes.</p>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>ERM and VC theory support the heavier ML questions signaled by Gustav &Scaron;ir, especially when an answer must justify why a learned classifier generalizes.</p>
+                <p>Definitions pass: risk vs empirical risk, Hoeffding, VC dimension.</p>
                 <ul class="priority-topics">
                   <li>risk versus empirical risk</li>
                   <li>Hoeffding and finite-class union bounds</li>
@@ -293,7 +294,7 @@
               <p class="module-lead">SVMs are regularized ERM with a geometric memory hook: maximize the margin. The soft-margin version allows violations, and the kernel trick swaps dot products for feature-space inner products.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>&Scaron;ir's machine-learning signal and student-report overlap make SVMs one of the highest-yield SSU answers.</p>
+                <p>Two reports drill SVM: margin picture, the QP-not-LP catch, kernels. Full fluency.</p>
                 <ul class="priority-topics">
                   <li>hard and soft margin formulations</li>
                   <li>hinge loss as regularized ERM</li>
@@ -417,9 +418,9 @@
               <span class="module-num">Module 3</span>
               <h2>Maximum likelihood estimation and EM</h2>
               <p class="module-lead">MLE chooses parameters that make the observed data most likely. EM is the rescue plan when hidden variables put a log around a sum: alternate posterior responsibilities and parameter refitting.</p>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Likelihood and latent-variable fitting are core statistical-learning foundations behind the ML-heavy committee signal.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>EM at say-it-aloud level: lower bound, E/M steps as block-coordinate ascent.</p>
                 <ul class="priority-topics">
                   <li>likelihood and log-likelihood maximization</li>
                   <li>MLE examples and consistency assumptions</li>
@@ -545,7 +546,7 @@
               <p class="module-lead">A neural network is a composed differentiable function. Forward pass computes activations; backprop applies the chain rule backward and produces gradients for each weight matrix and bias vector.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>&Scaron;ir strongly signals neural-network mechanics, and reported drills ask directly for network design and backprop training.</p>
+                <p>Šír (your committee) researches deep learning. Write backprop deltas for a 2-layer net.</p>
                 <ul class="priority-topics">
                   <li>forward pass layer equations</li>
                   <li>backpropagation deltas and gradients</li>
@@ -652,7 +653,7 @@
               <p class="module-lead">Deep learning succeeds or fails in the training details: minibatches, learning rates, initialization, normalization, regularization, and architecture choices. CNNs add local filters and weight sharing for images and spatial signals.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>This is the practical deep-learning follow-through to the committee's ML emphasis: how networks are actually trained and kept from overfitting.</p>
+                <p>Training follow-ups: initialization, SGD, convolution shapes and parameter counts.</p>
                 <ul class="priority-topics">
                   <li>SGD, minibatches, optimizers, and learning rates</li>
                   <li>CNN filters, channels, pooling, and weight sharing</li>
@@ -788,7 +789,7 @@
               <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>SVM margin classifier</h3></div>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Direct reported-drill overlap with a high-signal ML topic.</p>
+                <p>The network-design drill mirrors two reported prompts.</p>
                 <ul class="priority-topics">
                   <li>separable versus nonseparable SVM</li>
                   <li>margin drawing, slack, and hinge loss</li>
@@ -913,7 +914,7 @@
     </div>
   </main>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     (() => {
       const modules = ["ssu-erm", "ssu-svm", "ssu-mle-em", "ssu-backprop", "ssu-training"];

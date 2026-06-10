@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
   <style>
     .uir-chip-row,
     .uir-step-row,
@@ -224,6 +224,11 @@
         <a class="button primary" href="#robot"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-cold">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Unlikely draw</span>
+        <p>No robotics examiner on your committee &mdash; oral skeleton only.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -274,10 +279,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep UIR centered on these exam asks</h2>
           <p>Robot paradigms and architectures, path/motion planning in configuration space with roadmaps and replanning such as D*/D* Lite, exploration and informative path planning with MRTA, multi-goal/sequence-dependent robotic routing including profits and curvature constraints, and sampling-based planners with probabilistic completeness/asymptotic optimality.</p>
-          <div class="committee-bet bet-cold">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: unlikely draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p>Nobody on your committee works in robotics — motion planning, configuration space, and exploration have no examiner at the table, and in all collected reports the field questions tracked committee expertise. Keep the oral skeleton and panic pass only; reinvest the freed hours into MAS, PUI, and SMU.</p>
-          </div>
         </section>
 
         <section id="robot" class="module">
@@ -288,7 +289,7 @@
               <p class="module-lead">Start the oral answer by grounding the agent in the physical world. Sensors observe, actuators change the world, and the control architecture decides how much reasoning happens before action.</p>
               <div class="exam-priority priority-normal" data-exam-priority="2">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
-                <p>Good oral framing for robotics, but committee evidence points more strongly at planning algorithms than architecture taxonomy.</p>
+                <p>No robotics examiner on your committee &mdash; skeleton level.</p>
                 <ul class="priority-topics">
                   <li>Embodied-agent definition and sensor classes</li>
                   <li>Hierarchical, reactive, and hybrid paradigms</li>
@@ -402,9 +403,9 @@
               <span class="module-num">Module 2</span>
               <h2>Path planning, motion planning, configuration space, and D*</h2>
               <p class="module-lead">This is the core planning bucket. Keep the ladder straight: workspace geometry becomes configuration-space obstacles, continuous planning becomes graph search or sampling, and changing maps call for incremental replanning.</p>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Planning in configuration space is the strongest UIR committee signal and matches reported robotics motion-planning questions.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>If UIR is drawn anyway, C-space + D* Lite is the likeliest core. Skeleton and definitions.</p>
                 <ul class="priority-topics">
                   <li>Path vs motion planning and C-space construction</li>
                   <li>C_free, C_obst, roadmaps, grids, and A*</li>
@@ -539,7 +540,7 @@
               <p class="module-lead">Unknown environments turn planning into an information problem. The robot is not only asking "how do I get there?", but "where should I go to learn the most useful thing next?"</p>
               <div class="exam-priority priority-normal" data-exam-priority="2">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
-                <p>Exploration is useful robotics vocabulary, but the committee/report evidence is less direct than C-space and sampling planners.</p>
+                <p>Vocabulary level only.</p>
                 <ul class="priority-topics">
                   <li>Frontier-based exploration and information gain</li>
                   <li>Utility/cost tradeoffs for unknown maps</li>
@@ -646,9 +647,9 @@
               <span class="module-num">Module 4</span>
               <h2>Multi-goal planning, Dubins constraints, and routing with profits</h2>
               <p class="module-lead">Multi-goal robot planning is TSP wearing a robot body. Targets may be neighborhoods, edge costs may depend on heading or order, and the best route may skip low-profit measurements when battery is limited.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Routing variants are plausible committee material because they connect robotics constraints with classic optimization structures.</p>
+              <div class="exam-priority priority-normal" data-exam-priority="2">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
+                <p>One-sentence depth: robotic TSP variants and the Dubins constraint.</p>
                 <ul class="priority-topics">
                   <li>TSP, GTSP, TSPN, and orienteering variants</li>
                   <li>Dubins state, bounded curvature, and path families</li>
@@ -754,7 +755,7 @@
               <p class="module-lead">Sampling-based planners avoid building the whole free space. They ask a collision checker about many candidate configurations, then connect enough of them that a path appears with high probability.</p>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>PRM/RRT/RRT* are directly named in reported motion-planning evidence and pair naturally with C-space questions.</p>
+                <p>RRT/PRM guarantees (probabilistic completeness vs asymptotic optimality) &mdash; the master report's exact ask.</p>
                 <ul class="priority-topics">
                   <li>PRM as reusable roadmap vs RRT as single-query tree</li>
                   <li>RRT* rewiring and cost improvement</li>
@@ -863,9 +864,9 @@
                 <span class="reported-badge">Clearly relevant</span>
                 <h3>Configuration-space motion planning</h3>
               </div>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>This drill mirrors the strongest reported UIR robotics-planning evidence.</p>
+              <div class="exam-priority priority-solid" data-exam-priority="3">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
+                <p>The one master UIR report &mdash; keep the answer skeleton only.</p>
                 <ul class="priority-topics">
                   <li>Configuration space, C_free, and C_obst</li>
                   <li>Discretization, roadmaps, PRM, and RRT</li>
@@ -1006,7 +1007,7 @@
   <template data-recall-reference="uir-sampling-rrtstar">Must say: RRT* modifies RRT by considering a neighborhood around each new sample, choosing the parent that gives the cheapest path-to-come among feasible connections, and rewiring nearby nodes through the new node if their cost improves. This keeps the exploration idea of RRT but adds cost improvement over time. It is usually slower per iteration than basic RRT because of neighbor searches and extra collision checks. Under standard assumptions and suitable connection radius, RRT* is asymptotically optimal, while basic RRT is generally only probabilistically complete.</template>
   <template data-recall-reference="uir-sampling-guarantees">Must say: probabilistic completeness means that if a feasible path exists, the probability that the planner has found a path tends to 1 as the number of samples or time tends to infinity. PRM and RRT have this guarantee under standard assumptions such as adequate sampling, collision checking, and clearance. Asymptotic optimality is stronger: the best solution cost converges to the optimal cost as samples go to infinity. Basic RRT is generally not asymptotically optimal; PRM* and RRT* are asymptotically optimal under their assumptions. Completeness is about eventually finding any feasible path; optimality is about eventually improving path quality.</template>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     pageModules.uir = ["uir-robot", "uir-path", "uir-explore", "uir-multigoal", "uir-sampling"];
 

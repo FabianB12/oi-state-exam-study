@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
   <style>
     .pui-state-row,
     .pui-action-row,
@@ -164,6 +164,11 @@
         <a class="button primary" href="#tasks"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-hot">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Very likely draw</span>
+        <p><strong>Komenda</strong> (your committee) owns this course &mdash; full depth, formalism first.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -214,10 +219,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep PUI centered on these exam asks</h2>
           <p>STRIPS/SAS, satisficing vs optimal planning, heuristic search, hmax/hadd/hff, abstraction and pattern databases, merge-and-shrink, landmarks/LM-Cut, LP/state-equation/potential heuristics, nondeterministic/probabilistic planning, MDP value iteration, MCTS and UCT.</p>
-          <div class="committee-bet bet-hot">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: very likely draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p><strong>Antonín Komenda</strong> sits on your committee and PUI is his home course (AIC planning group: STRIPS, multi-agent planning, heuristic search). In every collected report, the specialization question was asked by the member who teaches it. Prepare this to full depth.</p>
-          </div>
         </section>
 
         <section id="tasks" class="module">
@@ -228,7 +229,7 @@
               <p class="module-lead">Classical planning is deterministic, fully observable, and static. Once the representation is fixed, the planner searches a huge implicit graph whose nodes are states and whose edges are applicable actions.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>Komenda is directly aligned with automated planning, and reports emphasize that formalizing the task before algorithms is a major examiner expectation.</p>
+                <p>Komenda (your committee) owns PUI. Five reports punish missing formalism &mdash; open with the tuple.</p>
                 <ul class="priority-topics">
                   <li>formal planning/search tuple, classical assumptions, and implicit state graph</li>
                   <li>STRIPS applicability/successor formula and SAS finite-domain representation</li>
@@ -378,9 +379,9 @@
               <span class="module-num">Module 2</span>
               <h2>Delete relaxation and abstraction heuristics</h2>
               <p class="module-lead">Planning heuristics usually solve an easier problem. Delete relaxation removes negative interactions; abstraction projects the task into a smaller exact problem.</p>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Heuristics are a high-potential planning follow-up because they test whether you know exactly which easier problem each estimate solves.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>hmax/hadd/hff at course-owner depth: admissibility, double-counting, relaxed-plan extraction.</p>
                 <ul class="priority-topics">
                   <li>delete relaxation and facts-only-accumulate intuition</li>
                   <li><code>hmax</code>, <code>hadd</code>, <code>hff</code>, strength, and admissibility</li>
@@ -496,9 +497,9 @@
               <span class="module-num">Module 3</span>
               <h2>Landmarks, LM-Cut, and linear programming heuristics</h2>
               <p class="module-lead">Landmarks are necessary achievements. LM-Cut turns necessary relaxed action cuts into an admissible cost estimate; LP heuristics express necessary plan conditions as linear constraints.</p>
-              <div class="exam-priority priority-high" data-exam-priority="4">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>These are exam-rich planning heuristics because they require precise definitions, a repeatable algorithm story, and a lower-bound/admissibility argument.</p>
+              <div class="exam-priority priority-critical" data-exam-priority="5">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
+                <p>LM-Cut round mechanics and landmark definitions &mdash; researcher-depth follow-ups likely.</p>
                 <ul class="priority-topics">
                   <li>fact/action/formula landmarks and ordering relations</li>
                   <li>LM-Cut loop, relaxed action cuts, and cost subtraction</li>
@@ -620,7 +621,7 @@
               <p class="module-lead">When actions have several possible outcomes, a single sequence is fragile. The answer becomes a policy, and the strength of the policy depends on whether outcomes are adversarial/nondeterministic or probabilistic.</p>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>Planning under uncertainty is a direct high-potential extension of classical planning: the examiner can ask exactly when a sequence becomes a reactive policy.</p>
+                <p>MDP value iteration is report-confirmed; weak/strong/strong-cyclic definitions must be instant.</p>
                 <ul class="priority-topics">
                   <li>weak, strong, and strong cyclic policies for nondeterministic planning</li>
                   <li>MDP tuple, Bellman backup, value iteration, and policy extraction</li>
@@ -739,7 +740,7 @@
               <p class="module-lead">MCTS is online, sample-based planning. It does not solve the whole MDP up front; it spends simulations around the current decision and balances promising actions against uncertain actions.</p>
               <div class="exam-priority priority-solid" data-exam-priority="3">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>MCTS is useful when connected to planning under uncertainty, but it should not crowd out the formal planning, heuristic, MDP, and value-iteration spine.</p>
+                <p>UCT formula term by term; do not let it crowd the heuristics.</p>
                 <ul class="priority-topics">
                   <li>selection, expansion, rollout, and backpropagation</li>
                   <li>UCT exploitation/exploration rule</li>
@@ -844,7 +845,7 @@
               <div class="reported-drill-head"><span class="reported-badge low">Lower confidence</span><h3>Formal planning frame</h3></div>
               <div class="exam-priority priority-critical" data-exam-priority="5">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Maximum focus</strong></div>
-                <p>The report evidence says vague planning/search answers failed before algorithms, making this the highest-yield correction drill.</p>
+                <p>Formalism-first drills &mdash; exactly where reported students failed.</p>
                 <ul class="priority-topics">
                   <li>states, actions, transition/successor, cost, initial state, and goal</li>
                   <li>deterministic sequence versus policy under uncertainty</li>
@@ -1055,7 +1056,7 @@
     </div>
   </main>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     (() => {
       const puiModules = ["pui-tasks", "pui-relax", "pui-landmarks", "pui-uncertainty", "pui-mcts"];

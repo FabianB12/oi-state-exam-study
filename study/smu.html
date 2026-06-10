@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-2">
 </head>
 <body data-page="smu">
   <header class="site-header">
@@ -76,6 +76,11 @@
         <a class="button primary" href="#pac-online"><span class="material-symbols-rounded">play_arrow</span>Start full pass</a>
         <a class="button" href="#panic"><span class="material-symbols-rounded">bolt</span>45-min panic pass</a>
       </div>
+      <div class="committee-bet bet-hot">
+        <span class="bet-badge"><span class="material-symbols-rounded">casino</span>Very likely draw</span>
+        <p><strong>Šír</strong> (your committee) lectures SMU itself &mdash; every bullet at full depth.</p>
+        <a class="bet-link" href="committee.html">why &rarr;</a>
+      </div>
     </section>
 
     <div class="module-layout">
@@ -126,10 +131,6 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep SMU centered on these exam asks</h2>
           <p>PAC and online learnability, VC dimension and learnability conditions, conjunction/disjunction algorithms and reductions, bandit regret with epsilon-greedy/UCB/Thompson sampling, and RL value/policy learning: value iteration, DUE, ADP, TD, Q-learning, SARSA, exploration, and policy search.</p>
-          <div class="committee-bet bet-hot">
-            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: very likely draw</strong><a href="committee.html">full analysis &rarr;</a></div>
-            <p><strong>Gustav Šír</strong> sits on your committee and is a lecturer of this exact course. In every collected report, the specialization question was asked by the member who teaches it. Expect SMU probed at lecturer depth — learnability models, bandits, and RL are all live.</p>
-          </div>
         </section>
 
         <section id="pac-online" class="module">
@@ -140,7 +141,7 @@
               <p class="module-lead">PAC asks whether random labeled examples are enough to output a low-error hypothesis. Online learning asks whether sequential feedback can keep mistakes or regret small, even when examples are adversarial.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Upgraded: Šír (on your committee) lectures SMU itself, and PAC/online learnability is the first bullet of the official question — the earlier "weak overlap" read predates knowing the lecturer sits at your table.</p>
+                <p>Šír lectures this. PAC vs online comparison and VC dimension at lecturer depth.</p>
                 <ul class="priority-topics">
                   <li>PAC guarantee, epsilon/delta, and VC dimension</li>
                   <li>Online mistake bounds and regret framing</li>
@@ -336,9 +337,9 @@
               <span class="module-num">Module 3</span>
               <h2>Multi-armed bandits</h2>
               <p class="module-lead">Bandits are one-step decision problems with partial feedback. You only see the reward of the arm you pulled, so exploration is the cost of learning what the other arms might have done.</p>
-              <div class="exam-priority priority-solid" data-exam-priority="3">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Solid focus</strong></div>
-                <p>Partial-feedback decision making is a plausible bridge into planning/RL-style questioning even when SMU is not the strongest committee signal.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>UCB's bonus term and its regret guarantee are textbook lecturer probes &mdash; know them cold.</p>
                 <ul class="priority-topics">
                   <li>Expected regret and gap decomposition</li>
                   <li>Epsilon-greedy vs UCB vs Thompson sampling</li>
@@ -447,7 +448,7 @@
               <p class="module-lead">An MDP adds state and delayed reward. Bellman equations are just "reward now plus discounted value later", optimized over actions.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Decision processes, Bellman backups, and value iteration line up with committee interest in planning, games, and sequential decision making.</p>
+                <p>Value iteration with a worked example is the one report-confirmed SMU overlap.</p>
                 <ul class="priority-topics">
                   <li>MDP tuple, policies, V and Q functions</li>
                   <li>Bellman optimality equation</li>
@@ -543,7 +544,7 @@
               <p class="module-lead">This is the exam-dense RL module. The memory anchor is: Monte Carlo averages returns, ADP learns a model, TD bootstraps, Q-learning backs up the greedy next action, SARSA backs up the actual next action.</p>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>RL control is the most direct SMU route into sequential control questions and can be connected to planning under uncertainty.</p>
+                <p>Q-learning vs SARSA updates and exploration &mdash; say them aloud until automatic.</p>
                 <ul class="priority-topics">
                   <li>Monte Carlo, ADP, and TD learning distinctions</li>
                   <li>Q-learning vs SARSA updates</li>
@@ -676,7 +677,7 @@
               </div>
               <div class="exam-priority priority-high" data-exam-priority="4">
                 <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
-                <p>Reported overlap plus Bellman-style computation makes this the highest-yield SMU drill despite lower report confidence.</p>
+                <p>The Bellman computation drill mirrors the reported MDP prompt.</p>
                 <ul class="priority-topics">
                   <li>MDP tuple and V/Q definitions</li>
                   <li>Bellman/value-iteration computation</li>
@@ -775,7 +776,7 @@
     </div>
   </main>
 
-  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script src="assets/study.js?v=committee-bet-2"></script>
   <script>
     const smuPracticeKeys = ["smu-pac", "smu-boolean", "smu-bandits", "smu-mdp", "smu-rl-control"];
 
