@@ -5508,3 +5508,88 @@ range-slider:focus-visible .rs-thumb,
 range-slider.is-dragging .rs-thumb {
   box-shadow: var(--ring);
 }
+
+/* ===================== Reported-question pattern analysis ===== */
+
+.report-analysis {
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.report-analysis h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.report-analysis h3 .material-symbols-rounded { color: var(--brand); font-size: 20px; }
+.report-analysis .report-intro { color: var(--ink-soft); font-size: 0.88rem; margin: 0.45rem 0 0; }
+
+.report-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 0.7rem;
+}
+
+.report-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 750;
+  color: var(--muted);
+}
+
+.report-legend-item i { width: 0.8rem; height: 0.8rem; border-radius: 3px; }
+.report-legend-item.master i { background: var(--brand); }
+.report-legend-item.bachelor i { background: var(--recall); }
+
+.report-bars { display: grid; gap: 0.5rem; margin-top: 0.75rem; }
+
+.report-bar-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 15rem) minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.report-bar-label { font-size: 0.82rem; font-weight: 750; color: var(--ink); }
+
+.report-bar-track {
+  display: flex;
+  height: 0.85rem;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.report-bar-track i { height: 100%; display: block; }
+.report-bar-track i.m { background: var(--brand); }
+.report-bar-track i.b { background: var(--recall); }
+
+.report-bar-count {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.report-specifics { margin-top: 0.9rem; }
+.report-specifics h4 { margin: 0 0 0.45rem; font-size: 0.85rem; color: var(--ink-soft); }
+.report-specifics ul { margin: 0; padding-left: 1.15rem; display: grid; gap: 0.4rem; }
+.report-specifics li { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.55; }
+.report-analysis .step-note { margin-top: 0.85rem; }
+
+@media (max-width: 640px) {
+  .report-bar-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .report-bar-label { grid-column: 1 / -1; }
+}

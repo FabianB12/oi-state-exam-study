@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=recall-deck-3">
+  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
   <style>
     .ko-quiz-only { grid-template-columns: minmax(0, 1fr); }
     .ko-recall-stack { display: grid; gap: 1rem; }
@@ -991,6 +991,35 @@
               <template data-recall-reference="ko-reported-tsp-heuristic-approx">Must say: a heuristic is a practical method with no mandatory worst-case guarantee, such as nearest neighbor or local improvement. An approximation algorithm has a proven ratio; double-tree gives 2-approximation and Christofides gives 3/2-approximation for metric TSP. The metric triangle inequality is needed for shortcutting. k-OPT removes k tour edges and reconnects the pieces, accepting improvements until a local optimum. If a polynomial-time 20-OPT-style algorithm always returned a globally optimal tour for general TSP, it would imply P = NP and hence NP = coNP, but ordinary 20-OPT local search only gives a local optimum.</template>
             </article>
           </div>
+
+          <div class="report-analysis">
+            <h3><span class="material-symbols-rounded">insights</span>Pattern analysis: what examiners actually asked</h3>
+            <p class="report-intro">4 relevant reports (3 master-confirmed, 1 bachelor). Counts show how many reports touch each topic.</p>
+            <div class="report-legend">
+              <span class="report-legend-item master"><i></i>Master-confirmed report</span>
+              <span class="report-legend-item bachelor"><i></i>Bachelor or unclear origin</span>
+            </div>
+            <div class="report-bars">
+              <div class="report-bar-row">
+                <span class="report-bar-label">CSP &amp; AC3</span>
+                <div class="report-bar-track"><i class="m" style="width:67%"></i><i class="b" style="width:33%"></i></div>
+                <span class="report-bar-count">3 &middot; 2M/1B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">TSP heuristics &amp; approximation</span>
+                <div class="report-bar-track"><i class="m" style="width:33%"></i></div>
+                <span class="report-bar-count">1 &middot; 1M/0B</span>
+              </div>
+            </div>
+            <div class="report-specifics">
+              <h4>What exactly they asked</h4>
+              <ul>
+                <li><strong>CSP &amp; AC3 (2 master + 1 bachelor):</strong> define CSP formally, define arc consistency, write AC3 pseudocode and run it on a small example, compare CSP with ILP (Sudoku as the example); the bachelor variant added backtracking and forward checking.</li>
+                <li><strong>TSP (master, shared with TAL):</strong> relationship between heuristics and approximation algorithms, one concrete heuristic TSP algorithm, implications of a hypothetical 20-OPT guarantee.</li>
+              </ul>
+            </div>
+            <p class="step-note"><strong>Takeaway:</strong> CSP/AC3 is the single most repeated KO prompt and has a fresh 2026 master confirmation — be able to write AC3 cold and run it on a 3-variable example.</p>
+          </div>
         </section>
 
         <section id="panic" class="band compact panic-band">
@@ -1055,7 +1084,7 @@
   <template data-recall-reference="ko-csp-limit">The standard AC3 time bound is O(e d^3), where e is the number of binary constraints and d is the maximum domain size. It is a propagation algorithm, not a complete decision method for general CSP. Example intuition: constraints can be locally supported pairwise while no global assignment satisfies all constraints, so after AC3 leaves nonempty domains, backtracking search with propagation may still be necessary.</template>
   <template data-recall-reference="ko-csp-search-ilp">CSP asks for a feasible assignment to variables from finite domains satisfying constraints; ILP optimizes a linear objective under linear constraints with integer variables. CSPs can often be encoded as binary ILPs, but CSP solving usually talks about domains and propagation. Backtracking assigns variables recursively and undoes bad choices. Forward checking removes immediately incompatible values from unassigned neighbors. MAC maintains arc consistency, often by running AC3 after each assignment. Local search starts from a complete assignment and repairs conflicts; it is useful but incomplete unless embedded in exhaustive search.</template>
 
-  <script src="assets/study.js?v=recall-deck-3"></script>
+  <script src="assets/study.js?v=report-analysis-1"></script>
   <script>
     (() => {
       const koKeys = ["ko-ilp", "ko-shortest", "ko-flow", "ko-knapsack", "ko-tsp", "ko-scheduling", "ko-csp"];

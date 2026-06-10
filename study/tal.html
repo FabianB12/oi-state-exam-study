@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=recall-deck-3">
+  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
 </head>
 <body data-page="tal">
   <header class="site-header">
@@ -892,6 +892,40 @@
               <template data-recall-reference="tal-reported-tsp-20opt">Must say: decision TSP is in NP because a proposed tour and length bound can be checked in polynomial time. General decision TSP is NP-complete. Therefore a polynomial-time algorithm that always solves general TSP exactly, even if described as 20-OPT, would imply P = NP. Since P is closed under complement, P = NP would also imply NP = coNP, and all NP-complete problems would become polynomial-time solvable. Ordinary 20-OPT local search does not imply this unless it is guaranteed polynomial-time and globally optimal for general TSP.</template>
             </article>
           </div>
+
+          <div class="report-analysis">
+            <h3><span class="material-symbols-rounded">insights</span>Pattern analysis: what examiners actually asked</h3>
+            <p class="report-intro">3 relevant reports — all three are master-confirmed common-question slots. Counts show how many reports touch each topic.</p>
+            <div class="report-legend">
+              <span class="report-legend-item master"><i></i>Master-confirmed report</span>
+              <span class="report-legend-item bachelor"><i></i>Bachelor or unclear origin</span>
+            </div>
+            <div class="report-bars">
+              <div class="report-bar-row">
+                <span class="report-bar-label">Complexity classes &amp; reductions</span>
+                <div class="report-bar-track"><i class="m" style="width:100%"></i></div>
+                <span class="report-bar-count">2 &middot; 2M/0B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">Decidability &amp; diagonal language</span>
+                <div class="report-bar-track"><i class="m" style="width:50%"></i></div>
+                <span class="report-bar-count">1 &middot; 1M/0B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">Approximation &harr; NPC bridge (20-OPT)</span>
+                <div class="report-bar-track"><i class="m" style="width:50%"></i></div>
+                <span class="report-bar-count">1 &middot; 1M/0B</span>
+              </div>
+            </div>
+            <div class="report-specifics">
+              <h4>What exactly they asked</h4>
+              <ul>
+                <li><strong>Classes &amp; reductions (2 master):</strong> define P/NP/coNP/NPC, classify 3-coloring and justify it, define polynomial reduction, draw the class diagram; the 20-OPT report asked what a polynomial TSP local-search guarantee would imply for P/NP/NPC/coNP.</li>
+                <li><strong>Decidability (master):</strong> recursive vs recursively enumerable languages with examples, define the diagonal language and its complement, classify both.</li>
+              </ul>
+            </div>
+            <p class="step-note"><strong>Takeaway:</strong> Every TAL report is master-level and none stopped at definitions — each demanded a justification (why is this NPC, what follows if…). Drill the arguments, not the vocabulary.</p>
+          </div>
         </section>
 
         <section id="panic" class="band compact panic-band">
@@ -992,7 +1026,7 @@
     Must say: A_TM or the universal language is RE but undecidable because a universal TM can simulate and accept yes-instances, but no decider exists. Its complement is not RE; otherwise both sides would be RE and A_TM would be decidable. The diagonal language L_D = {w_i | M_i does not accept w_i} is not RE by the self-reference/enumeration contradiction. In the standard paired enumeration, complement(L_D) is RE by simulating M_i on w_i and accepting if it accepts.
   </template>
 
-  <script src="assets/study.js?v=recall-deck-3"></script>
+  <script src="assets/study.js?v=report-analysis-1"></script>
   <script>
     (() => {
       const talPracticeKeys = [

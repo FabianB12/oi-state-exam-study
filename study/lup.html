@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=recall-deck-3">
+  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
   <style>
     .lup-exam-prompts {
       display: grid;
@@ -800,6 +800,18 @@
           </div>
         </section>
 
+        <section id="reported-analysis" class="band">
+          <div class="section-heading">
+            <p class="eyebrow">Reported-question analysis</p>
+            <h2>No student reports mention LUP</h2>
+          </div>
+          <div class="report-analysis">
+            <h3><span class="material-symbols-rounded">insights</span>Pattern analysis: what examiners actually asked</h3>
+            <p class="report-intro">Across all collected student reports (master and bachelor), not a single one touches resolution, SAT, Prolog, or model search.</p>
+            <p class="step-note"><strong>Takeaway:</strong> absence of reports is not low priority — it just means no signal. Prepare LUP entirely from the official scope: propositional/FOL resolution, SAT algorithms, SMT, logic programming/SLDNF, and grounding to SAT. Do not skip it because nobody reported it.</p>
+          </div>
+        </section>
+
         <section id="panic" class="module panic-module">
           <header class="module-head">
             <div class="module-head-main">
@@ -894,7 +906,7 @@ Must say: for a finite domain D, replace each universally quantified variable by
 Must say: exactly-one over x1 to xn is at least one clause x1 or ... or xn plus at most one constraints, commonly pairwise not xi or not xj for every pair. Implication a implies b becomes not a or b. Pairwise at-most-one is simple but quadratic; sequential counters, cardinality networks, or other compact encodings can be smaller. Reduce grounding blow-up with typed objects, symmetry breaking, early propagation, lazy grounding, and incremental solving.
   </template>
 
-  <script src="assets/study.js?v=recall-deck-3"></script>
+  <script src="assets/study.js?v=report-analysis-1"></script>
   <script>
     (() => {
       const lupKeys = ["lup-sat", "lup-prolog", "lup-fol", "lup-equality", "lup-models"];

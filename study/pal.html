@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=recall-deck-3">
+  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
 </head>
 <body data-page="pal">
   <header class="site-header">
@@ -1196,6 +1196,47 @@ Must say: Hamming distance counts substitutions only and requires equal-length s
               <template data-recall-reference="pal-reported-directed-components">Must say: directed reachability follows edge orientation. Weak connected components ignore orientations and compute components in the underlying undirected graph. Strongly connected components require every pair of vertices to be mutually reachable by directed paths, and each SCC is contained in one weak component. A directed cycle can form one SCC; a rooted directed tree with edges away from the root is weakly connected but usually has singleton SCCs. Contracting SCCs gives a DAG.</template>
             </article>
           </div>
+
+          <div class="report-analysis">
+            <h3><span class="material-symbols-rounded">insights</span>Pattern analysis: what examiners actually asked</h3>
+            <p class="report-intro">5 relevant reports (3 master-confirmed, 2 bachelor). Counts show how many reports touch each topic.</p>
+            <div class="report-legend">
+              <span class="report-legend-item master"><i></i>Master-confirmed report</span>
+              <span class="report-legend-item bachelor"><i></i>Bachelor or unclear origin</span>
+            </div>
+            <div class="report-bars">
+              <div class="report-bar-row">
+                <span class="report-bar-label">SCC algorithms (Kosaraju-Šarir, Tarjan)</span>
+                <div class="report-bar-track"><i class="m" style="width:50%"></i><i class="b" style="width:50%"></i></div>
+                <span class="report-bar-count">2 &middot; 1M/1B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">Text search &amp; automata</span>
+                <div class="report-bar-track"><i class="m" style="width:50%"></i></div>
+                <span class="report-bar-count">1 &middot; 1M/0B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">B-trees &amp; B+ trees</span>
+                <div class="report-bar-track"><i class="m" style="width:50%"></i></div>
+                <span class="report-bar-count">1 &middot; 1M/0B</span>
+              </div>
+              <div class="report-bar-row">
+                <span class="report-bar-label">Trees &amp; MST (Kruskal, Borůvka)</span>
+                <div class="report-bar-track"><i class="b" style="width:50%"></i></div>
+                <span class="report-bar-count">1 &middot; 0M/1B</span>
+              </div>
+            </div>
+            <div class="report-specifics">
+              <h4>What exactly they asked</h4>
+              <ul>
+                <li><strong>SCC (1 master + 1 bachelor):</strong> name both Kosaraju-Šarir and Tarjan, argue correctness, give time complexity; the bachelor variant compared components vs SCCs on examples and rooted trees.</li>
+                <li><strong>Text search (master):</strong> dictionary automaton, searching damaged/modified words (approximate matching), and whether several words can be searched at once.</li>
+                <li><strong>B-trees (master, common question):</strong> run find and the multi-phase insertion on your own example, explain how B+ differs, name other search trees.</li>
+                <li><strong>MST (bachelor):</strong> equivalent definitions of a tree, Kruskal/Borůvka implementation idea, memory and time complexity.</li>
+              </ul>
+            </div>
+            <p class="step-note"><strong>Takeaway:</strong> Master reports concentrate on running data-structure mechanics aloud (B-tree insertion, SCC algorithms) on small concrete examples — practice narrating them, not just defining them.</p>
+          </div>
         </section>
 
         <section id="panic-pass" class="band compact panic-band">
@@ -1231,7 +1272,7 @@ Must say: Hamming distance counts substitutions only and requires equal-length s
     </div>
   </main>
 
-  <script src="assets/study.js?v=recall-deck-3"></script>
+  <script src="assets/study.js?v=report-analysis-1"></script>
   <script>
     ["complexity", "graphs", "generation", "trees", "automata"].forEach((key) => {
       flashcards[key] = [];
