@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
 </head>
 <body data-page="smu">
   <header class="site-header">
@@ -16,6 +16,7 @@
     <nav class="top-nav" aria-label="Study navigation">
       <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
       <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <a href="committee.html"><span class="material-symbols-rounded">casino</span>Strategy</a>
       <div class="nav-dropdown" data-nav-dropdown>
         <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
           <span class="material-symbols-rounded">menu_book</span>Questions
@@ -125,6 +126,10 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep SMU centered on these exam asks</h2>
           <p>PAC and online learnability, VC dimension and learnability conditions, conjunction/disjunction algorithms and reductions, bandit regret with epsilon-greedy/UCB/Thompson sampling, and RL value/policy learning: value iteration, DUE, ADP, TD, Q-learning, SARSA, exploration, and policy search.</p>
+          <div class="committee-bet bet-hot">
+            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: very likely draw</strong><a href="committee.html">full analysis &rarr;</a></div>
+            <p><strong>Gustav Šír</strong> sits on your committee and is a lecturer of this exact course. In every collected report, the specialization question was asked by the member who teaches it. Expect SMU probed at lecturer depth — learnability models, bandits, and RL are all live.</p>
+          </div>
         </section>
 
         <section id="pac-online" class="module">
@@ -133,9 +138,9 @@
               <span class="module-num">Module 1</span>
               <h2>PAC, online learning, and VC dimension</h2>
               <p class="module-lead">PAC asks whether random labeled examples are enough to output a low-error hypothesis. Online learning asks whether sequential feedback can keep mistakes or regret small, even when examples are adversarial.</p>
-              <div class="exam-priority priority-normal" data-exam-priority="2">
-                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Normal focus</strong></div>
-                <p>Useful SMU foundation, but committee overlap is weaker than the decision-making and reinforcement-learning material.</p>
+              <div class="exam-priority priority-high" data-exam-priority="4">
+                <div class="priority-topline"><span class="priority-label">Committee priority</span><strong>Heavy focus</strong></div>
+                <p>Upgraded: Šír (on your committee) lectures SMU itself, and PAC/online learnability is the first bullet of the official question — the earlier "weak overlap" read predates knowing the lecturer sits at your table.</p>
                 <ul class="priority-topics">
                   <li>PAC guarantee, epsilon/delta, and VC dimension</li>
                   <li>Online mistake bounds and regret framing</li>
@@ -770,7 +775,7 @@
     </div>
   </main>
 
-  <script src="assets/study.js?v=report-analysis-1"></script>
+  <script src="assets/study.js?v=committee-bet-1"></script>
   <script>
     const smuPracticeKeys = ["smu-pac", "smu-boolean", "smu-bandits", "smu-mdp", "smu-rl-control"];
 

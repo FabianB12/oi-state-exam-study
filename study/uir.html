@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
   <style>
     .uir-chip-row,
     .uir-step-row,
@@ -164,6 +164,7 @@
     <nav class="top-nav" aria-label="Study navigation">
       <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
       <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <a href="committee.html"><span class="material-symbols-rounded">casino</span>Strategy</a>
       <div class="nav-dropdown" data-nav-dropdown>
         <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
           <span class="material-symbols-rounded">menu_book</span>Questions
@@ -273,6 +274,10 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">AI specialization</span></div>
           <h2>Keep UIR centered on these exam asks</h2>
           <p>Robot paradigms and architectures, path/motion planning in configuration space with roadmaps and replanning such as D*/D* Lite, exploration and informative path planning with MRTA, multi-goal/sequence-dependent robotic routing including profits and curvature constraints, and sampling-based planners with probabilistic completeness/asymptotic optimality.</p>
+          <div class="committee-bet bet-cold">
+            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: unlikely draw</strong><a href="committee.html">full analysis &rarr;</a></div>
+            <p>Nobody on your committee works in robotics — motion planning, configuration space, and exploration have no examiner at the table, and in all collected reports the field questions tracked committee expertise. Keep the oral skeleton and panic pass only; reinvest the freed hours into MAS, PUI, and SMU.</p>
+          </div>
         </section>
 
         <section id="robot" class="module">
@@ -1001,7 +1006,7 @@
   <template data-recall-reference="uir-sampling-rrtstar">Must say: RRT* modifies RRT by considering a neighborhood around each new sample, choosing the parent that gives the cheapest path-to-come among feasible connections, and rewiring nearby nodes through the new node if their cost improves. This keeps the exploration idea of RRT but adds cost improvement over time. It is usually slower per iteration than basic RRT because of neighbor searches and extra collision checks. Under standard assumptions and suitable connection radius, RRT* is asymptotically optimal, while basic RRT is generally only probabilistically complete.</template>
   <template data-recall-reference="uir-sampling-guarantees">Must say: probabilistic completeness means that if a feasible path exists, the probability that the planner has found a path tends to 1 as the number of samples or time tends to infinity. PRM and RRT have this guarantee under standard assumptions such as adequate sampling, collision checking, and clearance. Asymptotic optimality is stronger: the best solution cost converges to the optimal cost as samples go to infinity. Basic RRT is generally not asymptotically optimal; PRM* and RRT* are asymptotically optimal under their assumptions. Completeness is about eventually finding any feasible path; optimality is about eventually improving path quality.</template>
 
-  <script src="assets/study.js?v=report-analysis-1"></script>
+  <script src="assets/study.js?v=committee-bet-1"></script>
   <script>
     pageModules.uir = ["uir-robot", "uir-path", "uir-explore", "uir-multigoal", "uir-sampling"];
 

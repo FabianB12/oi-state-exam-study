@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
-  <link rel="stylesheet" href="assets/study.css?v=report-analysis-1">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
 </head>
 <body data-page="tal">
   <header class="site-header">
@@ -16,6 +16,7 @@
     <nav class="top-nav" aria-label="Study navigation">
       <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
       <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <a href="committee.html"><span class="material-symbols-rounded">casino</span>Strategy</a>
       <div class="nav-dropdown" data-nav-dropdown>
         <button type="button" class="nav-dropdown-toggle is-active" aria-haspopup="true" aria-expanded="false">
           <span class="material-symbols-rounded">menu_book</span>Questions
@@ -129,6 +130,10 @@
           <div class="scope-tags"><span class="scope-tag">Official scope</span><span class="scope-tag">Common part</span></div>
           <h2>Keep TAL centered on these exam asks</h2>
           <p>Asymptotic growth, time/space complexity, correctness by invariant/variant, deterministic/multitape/nondeterministic Turing machines, P/NP/co-NP/NPC, PSPACE/NPSPACE and Savitch, RP/ZPP/co-RP, and decidable/RE/recursive languages.</p>
+          <div class="committee-bet bet-cold">
+            <div class="bet-topline"><span class="material-symbols-rounded">casino</span><strong>Committee bet: lower-probability draw</strong><a href="committee.html">full analysis &rarr;</a></div>
+            <p>No mathematician/theorist sits on your committee — in every collected report the TAL slot was held by a math-department member (Horčík, Žukovec, Demlová, Gollová). A TAL draw is still possible, so keep the panic-pass definitions fluent — but skip the deep proof drills and reinvest those hours into PAL and KO.</p>
+          </div>
         </section>
 
         <section id="correctness" class="module">
@@ -1026,7 +1031,7 @@
     Must say: A_TM or the universal language is RE but undecidable because a universal TM can simulate and accept yes-instances, but no decider exists. Its complement is not RE; otherwise both sides would be RE and A_TM would be decidable. The diagonal language L_D = {w_i | M_i does not accept w_i} is not RE by the self-reference/enumeration contradiction. In the standard paired enumeration, complement(L_D) is RE by simulating M_i on w_i and accepting if it accepts.
   </template>
 
-  <script src="assets/study.js?v=report-analysis-1"></script>
+  <script src="assets/study.js?v=committee-bet-1"></script>
   <script>
     (() => {
       const talPracticeKeys = [

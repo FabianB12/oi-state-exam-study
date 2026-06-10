@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Committee Strategy — OI State Exam</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="assets/study.css?v=committee-bet-1">
+  <style>
+    .member-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+    .member-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.95rem 1.05rem; }
+    .member-card h3 { margin: 0; font-size: 0.98rem; color: var(--ink); }
+    .member-card .member-role { color: var(--muted); font-size: 0.78rem; font-weight: 750; margin-top: 0.15rem; }
+    .member-card p { color: var(--ink-soft); font-size: 0.86rem; margin: 0.5rem 0 0; line-height: 1.55; }
+    .member-card .member-asks { margin-top: 0.55rem; padding: 0.5rem 0.6rem; border-radius: var(--radius-sm); background: var(--surface-2); border-left: 3px solid var(--brand); font-size: 0.84rem; color: var(--ink); }
+    .member-card.is-hot .member-asks { border-left-color: var(--panic); }
+    .member-card .member-links { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .member-card .member-links a { font-size: 0.76rem; color: var(--brand); font-weight: 750; }
+    .tier-block { margin-top: 1rem; }
+    .tier-block h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+    .tier-row { display: grid; grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; margin-top: 0.4rem; }
+    .tier-row .tier-label { font-size: 0.84rem; font-weight: 800; color: var(--ink); }
+    .tier-row .tier-label span { display: block; color: var(--muted); font-size: 0.72rem; font-weight: 700; }
+    .tier-track { height: 0.9rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+    .tier-track i { display: block; height: 100%; border-radius: 999px; }
+    .tier-hot i { background: var(--panic); }
+    .tier-warm i { background: var(--recall); }
+    .tier-cool i { background: var(--brand); }
+    .tier-cold i { background: var(--line-strong); }
+    .tier-tag { font-size: 0.72rem; font-weight: 850; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
+    .tier-hot .tier-tag { color: var(--panic); }
+    .tier-warm .tier-tag { color: var(--recall); }
+    .tier-cool .tier-tag { color: var(--brand); }
+    .tier-cold .tier-tag { color: var(--muted); }
+    .q-block { margin-top: 1.6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 1rem 1.15rem; }
+    .q-block > .q-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; }
+    .q-block h3 { margin: 0; font-size: 1.02rem; }
+    .q-block .q-course { color: var(--muted); font-size: 0.78rem; font-weight: 750; }
+    .q-block .q-tier { margin-left: auto; font-size: 0.72rem; font-weight: 850; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid; }
+    .q-tier.hot { color: var(--panic); border-color: var(--panic); background: var(--panic-tint); }
+    .q-tier.warm { color: var(--recall); border-color: var(--recall); background: var(--recall-tint); }
+    .q-tier.cool { color: var(--brand); border-color: var(--brand); background: var(--brand-tint); }
+    .q-tier.cold { color: var(--muted); border-color: var(--line-strong); background: var(--surface-2); }
+    .q-block ul { margin: 0.7rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.45rem; }
+    .q-block li { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; }
+    .q-block .q-links { margin-top: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
+    .q-block .q-links a { font-size: 0.8rem; color: var(--brand); font-weight: 750; }
+    mark.hl { background: linear-gradient(transparent 18%, #ffe9a3 18%, #ffe9a3 88%, transparent 88%); color: inherit; padding: 0 0.12rem; border-radius: 2px; cursor: pointer; font-weight: 650; transition: background-color 0.12s ease; border-bottom: 1.5px dashed #d8a615; }
+    mark.hl:hover { background-color: #ffe089; }
+    mark.hl.is-open { background: #ffd763; border-bottom-style: solid; }
+    .hl-card { margin: 0.55rem 0 0.25rem; border: 1px solid #ecd28a; border-left: 3px solid #d8a615; border-radius: var(--radius-sm); background: #fffaf0; padding: 0.65rem 0.8rem; }
+    .hl-card h4 { margin: 0; font-size: 0.86rem; color: var(--ink); }
+    .hl-card p { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.84rem; line-height: 1.55; }
+    .hl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .hl-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 800; padding: 0.18rem 0.5rem; border-radius: 999px; border: 1px solid; }
+    .hl-tag .material-symbols-rounded { font-size: 14px; }
+    .hl-tag.committee { color: var(--panic); border-color: var(--panic); background: var(--panic-tint); }
+    .hl-tag.reports { color: var(--brand); border-color: var(--brand); background: var(--brand-tint); }
+    .hl-tag.scope { color: var(--practice); border-color: var(--practice); background: #e9f6f4; }
+    .alloc-table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.88rem; }
+    .alloc-table th, .alloc-table td { border: 1px solid var(--line); padding: 0.5rem 0.65rem; text-align: left; }
+    .alloc-table th { background: var(--surface-3); color: var(--ink-soft); }
+    .alloc-table tr.hot td { background: color-mix(in srgb, var(--panic) 4%, var(--surface)); }
+    .alloc-table tr.cold td { color: var(--muted); }
+    .evidence-note { margin-top: 1rem; border: 1px solid var(--line); border-left: 3px solid var(--practice); border-radius: var(--radius-sm); background: var(--surface-2); padding: 0.7rem 0.85rem; font-size: 0.86rem; color: var(--ink-soft); }
+  </style>
+</head>
+<body data-page="committee">
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-badge"><span class="material-symbols-rounded">school</span></span>OI State Exam Study</a>
+    <nav class="top-nav" aria-label="Study navigation">
+      <a href="index.html"><span class="material-symbols-rounded">space_dashboard</span>Hub</a>
+      <a href="timetable.html"><span class="material-symbols-rounded">calendar_month</span>Timetable</a>
+      <a href="committee.html" aria-current="page"><span class="material-symbols-rounded">casino</span>Strategy</a>
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-rounded">menu_book</span>Questions
+          <span class="material-symbols-rounded nav-chevron">expand_more</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a role="menuitem" href="pal.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">account_tree</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">PAL &middot; Graph algorithms</span><span class="nav-dropdown-sub">BE4M33PAL &middot; Common question 1</span></span></a>
+          <a role="menuitem" href="tal.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">memory</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">TAL &middot; Complexity &amp; computability</span><span class="nav-dropdown-sub">BE4M01TAL &middot; Common question 2</span></span></a>
+          <a role="menuitem" href="ko.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">hub</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">KO &middot; Combinatorial optimization</span><span class="nav-dropdown-sub">BE4M35KO &middot; Common question 3</span></span></a>
+          <a role="menuitem" href="smu.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">psychology</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">SMU &middot; Learnability, bandits &amp; RL</span><span class="nav-dropdown-sub">BE4M36SMU &middot; AI specialization 1</span></span></a>
+          <a role="menuitem" href="lup.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">rule</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">LUP &middot; Resolution &amp; model search</span><span class="nav-dropdown-sub">BE4M36LUP &middot; AI specialization 2</span></span></a>
+          <a role="menuitem" href="ssu.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">model_training</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">SSU &middot; ERM, MLE, EM &amp; neural nets</span><span class="nav-dropdown-sub">BE4M33SSU &middot; AI specialization 3</span></span></a>
+          <a role="menuitem" href="pui.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">route</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">PUI &middot; Domain independent planning</span><span class="nav-dropdown-sub">BE4M36PUI &middot; AI specialization 4</span></span></a>
+          <a role="menuitem" href="mas.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">groups</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">MAS &middot; Agents, games &amp; auctions</span><span class="nav-dropdown-sub">BE4M36MAS &middot; AI specialization 5</span></span></a>
+          <a role="menuitem" href="uir.html"><span class="nav-dd-icon"><span class="material-symbols-rounded">precision_manufacturing</span></span><span class="nav-dropdown-text"><span class="nav-dropdown-title">UIR &middot; Robot planning &amp; coordination</span><span class="nav-dropdown-sub">BE4M36UIR &middot; AI specialization 6</span></span></a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="page-head">
+      <p class="eyebrow">Committee-aware strategy &middot; exam June 18</p>
+      <h1>Who sits at the table — and what they will ask</h1>
+      <p class="lead">You answer two questions: one common (of 3) and one AI specialization (of 6). In every collected student report, the specialization question was asked by the committee member who teaches that course — and the common slot went to the member whose expertise fits. Your committee has three course owners at the table. That is the whole bet: <strong>prepare their courses to full depth, keep everything else at panic-pass level.</strong></p>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">The table</p>
+        <h2>Your committee, what they teach, what they research</h2>
+      </div>
+      <div class="member-grid">
+        <article class="member-card is-hot">
+          <h3>doc. Ing. Tomáš Kroupa, Ph.D.</h3>
+          <p class="member-role">CTU FEL &middot; AI Center &middot; Game Theory group</p>
+          <p>Research: coalitional games, Shapley-value extensions, strategic games. Teaches Computational Game Theory and <strong>authored the coalitional-games exercise set of the MAS course itself</strong>.</p>
+          <p class="member-asks">Will ask: <strong>MAS</strong> — coalitions/core/Shapley first, Nash &amp; zero-sum LP second. Could plausibly take KO's ILP/LP end.</p>
+          <div class="member-links"><a href="https://sites.google.com/fel.cvut.cz/tomas-kroupa/homepage/" target="_blank" rel="noreferrer">homepage</a><a href="https://cw.fel.cvut.cz/b201/_media/courses/be4m36mas/cg_exercises.pdf" target="_blank" rel="noreferrer">his MAS coalition exercises</a></div>
+        </article>
+        <article class="member-card is-hot">
+          <h3>Ing. Antonín Komenda, Ph.D.</h3>
+          <p class="member-role">CTU FEL &middot; AI Center &middot; Planning group</p>
+          <p>Research: automated planning, multi-agent planning (MA-STRIPS), privacy-preserving planning. <strong>PUI is his home course.</strong></p>
+          <p class="member-asks">Will ask: <strong>PUI</strong> — STRIPS/SAS formalism, heuristic search, relaxation heuristics. Could take KO's CSP/scheduling end.</p>
+          <div class="member-links"><a href="https://www.aic.fel.cvut.cz/members/antonin-komenda" target="_blank" rel="noreferrer">AIC profile</a><a href="https://sites.google.com/agents.fel.cvut.cz/planning/" target="_blank" rel="noreferrer">Planning@AIC</a></div>
+        </article>
+        <article class="member-card is-hot">
+          <h3>Ing. Gustav Šír, Ph.D.</h3>
+          <p class="member-role">CTU FEL &middot; IDA group &middot; neural-symbolic learning</p>
+          <p>Research: deep relational learning, neural-symbolic integration, lifted models over relational logic. <strong>Lecturer of SMU (Symbolic Machine Learning) itself</strong> — the course behind AI question 1.</p>
+          <p class="member-asks">Will ask: <strong>SMU</strong> at lecturer depth; comfortably probes <strong>SSU</strong> (deep nets) and <strong>LUP</strong> (relational logic, grounding).</p>
+          <div class="member-links"><a href="https://cw.fel.cvut.cz/b232/courses/smu/start" target="_blank" rel="noreferrer">SMU course page (lecturer list)</a><a href="https://gustiks.github.io/" target="_blank" rel="noreferrer">homepage</a></div>
+        </article>
+        <article class="member-card">
+          <h3>doc. Ing. Radim Bača, Ph.D.</h3>
+          <p class="member-role">VŠB-TU Ostrava &middot; database systems (external)</p>
+          <p>Research: database indexing — <strong>B-tree variants and compression, multidimensional range queries</strong>, query processing.</p>
+          <p class="member-asks">Will ask: <strong>PAL</strong> search trees — B/B+ trees, k-d trees and nearest neighbor. The external + the precedent of chairs asking B-trees makes this the most predictable common question.</p>
+          <div class="member-links"><a href="https://www.researchgate.net/profile/Radim-Baca" target="_blank" rel="noreferrer">publications</a></div>
+        </article>
+        <article class="member-card">
+          <h3>prof. Ing. Miroslav Bureš, Ph.D.</h3>
+          <p class="member-role">CTU FEL &middot; STILL lab &middot; software testing</p>
+          <p>Research: system/IoT testing, model-based testing, test automation. <strong>No overlap with any of the nine exam questions</strong> — almost certainly the presiding generalist.</p>
+          <p class="member-asks">Will ask: likely nothing technical from the nine topics; expect thesis-defense style questioning instead.</p>
+          <div class="member-links"><a href="http://still.felk.cvut.cz/bures/" target="_blank" rel="noreferrer">STILL lab</a></div>
+        </article>
+        <article class="member-card">
+          <h3>Ing. Jakub Rada (secretary)</h3>
+          <p class="member-role">CTU FEL &middot; AIC game theory orbit</p>
+          <p>Secretaries administer the exam and do not ask questions. His game-theory background reinforces how strongly this committee tilts toward Kroupa's territory.</p>
+          <p class="member-asks">Will ask: nothing — administrative role.</p>
+        </article>
+      </div>
+      <div class="evidence-note"><strong>How questions get assigned (the evidence):</strong> in all four collected master reports with full committee data (2024 Cybersecurity, 2025 Software Engineering, 2025 Computer Graphics, 2025 Data Science), the field question was asked by the committee member who teaches that course, and the common question went to the member whose expertise fits (math-dept theorists took TAL; the chair took B-trees when no better fit existed). Your committee contains the course owners of MAS, PUI, and SMU — and a B-tree researcher for PAL.</div>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">The bet</p>
+        <h2>Draw likelihood, committee-adjusted</h2>
+      </div>
+      <div class="tier-block">
+        <h3>Common question (you get 1 of 3)</h3>
+        <div class="tier-row tier-warm"><span class="tier-label">PAL <span>graphs, trees, automata</span></span><div class="tier-track"><i style="width:70%"></i></div><span class="tier-tag">likely</span></div>
+        <div class="tier-row tier-warm"><span class="tier-label">KO <span>combinatorial optimization</span></span><div class="tier-track"><i style="width:65%"></i></div><span class="tier-tag">likely</span></div>
+        <div class="tier-row tier-cold"><span class="tier-label">TAL <span>complexity, decidability</span></span><div class="tier-track"><i style="width:18%"></i></div><span class="tier-tag">maintain only</span></div>
+      </div>
+      <div class="tier-block">
+        <h3>AI specialization question (you get 1 of 6)</h3>
+        <div class="tier-row tier-hot"><span class="tier-label">MAS <span>Kroupa &mdash; his exercises</span></span><div class="tier-track"><i style="width:95%"></i></div><span class="tier-tag">very likely</span></div>
+        <div class="tier-row tier-hot"><span class="tier-label">PUI <span>Komenda &mdash; his course</span></span><div class="tier-track"><i style="width:95%"></i></div><span class="tier-tag">very likely</span></div>
+        <div class="tier-row tier-hot"><span class="tier-label">SMU <span>Šír &mdash; his course</span></span><div class="tier-track"><i style="width:90%"></i></div><span class="tier-tag">very likely</span></div>
+        <div class="tier-row tier-warm"><span class="tier-label">SSU <span>Šír &mdash; research adjacent</span></span><div class="tier-track"><i style="width:55%"></i></div><span class="tier-tag">strong secondary</span></div>
+        <div class="tier-row tier-cool"><span class="tier-label">LUP <span>Šír &mdash; research foundation</span></span><div class="tier-track"><i style="width:35%"></i></div><span class="tier-tag">possible</span></div>
+        <div class="tier-row tier-cold"><span class="tier-label">UIR <span>no examiner at the table</span></span><div class="tier-track"><i style="width:10%"></i></div><span class="tier-tag">skeleton only</span></div>
+      </div>
+      <p class="step-note"><strong>Read the bars as betting odds, not certainty.</strong> If the draw is purely random, every question stays possible — that is why nothing drops below panic-pass level. The bars say where <em>depth</em> pays off: a course owner asks follow-ups three levels deep; a non-specialist reads the question from the sheet and accepts the textbook answer.</p>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">Topic map</p>
+        <h2>The official questions, highlighted by evidence</h2>
+      </div>
+      <p class="module-lead">This is the full official topic list. <mark class="hl" data-why="demo">Yellow marker</mark> = a committee-likely or report-confirmed topic; click any highlight to see the evidence. Unmarked text is still examinable — it is just not where the evidence points.</p>
+
+      <article class="q-block">
+        <div class="q-head"><h3>Common 1 &middot; Polynomial graph algorithms, search trees, automata</h3><span class="q-course">BE4M33PAL</span><span class="q-tier warm">likely</span></div>
+        <ul>
+          <li>Notation of asymptotic complexity. Graph vocabulary: degree, path, circuit, cycle. Graph representations by adjacency, distance, Laplacian and incidence matrices. Adjacency lists.</li>
+          <li>Minimum spanning tree: Prim-Jarník, Kruskal, Borůvka. <mark class="hl" data-why="pal-scc">Strongly connected components: Kosaraju-Sharir, Tarjan</mark>. Euler trail. Union-find. Graph and tree isomorphism.</li>
+          <li>Generation of combinatorial objects: subsets, k-element subsets, permutations. Gray codes. Primes, sieve of Eratosthenes. Pseudorandom numbers, linear congruential generator.</li>
+          <li><mark class="hl" data-why="baca-trees">Search trees: binary, AVL, red-black, B-tree and B+ tree, splay tree</mark>, <mark class="hl" data-why="baca-kd">k-d tree and nearest-neighbor searching in k-d trees</mark>. Skip list.</li>
+          <li><mark class="hl" data-why="pal-automata">Finite automata, regular expressions, text search: exact and approximate matching (Hamming/Levenshtein), dictionary automata</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="pal.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>Common 2 &middot; Complexity classes, Turing machines, undecidability</h3><span class="q-course">BE4M01TAL</span><span class="q-tier cold">maintain only</span></div>
+        <ul>
+          <li>Asymptotic growth, time/space complexity, correctness via variant and invariant.</li>
+          <li>Deterministic, multitape, and nondeterministic Turing machines.</li>
+          <li><mark class="hl" data-why="tal-classes">Classes P, NP, co-NP. Polynomial reduction, NPC, Cook theorem</mark>. Heuristics and approximation for NP-complete problems.</li>
+          <li>PSPACE and NPSPACE, Savitch theorem. Randomized classes RP, ZPP, co-RP.</li>
+          <li><mark class="hl" data-why="tal-diagonal">Decidability: recursive and recursively enumerable languages, diagonal language, universal language</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="tal.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>Common 3 &middot; Combinatorial optimization</h3><span class="q-course">BE4M35KO</span><span class="q-tier warm">likely</span></div>
+        <ul>
+          <li><mark class="hl" data-why="ko-ilp">Integer linear programming: shortest-path and TSP ILP formulations, Branch and Bound, polynomially solvable ILP classes</mark>.</li>
+          <li>Shortest paths: Dijkstra, Bellman-Ford, Floyd-Warshall, DAGs, problem formulations.</li>
+          <li>Network flows: max flow/min cut, Ford-Fulkerson, feasible flow with balances, min-cost flow and cycle canceling, matching.</li>
+          <li>Knapsack: approximation, dynamic programming, approximation scheme.</li>
+          <li><mark class="hl" data-why="ko-tsp">TSP: double-tree and Christofides for the metric case, local search k-OPT</mark>.</li>
+          <li><mark class="hl" data-why="ko-sched">Scheduling: notation, Bratley, Horn, list scheduling, project scheduling with temporal constraints</mark>.</li>
+          <li><mark class="hl" data-why="ko-csp">Constraint Satisfaction Problem. AC3 algorithm</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="ko.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 1 &middot; Learnability, bandits, reinforcement learning</h3><span class="q-course">BE4M36SMU</span><span class="q-tier hot">very likely</span></div>
+        <ul>
+          <li><mark class="hl" data-why="smu-pac">PAC and online learnability: definitions, efficient learnability, model comparison, VC dimension, learnability conditions</mark>.</li>
+          <li><mark class="hl" data-why="smu-pac">Learning conjunctions/disjunctions and learning other classes by reduction to them</mark>.</li>
+          <li><mark class="hl" data-why="smu-bandits">Multi-armed bandits: regret, epsilon-greedy and its limits, UCB and its regret guarantee, Thompson sampling</mark>.</li>
+          <li><mark class="hl" data-why="smu-rl">Reinforcement learning: state utility, optimal policy, value iteration, direct utility estimation, ADP, TD learning, exploration vs exploitation, Q-learning, SARSA, policy search</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="smu.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 2 &middot; Resolution, automatic proving, model search</h3><span class="q-course">BE4M36LUP</span><span class="q-tier cool">possible</span></div>
+        <ul>
+          <li><mark class="hl" data-why="lup-resolution">Propositional normal forms. SAT: resolution rule, unit propagation, clause learning</mark>. SMT and the lazy approach.</li>
+          <li>Logic programming and Prolog: definite/Horn clauses, Herbrand interpretations, minimal model semantics, negation as failure, SLDNF, cut.</li>
+          <li><mark class="hl" data-why="lup-resolution">FOL normal forms; resolution calculus in FOL: unification, subsumption, saturation</mark>; equality handling.</li>
+          <li><mark class="hl" data-why="lup-grounding">Searching for models in generic domains: grounding and propositional encoding as SAT</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="lup.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 3 &middot; ERM, MLE, EM, neural networks</h3><span class="q-course">BE4M33SSU</span><span class="q-tier warm">strong secondary</span></div>
+        <ul>
+          <li>ERM: risk and empirical risk, generalization bounds and Hoeffding, consistency, VC dimension, <mark class="hl" data-why="ssu-svm">SVMs and kernel SVMs</mark>.</li>
+          <li>MLE and EM: estimator consistency, EM as lower-bound maximization, E/M steps as block-coordinate descent.</li>
+          <li><mark class="hl" data-why="ssu-deep">Deep networks and their training: neurons, architectures, convolutional networks, backpropagation, layer types, initialization, SGD</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="ssu.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 4 &middot; Domain independent planning</h3><span class="q-course">BE4M36PUI</span><span class="q-tier hot">very likely</span></div>
+        <ul>
+          <li><mark class="hl" data-why="pui-strips">STRIPS and SAS representations. Satisficing vs optimal planning. Heuristic search and properties of heuristics</mark>.</li>
+          <li><mark class="hl" data-why="pui-heur">Delete relaxation: hmax, hadd, hff. Abstractions: projection, pattern databases, merge &amp; shrink</mark>.</li>
+          <li><mark class="hl" data-why="pui-heur">Landmarks and landmark discovery; landmark and LM-Cut heuristics</mark>. LP heuristics: state-equation, potential.</li>
+          <li><mark class="hl" data-why="pui-mdp">Nondeterministic and probabilistic planning. MDP and value iteration. MCTS and UCT</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="pui.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 5 &middot; Autonomous agents and multiagent systems</h3><span class="q-course">BE4M36MAS</span><span class="q-tier hot">very likely</span></div>
+        <ul>
+          <li><mark class="hl" data-why="mas-nfg">Normal-form games, mixed strategies, Nash equilibrium and its computation, dominance removal, two-player zero-sum games via LP, correlated and Stackelberg equilibria</mark>.</li>
+          <li>Extensive-form games: representation, imperfect information, perfect recall, strategy types, Nash and subgame-perfect equilibrium, solving by LP and regret minimization.</li>
+          <li><mark class="hl" data-why="mas-coalitions">Coalitional games and representations, classes and examples, the core and its properties, Shapley axioms and computation, voting games with Shapley-Shubik and Banzhaf</mark>.</li>
+          <li><mark class="hl" data-why="mas-auctions">Auction mechanisms and properties, bidding in single-item auctions, strategic and revenue equivalence, optimal single-item auctions, combinatorial auctions</mark>.</li>
+        </ul>
+        <div class="q-links"><a href="mas.html">Study page &rarr;</a></div>
+      </article>
+
+      <article class="q-block">
+        <div class="q-head"><h3>AI 6 &middot; Robot decision making, planning, coordination</h3><span class="q-course">BE4M36UIR</span><span class="q-tier cold">skeleton only</span></div>
+        <ul>
+          <li>Robotic paradigms and control architectures; hierarchical, reactive, hybrid.</li>
+          <li>Path/motion planning, configuration space, roadmaps, graph-based planning, D*/D* Lite. <mark class="hl" data-why="uir-note">One master report exists here</mark> — but your committee has no robotics examiner.</li>
+          <li>Exploration, informative path planning, multi-robot task allocation.</li>
+          <li>Multi-goal planning, robotic TSP variants, curvature constraints, routing with profits.</li>
+          <li>Sampling-based planners: probabilistic completeness, asymptotic optimality.</li>
+        </ul>
+        <div class="q-links"><a href="uir.html">Study page &rarr;</a></div>
+      </article>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <p class="eyebrow">8 days</p>
+        <h2>Where the hours go</h2>
+      </div>
+      <table class="alloc-table">
+        <thead><tr><th>Subject</th><th>Target depth</th><th>Focus inside the subject</th></tr></thead>
+        <tbody>
+          <tr class="hot"><td><strong>MAS</strong></td><td>Full depth, first priority</td><td>Coalitions/core/Shapley/voting first (Kroupa's own material), then Nash/zero-sum LP, then auctions; EFGs last.</td></tr>
+          <tr class="hot"><td><strong>PUI</strong></td><td>Full depth</td><td>Open every answer with the formal task. STRIPS/SAS, hmax/hadd/hff, LM-Cut; MDP/MCTS solid.</td></tr>
+          <tr class="hot"><td><strong>SMU</strong></td><td>Full depth</td><td>All four bullets — it is the examiner's own course. PAC vs online comparison and UCB regret are classic lecturer probes.</td></tr>
+          <tr><td><strong>SSU</strong></td><td>Strong pass</td><td>Backprop mechanics and architectures (Šír), SVM + kernels (reports); EM at say-it-aloud level.</td></tr>
+          <tr><td><strong>KO</strong></td><td>Strong pass (common bet)</td><td>CSP/AC3 cold (write the pseudocode), ILP formulations + B&amp;B; flows/TSP at definition level.</td></tr>
+          <tr><td><strong>PAL</strong></td><td>Strong pass (common bet)</td><td>B-tree insertion narrated on an example, B+ differences, k-d NN (Bača); SCC + dictionary automata (reports).</td></tr>
+          <tr><td><strong>LUP</strong></td><td>Scope pass</td><td>Resolution + unification + grounding-to-SAT — the parts nearest Šír's research.</td></tr>
+          <tr class="cold"><td><strong>TAL</strong></td><td>Panic pass only</td><td>Definitions fluent (P/NP/coNP/NPC, reductions, diagonal language); skip proof drills.</td></tr>
+          <tr class="cold"><td><strong>UIR</strong></td><td>Skeleton only</td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
+        </tbody>
+      </table>
+      <p class="step-note"><strong>The honest caveat:</strong> this is a calculated gamble built on (a) verified committee expertise, (b) the 4/4 pattern of course owners asking their own course, and (c) the student-report archive. If the draw is administratively random, the floor protects you: every subject keeps at least a panic pass. What you are reallocating is <em>depth</em>, and depth belongs to MAS, PUI, and SMU.</p>
+    </section>
+  </main>
+
+  <script src="assets/study.js?v=committee-bet-1"></script>
+  <script>
+    (() => {
+      const WHY = {
+        "demo": {
+          title: "This is how the highlights work",
+          tags: [["committee", "Committee evidence"], ["reports", "Student reports"], ["scope", "Official scope"]],
+          body: "Each highlight carries the evidence behind it: red = a committee member's teaching/research makes it likely, blue = students reported being asked exactly this, green = the official scope puts unusual weight on it. Click any yellow phrase in the questions below."
+        },
+        "baca-trees": {
+          title: "B-trees are Bača's research area — and a reported master question",
+          tags: [["committee", "Bača: B-tree indexing research (VŠB)"], ["reports", "2024 Mgr: B-tree find + multi-phase insertion"]],
+          body: "Radim Bača publishes on B-tree variants and compression — this bullet is literally his daily work. Independently, a 2024 master committee asked: define a B-tree, demonstrate find and multi-phase insertion on your own example, explain how B+ differs, name other search trees. That question was asked by the committee chair — proof that the common slot goes to whoever fits it. Practice narrating an insertion with splits out loud."
+        },
+        "baca-kd": {
+          title: "k-d trees: multidimensional indexing is Bača's specialty",
+          tags: [["committee", "Bača: multidimensional range queries"]],
+          body: "Bača's publication record includes optimization of disk accesses for multidimensional range queries — k-d trees and nearest-neighbor search are the in-curriculum version of exactly that. No student report covers k-d trees, which makes them under-prepared by most students — a classic place for a specialist examiner to probe. Know the construction, the NN search with pruning, and the complexity caveats."
+        },
+        "pal-scc": {
+          title: "SCC algorithms: asked at master level in 2025",
+          tags: [["reports", "2025 MSZZ Data Science (Gollová)"], ["reports", "bachelor LGR report"]],
+          body: "A 2025 master committee asked for strongly connected components, both Kosaraju-Sharir and Tarjan, with correctness and time complexity. A bachelor report asked components vs SCCs on examples. Be able to run Kosaraju-Sharir on a 6-node digraph and state why two DFS passes suffice."
+        },
+        "pal-automata": {
+          title: "Text search and dictionary automata: reported master question",
+          tags: [["reports", "OI master report: automata, damaged words, multi-word search"]],
+          body: "A master report asked: text search with automata, searching damaged/modified words (approximate matching with Hamming/Levenshtein), dictionary automaton, and whether several words can be searched at once. This is the other end of PAL that committees reach for when the data-structure end is taken."
+        },
+        "tal-classes": {
+          title: "P/NP/coNP/NPC: report-confirmed — but no theorist on your committee",
+          tags: [["reports", "2024 Mgr: define classes, classify 3-coloring, justify"], ["committee", "No math-dept member at your table"]],
+          body: "Two master reports drill this (define all four classes, classify 3-coloring, define polynomial reduction, draw the class diagram — one examiner demanded the NPC justification and graded C without it). But the TAL slot was held by a math-department theorist in every report, and your committee has none. Keep the definitions word-perfect; skip the proof drills."
+        },
+        "tal-diagonal": {
+          title: "Diagonal language: 2025 master question — same caveat",
+          tags: [["reports", "2025 MSZZ SWE (Žukovec)"], ["committee", "No theorist on your committee"]],
+          body: "Asked in 2025: recursive vs recursively enumerable languages with examples, diagonal language and its complement, classify both. The asker was the committee's mathematician — a role your committee does not staff. Panic-pass fluency is the right level."
+        },
+        "ko-csp": {
+          title: "CSP/AC3: the most-repeated common prompt + native AI-committee ground",
+          tags: [["reports", "2026 Mgr archive + OI Mgr AI + bachelor (3 reports)"], ["committee", "Komenda: planning ↔ CSP"]],
+          body: "Three reports ask CSP/AC3 — including a fresh 2026 master confirmation: define CSP formally, define arc consistency, write AC3 pseudocode, run it on a small example, compare CSP with ILP using Sudoku. For an AI/planning committee this is home ground. Write AC3 cold and run it on a 3-variable example before the exam."
+        },
+        "ko-ilp": {
+          title: "ILP formulations: closest KO territory to Kroupa",
+          tags: [["committee", "Kroupa: optimization/LP (game-theory LP duality)"], ["scope", "First bullet of the official KO question"]],
+          body: "Kroupa's computational game theory runs on LP — zero-sum games are solved by exactly the LP duality this bullet covers. If he takes the common slot, ILP formulations and Branch & Bound are his natural reach. Be able to write the TSP and shortest-path ILP formulations and explain LP relaxation."
+        },
+        "ko-sched": {
+          title: "Scheduling: borders Komenda's planning work",
+          tags: [["committee", "Komenda: temporal/multi-agent planning"]],
+          body: "Scheduling with temporal constraints is the optimization-side twin of automated planning. Know the notation, Bratley and Horn at run-an-example level, and the relative-order vs time-indexed ILP distinction — a planner asking KO would gravitate here or to CSP."
+        },
+        "ko-tsp": {
+          title: "TSP/k-OPT: asked at master level in 2025",
+          tags: [["reports", "2025 MSZZ CG (Demlová): 20-OPT implications"]],
+          body: "A 2025 master question: TSP, the heuristic-vs-approximation relationship (approximation algorithms are a subset of heuristics), a concrete heuristic with a counterexample, and what a polynomial 20-OPT guarantee would imply for P/NP. Know Christofides' 1.5 factor for the metric case and the k-OPT idea."
+        },
+        "smu-pac": {
+          title: "Learnability: the examiner wrote the course",
+          tags: [["committee", "Šír: SMU lecturer (verified on the course page)"], ["scope", "First two bullets of the official question"]],
+          body: "Gustav Šír is listed as a lecturer of SMU on the official course page. PAC vs online learnability, VC dimension, and learning conjunctions/disjunctions by reduction are the exact material he teaches. Expect precise follow-ups: what breaks without i.i.d., does PAC imply online learnability, what is the VC dimension of your hypothesis class."
+        },
+        "smu-bandits": {
+          title: "Bandits: lecturer's course material",
+          tags: [["committee", "Šír: SMU lecturer"], ["scope", "Official bullet"]],
+          body: "Regret definition, why epsilon-greedy has linear regret without decay, UCB's logarithmic regret guarantee, and Thompson sampling. The UCB bonus formula and what each term does is a classic oral probe from someone who teaches it."
+        },
+        "smu-rl": {
+          title: "RL: lecturer's course + the one externally reported overlap",
+          tags: [["committee", "Šír: SMU lecturer"], ["reports", "OI AI report: MDP definition + worked example"]],
+          body: "Value iteration, TD, Q-learning vs SARSA, exploration — his course's third pillar, and the single report touching SMU territory asked exactly MDP definition and computation with a partially specified example. Be ready to run two Bellman backups by hand."
+        },
+        "lup-resolution": {
+          title: "Resolution and unification: the logic under Šír's research",
+          tags: [["committee", "Šír: neural-symbolic integration, relational logic"]],
+          body: "Šír's dissertation is 'Deep Learning with Relational Logic Representations' — resolution, unification, and Herbrand semantics are the formal ground his research stands on. No student ever reported a LUP question, but with a fluent examiner at the table, the absence of reports means nothing. Know the resolution rule, unification with occurs-check, and the saturation idea."
+        },
+        "lup-grounding": {
+          title: "Grounding to SAT: literally the lifted/ground distinction Šír works on",
+          tags: [["committee", "Šír: lifted models vs grounding"]],
+          body: "His research field's core trade-off is lifted (first-order) modeling vs grounding to a propositional problem — which is exactly this bullet: ground the FOL domain, encode as SAT, search for models. If LUP is drawn, this is the most personally-flavored part of the question."
+        },
+        "ssu-deep": {
+          title: "Deep networks: Šír's research area + repeated report drills",
+          tags: [["committee", "Šír: deep relational learning"], ["reports", "2 bachelor reports: design a network + backprop in detail"]],
+          body: "Šír researches deep learning architectures (on relational data). Two reports asked: design a one-hidden-layer network for binary classification, pick the loss, explain backprop in detail, extend to multiple outputs, discuss overfitting and universal approximation. Be able to write the backprop deltas for a 2-layer net."
+        },
+        "ssu-svm": {
+          title: "SVM: the most-drilled topic in nearby reports",
+          tags: [["reports", "2 bachelor reports: margin, kernel, QP-not-LP"], ["scope", "Official bullet"]],
+          body: "Two reports: formulate separable and nonseparable SVM, draw the margin picture, explain why maximize the margin, recognize the optimization as quadratic programming (one examiner specifically fished for the QP-not-LP catch), kernel SVM. Bachelor-sourced but it is an official master bullet."
+        },
+        "pui-strips": {
+          title: "STRIPS/SAS formalism: the course owner sits on your committee",
+          tags: [["committee", "Komenda: PUI is his course"], ["reports", "5 reports punish missing formalism"]],
+          body: "Komenda's group does STRIPS-family planning research; the formal task definition is the entry gate of his course. Independently, five reports describe examiners punishing answers that skipped the formal tuple — one student got into trouble 'before the examiner even got to search.' Open every answer with Π=(F,A,I,G) and the successor formula."
+        },
+        "pui-heur": {
+          title: "Heuristics: the research specialty of Komenda's group",
+          tags: [["committee", "Komenda: Planning@AIC, heuristic search"], ["scope", "Three of five official bullets"]],
+          body: "Delete relaxation (hmax/hadd/hff), abstractions, landmarks and LM-Cut are the technical heart of PUI and of the planning group's research. A course owner will push past definitions: why is hmax admissible and hadd not, what does LM-Cut charge per round, when is a PDB better than hff. The page's step-by-step labs cover exactly these."
+        },
+        "pui-mdp": {
+          title: "MDP/MCTS: official bullet + the one reported overlap",
+          tags: [["scope", "Official bullet"], ["reports", "OI AI report: MDP worked example"]],
+          body: "Value iteration and MCTS/UCT close the official question, and the only SMU/PUI-adjacent report asked an MDP definition with a worked example. Run the value-iteration stepper until you can do two sweeps by hand and explain the UCT formula term by term."
+        },
+        "mas-coalitions": {
+          title: "The hottest single topic on the exam: Kroupa wrote these exercises",
+          tags: [["committee", "Kroupa: authored the MAS coalitional-games exercise set"], ["committee", "Kroupa: Shapley-value research"]],
+          body: "The MAS course's coalitional-games exercises are authored by Tomáš Kroupa — the man who will likely sit across the table — and his research extends the Shapley value. Core constraints and emptiness, Shapley axioms and the permutation computation, Shapley-Shubik vs Banzhaf: prepare to be probed at researcher depth. The UN Security Council lab on the MAS page walks exactly his teaching example."
+        },
+        "mas-nfg": {
+          title: "Nash and zero-sum LP: his other lecture block",
+          tags: [["committee", "Kroupa: computational game theory lectures"], ["scope", "First official bullet"]],
+          body: "Kroupa teaches computational game theory — Nash computation, zero-sum LP duality, dominance. Expect the standard ladder: define the game, find equilibria, then 'how would you compute it' (LP for zero-sum, PPAD-hardness in general, correlated equilibrium as the LP-computable alternative)."
+        },
+        "mas-auctions": {
+          title: "Auctions: course material in the game-theory block",
+          tags: [["committee", "Kroupa: mechanism design adjacent"], ["scope", "Official bullet"]],
+          body: "Auctions close the MAS question and live in the same game-theory lecture block. Second-price truthfulness, revenue equivalence assumptions, Myerson reserve intuition, combinatorial winner determination hardness — the four-format simulator on the MAS page covers the comparisons an examiner reaches for."
+        },
+        "uir-note": {
+          title: "The one UIR report — and why it does not change the bet",
+          tags: [["reports", "2025 OI Mgr AI: motion planning, C-space, RRT/PRM"], ["committee", "No robotics member on your committee"]],
+          body: "A master report exists (configuration space precision, RRT/PRM, probabilistic completeness vs asymptotic optimality) — but it came from a committee with robotics expertise. Yours has none, and field questions tracked committee expertise in every collected report. Keep the oral skeleton; do not invest depth here."
+        }
+      };
+
+      document.querySelectorAll("mark.hl").forEach((mark) => {
+        mark.setAttribute("role", "button");
+        mark.setAttribute("tabindex", "0");
+        mark.setAttribute("aria-expanded", "false");
+        const toggle = () => {
+          const host = mark.closest("li, p");
+          if (!host) return;
+          const existing = host.nextElementSibling;
+          const isOurs = existing?.classList?.contains("hl-card") && existing.dataset.why === mark.dataset.why;
+          document.querySelectorAll(".hl-card").forEach((card) => card.remove());
+          document.querySelectorAll("mark.hl.is-open").forEach((other) => { other.classList.remove("is-open"); other.setAttribute("aria-expanded", "false"); });
+          if (isOurs) return;
+          const why = WHY[mark.dataset.why];
+          if (!why) return;
+          const card = document.createElement("div");
+          card.className = "hl-card";
+          card.dataset.why = mark.dataset.why;
+          card.innerHTML = `<h4>${why.title}</h4><div class="hl-tags">${why.tags.map(([type, label]) => `<span class="hl-tag ${type}"><span class="material-symbols-rounded">${type === "committee" ? "person" : type === "reports" ? "history_edu" : "school"}</span>${label}</span>`).join("")}</div><p>${why.body}</p>`;
+          host.insertAdjacentElement("afterend", card);
+          mark.classList.add("is-open");
+          mark.setAttribute("aria-expanded", "true");
+        };
+        mark.addEventListener("click", toggle);
+        mark.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggle(); }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
