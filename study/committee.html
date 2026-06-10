@@ -48,9 +48,17 @@
     .q-block li { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; }
     .q-block .q-links { margin-top: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
     .q-block .q-links a { font-size: 0.8rem; color: var(--brand); font-weight: 750; }
-    mark.hl { background: linear-gradient(transparent 18%, #ffe9a3 18%, #ffe9a3 88%, transparent 88%); color: inherit; padding: 0 0.12rem; border-radius: 2px; cursor: pointer; font-weight: 650; transition: background-color 0.12s ease; border-bottom: 1.5px dashed #d8a615; }
-    mark.hl:hover { background-color: #ffe089; }
-    mark.hl.is-open { background: #ffd763; border-bottom-style: solid; }
+    mark.hl { color: inherit; padding: 0 0.12rem; border-radius: 2px; cursor: pointer; font-weight: 650; transition: background-color 0.12s ease; }
+    mark.hl.hl-committee { background: linear-gradient(transparent 18%, #ffe9a3 18%, #ffe9a3 88%, transparent 88%); border-bottom: 1.5px dashed #d8a615; }
+    mark.hl.hl-committee:hover { background-color: #ffe089; }
+    mark.hl.hl-committee.is-open { background: #ffd763; border-bottom-style: solid; }
+    mark.hl.hl-reports { background: linear-gradient(transparent 18%, #cfe2ff 18%, #cfe2ff 88%, transparent 88%); border-bottom: 1.5px dashed #3b6fd4; }
+    mark.hl.hl-reports:hover { background-color: #bcd7ff; }
+    mark.hl.hl-reports.is-open { background: #a9ccff; border-bottom-style: solid; }
+    mark.hl.hl-both { background: linear-gradient(transparent 18%, #ffe9a3 18%, #ffe9a3 88%, transparent 88%); border-bottom: 2.5px solid #3b6fd4; }
+    mark.hl.hl-both:hover { background-color: #ffe089; }
+    mark.hl.hl-both.is-open { background: #ffd763; }
+    mark.hl[data-static] { cursor: default; }
     .hl-card { margin: 0.55rem 0 0.25rem; border: 1px solid #ecd28a; border-left: 3px solid #d8a615; border-radius: var(--radius-sm); background: #fffaf0; padding: 0.65rem 0.8rem; }
     .hl-card h4 { margin: 0; font-size: 0.86rem; color: var(--ink); }
     .hl-card p { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.84rem; line-height: 1.55; }
@@ -181,7 +189,7 @@
         <p class="eyebrow">Topic map</p>
         <h2>The official questions, highlighted by evidence</h2>
       </div>
-      <p class="module-lead">This is the full official topic list. <mark class="hl" data-why="demo">Yellow marker</mark> = a committee-likely or report-confirmed topic; click any highlight to see the evidence. Unmarked text is still examinable — it is just not where the evidence points.</p>
+      <p class="module-lead">This is the full official topic list. <mark class="hl hl-committee" data-static>Yellow</mark> = committee-likely (someone at your table teaches or researches it). <mark class="hl hl-reports" data-static>Blue</mark> = students verifiably reported being asked it. <mark class="hl hl-both" data-static>Yellow with a solid blue underline</mark> = both at once. Click any highlight to see the evidence. Unmarked text is still examinable — it is just not where the evidence points.</p>
 
       <article class="q-block">
         <div class="q-head"><h3>Common 1 &middot; Polynomial graph algorithms, search trees, automata</h3><span class="q-course">BE4M33PAL</span><span class="q-tier warm">likely</span></div>
@@ -315,11 +323,6 @@
   <script>
     (() => {
       const WHY = {
-        "demo": {
-          title: "This is how the highlights work",
-          tags: [["committee", "Committee evidence"], ["reports", "Student reports"], ["scope", "Official scope"]],
-          body: "Each highlight carries the evidence behind it: red = a committee member's teaching/research makes it likely, blue = students reported being asked exactly this, green = the official scope puts unusual weight on it. Click any yellow phrase in the questions below."
-        },
         "baca-trees": {
           title: "B-trees are Bača's research area — and a reported master question",
           tags: [["committee", "Bača: B-tree indexing research (VŠB)"], ["reports", "2024 Mgr: B-tree find + multi-phase insertion"]],
@@ -442,7 +445,40 @@
         }
       };
 
+      // Evidence kind per highlight: committee-likely (yellow), report-verified
+      // (blue), or both (yellow + solid blue underline). Negative committee
+      // notes (e.g. "no theorist at your table") do NOT count as committee
+      // evidence — only positive signals do.
+      const HL_KIND = {
+        "baca-trees": "both",
+        "baca-kd": "committee",
+        "pal-scc": "reports",
+        "pal-automata": "reports",
+        "tal-classes": "reports",
+        "tal-diagonal": "reports",
+        "ko-csp": "both",
+        "ko-ilp": "committee",
+        "ko-sched": "committee",
+        "ko-tsp": "reports",
+        "smu-pac": "committee",
+        "smu-bandits": "committee",
+        "smu-rl": "both",
+        "lup-resolution": "committee",
+        "lup-grounding": "committee",
+        "ssu-deep": "both",
+        "ssu-svm": "reports",
+        "pui-strips": "both",
+        "pui-heur": "committee",
+        "pui-mdp": "reports",
+        "mas-coalitions": "committee",
+        "mas-nfg": "committee",
+        "mas-auctions": "committee",
+        "uir-note": "reports"
+      };
+
       document.querySelectorAll("mark.hl").forEach((mark) => {
+        if (!mark.dataset.why) return;
+        mark.classList.add(`hl-${HL_KIND[mark.dataset.why] || "committee"}`);
         mark.setAttribute("role", "button");
         mark.setAttribute("tabindex", "0");
         mark.setAttribute("aria-expanded", "false");
