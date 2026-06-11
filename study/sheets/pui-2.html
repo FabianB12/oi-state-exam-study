@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.5px;
+      font-size: 11.2px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -212,11 +212,11 @@
         <section>
           <h2><span class="n">2</span>Shared engine: fact costs</h2>
           <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <div class="pseudo">∀f: cost(f) ← 0 <b>if</b> f ∈ s <b>else</b> ∞
-<b>repeat until</b> no change:
-   <b>for each</b> action a:
-      v ← c(a) + <b>AGG</b><sub>f∈pre(a)</sub> cost(f)   <span class="c">// AGG = max → hmax · sum → hadd</span>
-      <b>for each</b> f ∈ add(a):  cost(f) ← min(cost(f), v)</div>
+          <div class="pseudo">start: facts already true cost 0, everything else ∞
+push costs forward: a fact costs its cheapest achiever
+   (action cost + the price of that action's preconditions)
+repeat until nothing improves — then price the goal set:
+   <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
           <ul>
             <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>

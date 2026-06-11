@@ -53,11 +53,11 @@ col1_2 = r'''        <section>
         <section>
           <h2><span class="n">2</span>Shared engine: fact costs</h2>
           <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <div class="pseudo">∀f: cost(f) ← 0 <b>if</b> f ∈ s <b>else</b> ∞
-<b>repeat until</b> no change:
-   <b>for each</b> action a:
-      v ← c(a) + <b>AGG</b><sub>f∈pre(a)</sub> cost(f)   <span class="c">// AGG = max → hmax · sum → hadd</span>
-      <b>for each</b> f ∈ add(a):  cost(f) ← min(cost(f), v)</div>
+          <div class="pseudo">start: facts already true cost 0, everything else ∞
+push costs forward: a fact costs its cheapest achiever
+   (action cost + the price of that action's preconditions)
+repeat until nothing improves — then price the goal set:
+   <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
           <ul>
             <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>
@@ -213,14 +213,10 @@ col1_3 = r'''        <section>
 col2_3 = r'''        <section>
           <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
-          <div class="pseudo">h ← 0
-<b>loop</b>:
-   compute h<sup>max</sup>;  <b>if</b> h<sup>max</sup>(G) = 0: <b>return</b> h
-   J ← <span class="c">justification graph (best supporters)</span>
-   Z ← <span class="c">goal zone: 0-cost backwards from G</span>
-   cut ← edges of J crossing into Z   <span class="c">// disjunctive landmark!</span>
-   m ← min cost in cut
-   h ← h + m;   ∀a ∈ cut: c(a) ← c(a) − m</div>
+          <div class="pseudo"><b>while</b> the relaxed task still costs something (hmax &gt; 0):
+   find a <b>cut</b>: a set of actions every relaxed plan must use
+   charge its cheapest member · subtract that from the cut
+answer = total charged</div>
           <ul>
             <li>② <dfn class="tip" tabindex="0" data-tip="A graph over facts: for each action, an edge from its most expensive precondition to each fact it achieves — the paths that justify hmax values.">justification graph</dfn> = each fact's <b>best supporter</b> · ③ <dfn class="tip" tabindex="0" data-tip="All facts from which the goal is still reachable using only zero-cost edges — costless leftovers of earlier rounds."><b>goal zone</b></dfn></li>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
@@ -447,12 +443,10 @@ col1_5 = r'''        <section>
           <h2><span class="n">2</span>MDP + value iteration</h2>
           <p class="intro"><span class="say-lead">say:</span> “Attach probabilities to the outcomes and we are in an MDP — instead of guaranteeing, we optimize expected discounted reward.”</p>
           <span class="formula">\( (S, A, P(s' \mid s,a), r, \gamma) \), policy \( \pi \), \( V^\pi(s) = \mathbb{E} \big[ \sum_t \gamma^t r_t \big] \)</span>
-          <div class="pseudo">V ← 0
-<b>repeat</b>:
-   ∀s: V′(s) ← max<sub>a</sub> Σ<sub>s′</sub> P(s′|s,a) [ r + γ·V(s′) ]   <span class="c">// Bellman backup</span>
-   δ ← max<sub>s</sub> |V′(s) − V(s)|;   V ← V′
-<b>until</b> δ &lt; ε
-π(s) ← argmax<sub>a</sub> Q(s, a)   <span class="c">// extract greedy policy</span></div>
+          <div class="pseudo">start V = 0 everywhere
+sweep: re-estimate every state from its successors (Bellman)
+repeat sweeps until values stop moving
+read off the policy: in each state, take the best-looking action</div>
           <ul>
             <li>Bellman operator is a <span class="hl"><dfn class="tip" tabindex="0" data-tip="One update shrinks the distance between any two value functions by factor γ — so repeated updates squeeze everything to a single fixed point.">\( \gamma \)-contraction</dfn></span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
@@ -488,14 +482,10 @@ col1_5 = r'''        <section>
 col2_5 = r'''        <section>
           <h2><span class="n">4</span>MCTS <span class="say">draw the 4 phases!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “When the model is only a simulator or the space is huge, we sample: MCTS grows a lopsided tree from repeated simulated episodes — four phases per iteration.”</p>
-          <div class="pseudo"><b>while</b> budget left:
-   s ← root
-   <b>while</b> s fully expanded: s ← child max UCT   <span class="c">// ① selection</span>
-   s′ ← add one new child of s                  <span class="c">// ② expansion</span>
-   r ← rollout(s′) with default policy          <span class="c">// ③ simulation</span>
-   <b>for</b> n on path root→s′:                      <span class="c">// ④ backprop</span>
-      n.N++;  n.Q̄ += (r − n.Q̄) / n.N
-<b>return</b> most-visited root action</div>
+          <div class="pseudo"><b>repeat:</b> descend the tree by UCT → add one new node
+        → random rollout from there → push the result
+        back up the path (update visits + means)
+<b>answer:</b> the most-visited action at the root</div>
           <ul>
             <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>

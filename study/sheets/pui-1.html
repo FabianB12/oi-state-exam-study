@@ -253,18 +253,11 @@
       <div class="col">
         <section>
           <h2><span class="n">4</span>A* — what I'd implement <span class="say">they ask this!</span></h2>
-          <p class="intro"><span class="say-lead">say:</span> “Planning is then search over the induced graph — A* expands states by \( f = g + h \): cost so far + estimated cost to go.”</p>
-          <div class="pseudo"><b>OPEN</b> ← {I}, g(I) ← 0;  <b>CLOSED</b> ← ∅
-<b>while</b> OPEN ≠ ∅:
-   s ← pop OPEN with min f = g + h
-   <b>if</b> s ⊨ G: <b>return</b> plan via parent pointers
-   add s to CLOSED
-   <b>for each</b> applicable a in s:      <span class="c">// implicit graph</span>
-      s′ ← apply(a, s)
-      <b>if</b> g(s) + c(a) &lt; g(s′):       <span class="c">// new or better path</span>
-         g(s′) ← g(s) + c(a); parent(s′) ← (s, a)
-         push / update s′ in OPEN  <span class="c">// reopen if closed *</span>
-<b>return</b> unsolvable</div>
+          <p class="intro"><span class="say-lead">say:</span> “Once the task is fixed, finding a plan = finding a cheapest path in the state graph. A* does that by always expanding the most promising state: \( f = g + h \), cost already paid + cost still estimated.”</p>
+          <div class="pseudo">keep a queue of states, ordered by f = g + h
+take the cheapest → goal? <b>done</b> (walk parents back)
+otherwise: apply every action → queue the successors
+seen a state before? <b>keep the cheaper path</b>; repeat</div>
           <ul>
             <li>best known \( g \) per state = <dfn class="tip" tabindex="0" data-tip="Noticing you reached an already-seen state by another path — keep only the cheaper g, drop the rest.">duplicate detection</dfn>; parents rebuild the plan</li>
             <li>* with <b>consistent</b> \( h \): closed nodes never reopen · only <b>admissible</b>: <span class="hl">reopen or lose optimality</span></li>
