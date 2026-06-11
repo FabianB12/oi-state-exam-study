@@ -52,7 +52,7 @@ col1_2 = r'''        <section>
 
         <section>
           <h2><span class="n">2</span>Shared engine: fact costs</h2>
-          <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a fixed point — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
+          <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
           <span class="formula">\( \mathit{cost}(f) = 0 \) if \( f \in s \); else \( \min_{a:\, f \in \mathit{add}(a)} \big[ c(a) + \mathit{cost}(\mathit{pre}(a)) \big] \)</span>
           <ul>
             <li>set aggregation: \( h^{\max} \): \( \mathit{cost}(P) = \max_{f \in P} \mathit{cost}(f) \) · \( h^{\mathit{add}} \): \( \sum_{f \in P} \mathit{cost}(f) \)</li>
@@ -68,7 +68,7 @@ col1_2 = r'''        <section>
             <tr><td>\( h^{\mathit{ff}} \)</td><td>cost of one extracted relaxed plan</td><td>no (each action once)</td><td>satisficing</td></tr>
           </table>
           <ul>
-            <li>hff extraction: walk <b>backward</b> from goals via best supporters; shared actions collected <span class="hl">once</span> → fixes hadd's double count</li>
+            <li>hff extraction: walk <b>backward</b> from goals via <dfn class="tip" tabindex="0" data-tip="For each fact, the achiever that determined its cost during propagation — the cheapest way it became reachable.">best supporters</dfn>; shared actions collected <span class="hl">once</span> → fixes hadd's double count</li>
           </ul>
         </section>
 
@@ -114,7 +114,7 @@ col2_2 = r'''        <section>
           <ul>
             <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
             <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
-            <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or cost partitioning)</li>
+            <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the heuristics that count it, so their SUM stays admissible.">cost partitioning</dfn>)</li>
           </ul>
         </section>
 
@@ -122,8 +122,8 @@ col2_2 = r'''        <section>
           <h2><span class="n">7</span>Merge &amp; Shrink</h2>
           <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
           <ul>
-            <li><b>merge</b>: synchronized product of two abstractions (start: one per variable)</li>
-            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. bisimulation — exact if it fits)</li>
+            <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
+            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. <dfn class="tip" tabindex="0" data-tip="Merge only abstract states that behave identically under every action — coarser, but loses no information.">bisimulation</dfn> — exact if it fits)</li>
             <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
           </ul>
         </section>
@@ -193,7 +193,7 @@ col1_3 = r'''        <section>
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
           <ul>
             <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — LAMA)</li>
-            <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <b>cost partitioning</b> splits each action's cost among them, restoring admissibility</li>
+            <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the landmarks it achieves, so charging all of them sums to at most the real cost."><b>cost partitioning</b></dfn> splits each action's cost among them, restoring admissibility</li>
           </ul>
         </section>
 
@@ -210,7 +210,7 @@ col2_3 = r'''        <section>
           <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <ul>
-            <li><b>round:</b> ① compute \( h^{\max} \); 0 → stop · ② justification graph: each fact's <b>best supporter</b> (most expensive precondition) · ③ <b>goal zone</b> = facts reaching goal via cost-0 edges · ④ <b>cut</b> = edges crossing into the zone — a <span class="hl">disjunctive action landmark</span></li>
+            <li><b>round:</b> ① compute \( h^{\max} \); 0 → stop · ② <dfn class="tip" tabindex="0" data-tip="A graph over facts: for each action, an edge from its most expensive precondition to each fact it achieves — the paths that justify hmax values.">justification graph</dfn>: each fact's <b>best supporter</b> (most expensive precondition) · ③ <dfn class="tip" tabindex="0" data-tip="All facts from which the goal is still reachable using only zero-cost edges — costless leftovers of earlier rounds."><b>goal zone</b></dfn> = facts reaching goal via cost-0 edges · ④ <b>cut</b> = edges crossing into the zone — a <span class="hl">disjunctive action landmark</span></li>
             <li>charge \( m = \min \) cost in the cut: \( h \mathrel{+}= m \); subtract \( m \) from every cut action; repeat</li>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
             <li>guarantees: admissible, \( h^{\text{LM-Cut}} \le h^+ \le h^* \); often near \( h^+ \) in practice</li>
@@ -274,7 +274,7 @@ build(3, "Landmarks & LM-Cut",
       "PUI · 3 — Landmarks: what every plan must do",
       "Landmarks and landmark discovery. Landmark and LM-Cut heuristics.",
       "landmarks", col1_3, col2_3,
-      r"""Landmark = in <b>every</b> plan — "in some plan" is wrong · exact landmark decision is PSPACE-complete → practical tests use the delete relaxation · naive landmark counting is inadmissible — cost partitioning fixes it · LM-Cut must subtract the charged cost or it double-charges · order of guarantees: \( h^{\text{LM-Cut}} \le h^+ \le h^* \).""",
+      r"""Landmark = in <b>every</b> plan — "in some plan" is wrong · exact landmark decision is <dfn class="tip" tabindex="0" data-tip="As hard as planning itself — deciding a landmark exactly would mean solving a planning problem.">PSPACE-complete</dfn> → practical tests use the delete relaxation · naive landmark counting is inadmissible — cost partitioning fixes it · LM-Cut must subtract the charged cost or it double-charges · order of guarantees: \( h^{\text{LM-Cut}} \le h^+ \le h^* \).""",
       [("0–1.5′", "landmark kinds + orderings"),
        ("1.5–3′", "discovery: relaxation test, backchaining (drawing 1)"),
        ("3–4.5′", "counting heuristic + why cost partitioning"),
@@ -290,14 +290,14 @@ col1_4 = r'''        <section>
           <span class="formula">\( Y_a \ge 0 \) = how often the plan uses \( a \); \( \; h(s) = \min \sum_a c(a)\, Y_a \) s.t. necessary constraints</span>
           <ul>
             <li>constraints must hold for <b>every</b> plan from \( s \) — necessity is the whole trick</li>
-            <li>solve the <b>LP relaxation</b>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
+            <li>solve the <dfn class="tip" tabindex="0" data-tip="Allow fractional action counts (use 'half an action'). Solvable in polynomial time; the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
             <li>unifying framework: landmark constraints (\( \sum_{a \in L} Y_a \ge 1 \)) drop into the same LP</li>
           </ul>
         </section>
 
         <section>
           <h2><span class="n">2</span>State-equation heuristic</h2>
-          <p class="intro"><span class="say-lead">say:</span> “The constraints come from bookkeeping per fact: over a whole plan, how often a fact is produced and consumed must balance out — like tokens in a Petri net.”</p>
+          <p class="intro"><span class="say-lead">say:</span> “The constraints come from bookkeeping per fact: over a whole plan, how often a fact is produced and consumed must balance out — like tokens in a <dfn class="tip" tabindex="0" data-tip="A tokens-in-places model: producing a fact drops a token in its place, consuming removes one — the totals must balance.">Petri net</dfn>.”</p>
           <span class="formula">for each fact \( f \): \( \sum_{a\, \text{produces}\, f} Y_a \; - \sum_{a\, \text{consumes}\, f} Y_a \;\; \ge \;\; [f \in G] - [f \in s] \)</span>
           <ul>
             <li>produced = \( f \in \mathit{add}(a) \), consumed = \( f \in \mathit{pre}(a) \cap \mathit{del}(a) \)</li>
@@ -418,8 +418,8 @@ col1_5 = r'''        <section>
           <h2><span class="n">1</span>Nondeterministic planning <span class="say">open with this!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “Now actions may have several outcomes and we don't control which — solutions stop being sequences and become policies, and we ask what a policy guarantees.”</p>
           <ul>
-            <li>FOND: action = precondition + <b>set of effects</b>; environment picks the outcome</li>
-            <li>solution = policy \( \pi : S \to A \); execution = paths through an AND-OR graph</li>
+            <li><dfn class="tip" tabindex="0" data-tip="Fully Observable Non-Deterministic: you always see the current state, but not which outcome an action will produce.">FOND</dfn>: action = precondition + <b>set of effects</b>; environment picks the outcome</li>
+            <li>solution = policy \( \pi : S \to A \); execution = paths through an <dfn class="tip" tabindex="0" data-tip="OR nodes = your choice of action; AND nodes = the outcome branches, all of which your policy must handle.">AND-OR graph</dfn></li>
           </ul>
           <table class="mini-table">
             <tr><th>guarantee</th><th>promise</th><th>loops?</th></tr>
@@ -438,7 +438,7 @@ col1_5 = r'''        <section>
           <span class="formula">\( (S, A, P(s' \mid s,a), r, \gamma) \), policy \( \pi \), \( V^\pi(s) = \mathbb{E} \big[ \sum_t \gamma^t r_t \big] \)</span>
           <span class="formula">VI: \( \; V_{k+1}(s) = \max_a \sum_{s'} P(s' \mid s,a) \big[ r(s,a,s') + \gamma V_k(s') \big] \)</span>
           <ul>
-            <li>Bellman operator is a <span class="hl">\( \gamma \)-contraction</span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
+            <li>Bellman operator is a <span class="hl"><dfn class="tip" tabindex="0" data-tip="One update shrinks the distance between any two value functions by factor γ — so repeated updates squeeze everything to a single fixed point.">\( \gamma \)-contraction</dfn></span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
             <li>greedy policy is typically optimal <b>before</b> values fully converge</li>
           </ul>
@@ -477,7 +477,7 @@ col2_5 = r'''        <section>
             <li>② <b>expansion</b> — add a new child</li>
             <li>③ <b>simulation</b> — rollout with default policy to a terminal value</li>
             <li>④ <b>backpropagation</b> — update visit counts \( n \) and value means \( \bar{Q} \) along the path</li>
-            <li><b>anytime</b>: stop whenever, act on the most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
+            <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on the most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>
         </section>
 
@@ -489,7 +489,7 @@ col2_5 = r'''        <section>
             <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
             <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
             <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
-            <li>needs only a <b>generative model</b> (simulator), not \( P(s'\mid s,a) \) tables</li>
+            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
           </ul>
         </section>
 

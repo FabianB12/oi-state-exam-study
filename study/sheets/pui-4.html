@@ -116,6 +116,49 @@
     @media (max-width: 1360px) {
       .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
     }
+    .tip {
+      font-style: inherit;
+      border-bottom: 1.5px dashed #8a93a8;
+      cursor: help;
+      position: relative;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 7px);
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      background: #1a2236;
+      color: #fff;
+      font-size: 11.5px;
+      font-style: normal;
+      font-weight: 500;
+      font-family: Inter, sans-serif;
+      line-height: 1.45;
+      padding: 6px 9px;
+      border-radius: 6px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1a2236;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip:hover::after, .tip:focus::after,
+    .tip:hover::before, .tip:focus::before { opacity: 1; }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -146,14 +189,14 @@
           <span class="formula">\( Y_a \ge 0 \) = how often the plan uses \( a \); \( \; h(s) = \min \sum_a c(a)\, Y_a \) s.t. necessary constraints</span>
           <ul>
             <li>constraints must hold for <b>every</b> plan from \( s \) — necessity is the whole trick</li>
-            <li>solve the <b>LP relaxation</b>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
+            <li>solve the <dfn class="tip" tabindex="0" data-tip="Allow fractional action counts (use 'half an action'). Solvable in polynomial time; the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
             <li>unifying framework: landmark constraints (\( \sum_{a \in L} Y_a \ge 1 \)) drop into the same LP</li>
           </ul>
         </section>
 
         <section>
           <h2><span class="n">2</span>State-equation heuristic</h2>
-          <p class="intro"><span class="say-lead">say:</span> “The constraints come from bookkeeping per fact: over a whole plan, how often a fact is produced and consumed must balance out — like tokens in a Petri net.”</p>
+          <p class="intro"><span class="say-lead">say:</span> “The constraints come from bookkeeping per fact: over a whole plan, how often a fact is produced and consumed must balance out — like tokens in a <dfn class="tip" tabindex="0" data-tip="A tokens-in-places model: producing a fact drops a token in its place, consuming removes one — the totals must balance.">Petri net</dfn>.”</p>
           <span class="formula">for each fact \( f \): \( \sum_{a\, \text{produces}\, f} Y_a \; - \sum_{a\, \text{consumes}\, f} Y_a \;\; \ge \;\; [f \in G] - [f \in s] \)</span>
           <ul>
             <li>produced = \( f \in \mathit{add}(a) \), consumed = \( f \in \mathit{pre}(a) \cap \mathit{del}(a) \)</li>

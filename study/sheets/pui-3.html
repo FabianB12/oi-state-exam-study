@@ -116,6 +116,49 @@
     @media (max-width: 1360px) {
       .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
     }
+    .tip {
+      font-style: inherit;
+      border-bottom: 1.5px dashed #8a93a8;
+      cursor: help;
+      position: relative;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 7px);
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      background: #1a2236;
+      color: #fff;
+      font-size: 11.5px;
+      font-style: normal;
+      font-weight: 500;
+      font-family: Inter, sans-serif;
+      line-height: 1.45;
+      padding: 6px 9px;
+      border-radius: 6px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1a2236;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip:hover::after, .tip:focus::after,
+    .tip:hover::before, .tip:focus::before { opacity: 1; }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -164,7 +207,7 @@
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
           <ul>
             <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — LAMA)</li>
-            <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <b>cost partitioning</b> splits each action's cost among them, restoring admissibility</li>
+            <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the landmarks it achieves, so charging all of them sums to at most the real cost."><b>cost partitioning</b></dfn> splits each action's cost among them, restoring admissibility</li>
           </ul>
         </section>
 
@@ -183,7 +226,7 @@
           <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <ul>
-            <li><b>round:</b> ① compute \( h^{\max} \); 0 → stop · ② justification graph: each fact's <b>best supporter</b> (most expensive precondition) · ③ <b>goal zone</b> = facts reaching goal via cost-0 edges · ④ <b>cut</b> = edges crossing into the zone — a <span class="hl">disjunctive action landmark</span></li>
+            <li><b>round:</b> ① compute \( h^{\max} \); 0 → stop · ② <dfn class="tip" tabindex="0" data-tip="A graph over facts: for each action, an edge from its most expensive precondition to each fact it achieves — the paths that justify hmax values.">justification graph</dfn>: each fact's <b>best supporter</b> (most expensive precondition) · ③ <dfn class="tip" tabindex="0" data-tip="All facts from which the goal is still reachable using only zero-cost edges — costless leftovers of earlier rounds."><b>goal zone</b></dfn> = facts reaching goal via cost-0 edges · ④ <b>cut</b> = edges crossing into the zone — a <span class="hl">disjunctive action landmark</span></li>
             <li>charge \( m = \min \) cost in the cut: \( h \mathrel{+}= m \); subtract \( m \) from every cut action; repeat</li>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
             <li>guarantees: admissible, \( h^{\text{LM-Cut}} \le h^+ \le h^* \); often near \( h^+ \) in practice</li>
@@ -247,7 +290,7 @@
 
     <div class="traps">
       <strong>⚠ TRAPS</strong>
-      <p>Landmark = in <b>every</b> plan — "in some plan" is wrong · exact landmark decision is PSPACE-complete → practical tests use the delete relaxation · naive landmark counting is inadmissible — cost partitioning fixes it · LM-Cut must subtract the charged cost or it double-charges · order of guarantees: \( h^{\text{LM-Cut}} \le h^+ \le h^* \).</p>
+      <p>Landmark = in <b>every</b> plan — "in some plan" is wrong · exact landmark decision is <dfn class="tip" tabindex="0" data-tip="As hard as planning itself — deciding a landmark exactly would mean solving a planning problem.">PSPACE-complete</dfn> → practical tests use the delete relaxation · naive landmark counting is inadmissible — cost partitioning fixes it · LM-Cut must subtract the charged cost or it double-charges · order of guarantees: \( h^{\text{LM-Cut}} \le h^+ \le h^* \).</p>
     </div>
   </div>
 

@@ -116,6 +116,49 @@
     @media (max-width: 1360px) {
       .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
     }
+    .tip {
+      font-style: inherit;
+      border-bottom: 1.5px dashed #8a93a8;
+      cursor: help;
+      position: relative;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 7px);
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      background: #1a2236;
+      color: #fff;
+      font-size: 11.5px;
+      font-style: normal;
+      font-weight: 500;
+      font-family: Inter, sans-serif;
+      line-height: 1.45;
+      padding: 6px 9px;
+      border-radius: 6px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1a2236;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip:hover::after, .tip:focus::after,
+    .tip:hover::before, .tip:focus::before { opacity: 1; }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -145,13 +188,13 @@
           <p class="intro"><span class="say-lead">say:</span> “A STRIPS task is a factored description of a planning problem: we list facts and actions instead of drawing the state graph — the graph is induced.”</p>
           <span class="formula">\( \Pi = (F,\, A,\, I,\, G) \)</span>
           <ul>
-            <li>\( F \) = all <b>facts</b> · <b>state</b> \( s \subseteq F \) = facts currently true (rest false)</li>
+            <li>\( F \) = all <b>facts</b> · <b>state</b> \( s \subseteq F \) = facts currently true (rest false — <dfn class="tip" tabindex="0" data-tip="Anything you don't list as true is automatically false. You never write down false facts.">closed world</dfn>)</li>
             <li>\( I \) = facts true <b>at start</b> · \( G \) = facts required <b>at end</b>: \( s \models G \iff G \subseteq s \)</li>
             <li>\( A \) = <b>actions</b> \( a = (\mathit{pre}, \mathit{add}, \mathit{del}) \): needs <i>pre</i>, adds <i>add</i>, deletes <i>del</i> · \( c(a) \ge 0 \)</li>
           </ul>
           <span class="formula">\( \mathit{pre}(a) \subseteq s \;\Longrightarrow\; s' = \big(s \setminus \mathit{del}(a)\big) \cup \mathit{add}(a) \)</span>
           <ul>
-            <li><span class="hl">no edge if a precondition is missing</span>; unmentioned facts persist (inertia)</li>
+            <li><span class="hl">no edge if a precondition is missing</span>; unmentioned facts persist (<dfn class="tip" tabindex="0" data-tip="An action's effects only change what they mention — every other fact keeps its previous value.">inertia</dfn>)</li>
             <li>plan \( \pi = a_1 \ldots a_n \): sequentially applicable from \( I \), ends in \( s \supseteq G \); &nbsp; \( c(\pi) = \sum_i c(a_i) \)</li>
             <li>classical assumptions: <b>finite · deterministic · fully observable · static</b></li>
           </ul>
@@ -161,8 +204,9 @@
           <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
           <p class="intro"><span class="say-lead">say:</span> “SAS⁺ is the same task over multi-valued variables — mutually exclusive STRIPS facts become one variable with a finite domain.”</p>
           <ul>
-            <li>variables \( V \), each with finite domain \( D(v) \); state = total assignment</li>
-            <li>preconditions / effects = <b>partial</b> assignments</li>
+            <li>world = variables \( V \); each \( v \) holds <b>one value</b> from a finite domain \( D(v) \) — e.g. \( \mathit{pos}(p) \) with \( D = \{A, B, \mathit{truck}\} \)</li>
+            <li>a state is a <dfn class="tip" tabindex="0" data-tip="Every variable gets exactly one value — like filling in every field of a form. (A partial assignment fills only some fields, leaving the rest open.)">total assignment</dfn> — every variable has exactly one value</li>
+            <li>preconditions / effects are <dfn class="tip" tabindex="0" data-tip="They mention only the variables they care about: drive needs pos(truck)=A and sets pos(truck)=B — pos(pkg) is left untouched.">partial assignments</dfn> — they touch only the variables they care about</li>
             <li>idea: mutually exclusive facts → one variable</li>
           </ul>
           <table class="mini-table">
@@ -180,7 +224,7 @@
           <table class="mini-table">
             <tr><th></th><th>satisficing</th><th>optimal</th></tr>
             <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
-            <tr><td><b>search</b></td><td>GBFS — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
+            <tr><td><b>search</b></td><td><dfn class="tip" tabindex="0" data-tip="Greedy best-first search: always expand the state that looks closest to the goal (smallest h), ignoring cost paid so far.">GBFS</dfn> — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
             <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
           </table>
           <ul>
@@ -196,10 +240,10 @@
           <p class="intro"><span class="say-lead">say:</span> “Planning is then search over the induced graph — A* expands states by \( f = g + h \): cost so far + estimated cost to go.”</p>
           <ul>
             <li>OPEN = priority queue ordered by \( f(s) = g(s) + h(s) \)</li>
-            <li>store best known \( g \) per state (duplicate detection), parent pointers → reconstruct plan</li>
+            <li>store best known \( g \) per state (<dfn class="tip" tabindex="0" data-tip="Noticing you reached an already-seen state by another path — keep only the cheaper g, drop the rest.">duplicate detection</dfn>), parent pointers → reconstruct plan</li>
             <li>CLOSED: with <b>consistent</b> \( h \), closed nodes are never reopened</li>
             <li>with only <b>admissible</b> \( h \): a better \( g \) may appear later → <span class="hl">reopen or lose optimality</span></li>
-            <li>graph is <b>implicit</b> — successors generated by applying actions, never stored whole</li>
+            <li>graph is <dfn class="tip" tabindex="0" data-tip="The graph is never built in memory — successor states are generated on demand by applying applicable actions."><b>implicit</b></dfn> — successors generated by applying actions, never stored whole</li>
           </ul>
         </section>
         <section>

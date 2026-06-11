@@ -116,6 +116,49 @@
     @media (max-width: 1360px) {
       .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
     }
+    .tip {
+      font-style: inherit;
+      border-bottom: 1.5px dashed #8a93a8;
+      cursor: help;
+      position: relative;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 7px);
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      background: #1a2236;
+      color: #fff;
+      font-size: 11.5px;
+      font-style: normal;
+      font-weight: 500;
+      font-family: Inter, sans-serif;
+      line-height: 1.45;
+      padding: 6px 9px;
+      border-radius: 6px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1a2236;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 30;
+    }
+    .tip:hover::after, .tip:focus::after,
+    .tip:hover::before, .tip:focus::before { opacity: 1; }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -144,8 +187,8 @@
           <h2><span class="n">1</span>Nondeterministic planning <span class="say">open with this!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “Now actions may have several outcomes and we don't control which — solutions stop being sequences and become policies, and we ask what a policy guarantees.”</p>
           <ul>
-            <li>FOND: action = precondition + <b>set of effects</b>; environment picks the outcome</li>
-            <li>solution = policy \( \pi : S \to A \); execution = paths through an AND-OR graph</li>
+            <li><dfn class="tip" tabindex="0" data-tip="Fully Observable Non-Deterministic: you always see the current state, but not which outcome an action will produce.">FOND</dfn>: action = precondition + <b>set of effects</b>; environment picks the outcome</li>
+            <li>solution = policy \( \pi : S \to A \); execution = paths through an <dfn class="tip" tabindex="0" data-tip="OR nodes = your choice of action; AND nodes = the outcome branches, all of which your policy must handle.">AND-OR graph</dfn></li>
           </ul>
           <table class="mini-table">
             <tr><th>guarantee</th><th>promise</th><th>loops?</th></tr>
@@ -164,7 +207,7 @@
           <span class="formula">\( (S, A, P(s' \mid s,a), r, \gamma) \), policy \( \pi \), \( V^\pi(s) = \mathbb{E} \big[ \sum_t \gamma^t r_t \big] \)</span>
           <span class="formula">VI: \( \; V_{k+1}(s) = \max_a \sum_{s'} P(s' \mid s,a) \big[ r(s,a,s') + \gamma V_k(s') \big] \)</span>
           <ul>
-            <li>Bellman operator is a <span class="hl">\( \gamma \)-contraction</span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
+            <li>Bellman operator is a <span class="hl"><dfn class="tip" tabindex="0" data-tip="One update shrinks the distance between any two value functions by factor γ — so repeated updates squeeze everything to a single fixed point.">\( \gamma \)-contraction</dfn></span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
             <li>greedy policy is typically optimal <b>before</b> values fully converge</li>
           </ul>
@@ -205,7 +248,7 @@
             <li>② <b>expansion</b> — add a new child</li>
             <li>③ <b>simulation</b> — rollout with default policy to a terminal value</li>
             <li>④ <b>backpropagation</b> — update visit counts \( n \) and value means \( \bar{Q} \) along the path</li>
-            <li><b>anytime</b>: stop whenever, act on the most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
+            <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on the most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>
         </section>
 
@@ -217,7 +260,7 @@
             <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
             <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
             <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
-            <li>needs only a <b>generative model</b> (simulator), not \( P(s'\mid s,a) \) tables</li>
+            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
           </ul>
         </section>
 
