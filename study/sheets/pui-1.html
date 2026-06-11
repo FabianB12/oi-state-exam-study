@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A4 — PUI 1 · STRIPS/SAS, satisficing/optimal, heuristic search</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Caveat:wght@600&display=swap">
+  <style>
+    :root {
+      --ink: #1a2236;
+      --soft: #4a5468;
+      --line: #c9cfdb;
+      --accent: #3a5bd0;
+      --hot: #c23636;
+      --hl: #fff3c4;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e8eaf0; font-family: Inter, sans-serif; color: var(--ink); }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.2rem auto;
+      background: #fff;
+      box-shadow: 0 2px 18px rgba(20, 30, 60, 0.18);
+      padding: 9mm 10mm;
+      display: flex;
+      flex-direction: column;
+    }
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+      .no-print { display: none; }
+    }
+    .head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+    .head h1 { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.01em; }
+    .head .bullet { font-size: 8.5px; color: var(--soft); max-width: 60%; margin-left: auto; text-align: right; line-height: 1.35; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; }
+    .col { min-width: 0; }
+    section { margin-bottom: 7px; }
+    h2 {
+      margin: 0 0 3px;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    h2 .n {
+      flex: none;
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 .say { margin-left: auto; font-family: Caveat, cursive; font-size: 11px; color: var(--soft); font-weight: 600; }
+    ul { margin: 0; padding-left: 13px; }
+    li { font-size: 9px; line-height: 1.45; margin-bottom: 1.5px; }
+    li::marker { color: var(--accent); }
+    code, .f {
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 8.6px;
+      background: #f1f3f8;
+      border-radius: 3px;
+      padding: 0 3px;
+      white-space: nowrap;
+    }
+    .formula {
+      display: block;
+      background: #f1f3f8;
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 3px 6px;
+      margin: 3px 0;
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 9.4px;
+      white-space: normal;
+    }
+    .hl { background: var(--hl); padding: 0 2px; border-radius: 2px; }
+    .mini-table { width: 100%; border-collapse: collapse; margin: 3px 0; }
+    .mini-table th, .mini-table td { border: 1px solid var(--line); font-size: 8.4px; padding: 2px 4px; text-align: left; }
+    .mini-table th { background: #f1f3f8; font-weight: 700; }
+    .sketch { border: 1px dashed var(--line); border-radius: 4px; padding: 3px; margin-top: 3px; }
+    .sketch svg { width: 100%; height: auto; display: block; }
+    .sketch .cap { font-family: Caveat, cursive; font-size: 11px; color: var(--soft); text-align: center; margin: 1px 0 0; }
+    .traps {
+      margin-top: auto;
+      border-top: 2px solid var(--hot);
+      padding-top: 4px;
+      display: flex;
+      gap: 10px;
+    }
+    .traps strong { color: var(--hot); font-size: 8.5px; white-space: nowrap; }
+    .traps p { margin: 0; font-size: 8.5px; color: var(--soft); line-height: 1.4; }
+    .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
+    .toolbar button, .toolbar a {
+      font: inherit; font-size: 13px; font-weight: 700;
+      padding: 6px 14px; border-radius: 6px; border: 1px solid #aab2c5;
+      background: #fff; cursor: pointer; color: var(--ink); text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar no-print">
+    <button onclick="print()">Print / PDF</button>
+    <a href="../pui.html#tasks">PUI study page →</a>
+  </div>
+
+  <div class="sheet">
+    <div class="head">
+      <h1>PUI · 1 — Planning task: representation → search → guarantees</h1>
+      <div class="bullet">STRIPS and SAS representation of planning tasks. Satisficing and optimal planning. Heuristic search. Properties of heuristic functions.</div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <section>
+          <h2><span class="n">1</span>STRIPS task — define FIRST <span class="say">open with this!</span></h2>
+          <span class="formula">Π = (F, A, I, G)</span>
+          <ul>
+            <li><b>F</b> facts (atoms) · state <code>s ⊆ F</code> (true facts; rest false — closed world)</li>
+            <li><b>I</b> ⊆ F initial state · <b>G</b> ⊆ F goal: <code>s ⊨ G ⟺ G ⊆ s</code></li>
+            <li>action <b>a</b> = (pre, add, del), cost <code>c(a) ≥ 0</code></li>
+          </ul>
+          <span class="formula">applicable: pre(a) ⊆ s &nbsp;→&nbsp; s′ = (s \ del(a)) ∪ add(a)</span>
+          <ul>
+            <li><span class="hl">no edge if precondition missing</span>; unmentioned facts persist (inertia)</li>
+            <li>plan π = a₁…aₙ: sequentially applicable from I, ends in s ⊇ G; <code>c(π) = Σ c(aᵢ)</code></li>
+            <li>classical assumptions: <b>finite · deterministic · fully observable · static</b></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
+          <ul>
+            <li>variables <b>V</b>, each with finite domain <code>D(v)</code>; state = total assignment</li>
+            <li>pre / eff = <b>partial</b> assignments</li>
+            <li>idea: mutually exclusive facts → one variable</li>
+          </ul>
+          <table class="mini-table">
+            <tr><th>STRIPS (3 facts, mutex)</th><th>SAS⁺ (1 variable)</th></tr>
+            <tr><td>at(pkg,A), at(pkg,B), in(pkg,truck)</td><td>pos(pkg) ∈ {A, B, truck}</td></tr>
+          </table>
+          <ul>
+            <li>same expressiveness; <span class="hl">compact + structure for free</span> → projections / PDBs drop variables naturally</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">3</span>Satisficing vs optimal</h2>
+          <table class="mini-table">
+            <tr><th></th><th>satisficing</th><th>optimal</th></tr>
+            <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
+            <tr><td><b>search</b></td><td>GBFS (orders by h only)</td><td>A* (orders by g+h)</td></tr>
+            <tr><td><b>heuristic</b></td><td>inadmissible OK → hff, hadd</td><td><span class="hl">admissible required</span> → hmax, LM-Cut, PDB</td></tr>
+          </table>
+          <ul>
+            <li>blind baselines: BFS (unit costs) · UCS/Dijkstra (any positive costs)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">4</span>A* — what I'd implement <span class="say">they ask this!</span></h2>
+          <ul>
+            <li>OPEN = priority queue by <code>f(s) = g(s) + h(s)</code></li>
+            <li>store best known g per state (duplicate detection), parent pointers → reconstruct plan</li>
+            <li>CLOSED: with <b>consistent</b> h, closed nodes never reopened</li>
+            <li>with only <b>admissible</b> h: may find better g later → <span class="hl">reopen or lose optimality</span></li>
+            <li>graph is <b>implicit</b> — successors generated by applying actions, never stored whole</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="col">
+        <section>
+          <h2><span class="n">5</span>Heuristic properties</h2>
+          <ul>
+            <li><code>h*(s)</code> = true optimal cost-to-goal from s</li>
+            <li><b>admissible:</b> <code>h(s) ≤ h*(s)</code> ∀s — never overestimate</li>
+            <li><b>consistent:</b> <code>h(s) ≤ c(a) + h(s′)</code> for every edge, <code>h(goal) = 0</code></li>
+            <li><b>goal-aware:</b> h(s)=0 when s ⊨ G &nbsp;·&nbsp; <b>safe:</b> h=∞ only on dead ends</li>
+          </ul>
+          <span class="formula">consistent (+ goal-aware) ⇒ admissible &nbsp;&nbsp;[induction on plan length]</span>
+          <ul>
+            <li>A* + admissible ⇒ <span class="hl">optimal solution</span></li>
+            <li>consistent ⇒ f nondecreasing along paths ⇒ no reopening</li>
+            <li><b>dominance:</b> h₂ ≥ h₁ (both adm.) ⇒ h₂ better informed, expands subset (tie-breaks aside)</li>
+            <li>extremes: h=0 → UCS · h=h* → expands only optimal path</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">6</span>Drawing 1 — implicit state graph</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 120">
+              <defs>
+                <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/>
+                </marker>
+              </defs>
+              <g font-family="Inter" font-size="8" fill="#1a2236">
+                <ellipse cx="40" cy="40" rx="30" ry="16" fill="none" stroke="#1a2236"/>
+                <text x="40" y="38" text-anchor="middle">pkg A</text>
+                <text x="40" y="47" text-anchor="middle">trk A</text>
+                <ellipse cx="135" cy="40" rx="30" ry="16" fill="none" stroke="#1a2236"/>
+                <text x="135" y="38" text-anchor="middle">pkg T</text>
+                <text x="135" y="47" text-anchor="middle">trk A</text>
+                <ellipse cx="230" cy="40" rx="30" ry="16" fill="none" stroke="#1a2236"/>
+                <text x="230" y="38" text-anchor="middle">pkg T</text>
+                <text x="230" y="47" text-anchor="middle">trk B</text>
+                <ellipse cx="310" cy="40" rx="26" ry="16" fill="none" stroke="#c23636" stroke-width="2"/>
+                <text x="310" y="38" text-anchor="middle">pkg B</text>
+                <text x="310" y="47" text-anchor="middle">trk B</text>
+                <ellipse cx="135" cy="95" rx="30" ry="16" fill="none" stroke="#1a2236"/>
+                <text x="135" y="93" text-anchor="middle">pkg A</text>
+                <text x="135" y="102" text-anchor="middle">trk B</text>
+                <line x1="70" y1="40" x2="104" y2="40" stroke="#4a5468" marker-end="url(#ar)"/>
+                <line x1="165" y1="40" x2="199" y2="40" stroke="#4a5468" marker-end="url(#ar)"/>
+                <line x1="260" y1="40" x2="283" y2="40" stroke="#4a5468" marker-end="url(#ar)"/>
+                <line x1="62" y1="52" x2="106" y2="88" stroke="#4a5468" marker-end="url(#ar)"/>
+                <line x1="112" y1="82" x2="68" y2="50" stroke="#4a5468" marker-end="url(#ar)" stroke-dasharray="3 2"/>
+              </g>
+              <g font-family="Caveat" font-size="11" fill="#3a5bd0">
+                <text x="87" y="32">load</text>
+                <text x="170" y="32">drive A→B</text>
+                <text x="262" y="32">unload</text>
+                <text x="55" y="80">drive A→B</text>
+                <text x="20" y="14">I</text>
+                <text x="318" y="14" fill="#c23636">G</text>
+              </g>
+              <g font-family="Caveat" font-size="11" fill="#0e7a3d">
+                <text x="186" y="70">g=2, h=1 → f=3</text>
+              </g>
+            </svg>
+            <p class="cap">states = fact sets, edges = applicable actions; mark I, G, one f=g+h</p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="n">7</span>Drawing 2 — consistency triangle</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 78">
+              <defs>
+                <marker id="ar2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/>
+                </marker>
+              </defs>
+              <g font-family="Inter" font-size="9" fill="#1a2236">
+                <circle cx="40" cy="34" r="13" fill="none" stroke="#1a2236"/>
+                <text x="40" y="37" text-anchor="middle">s</text>
+                <circle cx="150" cy="34" r="13" fill="none" stroke="#1a2236"/>
+                <text x="150" y="37" text-anchor="middle">s′</text>
+                <circle cx="265" cy="34" r="13" fill="none" stroke="#c23636"/>
+                <text x="265" y="37" text-anchor="middle">G</text>
+                <line x1="53" y1="34" x2="135" y2="34" stroke="#4a5468" marker-end="url(#ar2)"/>
+                <path d="M160 25 Q 210 6 254 26" fill="none" stroke="#4a5468" stroke-dasharray="3 2" marker-end="url(#ar2)"/>
+                <path d="M52 44 Q 150 78 254 43" fill="none" stroke="#3a5bd0" stroke-dasharray="3 2" marker-end="url(#ar2)"/>
+              </g>
+              <g font-family="Caveat" font-size="12">
+                <text x="84" y="28" fill="#4a5468">c(a)</text>
+                <text x="196" y="12" fill="#4a5468">h(s′)</text>
+                <text x="140" y="74" fill="#3a5bd0">h(s) ≤ c(a) + h(s′)</text>
+              </g>
+            </svg>
+            <p class="cap">one step can't drop the estimate by more than its cost</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="traps">
+      <strong>⚠ TRAPS</strong>
+      <p><b>Define Π before any algorithm</b> (reports: examiners stop you otherwise) · missing precondition = no edge, not “fails” · admissible ≠ consistent (consistency is the stronger, per-edge condition) · h=0 is admissible — A* degrades to UCS, never breaks · SAS is not “more powerful,” it is more compact.</p>
+    </div>
+  </div>
+</body>
+</html>
