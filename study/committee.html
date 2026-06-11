@@ -74,6 +74,31 @@
     .alloc-table tr.hot td { background: color-mix(in srgb, var(--panic) 4%, var(--surface)); }
     .alloc-table tr.cold td { color: var(--muted); }
     .evidence-note { margin-top: 1rem; border: 1px solid var(--line); border-left: 3px solid var(--practice); border-radius: var(--radius-sm); background: var(--surface-2); padding: 0.7rem 0.85rem; font-size: 0.86rem; color: var(--ink-soft); }
+    .stat-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.7rem; margin-top: 1rem; }
+    .stat-tile { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.9rem 1rem; text-align: center; }
+    .stat-tile strong { display: block; font-size: 2rem; font-weight: 900; color: var(--brand); font-variant-numeric: tabular-nums; }
+    .stat-tile.good strong { color: var(--good); }
+    .stat-tile.warn strong { color: var(--panic); }
+    .stat-tile span { display: block; margin-top: 0.25rem; color: var(--muted); font-size: 0.8rem; font-weight: 700; line-height: 1.4; }
+    .pattern-bars { display: grid; gap: 0.55rem; margin-top: 1rem; }
+    .pattern-bar-row { display: grid; grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; }
+    .pattern-bar-label { font-size: 0.84rem; font-weight: 800; color: var(--ink); }
+    .pattern-bar-label span { display: block; color: var(--muted); font-size: 0.72rem; font-weight: 700; }
+    .pattern-bar-track { display: flex; height: 1.05rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+    .pattern-bar-track i { display: block; height: 100%; }
+    .pattern-bar-track i.own { background: var(--brand); }
+    .pattern-bar-track i.field { background: var(--practice); }
+    .pattern-bar-track i.outside { background: var(--panic); }
+    .pattern-bar-pct { font-size: 0.78rem; font-weight: 800; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .report-legend-item.own i { background: var(--brand); }
+    .report-legend-item.field i { background: var(--practice); }
+    .report-legend-item.outside i { background: var(--panic); }
+    .pattern-details { margin-top: 1rem; }
+    .pattern-details summary { cursor: pointer; font-size: 0.86rem; font-weight: 750; color: var(--brand); }
+    #pattern-table td, #pattern-table th { font-size: 0.8rem; padding: 0.35rem 0.55rem; }
+    #pattern-table .k-own { color: var(--brand); font-weight: 800; }
+    #pattern-table .k-field { color: var(--practice); font-weight: 800; }
+    #pattern-table .k-outside { color: var(--panic); font-weight: 800; }
   </style>
 </head>
 <body data-page="committee">
@@ -315,7 +340,32 @@
           <tr class="cold"><td><strong>UIR</strong></td><td>Skeleton only</td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
         </tbody>
       </table>
-      <p class="step-note"><strong>The honest caveat:</strong> this is a calculated gamble built on (a) verified committee expertise, (b) the 4/4 pattern of course owners asking their own course, and (c) the student-report archive. If the draw is administratively random, the floor protects you: every subject keeps at least a panic pass. What you are reallocating is <em>depth</em>, and depth belongs to MAS, PUI, and SMU.</p>
+      <p class="step-note"><strong>The honest caveat:</strong> this is a calculated gamble built on (a) verified committee expertise, (b) the pattern quantified below — 94% of attributed questions match the asker's course or field, and (c) the student-report archive. If the draw is administratively random, the floor protects you: every subject keeps at least a panic pass. What you are reallocating is <em>depth</em>, and depth belongs to MAS, PUI, and SMU.</p>
+    </section>
+
+    <section class="band" id="pattern-stats">
+      <div class="section-heading">
+        <p class="eyebrow">The pattern, quantified</p>
+        <h2>Do examiners ask their own topic? Across every report, yes — 94%</h2>
+      </div>
+      <p class="module-lead">This is the "course owners ask their own course" claim tested against the <strong>whole</strong> report archive, not just your nine subjects: every question in all seven report files where the asker is named unambiguously, master and bachelor, any course (n = 77 after removing duplicate pastes and unknown askers). Each is classified as <em>own course</em> (the asker lectures that exact course), <em>own field</em> (not their course, but squarely their teaching/research area), or <em>outside</em>.</p>
+      <div class="stat-tiles">
+        <div class="stat-tile good"><strong id="stat-match">—</strong><span>asked within the examiner's own course or field</span></div>
+        <div class="stat-tile"><strong id="stat-own">—</strong><span>asked by the literal lecturer of that course</span></div>
+        <div class="stat-tile warn"><strong id="stat-outside">—</strong><span>clearly outside the asker's area</span></div>
+      </div>
+      <div class="pattern-bars" id="pattern-bars"></div>
+      <div class="report-legend" style="margin-top:0.8rem">
+        <span class="report-legend-item own"><i></i>Own course</span>
+        <span class="report-legend-item field"><i></i>Own field</span>
+        <span class="report-legend-item outside"><i></i>Outside</span>
+      </div>
+      <div class="evidence-note" style="margin-top:1rem"><strong>The five exceptions, named:</strong> Šmídl (Bayesian ML) reading the B-tree common question as chair, Werner (pattern recognition) asking automata/grammars, Chludil (FIT graphics) asking networking, Štěpán (robotics/systems) asking a perceptron question, Kybic (medical imaging) asking functional programming. Four of five happened on <em>common/shared</em> question slots where no fitting specialist sat on the committee — exactly the situation your committee does <em>not</em> have: Bača owns the PAL slot, Komenda/Kroupa cover KO, and all three hot AI courses have their owner at the table.</p></div>
+      <details class="pattern-details">
+        <summary>Show all 77 classified attributions</summary>
+        <table class="alloc-table" id="pattern-table" style="margin-top:0.6rem"></table>
+      </details>
+      <p class="step-note"><strong>Methodology:</strong> attributions were taken only where the report names the asker for a specific question; uncertain attributions (e.g. "Kuželka?", "nevěděl jsem, kdo mě zkouší") and multi-asker scrums were excluded. Classification uses public CTU/FEL teaching and research records; where a lecturer role could not be verified (e.g. Horčík for TAL), the entry was conservatively downgraded to "own field." Master tier is marked only where the report is explicitly Mgr/MSZZ. Treat the percentages as solid estimates, not ground truth.</p>
     </section>
   </main>
 
@@ -505,6 +555,97 @@
           if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggle(); }
         });
       });
+
+      // ---- The pattern, quantified: every unambiguous question->asker
+      // attribution in the report archive. kind: own = lectures that exact
+      // course, field = their teaching/research area, outside = neither.
+      // tier: M = explicitly Mgr/MSZZ report, B = bachelor or unclear.
+      const PATTERN_DATA = [
+        ["TAL", "Horčík", "field", "M"], ["MKR", "Gollová", "own", "M"],
+        ["PAL (B-trees)", "Šmídl", "outside", "M"], ["Regression", "Šiňor", "field", "M"],
+        ["TAL", "Žukovec", "field", "M"], ["ESW", "Hnětynka", "field", "M"],
+        ["TAL", "Demlová", "own", "M"], ["VIZ", "Čmolík", "own", "M"],
+        ["TAL (SCC)", "Gollová", "field", "M"], ["OSW", "Blaško", "own", "M"],
+        ["PAG", "Kruliš", "field", "M"], ["UIR", "Faigl", "own", "M"],
+        ["PUR", "Macík", "own", "M"], ["PAL (automata)", "Berezovský", "own", "M"],
+        ["LGR", "Demlová", "own", "B"], ["LGR", "Velebil", "own", "B"],
+        ["DMA", "Gollová", "own", "B"], ["DMA", "Gromada", "own", "B"],
+        ["DMA", "Demlová", "own", "B"], ["APO", "Šusta", "own", "B"],
+        ["APO", "Šusta", "own", "B"], ["APO", "Šusta", "own", "B"],
+        ["APO", "Štěpán", "own", "B"], ["APO", "Štěpán", "own", "B"],
+        ["RPZ", "Werner", "own", "B"], ["RPZ", "Drbohlav", "own", "B"],
+        ["OSY", "Sojka", "own", "B"], ["PST", "Navara", "own", "B"],
+        ["PST", "Navara", "own", "B"], ["PST", "Navara", "own", "B"],
+        ["ALG", "Berezovský", "own", "B"], ["ALG", "Průša", "own", "B"],
+        ["ZUI", "Pošík", "own", "B"], ["HRY", "Sedláček", "own", "B"],
+        ["HRY", "Sedláček", "own", "B"], ["PSIA", "Kubr", "own", "B"],
+        ["PGR", "Sloup", "own", "B"], ["PGR", "Felkel", "own", "B"],
+        ["SIN", "Šebek", "own", "B"], ["VGO", "Žára", "own", "B"],
+        ["VGO", "Čmolík", "own", "B"], ["IUR", "Macík", "own", "B"],
+        ["IUR", "Míkovec", "own", "B"], ["PSR", "Sojka", "own", "B"],
+        ["FUP", "Horčík", "own", "B"],
+        ["JAG", "Gollová", "field", "B"], ["JAG", "Horčík", "field", "B"],
+        ["JAG", "Šusta", "field", "B"], ["JAG", "Richta", "field", "B"],
+        ["ZUI", "Krajník", "field", "B"], ["ZUI", "Krajník", "field", "B"],
+        ["ZUI", "Štěpán+Krajník", "field", "B"], ["ZUI", "Surynek", "field", "B"],
+        ["ZUI", "Surynek", "field", "B"], ["ZUI", "Kuželka", "field", "B"],
+        ["RPZ", "Pošík", "field", "B"], ["PSI", "Novák", "field", "B"],
+        ["NUM", "Navara", "field", "B"], ["OPT", "Bohata", "field", "B"],
+        ["OPT", "Bošanský", "field", "B"], ["LAG", "Křepela", "field", "B"],
+        ["LAG", "Dostál", "field", "B"], ["LAG", "Gollová", "field", "B"],
+        ["LAG", "Gollová", "field", "B"], ["LAG", "Werner", "field", "B"],
+        ["LAG", "Velebil", "field", "B"], ["LAG", "Dvořák", "field", "B"],
+        ["LAG/OPT", "Pošík", "field", "B"], ["MA2", "Werner", "field", "B"],
+        ["DBS", "Řimnáč", "field", "B"], ["PDV", "Kubr", "field", "B"],
+        ["OSY", "Štěpán", "field", "B"], ["OSY", "Štěpán", "field", "B"],
+        ["JAG", "Werner", "outside", "B"], ["PSI", "Chludil", "outside", "B"],
+        ["RPZ", "Štěpán", "outside", "B"], ["FUP", "Kybic", "outside", "B"]
+      ];
+
+      const tally = (rows) => {
+        const counts = { own: 0, field: 0, outside: 0 };
+        rows.forEach(([, , kind]) => { counts[kind] += 1; });
+        return { ...counts, n: rows.length };
+      };
+      const pct = (part, whole) => Math.round((part / whole) * 100);
+
+      const all = tally(PATTERN_DATA);
+      const master = tally(PATTERN_DATA.filter((row) => row[3] === "M"));
+      const bachelor = tally(PATTERN_DATA.filter((row) => row[3] === "B"));
+
+      const statMatch = document.getElementById("stat-match");
+      const statOwn = document.getElementById("stat-own");
+      const statOutside = document.getElementById("stat-outside");
+      if (statMatch) {
+        statMatch.textContent = `${pct(all.own + all.field, all.n)}%`;
+        statOwn.textContent = `${pct(all.own, all.n)}%`;
+        statOutside.textContent = `${pct(all.outside, all.n)}%`;
+      }
+
+      const barsEl = document.getElementById("pattern-bars");
+      if (barsEl) {
+        const bar = (label, sub, counts) => `
+          <div class="pattern-bar-row">
+            <span class="pattern-bar-label">${label} <span>${sub}</span></span>
+            <div class="pattern-bar-track">
+              <i class="own" style="width:${(counts.own / counts.n) * 100}%" title="own course: ${counts.own}"></i>
+              <i class="field" style="width:${(counts.field / counts.n) * 100}%" title="own field: ${counts.field}"></i>
+              <i class="outside" style="width:${(counts.outside / counts.n) * 100}%" title="outside: ${counts.outside}"></i>
+            </div>
+            <span class="pattern-bar-pct">${pct(counts.own + counts.field, counts.n)}% match</span>
+          </div>`;
+        barsEl.innerHTML = bar("All reports", `n = ${all.n}`, all)
+          + bar("Master-confirmed", `n = ${master.n}`, master)
+          + bar("Bachelor / unclear", `n = ${bachelor.n}`, bachelor);
+      }
+
+      const tableEl = document.getElementById("pattern-table");
+      if (tableEl) {
+        const kindLabel = { own: "own course", field: "own field", outside: "outside" };
+        tableEl.innerHTML = `<thead><tr><th>#</th><th>Question</th><th>Asked by</th><th>Tier</th><th>Classification</th></tr></thead><tbody>`
+          + PATTERN_DATA.map((row, index) => `<tr><td>${index + 1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${row[3] === "M" ? "Master" : "Bachelor/?"}</td><td class="k-${row[2]}">${kindLabel[row[2]]}</td></tr>`).join("")
+          + `</tbody>`;
+      }
     })();
   </script>
 </body>
