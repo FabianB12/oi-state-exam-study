@@ -213,10 +213,9 @@
 
         <section>
           <h2><span class="n">2</span>hmax / hadd / hff <span class="say">know the example cold</span></h2>
-          <p class="intro"><span class="say-lead">say:</span> “hmax and hadd are two readings of the same number — a fact's cheapest relaxed achievement cost; they differ only in how a <i>set</i> of facts is priced.”</p>
+          <p class="intro"><span class="say-lead">say:</span> “First compute, for every single fact, how much it costs to achieve in the relaxed task. Then the goal has several facts — hmax prices it by its most expensive one, hadd just adds them all up.”</p>
           <ul>
             <li>shared fact-cost table: \( \mathit{cost}(f) = 0 \) if \( f \) already true, else cheapest achiever \( = \min_a [\, c(a) + \text{price of } \mathit{pre}(a) \,] \), pushed forward until stable</li>
-            <li>pricing a set: <b>max</b> → \( h^{\max} \) · <b>sum</b> → \( h^{\mathit{add}} \) — that one word is the whole difference</li>
           </ul>
           <table class="mini-table">
             <tr><th></th><th>value on goal set</th><th>admissible?</th><th>use</th></tr>
