@@ -58,20 +58,12 @@ col1_2 = r'''        <section>
         </section>
 
         <section>
-          <h2><span class="n">2</span>Shared engine: fact costs</h2>
-          <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <div class="pseudo">start: facts already true cost 0, everything else ∞
-push costs forward: a fact costs its cheapest achiever
-   (action cost + the price of that action's preconditions)
-repeat until nothing improves — then price the goal set:
-   <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
-          <ul>
-            <li>heuristic value = <b><dfn class="tip" tabindex="0" data-tip="Not a standard term — shorthand for 'the aggregation function': how a SET of facts is priced from individual fact costs. max → hmax, sum → hadd.">AGG</dfn></b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
-          </ul>
-        </section>
-
-        <section>
           <h2><span class="n">3</span>hmax / hadd / hff <span class="say">know the example cold</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “hmax and hadd are two readings of the same number — a fact's cheapest relaxed achievement cost; they differ only in how a <i>set</i> of facts is priced.”</p>
+          <ul>
+            <li>shared fact-cost table: \( \mathit{cost}(f) = 0 \) if \( f \) already true, else cheapest achiever \( = \min_a [\, c(a) + \text{price of } \mathit{pre}(a) \,] \), pushed forward until stable</li>
+            <li>pricing a set: <b>max</b> → \( h^{\max} \) · <b>sum</b> → \( h^{\mathit{add}} \) — that one word is the whole difference</li>
+          </ul>
           <table class="mini-table">
             <tr><th></th><th>value on goal set</th><th>admissible?</th><th>use</th></tr>
             <tr><td>\( h^{\max} \)</td><td>most expensive goal fact</td><td><b>yes</b> (≤ \( h^+ \)), weak</td><td>optimal</td></tr>
@@ -169,7 +161,7 @@ build(2, "Delete relaxation & abstraction heuristics",
        ("5–6′", "hff backward extraction fixes the double count"),
        ("6–8.5′", "abstractions: projection → PDB, drawing 2"),
        ("8.5–10′", "Merge & Shrink + when each is used")],
-      12.9)
+      13.3)
 
 # ============================== SHEET 3 ==============================
 col1_3 = r'''        <section>

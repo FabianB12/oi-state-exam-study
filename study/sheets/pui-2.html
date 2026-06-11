@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 12.9px;
+      font-size: 13.3px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -212,20 +212,12 @@
         </section>
 
         <section>
-          <h2><span class="n">2</span>Shared engine: fact costs</h2>
-          <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <div class="pseudo">start: facts already true cost 0, everything else ∞
-push costs forward: a fact costs its cheapest achiever
-   (action cost + the price of that action's preconditions)
-repeat until nothing improves — then price the goal set:
-   <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
+          <h2><span class="n">2</span>hmax / hadd / hff <span class="say">know the example cold</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “hmax and hadd are two readings of the same number — a fact's cheapest relaxed achievement cost; they differ only in how a <i>set</i> of facts is priced.”</p>
           <ul>
-            <li>heuristic value = <b><dfn class="tip" tabindex="0" data-tip="Not a standard term — shorthand for 'the aggregation function': how a SET of facts is priced from individual fact costs. max → hmax, sum → hadd.">AGG</dfn></b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
+            <li>shared fact-cost table: \( \mathit{cost}(f) = 0 \) if \( f \) already true, else cheapest achiever \( = \min_a [\, c(a) + \text{price of } \mathit{pre}(a) \,] \), pushed forward until stable</li>
+            <li>pricing a set: <b>max</b> → \( h^{\max} \) · <b>sum</b> → \( h^{\mathit{add}} \) — that one word is the whole difference</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>hmax / hadd / hff <span class="say">know the example cold</span></h2>
           <table class="mini-table">
             <tr><th></th><th>value on goal set</th><th>admissible?</th><th>use</th></tr>
             <tr><td>\( h^{\max} \)</td><td>most expensive goal fact</td><td><b>yes</b> (≤ \( h^+ \)), weak</td><td>optimal</td></tr>
@@ -263,7 +255,7 @@ repeat until nothing improves — then price the goal set:
 
       <div class="col">
         <section>
-          <h2><span class="n">4</span>Abstraction heuristics</h2>
+          <h2><span class="n">3</span>Abstraction heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Second family: map states into a smaller abstract space, solve that space exactly, and use the abstract goal distance as the heuristic.”</p>
           <span class="formula">\( \alpha : S \to S_\alpha \), edge \( \alpha(s) \to \alpha(s') \) whenever \( s \to s' \); \( h_\alpha(s) = \mathit{dist}_\alpha(\alpha(s), G_\alpha) \)</span>
           <ul>
@@ -272,7 +264,7 @@ repeat until nothing improves — then price the goal set:
         </section>
 
         <section>
-          <h2><span class="n">5</span>Projection → pattern databases</h2>
+          <h2><span class="n">4</span>Projection → pattern databases</h2>
           <p class="intro"><span class="say-lead">say:</span> “The simplest abstraction is a projection: keep a few SAS variables — the pattern — and ignore the rest.”</p>
           <ul>
             <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
@@ -305,7 +297,7 @@ repeat until nothing improves — then price the goal set:
         </section>
 
         <section>
-          <h2><span class="n">6</span>Merge &amp; Shrink</h2>
+          <h2><span class="n">5</span>Merge &amp; Shrink</h2>
           <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
           <ul>
             <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
