@@ -99,6 +99,49 @@
     #pattern-table .k-own { color: var(--brand); font-weight: 800; }
     #pattern-table .k-field { color: var(--practice); font-weight: 800; }
     #pattern-table .k-outside { color: var(--panic); font-weight: 800; }
+    .ask-cell { min-width: 11rem; }
+    .ask-chips { display: flex; flex-direction: column; gap: 0.3rem; }
+    .asker-chip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 750;
+      color: var(--ink);
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.22rem 0.6rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.12s ease;
+    }
+    .asker-chip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: var(--p);
+      background: var(--c);
+      opacity: 0.16;
+    }
+    .asker-chip > * { position: relative; }
+    .asker-chip .asker-name { display: inline-flex; align-items: center; gap: 0.35rem; min-width: 0; }
+    .asker-chip .asker-name i { width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--c); flex: none; }
+    .asker-chip .asker-pct { font-variant-numeric: tabular-nums; font-weight: 850; color: var(--ink-soft); }
+    .asker-chip:hover { border-color: var(--c); }
+    .asker-chip.is-open { border-color: var(--c); box-shadow: inset 0 0 0 1px var(--c); }
+    tr.ask-note-row td {
+      background: var(--surface-2);
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      border-top: none;
+    }
+    tr.ask-note-row td strong { color: var(--ink); }
   </style>
 </head>
 <body data-page="committee">
@@ -326,20 +369,21 @@
         <p class="eyebrow">8 days</p>
         <h2>Where the hours go</h2>
       </div>
-      <table class="alloc-table">
-        <thead><tr><th>Subject</th><th>Target depth</th><th>Focus inside the subject</th></tr></thead>
+      <table class="alloc-table" id="alloc-table">
+        <thead><tr><th>Subject</th><th>Who asks it, if drawn</th><th>Target depth</th><th>Focus inside the subject</th></tr></thead>
         <tbody>
-          <tr class="hot"><td><strong>MAS</strong></td><td>Full depth, first priority</td><td>Coalitions/core/Shapley/voting first (Kroupa's own material), then Nash/zero-sum LP, then auctions; EFGs last.</td></tr>
-          <tr class="hot"><td><strong>PUI</strong></td><td>Full depth</td><td>Open every answer with the formal task. STRIPS/SAS, hmax/hadd/hff, LM-Cut; MDP/MCTS solid.</td></tr>
-          <tr class="hot"><td><strong>SMU</strong></td><td>Full depth</td><td>All four bullets — it is the examiner's own course. PAC vs online comparison and UCB regret are classic lecturer probes.</td></tr>
-          <tr><td><strong>SSU</strong></td><td>Strong pass</td><td>Backprop mechanics and architectures (Šír), SVM + kernels (reports); EM at say-it-aloud level.</td></tr>
-          <tr><td><strong>KO</strong></td><td>Strong pass (common bet)</td><td>CSP/AC3 cold (write the pseudocode), ILP formulations + B&amp;B; flows/TSP at definition level.</td></tr>
-          <tr><td><strong>PAL</strong></td><td>Strong pass (common bet)</td><td>B-tree insertion narrated on an example, B+ differences, k-d NN (Bača); SCC + dictionary automata (reports).</td></tr>
-          <tr><td><strong>LUP</strong></td><td>Scope pass</td><td>Resolution + unification + grounding-to-SAT — the parts nearest Šír's research.</td></tr>
-          <tr class="cold"><td><strong>TAL</strong></td><td>Panic pass only</td><td>Definitions fluent (P/NP/coNP/NPC, reductions, diagonal language); skip proof drills.</td></tr>
-          <tr class="cold"><td><strong>UIR</strong></td><td>Skeleton only</td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
+          <tr class="hot"><td><strong>MAS</strong></td><td class="ask-cell" data-subject="MAS"></td><td>Full depth, first priority</td><td>Coalitions/core/Shapley/voting first (Kroupa's own material), then Nash/zero-sum LP, then auctions; EFGs last.</td></tr>
+          <tr class="hot"><td><strong>PUI</strong></td><td class="ask-cell" data-subject="PUI"></td><td>Full depth</td><td>Open every answer with the formal task. STRIPS/SAS, hmax/hadd/hff, LM-Cut; MDP/MCTS solid.</td></tr>
+          <tr class="hot"><td><strong>SMU</strong></td><td class="ask-cell" data-subject="SMU"></td><td>Full depth</td><td>All four bullets — it is the examiner's own course. PAC vs online comparison and UCB regret are classic lecturer probes.</td></tr>
+          <tr><td><strong>SSU</strong></td><td class="ask-cell" data-subject="SSU"></td><td>Strong pass</td><td>Backprop mechanics and architectures (Šír), SVM + kernels (reports); EM at say-it-aloud level.</td></tr>
+          <tr><td><strong>KO</strong></td><td class="ask-cell" data-subject="KO"></td><td>Strong pass (common bet)</td><td>CSP/AC3 cold (write the pseudocode), ILP formulations + B&amp;B; flows/TSP at definition level.</td></tr>
+          <tr><td><strong>PAL</strong></td><td class="ask-cell" data-subject="PAL"></td><td>Strong pass (common bet)</td><td>B-tree insertion narrated on an example, B+ differences, k-d NN (Bača); SCC + dictionary automata (reports).</td></tr>
+          <tr><td><strong>LUP</strong></td><td class="ask-cell" data-subject="LUP"></td><td>Scope pass</td><td>Resolution + unification + grounding-to-SAT — the parts nearest Šír's research.</td></tr>
+          <tr class="cold"><td><strong>TAL</strong></td><td class="ask-cell" data-subject="TAL"></td><td>Panic pass only</td><td>Definitions fluent (P/NP/coNP/NPC, reductions, diagonal language); skip proof drills.</td></tr>
+          <tr class="cold"><td><strong>UIR</strong></td><td class="ask-cell" data-subject="UIR"></td><td>Skeleton only</td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
         </tbody>
       </table>
+      <p class="step-note" style="margin-top:0.6rem"><strong>Reading the asker odds:</strong> percentages are <em>conditional</em> — "if this subject is drawn, who asks it" — and sum to 100% per row. They follow the 94% own-course/field pattern below: course owners dominate their subjects, the chair picks up orphaned common questions (the Šmídl/Kybic precedent), and Rada (secretary) never asks. Click any name to see the reasoning. These are calibrated estimates, not measurements.</p>
       <p class="step-note"><strong>The honest caveat:</strong> this is a calculated gamble built on (a) verified committee expertise, (b) the pattern quantified below — 94% of attributed questions match the asker's course or field, and (c) the student-report archive. If the draw is administratively random, the floor protects you: every subject keeps at least a panic pass. What you are reallocating is <em>depth</em>, and depth belongs to MAS, PUI, and SMU.</p>
     </section>
 
@@ -652,6 +696,95 @@
           + PATTERN_DATA.map((row, index) => `<tr><td>${index + 1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${row[3] === "M" ? "Master" : "Bachelor/?"}</td><td class="k-${row[2]}">${kindLabel[row[2]]}</td></tr>`).join("")
           + `</tbody>`;
       }
+
+      // ---- Who asks it, if drawn: conditional asker odds per subject.
+      // Percentages sum to 100 per subject; calibrated to the 94%
+      // own-course/field pattern. Rada (secretary) never asks; zero-odds
+      // members are omitted.
+      const ASKERS = {
+        kroupa: { name: "Kroupa", color: "var(--panic)" },
+        komenda: { name: "Komenda", color: "var(--brand)" },
+        sir: { name: "Šír", color: "var(--lab)" },
+        baca: { name: "Bača", color: "var(--practice)" },
+        bures: { name: "Bureš", color: "#6b7280" }
+      };
+      const ASK_ODDS = {
+        MAS: [
+          ["kroupa", 90, "Lectures the MAS course; game theory is his research. The 94% pattern says course owners ask their own course."],
+          ["komenda", 10, "Multi-agent planning overlaps the agents/coordination side — a plausible second voice for follow-ups."]
+        ],
+        PUI: [
+          ["komenda", 90, "PUI is his home course at the AIC planning group."],
+          ["sir", 10, "The MDP/MCTS tail of the question borders the RL he lectures in SMU."]
+        ],
+        SMU: [
+          ["sir", 90, "Lectures SMU itself — the strongest single asker signal on the committee."],
+          ["komenda", 10, "MDPs and value iteration border planning under uncertainty."]
+        ],
+        SSU: [
+          ["sir", 90, "Deep relational learning is his research; backprop and architectures are home ground."],
+          ["kroupa", 10, "The ERM/VC/Hoeffding end is the mathematical corner — fits the committee's mathematician."]
+        ],
+        KO: [
+          ["komenda", 45, "CSP/AC3 and scheduling are planning-adjacent — the likeliest KO voice."],
+          ["kroupa", 40, "ILP/LP duality and flows sit next to his computational game theory."],
+          ["baca", 10, "Knapsack/DP/shortest paths fit an algorithms-minded database researcher."],
+          ["bures", 5, "Chair-reads-the-sheet residual — the Šmídl/Kybic precedent in the data."]
+        ],
+        PAL: [
+          ["baca", 80, "B-trees, B+ and k-d indexing are literally his publication record."],
+          ["bures", 10, "Chair residual — in 2024 a chair read the B-tree question himself."],
+          ["komenda", 5, "Graph-algorithm basics are readable by any CS member."],
+          ["kroupa", 5, "Same — a generic-CS fallback, nothing more."]
+        ],
+        LUP: [
+          ["sir", 85, "Relational logic, grounding and lifted models are the foundation of his research."],
+          ["komenda", 15, "Grounding-to-SAT mirrors planning-as-satisfiability from his field."]
+        ],
+        TAL: [
+          ["kroupa", 60, "No theorist on the committee — an orphaned TAL draw lands on the most mathematical member."],
+          ["bures", 20, "Chair residual for orphaned common questions."],
+          ["sir", 10, "Computational learning theory gives him a complexity foothold."],
+          ["komenda", 10, "Planning complexity (PSPACE-completeness) gives him one too."]
+        ],
+        UIR: [
+          ["komenda", 65, "Closest by far: task planning, MRTA and multi-robot coordination are planning/multi-agent."],
+          ["kroupa", 20, "A game-theoretic coordination angle on multi-robot questions."],
+          ["bures", 15, "Chair residual if UIR is drawn with no specialist."]
+        ]
+      };
+
+      document.querySelectorAll(".ask-cell").forEach((cell) => {
+        const odds = ASK_ODDS[cell.dataset.subject];
+        if (!odds) return;
+        const wrap = document.createElement("div");
+        wrap.className = "ask-chips";
+        odds.forEach(([key, pctVal, why]) => {
+          const member = ASKERS[key];
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "asker-chip";
+          chip.style.setProperty("--p", `${pctVal}%`);
+          chip.style.setProperty("--c", member.color);
+          chip.innerHTML = `<span class="asker-name"><i></i>${member.name}</span><span class="asker-pct">${pctVal}%</span>`;
+          chip.addEventListener("click", () => {
+            const row = cell.closest("tr");
+            const existing = row.nextElementSibling;
+            const isOurs = existing?.classList?.contains("ask-note-row") && existing.dataset.ask === `${cell.dataset.subject}-${key}`;
+            document.querySelectorAll(".ask-note-row").forEach((noteRow) => noteRow.remove());
+            document.querySelectorAll(".asker-chip.is-open").forEach((other) => other.classList.remove("is-open"));
+            if (isOurs) return;
+            const note = document.createElement("tr");
+            note.className = "ask-note-row";
+            note.dataset.ask = `${cell.dataset.subject}-${key}`;
+            note.innerHTML = `<td colspan="4"><strong>${member.name} → ${cell.dataset.subject} (${pctVal}%):</strong> ${why}</td>`;
+            row.insertAdjacentElement("afterend", note);
+            chip.classList.add("is-open");
+          });
+          wrap.appendChild(chip);
+        });
+        cell.appendChild(wrap);
+      });
     })();
   </script>
 </body>
