@@ -142,6 +142,19 @@
       border-top: none;
     }
     tr.ask-note-row td strong { color: var(--ink); }
+    .draw-index { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.45rem; }
+    .draw-index .draw-bar { flex: 0 1 4.5rem; height: 0.45rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+    .draw-index .draw-bar i { display: block; height: 100%; border-radius: 999px; }
+    .draw-index.tier-hot .draw-bar i { background: var(--panic); }
+    .draw-index.tier-warm .draw-bar i { background: var(--recall); }
+    .draw-index.tier-cool .draw-bar i { background: var(--brand); }
+    .draw-index.tier-cold .draw-bar i { background: var(--line-strong); }
+    .draw-index b { font-size: 0.76rem; font-weight: 850; font-variant-numeric: tabular-nums; }
+    .draw-index.tier-hot b { color: var(--panic); }
+    .draw-index.tier-warm b { color: var(--recall); }
+    .draw-index.tier-cool b { color: var(--brand); }
+    .draw-index.tier-cold b { color: var(--muted); }
+    .draw-index em { font-size: 0.68rem; font-style: normal; font-weight: 700; color: var(--muted); white-space: nowrap; }
   </style>
 </head>
 <body data-page="committee">
@@ -372,18 +385,18 @@
       <table class="alloc-table" id="alloc-table">
         <thead><tr><th>Subject</th><th>Who asks it, if drawn</th><th>Target depth</th><th>Focus inside the subject</th></tr></thead>
         <tbody>
-          <tr class="hot"><td><strong>MAS</strong></td><td class="ask-cell" data-subject="MAS"></td><td>Full depth, first priority</td><td>Coalitions/core/Shapley/voting first (Kroupa's own material), then Nash/zero-sum LP, then auctions; EFGs last.</td></tr>
-          <tr class="hot"><td><strong>PUI</strong></td><td class="ask-cell" data-subject="PUI"></td><td>Full depth</td><td>Open every answer with the formal task. STRIPS/SAS, hmax/hadd/hff, LM-Cut; MDP/MCTS solid.</td></tr>
-          <tr class="hot"><td><strong>SMU</strong></td><td class="ask-cell" data-subject="SMU"></td><td>Full depth</td><td>All four bullets — it is the examiner's own course. PAC vs online comparison and UCB regret are classic lecturer probes.</td></tr>
-          <tr><td><strong>SSU</strong></td><td class="ask-cell" data-subject="SSU"></td><td>Strong pass</td><td>Backprop mechanics and architectures (Šír), SVM + kernels (reports); EM at say-it-aloud level.</td></tr>
-          <tr><td><strong>KO</strong></td><td class="ask-cell" data-subject="KO"></td><td>Strong pass (common bet)</td><td>CSP/AC3 cold (write the pseudocode), ILP formulations + B&amp;B; flows/TSP at definition level.</td></tr>
-          <tr><td><strong>PAL</strong></td><td class="ask-cell" data-subject="PAL"></td><td>Strong pass (common bet)</td><td>B-tree insertion narrated on an example, B+ differences, k-d NN (Bača); SCC + dictionary automata (reports).</td></tr>
-          <tr><td><strong>LUP</strong></td><td class="ask-cell" data-subject="LUP"></td><td>Scope pass</td><td>Resolution + unification + grounding-to-SAT — the parts nearest Šír's research.</td></tr>
-          <tr class="cold"><td><strong>TAL</strong></td><td class="ask-cell" data-subject="TAL"></td><td>Panic pass only</td><td>Definitions fluent (P/NP/coNP/NPC, reductions, diagonal language); skip proof drills.</td></tr>
-          <tr class="cold"><td><strong>UIR</strong></td><td class="ask-cell" data-subject="UIR"></td><td>Skeleton only</td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
+          <tr class="hot"><td><strong>MAS</strong></td><td class="ask-cell" data-subject="MAS"></td><td>Full depth, first priority<span class="draw-index tier-hot"><span class="draw-bar"><i style="width:95%"></i></span><b>95/100</b><em>draw likelihood</em></span></td><td>Coalitions/core/Shapley/voting first (Kroupa's own material), then Nash/zero-sum LP, then auctions; EFGs last.</td></tr>
+          <tr class="hot"><td><strong>PUI</strong></td><td class="ask-cell" data-subject="PUI"></td><td>Full depth<span class="draw-index tier-hot"><span class="draw-bar"><i style="width:95%"></i></span><b>95/100</b><em>draw likelihood</em></span></td><td>Open every answer with the formal task. STRIPS/SAS, hmax/hadd/hff, LM-Cut; MDP/MCTS solid.</td></tr>
+          <tr class="hot"><td><strong>SMU</strong></td><td class="ask-cell" data-subject="SMU"></td><td>Full depth<span class="draw-index tier-hot"><span class="draw-bar"><i style="width:90%"></i></span><b>90/100</b><em>draw likelihood</em></span></td><td>All four bullets — it is the examiner's own course. PAC vs online comparison and UCB regret are classic lecturer probes.</td></tr>
+          <tr><td><strong>SSU</strong></td><td class="ask-cell" data-subject="SSU"></td><td>Strong pass<span class="draw-index tier-warm"><span class="draw-bar"><i style="width:55%"></i></span><b>55/100</b><em>draw likelihood</em></span></td><td>Backprop mechanics and architectures (Šír), SVM + kernels (reports); EM at say-it-aloud level.</td></tr>
+          <tr><td><strong>KO</strong></td><td class="ask-cell" data-subject="KO"></td><td>Strong pass (common bet)<span class="draw-index tier-warm"><span class="draw-bar"><i style="width:65%"></i></span><b>65/100</b><em>draw likelihood</em></span></td><td>CSP/AC3 cold (write the pseudocode), ILP formulations + B&amp;B; flows/TSP at definition level.</td></tr>
+          <tr><td><strong>PAL</strong></td><td class="ask-cell" data-subject="PAL"></td><td>Strong pass (common bet)<span class="draw-index tier-warm"><span class="draw-bar"><i style="width:70%"></i></span><b>70/100</b><em>draw likelihood</em></span></td><td>B-tree insertion narrated on an example, B+ differences, k-d NN (Bača); SCC + dictionary automata (reports).</td></tr>
+          <tr><td><strong>LUP</strong></td><td class="ask-cell" data-subject="LUP"></td><td>Scope pass<span class="draw-index tier-cool"><span class="draw-bar"><i style="width:35%"></i></span><b>35/100</b><em>draw likelihood</em></span></td><td>Resolution + unification + grounding-to-SAT — the parts nearest Šír's research.</td></tr>
+          <tr class="cold"><td><strong>TAL</strong></td><td class="ask-cell" data-subject="TAL"></td><td>Panic pass only<span class="draw-index tier-cold"><span class="draw-bar"><i style="width:18%"></i></span><b>18/100</b><em>draw likelihood</em></span></td><td>Definitions fluent (P/NP/coNP/NPC, reductions, diagonal language); skip proof drills.</td></tr>
+          <tr class="cold"><td><strong>UIR</strong></td><td class="ask-cell" data-subject="UIR"></td><td>Skeleton only<span class="draw-index tier-cold"><span class="draw-bar"><i style="width:10%"></i></span><b>10/100</b><em>draw likelihood</em></span></td><td>The 8-minute oral skeleton and panic list; nothing more.</td></tr>
         </tbody>
       </table>
-      <p class="step-note" style="margin-top:0.6rem"><strong>Reading the asker odds:</strong> percentages are <em>conditional</em> — "if this subject is drawn, who asks it" — and sum to 100% per row. They follow the 94% own-course/field pattern below: course owners dominate their subjects, the chair picks up orphaned common questions (the Šmídl/Kybic precedent), and Rada (secretary) never asks. Click any name to see the reasoning. These are calibrated estimates, not measurements.</p>
+      <p class="step-note" style="margin-top:0.6rem"><strong>Two different numbers:</strong> the <em>draw likelihood</em> under each depth is a 0–100 confidence index that the subject comes up at all (same scale as the tier chart above — it does not sum to 100 across rows, since you draw one common and one AI question). The <em>asker odds</em> are <em>conditional</em> — "if this subject is drawn, who asks it" — and sum to 100% per row. They follow the 94% own-course/field pattern below: course owners dominate their subjects, the chair picks up orphaned common questions (the Šmídl/Kybic precedent), and Rada (secretary) never asks. Click any name to see the reasoning. These are calibrated estimates, not measurements.</p>
       <p class="step-note"><strong>The honest caveat:</strong> this is a calculated gamble built on (a) verified committee expertise, (b) the pattern quantified below — 94% of attributed questions match the asker's course or field, and (c) the student-report archive. If the draw is administratively random, the floor protects you: every subject keeps at least a panic pass. What you are reallocating is <em>depth</em>, and depth belongs to MAS, PUI, and SMU.</p>
     </section>
 
