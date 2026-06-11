@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Caveat:wght@600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}] });"></script>
   <style>
     :root {
       --ink: #1a2236;
@@ -28,6 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
+      font-size: 12.6px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -40,73 +45,64 @@
       align-items: baseline;
       gap: 8px;
       border-bottom: 2px solid var(--ink);
-      padding-bottom: 4px;
-      margin-bottom: 6px;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
     }
-    .head h1 { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.01em; }
-    .head .bullet { font-size: 8.5px; color: var(--soft); max-width: 60%; margin-left: auto; text-align: right; line-height: 1.35; }
+    .head h1 { margin: 0; font-size: 1.4em; font-weight: 800; letter-spacing: 0.01em; }
+    .head .bullet { font-size: 0.82em; color: var(--soft); max-width: 56%; margin-left: auto; text-align: right; line-height: 1.35; }
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; }
     .col { min-width: 0; }
-    section { margin-bottom: 7px; }
+    section { margin-bottom: 1.05em; }
     h2 {
-      margin: 0 0 3px;
-      font-size: 10.5px;
+      margin: 0 0 0.35em;
+      font-size: 1.12em;
       font-weight: 800;
       color: var(--accent);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
     h2 .n {
       flex: none;
-      width: 14px; height: 14px;
+      width: 1.3em; height: 1.3em;
       border-radius: 999px;
       background: var(--accent);
       color: #fff;
-      font-size: 9px;
+      font-size: 0.82em;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
-    h2 .say { margin-left: auto; font-family: Caveat, cursive; font-size: 11px; color: var(--soft); font-weight: 600; }
-    ul { margin: 0; padding-left: 13px; }
-    li { font-size: 9px; line-height: 1.45; margin-bottom: 1.5px; }
+    h2 .say { margin-left: auto; font-family: Caveat, cursive; font-size: 1.05em; color: var(--soft); font-weight: 600; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li { font-size: 0.92em; line-height: 1.58; margin-bottom: 0.22em; }
     li::marker { color: var(--accent); }
-    code, .f {
-      font-family: "SF Mono", ui-monospace, Menlo, monospace;
-      font-size: 8.6px;
-      background: #f1f3f8;
-      border-radius: 3px;
-      padding: 0 3px;
-      white-space: nowrap;
-    }
+    .katex { font-size: 1.02em; }
     .formula {
       display: block;
       background: #f1f3f8;
       border-left: 3px solid var(--accent);
       border-radius: 3px;
-      padding: 3px 6px;
-      margin: 3px 0;
-      font-family: "SF Mono", ui-monospace, Menlo, monospace;
-      font-size: 9.4px;
-      white-space: normal;
+      padding: 0.35em 0.65em;
+      margin: 0.35em 0;
+      font-size: 0.98em;
     }
     .hl { background: var(--hl); padding: 0 2px; border-radius: 2px; }
-    .mini-table { width: 100%; border-collapse: collapse; margin: 3px 0; }
-    .mini-table th, .mini-table td { border: 1px solid var(--line); font-size: 8.4px; padding: 2px 4px; text-align: left; }
+    .mini-table { width: 100%; border-collapse: collapse; margin: 0.35em 0; }
+    .mini-table th, .mini-table td { border: 1px solid var(--line); font-size: 0.85em; padding: 0.25em 0.5em; text-align: left; }
     .mini-table th { background: #f1f3f8; font-weight: 700; }
-    .sketch { border: 1px dashed var(--line); border-radius: 4px; padding: 3px; margin-top: 3px; }
+    .sketch { border: 1px dashed var(--line); border-radius: 4px; padding: 5px; margin-top: 0.35em; }
     .sketch svg { width: 100%; height: auto; display: block; }
-    .sketch .cap { font-family: Caveat, cursive; font-size: 11px; color: var(--soft); text-align: center; margin: 1px 0 0; }
+    .sketch .cap { font-family: Caveat, cursive; font-size: 1.15em; color: var(--soft); text-align: center; margin: 2px 0 0; }
     .traps {
       margin-top: auto;
       border-top: 2px solid var(--hot);
-      padding-top: 4px;
+      padding-top: 0.5em;
       display: flex;
       gap: 10px;
     }
-    .traps strong { color: var(--hot); font-size: 8.5px; white-space: nowrap; }
-    .traps p { margin: 0; font-size: 8.5px; color: var(--soft); line-height: 1.4; }
+    .traps strong { color: var(--hot); font-size: 0.85em; white-space: nowrap; }
+    .traps p { margin: 0; font-size: 0.85em; color: var(--soft); line-height: 1.45; }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -131,16 +127,16 @@
       <div class="col">
         <section>
           <h2><span class="n">1</span>STRIPS task — define FIRST <span class="say">open with this!</span></h2>
-          <span class="formula">Π = (F, A, I, G)</span>
+          <span class="formula">\( \Pi = (F,\, A,\, I,\, G) \)</span>
           <ul>
-            <li><b>F</b> facts (atoms) · state <code>s ⊆ F</code> (true facts; rest false — closed world)</li>
-            <li><b>I</b> ⊆ F initial state · <b>G</b> ⊆ F goal: <code>s ⊨ G ⟺ G ⊆ s</code></li>
-            <li>action <b>a</b> = (pre, add, del), cost <code>c(a) ≥ 0</code></li>
+            <li>\( F \) facts (atoms) · state \( s \subseteq F \) — true facts, rest false (closed world)</li>
+            <li>\( I \subseteq F \) initial state · goal \( G \subseteq F \): &nbsp; \( s \models G \iff G \subseteq s \)</li>
+            <li>action \( a = (\mathit{pre},\, \mathit{add},\, \mathit{del}) \), cost \( c(a) \ge 0 \)</li>
           </ul>
-          <span class="formula">applicable: pre(a) ⊆ s &nbsp;→&nbsp; s′ = (s \ del(a)) ∪ add(a)</span>
+          <span class="formula">\( \mathit{pre}(a) \subseteq s \;\Longrightarrow\; s' = \big(s \setminus \mathit{del}(a)\big) \cup \mathit{add}(a) \)</span>
           <ul>
-            <li><span class="hl">no edge if precondition missing</span>; unmentioned facts persist (inertia)</li>
-            <li>plan π = a₁…aₙ: sequentially applicable from I, ends in s ⊇ G; <code>c(π) = Σ c(aᵢ)</code></li>
+            <li><span class="hl">no edge if a precondition is missing</span>; unmentioned facts persist (inertia)</li>
+            <li>plan \( \pi = a_1 \ldots a_n \): sequentially applicable from \( I \), ends in \( s \supseteq G \); &nbsp; \( c(\pi) = \sum_i c(a_i) \)</li>
             <li>classical assumptions: <b>finite · deterministic · fully observable · static</b></li>
           </ul>
         </section>
@@ -148,13 +144,13 @@
         <section>
           <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
           <ul>
-            <li>variables <b>V</b>, each with finite domain <code>D(v)</code>; state = total assignment</li>
-            <li>pre / eff = <b>partial</b> assignments</li>
+            <li>variables \( V \), each with finite domain \( D(v) \); state = total assignment</li>
+            <li>preconditions / effects = <b>partial</b> assignments</li>
             <li>idea: mutually exclusive facts → one variable</li>
           </ul>
           <table class="mini-table">
             <tr><th>STRIPS (3 facts, mutex)</th><th>SAS⁺ (1 variable)</th></tr>
-            <tr><td>at(pkg,A), at(pkg,B), in(pkg,truck)</td><td>pos(pkg) ∈ {A, B, truck}</td></tr>
+            <tr><td>\( \mathit{at}(p,A),\; \mathit{at}(p,B),\; \mathit{in}(p,t) \)</td><td>\( \mathit{pos}(p) \in \{A,\, B,\, \mathit{truck}\} \)</td></tr>
           </table>
           <ul>
             <li>same expressiveness; <span class="hl">compact + structure for free</span> → projections / PDBs drop variables naturally</li>
@@ -166,8 +162,8 @@
           <table class="mini-table">
             <tr><th></th><th>satisficing</th><th>optimal</th></tr>
             <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
-            <tr><td><b>search</b></td><td>GBFS (orders by h only)</td><td>A* (orders by g+h)</td></tr>
-            <tr><td><b>heuristic</b></td><td>inadmissible OK → hff, hadd</td><td><span class="hl">admissible required</span> → hmax, LM-Cut, PDB</td></tr>
+            <tr><td><b>search</b></td><td>GBFS — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
+            <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
           </table>
           <ul>
             <li>blind baselines: BFS (unit costs) · UCS/Dijkstra (any positive costs)</li>
@@ -177,10 +173,10 @@
         <section>
           <h2><span class="n">4</span>A* — what I'd implement <span class="say">they ask this!</span></h2>
           <ul>
-            <li>OPEN = priority queue by <code>f(s) = g(s) + h(s)</code></li>
-            <li>store best known g per state (duplicate detection), parent pointers → reconstruct plan</li>
-            <li>CLOSED: with <b>consistent</b> h, closed nodes never reopened</li>
-            <li>with only <b>admissible</b> h: may find better g later → <span class="hl">reopen or lose optimality</span></li>
+            <li>OPEN = priority queue ordered by \( f(s) = g(s) + h(s) \)</li>
+            <li>store best known \( g \) per state (duplicate detection), parent pointers → reconstruct plan</li>
+            <li>CLOSED: with <b>consistent</b> \( h \), closed nodes are never reopened</li>
+            <li>with only <b>admissible</b> \( h \): a better \( g \) may appear later → <span class="hl">reopen or lose optimality</span></li>
             <li>graph is <b>implicit</b> — successors generated by applying actions, never stored whole</li>
           </ul>
         </section>
@@ -190,17 +186,17 @@
         <section>
           <h2><span class="n">5</span>Heuristic properties</h2>
           <ul>
-            <li><code>h*(s)</code> = true optimal cost-to-goal from s</li>
-            <li><b>admissible:</b> <code>h(s) ≤ h*(s)</code> ∀s — never overestimate</li>
-            <li><b>consistent:</b> <code>h(s) ≤ c(a) + h(s′)</code> for every edge, <code>h(goal) = 0</code></li>
-            <li><b>goal-aware:</b> h(s)=0 when s ⊨ G &nbsp;·&nbsp; <b>safe:</b> h=∞ only on dead ends</li>
+            <li>\( h^*(s) \) = true optimal cost-to-goal from \( s \)</li>
+            <li><b>admissible:</b> \( h(s) \le h^*(s) \;\; \forall s \) — never overestimate</li>
+            <li><b>consistent:</b> \( h(s) \le c(a) + h(s') \) for every edge, and \( h(s) = 0 \) for goal states</li>
+            <li><b>goal-aware:</b> \( h(s) = 0 \) when \( s \models G \) &nbsp;·&nbsp; <b>safe:</b> \( h = \infty \) only on dead ends</li>
           </ul>
-          <span class="formula">consistent (+ goal-aware) ⇒ admissible &nbsp;&nbsp;[induction on plan length]</span>
+          <span class="formula">consistent + goal-aware \( \Rightarrow \) admissible &nbsp;&nbsp; [induction on plan length]</span>
           <ul>
-            <li>A* + admissible ⇒ <span class="hl">optimal solution</span></li>
-            <li>consistent ⇒ f nondecreasing along paths ⇒ no reopening</li>
-            <li><b>dominance:</b> h₂ ≥ h₁ (both adm.) ⇒ h₂ better informed, expands subset (tie-breaks aside)</li>
-            <li>extremes: h=0 → UCS · h=h* → expands only optimal path</li>
+            <li>A* + admissible \( h \) ⇒ <span class="hl">optimal solution</span></li>
+            <li>consistent ⇒ \( f \) nondecreasing along paths ⇒ no reopening</li>
+            <li><b>dominance:</b> \( h_2 \ge h_1 \) (both admissible) ⇒ \( h_2 \) better informed, expands a subset (up to tie-breaking)</li>
+            <li>extremes: \( h \equiv 0 \) → UCS &nbsp;·&nbsp; \( h = h^* \) → expands only the optimal path</li>
           </ul>
         </section>
 
@@ -247,7 +243,7 @@
                 <text x="186" y="70">g=2, h=1 → f=3</text>
               </g>
             </svg>
-            <p class="cap">states = fact sets, edges = applicable actions; mark I, G, one f=g+h</p>
+            <p class="cap">states = fact sets, edges = applicable actions; mark I, G, one f = g + h</p>
           </div>
         </section>
 
@@ -280,12 +276,24 @@
             <p class="cap">one step can't drop the estimate by more than its cost</p>
           </div>
         </section>
+
+        <section>
+          <h2><span class="n">8</span>10-minute flow <span class="say">pace yourself</span></h2>
+          <table class="mini-table">
+            <tr><td><b>0–2′</b></td><td>tuple \( \Pi \) + applicability/successor, walk drawing 1</td></tr>
+            <tr><td><b>2–3′</b></td><td>SAS⁺ via the mutex-facts example</td></tr>
+            <tr><td><b>3–4′</b></td><td>satisficing vs optimal table</td></tr>
+            <tr><td><b>4–6′</b></td><td>A* + implementation details (queue, duplicates, reopening)</td></tr>
+            <tr><td><b>6–9′</b></td><td>properties: admissible / consistent + triangle, why A* is optimal</td></tr>
+            <tr><td><b>9–10′</b></td><td>extremes \( h\equiv 0 \), \( h = h^* \), dominance — invite questions</td></tr>
+          </table>
+        </section>
       </div>
     </div>
 
     <div class="traps">
       <strong>⚠ TRAPS</strong>
-      <p><b>Define Π before any algorithm</b> (reports: examiners stop you otherwise) · missing precondition = no edge, not “fails” · admissible ≠ consistent (consistency is the stronger, per-edge condition) · h=0 is admissible — A* degrades to UCS, never breaks · SAS is not “more powerful,” it is more compact.</p>
+      <p><b>Define \( \Pi \) before any algorithm</b> (reports: examiners stop you otherwise) · missing precondition = no edge, not “fails” · admissible ≠ consistent (consistency is the stronger, per-edge condition) · \( h \equiv 0 \) is admissible — A* degrades to UCS, never breaks · SAS is not “more powerful,” it is more compact.</p>
     </div>
   </div>
 </body>
