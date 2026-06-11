@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 13.9px;
+      font-size: 11.5px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -116,6 +116,22 @@
     @media (max-width: 1360px) {
       .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
     }
+    .pseudo {
+      background: #f7f8fb;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 0.45em 0.75em;
+      margin: 0.4em 0;
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 0.74em;
+      line-height: 1.45;
+      white-space: pre;
+      overflow-x: auto;
+      color: var(--ink);
+    }
+    .pseudo b { color: var(--accent); font-weight: 700; }
+    .pseudo .c { color: #8a93a8; font-style: italic; }
     .tip {
       font-style: inherit;
       border-bottom: 1.5px dashed #8a93a8;
@@ -196,9 +212,13 @@
         <section>
           <h2><span class="n">2</span>Shared engine: fact costs</h2>
           <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <span class="formula">\( \mathit{cost}(f) = 0 \) if \( f \in s \); else \( \min_{a:\, f \in \mathit{add}(a)} \big[ c(a) + \mathit{cost}(\mathit{pre}(a)) \big] \)</span>
+          <div class="pseudo">∀f: cost(f) ← 0 <b>if</b> f ∈ s <b>else</b> ∞
+<b>repeat until</b> no change:
+   <b>for each</b> action a:
+      v ← c(a) + <b>AGG</b><sub>f∈pre(a)</sub> cost(f)   <span class="c">// AGG = max → hmax · sum → hadd</span>
+      <b>for each</b> f ∈ add(a):  cost(f) ← min(cost(f), v)</div>
           <ul>
-            <li>set aggregation: \( h^{\max} \): \( \mathit{cost}(P) = \max_{f \in P} \mathit{cost}(f) \) · \( h^{\mathit{add}} \): \( \sum_{f \in P} \mathit{cost}(f) \)</li>
+            <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>
         </section>
 

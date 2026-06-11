@@ -53,9 +53,13 @@ col1_2 = r'''        <section>
         <section>
           <h2><span class="n">2</span>Shared engine: fact costs</h2>
           <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a <dfn class="tip" tabindex="0" data-tip="Keep applying the update rule until no fact's cost changes anymore — then stop.">fixed point</dfn> — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
-          <span class="formula">\( \mathit{cost}(f) = 0 \) if \( f \in s \); else \( \min_{a:\, f \in \mathit{add}(a)} \big[ c(a) + \mathit{cost}(\mathit{pre}(a)) \big] \)</span>
+          <div class="pseudo">∀f: cost(f) ← 0 <b>if</b> f ∈ s <b>else</b> ∞
+<b>repeat until</b> no change:
+   <b>for each</b> action a:
+      v ← c(a) + <b>AGG</b><sub>f∈pre(a)</sub> cost(f)   <span class="c">// AGG = max → hmax · sum → hadd</span>
+      <b>for each</b> f ∈ add(a):  cost(f) ← min(cost(f), v)</div>
           <ul>
-            <li>set aggregation: \( h^{\max} \): \( \mathit{cost}(P) = \max_{f \in P} \mathit{cost}(f) \) · \( h^{\mathit{add}} \): \( \sum_{f \in P} \mathit{cost}(f) \)</li>
+            <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>
         </section>
 
@@ -166,7 +170,7 @@ build(2, "Delete relaxation & abstraction heuristics",
        ("5–6′", "hff backward extraction fixes the double count"),
        ("6–8.5′", "abstractions: projection → PDB, drawing 2"),
        ("8.5–10′", "Merge & Shrink + when each is used")],
-      13.9)
+      13.5)
 
 # ============================== SHEET 3 ==============================
 col1_3 = r'''        <section>
@@ -209,9 +213,16 @@ col1_3 = r'''        <section>
 col2_3 = r'''        <section>
           <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
+          <div class="pseudo">h ← 0
+<b>loop</b>:
+   compute h<sup>max</sup>;  <b>if</b> h<sup>max</sup>(G) = 0: <b>return</b> h
+   J ← <span class="c">justification graph (best supporters)</span>
+   Z ← <span class="c">goal zone: 0-cost backwards from G</span>
+   cut ← edges of J crossing into Z   <span class="c">// disjunctive landmark!</span>
+   m ← min cost in cut
+   h ← h + m;   ∀a ∈ cut: c(a) ← c(a) − m</div>
           <ul>
-            <li><b>round:</b> ① compute \( h^{\max} \); 0 → stop · ② <dfn class="tip" tabindex="0" data-tip="A graph over facts: for each action, an edge from its most expensive precondition to each fact it achieves — the paths that justify hmax values.">justification graph</dfn>: each fact's <b>best supporter</b> (most expensive precondition) · ③ <dfn class="tip" tabindex="0" data-tip="All facts from which the goal is still reachable using only zero-cost edges — costless leftovers of earlier rounds."><b>goal zone</b></dfn> = facts reaching goal via cost-0 edges · ④ <b>cut</b> = edges crossing into the zone — a <span class="hl">disjunctive action landmark</span></li>
-            <li>charge \( m = \min \) cost in the cut: \( h \mathrel{+}= m \); subtract \( m \) from every cut action; repeat</li>
+            <li>② <dfn class="tip" tabindex="0" data-tip="A graph over facts: for each action, an edge from its most expensive precondition to each fact it achieves — the paths that justify hmax values.">justification graph</dfn> = each fact's <b>best supporter</b> · ③ <dfn class="tip" tabindex="0" data-tip="All facts from which the goal is still reachable using only zero-cost edges — costless leftovers of earlier rounds."><b>goal zone</b></dfn></li>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
             <li>guarantees: admissible, \( h^{\text{LM-Cut}} \le h^+ \le h^* \); often near \( h^+ \) in practice</li>
           </ul>
@@ -436,7 +447,12 @@ col1_5 = r'''        <section>
           <h2><span class="n">2</span>MDP + value iteration</h2>
           <p class="intro"><span class="say-lead">say:</span> “Attach probabilities to the outcomes and we are in an MDP — instead of guaranteeing, we optimize expected discounted reward.”</p>
           <span class="formula">\( (S, A, P(s' \mid s,a), r, \gamma) \), policy \( \pi \), \( V^\pi(s) = \mathbb{E} \big[ \sum_t \gamma^t r_t \big] \)</span>
-          <span class="formula">VI: \( \; V_{k+1}(s) = \max_a \sum_{s'} P(s' \mid s,a) \big[ r(s,a,s') + \gamma V_k(s') \big] \)</span>
+          <div class="pseudo">V ← 0
+<b>repeat</b>:
+   ∀s: V′(s) ← max<sub>a</sub> Σ<sub>s′</sub> P(s′|s,a) [ r + γ·V(s′) ]   <span class="c">// Bellman backup</span>
+   δ ← max<sub>s</sub> |V′(s) − V(s)|;   V ← V′
+<b>until</b> δ &lt; ε
+π(s) ← argmax<sub>a</sub> Q(s, a)   <span class="c">// extract greedy policy</span></div>
           <ul>
             <li>Bellman operator is a <span class="hl"><dfn class="tip" tabindex="0" data-tip="One update shrinks the distance between any two value functions by factor γ — so repeated updates squeeze everything to a single fixed point.">\( \gamma \)-contraction</dfn></span> (\( \gamma < 1 \)) ⇒ unique fixed point \( V^* \), VI converges from anywhere</li>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
@@ -472,12 +488,16 @@ col1_5 = r'''        <section>
 col2_5 = r'''        <section>
           <h2><span class="n">4</span>MCTS <span class="say">draw the 4 phases!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “When the model is only a simulator or the space is huge, we sample: MCTS grows a lopsided tree from repeated simulated episodes — four phases per iteration.”</p>
+          <div class="pseudo"><b>while</b> budget left:
+   s ← root
+   <b>while</b> s fully expanded: s ← child max UCT   <span class="c">// ① selection</span>
+   s′ ← add one new child of s                  <span class="c">// ② expansion</span>
+   r ← rollout(s′) with default policy          <span class="c">// ③ simulation</span>
+   <b>for</b> n on path root→s′:                      <span class="c">// ④ backprop</span>
+      n.N++;  n.Q̄ += (r − n.Q̄) / n.N
+<b>return</b> most-visited root action</div>
           <ul>
-            <li>① <b>selection</b> — descend by tree policy (UCT) to a frontier node</li>
-            <li>② <b>expansion</b> — add a new child</li>
-            <li>③ <b>simulation</b> — rollout with default policy to a terminal value</li>
-            <li>④ <b>backpropagation</b> — update visit counts \( n \) and value means \( \bar{Q} \) along the path</li>
-            <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on the most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
+            <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>
         </section>
 
@@ -537,4 +557,4 @@ build(5, "Nondeterministic & probabilistic planning, MDP/VI, MCTS/UCT",
        ("5.5–6.5′", "one numeric backup aloud (drawing 1)"),
        ("6.5–8.5′", "MCTS four phases (drawing 2)"),
        ("8.5–10′", "UCT formula term by term, C extremes")],
-      14.2)
+      13.0)
