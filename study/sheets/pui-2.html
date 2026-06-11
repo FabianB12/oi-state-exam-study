@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A4 — PUI 2 · Delete relaxation & abstraction heuristics</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Caveat:wght@600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}] });"></script>
+  <style>
+    :root {
+      --ink: #1a2236;
+      --soft: #4a5468;
+      --line: #c9cfdb;
+      --accent: #3a5bd0;
+      --hot: #c23636;
+      --hl: #fff3c4;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e8eaf0; font-family: Inter, sans-serif; color: var(--ink); }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.2rem auto;
+      background: #fff;
+      box-shadow: 0 2px 18px rgba(20, 30, 60, 0.18);
+      padding: 9mm 10mm;
+      display: flex;
+      flex-direction: column;
+      font-size: 13.9px;
+    }
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+      .no-print { display: none; }
+    }
+    .head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+    .head h1 { margin: 0; font-size: 1.4em; font-weight: 800; letter-spacing: 0.01em; }
+    .head .bullet { font-size: 0.82em; color: var(--soft); max-width: 56%; margin-left: auto; text-align: right; line-height: 1.35; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; }
+    .col { min-width: 0; }
+    section { margin-bottom: 1.05em; }
+    h2 {
+      margin: 0 0 0.35em;
+      font-size: 1.12em;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h2 .n {
+      flex: none;
+      width: 1.3em; height: 1.3em;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 .say { margin-left: auto; font-family: Caveat, cursive; font-size: 1.05em; color: var(--soft); font-weight: 600; }
+    .intro { margin: 0 0 0.35em; font-size: 0.9em; font-style: italic; color: var(--soft); line-height: 1.5; }
+    .intro .say-lead { font-family: Caveat, cursive; font-style: normal; color: var(--accent); font-weight: 600; margin-right: 2px; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li { font-size: 0.92em; line-height: 1.58; margin-bottom: 0.22em; }
+    li::marker { color: var(--accent); }
+    .katex { font-size: 1.02em; }
+    .formula {
+      display: block;
+      background: #f1f3f8;
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 0.35em 0.65em;
+      margin: 0.35em 0;
+      font-size: 0.98em;
+    }
+    .hl { background: var(--hl); padding: 0 2px; border-radius: 2px; }
+    .mini-table { width: 100%; border-collapse: collapse; margin: 0.35em 0; }
+    .mini-table th, .mini-table td { border: 1px solid var(--line); font-size: 0.85em; padding: 0.25em 0.5em; text-align: left; }
+    .mini-table th { background: #f1f3f8; font-weight: 700; }
+    .sketch { border: 1px dashed var(--line); border-radius: 4px; padding: 5px; margin-top: 0.35em; }
+    .sketch svg { width: 100%; height: auto; display: block; }
+    .sketch .cap { font-family: Caveat, cursive; font-size: 1.15em; color: var(--soft); text-align: center; margin: 2px 0 0; }
+    .traps {
+      margin-top: auto;
+      border-top: 2px solid var(--hot);
+      padding-top: 0.5em;
+      display: flex;
+      gap: 10px;
+    }
+    .traps strong { color: var(--hot); font-size: 0.85em; white-space: nowrap; }
+    .traps p { margin: 0; font-size: 0.85em; color: var(--soft); line-height: 1.45; }
+    .flow-panel {
+      position: fixed; top: 86px; right: 16px; width: 250px;
+      background: #fff; border: 1px solid #aab2c5; border-radius: 8px;
+      padding: 10px 12px; font-size: 12.5px;
+      box-shadow: 0 2px 12px rgba(20, 30, 60, 0.12);
+    }
+    .flow-panel h3 { margin: 0 0 6px; font-size: 1em; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+    .flow-panel h3 .say { font-family: Caveat, cursive; color: var(--soft); margin-left: auto; font-weight: 600; }
+    @media (max-width: 1360px) {
+      .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
+    }
+    .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
+    .toolbar button, .toolbar a {
+      font: inherit; font-size: 13px; font-weight: 700;
+      padding: 6px 14px; border-radius: 6px; border: 1px solid #aab2c5;
+      background: #fff; cursor: pointer; color: var(--ink); text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar no-print">
+    <button onclick="print()">Print / PDF</button>
+    <a href="../pui.html#relax">PUI study page →</a>
+    <span style="margin-left:auto;font-size:13px;font-weight:700;color:#4a5468;align-self:center">Sheets:</span>
+    <a href="pui-1.html">1</a><a href="pui-2.html" style="border-color:#3a5bd0;color:#3a5bd0">2</a><a href="pui-3.html">3</a><a href="pui-4.html">4</a><a href="pui-5.html">5</a>
+  </div>
+
+  <div class="sheet">
+    <div class="head">
+      <h1>PUI · 2 — Relaxation &amp; abstraction: two families of heuristics</h1>
+      <div class="bullet">Delete-relaxation heuristics. hmax, hadd, and hff heuristics. Abstraction heuristics. Projection, pattern databases. Merge &amp; Shrink heuristic.</div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <section>
+          <h2><span class="n">1</span>Delete relaxation \( \Pi^+ \) <span class="say">open with this!</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “Heuristics come from solving an easier task exactly. The delete relaxation erases delete effects — facts only accumulate, so what was achieved once stays true.”</p>
+          <span class="formula">\( \Pi^+ \): set \( \mathit{del}(a) = \varnothing \) for every action \( \Rightarrow s \subseteq s' \) along any path</span>
+          <ul>
+            <li>\( h^+(s) \) = cost of an <b>optimal relaxed plan</b> — admissible, dominates everything below</li>
+            <li>but computing \( h^+ \) is <span class="hl">NP-hard</span> → hmax / hadd / hff approximate it</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">2</span>Shared engine: fact costs</h2>
+          <p class="intro"><span class="say-lead">say:</span> “All three run the same forward cost propagation to a fixed point — they differ only in how they price a <i>set</i> of preconditions or goals.”</p>
+          <span class="formula">\( \mathit{cost}(f) = 0 \) if \( f \in s \); else \( \min_{a:\, f \in \mathit{add}(a)} \big[ c(a) + \mathit{cost}(\mathit{pre}(a)) \big] \)</span>
+          <ul>
+            <li>set aggregation: \( h^{\max} \): \( \mathit{cost}(P) = \max_{f \in P} \mathit{cost}(f) \) · \( h^{\mathit{add}} \): \( \sum_{f \in P} \mathit{cost}(f) \)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">3</span>hmax / hadd / hff <span class="say">know the example cold</span></h2>
+          <table class="mini-table">
+            <tr><th></th><th>value on goal set</th><th>admissible?</th><th>use</th></tr>
+            <tr><td>\( h^{\max} \)</td><td>most expensive goal fact</td><td><b>yes</b> (≤ \( h^+ \)), weak</td><td>optimal</td></tr>
+            <tr><td>\( h^{\mathit{add}} \)</td><td>sum of goal-fact costs</td><td><span class="hl">no — double-counts</span></td><td>satisficing</td></tr>
+            <tr><td>\( h^{\mathit{ff}} \)</td><td>cost of one extracted relaxed plan</td><td>no (each action once)</td><td>satisficing</td></tr>
+          </table>
+          <ul>
+            <li>hff extraction: walk <b>backward</b> from goals via best supporters; shared actions collected <span class="hl">once</span> → fixes hadd's double count</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">4</span>Drawing 1 — the splitting example</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 112">
+              <defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g font-family="Inter" font-size="9" fill="#1a2236">
+                <circle cx="34" cy="50" r="13" fill="none" stroke="#1a2236"/><text x="34" y="53" text-anchor="middle">s</text>
+                <circle cx="140" cy="50" r="13" fill="none" stroke="#1a2236"/><text x="140" y="53" text-anchor="middle">p</text>
+                <circle cx="250" cy="22" r="13" fill="none" stroke="#c23636"/><text x="250" y="25" text-anchor="middle">g₁</text>
+                <circle cx="250" cy="78" r="13" fill="none" stroke="#c23636"/><text x="250" y="81" text-anchor="middle">g₂</text>
+                <line x1="47" y1="50" x2="125" y2="50" stroke="#4a5468" marker-end="url(#a1)"/>
+                <line x1="151" y1="42" x2="236" y2="26" stroke="#4a5468" marker-end="url(#a1)"/>
+                <line x1="151" y1="58" x2="236" y2="74" stroke="#4a5468" marker-end="url(#a1)"/>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#3a5bd0">
+                <text x="72" y="44">oP : 3</text>
+                <text x="180" y="26">o₁ : 1</text>
+                <text x="180" y="80">o₂ : 1</text>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#0e7a3d">
+                <text x="40" y="103">cost(p)=3, cost(g₁)=cost(g₂)=4  →  hmax = 4 ≤ h⁺ = 5 ≤ hadd = 8</text>
+              </g>
+            </svg>
+            <p class="cap">hadd charges oP twice (4+4); the real relaxed plan {oP, o₁, o₂} pays it once</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="col">
+        <section>
+          <h2><span class="n">5</span>Abstraction heuristics</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Second family: map states into a smaller abstract space, solve that space exactly, and use the abstract goal distance as the heuristic.”</p>
+          <span class="formula">\( \alpha : S \to S_\alpha \), edge \( \alpha(s) \to \alpha(s') \) whenever \( s \to s' \); \( h_\alpha(s) = \mathit{dist}_\alpha(\alpha(s), G_\alpha) \)</span>
+          <ul>
+            <li>every real path survives in the abstraction ⇒ \( h_\alpha \le h^* \): <span class="hl">admissible (and consistent)</span></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">6</span>Projection → pattern databases</h2>
+          <p class="intro"><span class="say-lead">say:</span> “The simplest abstraction is a projection: keep a few SAS variables — the pattern — and ignore the rest.”</p>
+          <ul>
+            <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
+            <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
+            <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or cost partitioning)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">7</span>Merge &amp; Shrink</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
+          <ul>
+            <li><b>merge</b>: synchronized product of two abstractions (start: one per variable)</li>
+            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. bisimulation — exact if it fits)</li>
+            <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">8</span>Drawing 2 — projection</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 108">
+              <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g fill="none" stroke="#1a2236">
+                <rect x="28" y="18" width="26" height="22"/><rect x="54" y="18" width="26" height="22"/><rect x="80" y="18" width="26" height="22"/>
+                <rect x="28" y="40" width="26" height="22"/><rect x="54" y="40" width="26" height="22"/><rect x="80" y="40" width="26" height="22"/>
+                <rect x="28" y="62" width="26" height="22"/><rect x="54" y="62" width="26" height="22"/><rect x="80" y="62" width="26" height="22"/>
+              </g>
+              <line x1="130" y1="52" x2="195" y2="52" stroke="#4a5468" stroke-width="2" marker-end="url(#a2)"/>
+              <g fill="none" stroke="#3a5bd0" stroke-width="2">
+                <rect x="225" y="18" width="60" height="22"/>
+                <rect x="225" y="40" width="60" height="22"/>
+                <rect x="225" y="62" width="60" height="22"/>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#4a5468">
+                <text x="22" y="14">9 states over (v₁, v₂)</text>
+                <text x="135" y="44">drop v₁</text>
+                <text x="222" y="14" fill="#3a5bd0">3 abstract states (v₂)</text>
+                <text x="40" y="102">rows collapse — abstract distance ≤ real distance</text>
+              </g>
+            </svg>
+            <p class="cap">PDB: solve the small space exactly once, look distances up during search</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="traps">
+      <strong>⚠ TRAPS</strong>
+      <p>\( h^+ \) is already NP-hard — hmax/hadd/hff <b>approximate</b> it, they don't compute it · hadd is NOT admissible (8 vs 5 in the example) · hff depends on tie-breaking — not unique · summing PDBs needs disjoint action influence, else max · shrinking loses information unless bisimulation fits the bound.</p>
+    </div>
+  </div>
+
+  <aside class="flow-panel no-print">
+    <h3>10-minute flow <span class="say">pace yourself</span></h3>
+    <table class="mini-table">
+            <tr><td><b>0–1.5′</b></td><td>relaxation idea + \( \Pi^+ \), why \( h^+ \) is the gold standard</td></tr>
+            <tr><td><b>1.5–3′</b></td><td>fact-cost propagation, max vs sum aggregation</td></tr>
+            <tr><td><b>3–5′</b></td><td>walk drawing 1: hmax 4 ≤ h⁺ 5 ≤ hadd 8</td></tr>
+            <tr><td><b>5–6′</b></td><td>hff backward extraction fixes the double count</td></tr>
+            <tr><td><b>6–8.5′</b></td><td>abstractions: projection → PDB, drawing 2</td></tr>
+            <tr><td><b>8.5–10′</b></td><td>Merge & Shrink + when each is used</td></tr>
+          </table>
+  </aside>
+</body>
+</html>

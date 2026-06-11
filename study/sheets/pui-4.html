@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A4 — PUI 4 · Linear programming heuristics</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Caveat:wght@600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}] });"></script>
+  <style>
+    :root {
+      --ink: #1a2236;
+      --soft: #4a5468;
+      --line: #c9cfdb;
+      --accent: #3a5bd0;
+      --hot: #c23636;
+      --hl: #fff3c4;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e8eaf0; font-family: Inter, sans-serif; color: var(--ink); }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.2rem auto;
+      background: #fff;
+      box-shadow: 0 2px 18px rgba(20, 30, 60, 0.18);
+      padding: 9mm 10mm;
+      display: flex;
+      flex-direction: column;
+      font-size: 13.8px;
+    }
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+      .no-print { display: none; }
+    }
+    .head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+    .head h1 { margin: 0; font-size: 1.4em; font-weight: 800; letter-spacing: 0.01em; }
+    .head .bullet { font-size: 0.82em; color: var(--soft); max-width: 56%; margin-left: auto; text-align: right; line-height: 1.35; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; }
+    .col { min-width: 0; }
+    section { margin-bottom: 1.05em; }
+    h2 {
+      margin: 0 0 0.35em;
+      font-size: 1.12em;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h2 .n {
+      flex: none;
+      width: 1.3em; height: 1.3em;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 .say { margin-left: auto; font-family: Caveat, cursive; font-size: 1.05em; color: var(--soft); font-weight: 600; }
+    .intro { margin: 0 0 0.35em; font-size: 0.9em; font-style: italic; color: var(--soft); line-height: 1.5; }
+    .intro .say-lead { font-family: Caveat, cursive; font-style: normal; color: var(--accent); font-weight: 600; margin-right: 2px; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li { font-size: 0.92em; line-height: 1.58; margin-bottom: 0.22em; }
+    li::marker { color: var(--accent); }
+    .katex { font-size: 1.02em; }
+    .formula {
+      display: block;
+      background: #f1f3f8;
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 0.35em 0.65em;
+      margin: 0.35em 0;
+      font-size: 0.98em;
+    }
+    .hl { background: var(--hl); padding: 0 2px; border-radius: 2px; }
+    .mini-table { width: 100%; border-collapse: collapse; margin: 0.35em 0; }
+    .mini-table th, .mini-table td { border: 1px solid var(--line); font-size: 0.85em; padding: 0.25em 0.5em; text-align: left; }
+    .mini-table th { background: #f1f3f8; font-weight: 700; }
+    .sketch { border: 1px dashed var(--line); border-radius: 4px; padding: 5px; margin-top: 0.35em; }
+    .sketch svg { width: 100%; height: auto; display: block; }
+    .sketch .cap { font-family: Caveat, cursive; font-size: 1.15em; color: var(--soft); text-align: center; margin: 2px 0 0; }
+    .traps {
+      margin-top: auto;
+      border-top: 2px solid var(--hot);
+      padding-top: 0.5em;
+      display: flex;
+      gap: 10px;
+    }
+    .traps strong { color: var(--hot); font-size: 0.85em; white-space: nowrap; }
+    .traps p { margin: 0; font-size: 0.85em; color: var(--soft); line-height: 1.45; }
+    .flow-panel {
+      position: fixed; top: 86px; right: 16px; width: 250px;
+      background: #fff; border: 1px solid #aab2c5; border-radius: 8px;
+      padding: 10px 12px; font-size: 12.5px;
+      box-shadow: 0 2px 12px rgba(20, 30, 60, 0.12);
+    }
+    .flow-panel h3 { margin: 0 0 6px; font-size: 1em; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+    .flow-panel h3 .say { font-family: Caveat, cursive; color: var(--soft); margin-left: auto; font-weight: 600; }
+    @media (max-width: 1360px) {
+      .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
+    }
+    .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
+    .toolbar button, .toolbar a {
+      font: inherit; font-size: 13px; font-weight: 700;
+      padding: 6px 14px; border-radius: 6px; border: 1px solid #aab2c5;
+      background: #fff; cursor: pointer; color: var(--ink); text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar no-print">
+    <button onclick="print()">Print / PDF</button>
+    <a href="../pui.html#landmarks">PUI study page →</a>
+    <span style="margin-left:auto;font-size:13px;font-weight:700;color:#4a5468;align-self:center">Sheets:</span>
+    <a href="pui-1.html">1</a><a href="pui-2.html">2</a><a href="pui-3.html">3</a><a href="pui-4.html" style="border-color:#3a5bd0;color:#3a5bd0">4</a><a href="pui-5.html">5</a>
+  </div>
+
+  <div class="sheet">
+    <div class="head">
+      <h1>PUI · 4 — LP heuristics: bounds from necessary constraints</h1>
+      <div class="bullet">Linear programming heuristics. State-equation heuristic. Potential heuristic.</div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <section>
+          <h2><span class="n">1</span>Operator counting <span class="say">open with this!</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “Instead of solving the task, write linear constraints that every plan must satisfy, and minimize plan cost over them — the LP optimum is a lower bound on any real plan, hence admissible.”</p>
+          <span class="formula">\( Y_a \ge 0 \) = how often the plan uses \( a \); \( \; h(s) = \min \sum_a c(a)\, Y_a \) s.t. necessary constraints</span>
+          <ul>
+            <li>constraints must hold for <b>every</b> plan from \( s \) — necessity is the whole trick</li>
+            <li>solve the <b>LP relaxation</b>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
+            <li>unifying framework: landmark constraints (\( \sum_{a \in L} Y_a \ge 1 \)) drop into the same LP</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">2</span>State-equation heuristic</h2>
+          <p class="intro"><span class="say-lead">say:</span> “The constraints come from bookkeeping per fact: over a whole plan, how often a fact is produced and consumed must balance out — like tokens in a Petri net.”</p>
+          <span class="formula">for each fact \( f \): \( \sum_{a\, \text{produces}\, f} Y_a \; - \sum_{a\, \text{consumes}\, f} Y_a \;\; \ge \;\; [f \in G] - [f \in s] \)</span>
+          <ul>
+            <li>produced = \( f \in \mathit{add}(a) \), consumed = \( f \in \mathit{pre}(a) \cap \mathit{del}(a) \)</li>
+            <li>ignores <b>ordering</b> of actions — that's the relaxation (can undercount, never overcounts)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">3</span>Drawing 1 — fact flow</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 104">
+              <defs><marker id="c1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g font-family="Inter" font-size="9" fill="#1a2236">
+                <rect x="28" y="12" width="50" height="22" fill="none" stroke="#1a2236"/><text x="53" y="27" text-anchor="middle">a₁</text>
+                <rect x="28" y="58" width="50" height="22" fill="none" stroke="#1a2236"/><text x="53" y="73" text-anchor="middle">a₂</text>
+                <circle cx="170" cy="46" r="16" fill="none" stroke="#3a5bd0" stroke-width="2"/><text x="170" y="49" text-anchor="middle">f</text>
+                <rect x="262" y="35" width="50" height="22" fill="none" stroke="#1a2236"/><text x="287" y="50" text-anchor="middle">a₃</text>
+                <line x1="80" y1="26" x2="152" y2="40" stroke="#4a5468" marker-end="url(#c1)"/>
+                <line x1="80" y1="66" x2="152" y2="52" stroke="#4a5468" marker-end="url(#c1)"/>
+                <line x1="187" y1="46" x2="258" y2="46" stroke="#4a5468" marker-end="url(#c1)"/>
+              </g>
+              <g font-family="Caveat" font-size="12">
+                <text x="96" y="24" fill="#4a5468">produce (add f)</text>
+                <text x="200" y="38" fill="#4a5468">consume</text>
+                <text x="36" y="98" fill="#3a5bd0">Y₁ + Y₂ − Y₃ ≥ [f ∈ G] − [f ∈ s]   — per-fact token balance</text>
+              </g>
+            </svg>
+            <p class="cap">every plan respects the balance — orderings ignored, hence a relaxation</p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="n">7</span>Why admissible — say the argument</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Take any real plan: its action counts satisfy every necessary constraint, so they are a feasible LP point with objective = plan cost. The LP minimum is therefore ≤ every plan's cost — in particular ≤ h*.”</p>
+          <ul>
+            <li>real plan \( \pi \) → counts \( Y_a = \#_a(\pi) \) feasible, objective \( = c(\pi) \)</li>
+            <li>\( \Rightarrow \; \mathrm{LP}_{\min} \le c(\pi^*) = h^*(s) \) — <span class="hl">admissibility for free</span>, from necessity alone</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="col">
+        <section>
+          <h2><span class="n">4</span>Potential heuristic <span class="say">cheapest eval in the family</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “Give every fact a numeric potential; the heuristic of a state is just the sum of potentials of its true facts — a linear evaluation function whose weights we choose by an LP, once, offline.”</p>
+          <span class="formula">\( h_{\mathit{pot}}(s) = \sum_{f \in s} w(f) \)</span>
+          <ul>
+            <li>weights constrained so the result is <b>consistent + goal-aware</b>:</li>
+            <li>goal states: \( h_{\mathit{pot}} \le 0 \) · every action: drop along the transition \( \le c(a) \) — <span class="hl">linear constraints in \( w \)</span></li>
+            <li>objective: e.g. maximize \( h_{\mathit{pot}}(I) \) (or expected value over states)</li>
+            <li>LP solved <b>once before search</b>; per-state evaluation = <span class="hl">one sum — fastest admissible h around</span></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">5</span>Drawing 2 — consistency staircase</h2>
+          <div class="sketch">
+            <svg viewBox="0 0 340 112">
+              <defs><marker id="c2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g stroke="#3a5bd0" stroke-width="2.5">
+                <line x1="30" y1="22" x2="92" y2="22"/>
+                <line x1="102" y1="46" x2="164" y2="46"/>
+                <line x1="174" y1="64" x2="236" y2="64"/>
+                <line x1="246" y1="92" x2="308" y2="92"/>
+              </g>
+              <g stroke="#4a5468" stroke-dasharray="3 2">
+                <line x1="92" y1="22" x2="102" y2="46"/>
+                <line x1="164" y1="46" x2="174" y2="64"/>
+                <line x1="236" y1="64" x2="246" y2="92"/>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#1a2236">
+                <text x="40" y="16">h(s₀)</text><text x="112" y="40">h(s₁)</text><text x="184" y="58">h(s₂)</text><text x="256" y="86">h(s₃) ≤ 0 at goal</text>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#c23636">
+                <text x="84" y="42">≤ c(a₁)</text><text x="156" y="62">≤ c(a₂)</text><text x="228" y="86">≤ c(a₃)</text>
+              </g>
+              <g font-family="Caveat" font-size="12" fill="#3a5bd0"><text x="50" y="108">each step may drop h by at most its cost ⇒ consistent ⇒ admissible</text></g>
+            </svg>
+            <p class="cap">the LP picks weights so every staircase obeys the bound</p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="n">6</span>How the family fits together</h2>
+          <table class="mini-table">
+            <tr><th>heuristic</th><th>LP solved</th><th>per-state cost</th></tr>
+            <tr><td>state equation</td><td>per evaluated state</td><td>one LP solve</td></tr>
+            <tr><td>potential</td><td><span class="hl">once, offline</span></td><td>sum over true facts</td></tr>
+          </table>
+          <ul>
+            <li>both admissible via necessity; potential ≈ a cheap dual of the same constraint view</li>
+            <li>operator counting can <b>combine</b> sources (state equation + landmarks) admissibly in one LP</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">8</span>Micro-example to write</h2>
+          <p class="intro"><span class="say-lead">say:</span> “One fact makes it concrete.” Goal needs \( g \) (not in \( s \)); achievers \( a_1 \) (cost 4), \( a_2 \) (cost 3), nothing consumes \( g \).</p>
+          <span class="formula">\( \min\; 4Y_{a_1} + 3Y_{a_2} \;\;\text{s.t.}\;\; Y_{a_1} + Y_{a_2} \ge 1,\; Y \ge 0 \;\;\Rightarrow\; h = 3 \)</span>
+          <ul>
+            <li>the state-equation row for \( g \) <b>is</b> the landmark "some achiever of \( g \)" — the families meet</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <div class="traps">
+      <strong>⚠ TRAPS</strong>
+      <p>Constraints must be <b>necessary</b> for every plan — sufficiency is not required · LP relaxation (not IP) keeps admissibility AND polynomial time · the state equation ignores action ordering — relaxation, never overcounts · potentials: LP once offline, evaluation is a dot product · landmark rows drop into the same operator-counting LP.</p>
+    </div>
+  </div>
+
+  <aside class="flow-panel no-print">
+    <h3>10-minute flow <span class="say">pace yourself</span></h3>
+    <table class="mini-table">
+            <tr><td><b>0–2′</b></td><td>operator-counting idea: necessity ⇒ lower bound</td></tr>
+            <tr><td><b>2–4′</b></td><td>state equation + Petri-token intuition (drawing 1)</td></tr>
+            <tr><td><b>4–6′</b></td><td>potential heuristic: weights by LP, once</td></tr>
+            <tr><td><b>6–7.5′</b></td><td>consistency staircase (drawing 2)</td></tr>
+            <tr><td><b>7.5–9′</b></td><td>cost comparison: per-state LP vs one sum</td></tr>
+            <tr><td><b>9–10′</b></td><td>combining sources in one LP — the punchline</td></tr>
+          </table>
+  </aside>
+</body>
+</html>

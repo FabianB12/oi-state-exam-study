@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.7px;
+      font-size: 12.1px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -105,6 +105,17 @@
     }
     .traps strong { color: var(--hot); font-size: 0.85em; white-space: nowrap; }
     .traps p { margin: 0; font-size: 0.85em; color: var(--soft); line-height: 1.45; }
+    .flow-panel {
+      position: fixed; top: 86px; right: 16px; width: 250px;
+      background: #fff; border: 1px solid #aab2c5; border-radius: 8px;
+      padding: 10px 12px; font-size: 12.5px;
+      box-shadow: 0 2px 12px rgba(20, 30, 60, 0.12);
+    }
+    .flow-panel h3 { margin: 0 0 6px; font-size: 1em; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+    .flow-panel h3 .say { font-family: Caveat, cursive; color: var(--soft); margin-left: auto; font-weight: 600; }
+    @media (max-width: 1360px) {
+      .flow-panel { position: static; width: auto; max-width: 210mm; margin: 0.8rem auto 0; }
+    }
     .toolbar { max-width: 210mm; margin: 0.8rem auto 0; display: flex; gap: 0.6rem; }
     .toolbar button, .toolbar a {
       font: inherit; font-size: 13px; font-weight: 700;
@@ -117,6 +128,8 @@
   <div class="toolbar no-print">
     <button onclick="print()">Print / PDF</button>
     <a href="../pui.html#tasks">PUI study page →</a>
+    <span style="margin-left:auto;font-size:13px;font-weight:700;color:#4a5468;align-self:center">Sheets:</span>
+    <a href="pui-1.html" style="border-color:#3a5bd0;color:#3a5bd0">1</a><a href="pui-2.html">2</a><a href="pui-3.html">3</a><a href="pui-4.html">4</a><a href="pui-5.html">5</a>
   </div>
 
   <div class="sheet">
@@ -175,17 +188,6 @@
           </ul>
         </section>
 
-        <section>
-          <h2><span class="n">8</span>10-minute flow <span class="say">pace yourself</span></h2>
-          <table class="mini-table">
-            <tr><td><b>0–2′</b></td><td>tuple \( \Pi \) + applicability/successor, walk drawing 1</td></tr>
-            <tr><td><b>2–3′</b></td><td>SAS⁺ via the mutex-facts example</td></tr>
-            <tr><td><b>3–4′</b></td><td>satisficing vs optimal table</td></tr>
-            <tr><td><b>4–6′</b></td><td>A* + implementation details (queue, duplicates, reopening)</td></tr>
-            <tr><td><b>6–9′</b></td><td>properties: admissible / consistent + triangle, why A* is optimal</td></tr>
-            <tr><td><b>9–10′</b></td><td>extremes \( h\equiv 0 \), \( h = h^* \), dominance — invite questions</td></tr>
-          </table>
-        </section>
       </div>
 
       <div class="col">
@@ -303,5 +305,17 @@
       <p><b>Define \( \Pi \) before any algorithm</b> (reports: examiners stop you otherwise) · missing precondition = no edge, not “fails” · admissible ≠ consistent (consistency is the stronger, per-edge condition) · \( h \equiv 0 \) is admissible — A* degrades to UCS, never breaks · SAS is not “more powerful,” it is more compact.</p>
     </div>
   </div>
+
+  <aside class="flow-panel no-print">
+    <h3>10-minute flow <span class="say">pace yourself</span></h3>
+    <table class="mini-table">
+            <tr><td><b>0–2′</b></td><td>tuple \( \Pi \) + applicability/successor, walk drawing 1</td></tr>
+            <tr><td><b>2–3′</b></td><td>SAS⁺ via the mutex-facts example</td></tr>
+            <tr><td><b>3–4′</b></td><td>satisficing vs optimal table</td></tr>
+            <tr><td><b>4–6′</b></td><td>A* + implementation details (queue, duplicates, reopening)</td></tr>
+            <tr><td><b>6–9′</b></td><td>properties: admissible / consistent + triangle, why A* is optimal</td></tr>
+            <tr><td><b>9–10′</b></td><td>extremes \( h\equiv 0 \), \( h = h^* \), dominance — invite questions</td></tr>
+          </table>
+  </aside>
 </body>
 </html>
