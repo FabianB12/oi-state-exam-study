@@ -205,7 +205,7 @@
           <span class="formula">\( Y_a \ge 0 \) = how often the plan uses \( a \); \( \; h(s) = \min \sum_a c(a)\, Y_a \) s.t. necessary constraints</span>
           <ul>
             <li>constraints must hold for <b>every</b> plan from \( s \) — necessity is the whole trick</li>
-            <li>solve the <dfn class="tip" tabindex="0" data-tip="Allow fractional action counts (use 'half an action'). Solvable in polynomial time; the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
+            <li>solve the <dfn class="tip" tabindex="0" data-tip="IP = Integer Program (whole-number action counts — NP-hard). The LP relaxation allows fractional counts: polynomial time, and the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
             <li>unifying framework: landmark constraints (\( \sum_{a \in L} Y_a \ge 1 \)) drop into the same LP</li>
           </ul>
         </section>

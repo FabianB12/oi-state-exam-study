@@ -200,7 +200,7 @@
     <div class="cols">
       <div class="col">
         <section>
-          <h2><span class="n">1</span>STRIPS task — define FIRST <span class="say">open with this!</span></h2>
+          <h2><span class="n">1</span><dfn class="tip" tabindex="0" data-tip="STanford Research Institute Problem Solver — the 1971 planner whose representation became the standard name for this formalism.">STRIPS</dfn> task — define FIRST <span class="say">open with this!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “A STRIPS task is a factored description of a planning problem: we list facts and actions instead of drawing the state graph — the graph is induced.”</p>
           <span class="formula">\( \Pi = (F,\, A,\, I,\, G) \)</span>
           <ul>
@@ -260,7 +260,7 @@
         </section>
 
         <section>
-          <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
+          <h2><span class="n">2</span><dfn class="tip" tabindex="0" data-tip="Historically 'Simplified Action Structures'. Just read it as: the multi-valued-variable formalism. The + marks the modern extended version.">SAS⁺</dfn> — same world, fewer symbols</h2>
           <p class="intro"><span class="say-lead">say:</span> “SAS⁺ is the same task over multi-valued variables — mutually exclusive STRIPS facts become one variable with a finite domain.”</p>
           <ul>
             <li>world = variables \( V \); each \( v \) holds <b>one value</b> from a finite domain \( D(v) \) — e.g. \( \mathit{pos}(p) \) with \( D = \{A, B, \mathit{truck}\} \)</li>
@@ -288,10 +288,10 @@
             <tr><th></th><th>satisficing</th><th>optimal</th></tr>
             <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
             <tr><td><b>search</b></td><td><dfn class="tip" tabindex="0" data-tip="Greedy best-first search: always expand the state that looks closest to the goal (smallest h), ignoring cost paid so far.">GBFS</dfn> — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
-            <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
+            <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, <dfn class="tip" tabindex="0" data-tip="Pattern DataBase — precomputed table of exact distances in a simplified (projected) version of the task. Sheet 2 covers it.">PDB</dfn></td></tr>
           </table>
           <ul>
-            <li><dfn class="tip" tabindex="0" data-tip="Uninformed search: no heuristic, only path costs guide the expansion. What you fall back to when h is unavailable — and what A* reduces to with h≡0.">blind</dfn> baselines (no \( h \)): <b>BFS</b> — fewest actions, optimal only if all costs equal · <b>UCS</b> = Dijkstra — expands cheapest \( g \) first, optimal for any positive costs</li>
+            <li><dfn class="tip" tabindex="0" data-tip="Uninformed search: no heuristic, only path costs guide the expansion. What you fall back to when h is unavailable — and what A* reduces to with h≡0.">blind</dfn> baselines (no \( h \)): <b><dfn class="tip" tabindex="0" data-tip="Breadth-First Search — explore in waves: all states 1 action away, then 2, then 3…">BFS</dfn></b> — fewest actions, optimal only if all costs equal · <b><dfn class="tip" tabindex="0" data-tip="Uniform-Cost Search — same as Dijkstra: always continue from the cheapest path found so far.">UCS</dfn></b> = Dijkstra — expands cheapest \( g \) first, optimal for any positive costs</li>
           </ul>
         </section>
 
@@ -305,7 +305,7 @@ seen a state before? <b>keep the cheaper path</b>; repeat</div>
           <ul>
             <li><b>re-expansion:</b> with <b>consistent</b> \( h \), the first pop of a state already has its cheapest \( g \) — once closed, never touch it again; with merely <b>admissible</b> \( h \), a cheaper route to a closed state can still appear → <span class="hl">re-queue ("reopen") it, or the plan may be suboptimal</span></li>
             <li>the state graph is <b>never stored</b> (it is exponential) — only the successors of the state being expanded are ever materialized; that is the "apply every action" line</li>
-            <li><b>IDA*</b> — when A*'s queue eats all memory: run <dfn class="tip" tabindex="0" data-tip="Like iterative deepening DFS, but the depth limit is replaced by an f = g + h limit.">depth-first passes with an f-cutoff</dfn>, raising the cutoff each pass to the smallest \( f \) that exceeded it — <span class="hl">stores only the current path</span> (linear memory), pays with repeated re-expansion</li>
+            <li><b>IDA*</b> — when A*'s queue eats all memory: run <dfn class="tip" tabindex="0" data-tip="IDA* = Iterative-Deepening A*. Like iterative-deepening DFS, but the depth limit is replaced by an f = g + h limit.">depth-first passes with an f-cutoff</dfn>, raising the cutoff each pass to the smallest \( f \) that exceeded it — <span class="hl">stores only the current path</span> (linear memory), pays with repeated re-expansion</li>
           </ul>
         </section>
         <section>

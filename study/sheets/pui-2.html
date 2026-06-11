@@ -220,7 +220,7 @@ push costs forward: a fact costs its cheapest achiever
 repeat until nothing improves — then price the goal set:
    <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
           <ul>
-            <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
+            <li>heuristic value = <b><dfn class="tip" tabindex="0" data-tip="Not a standard term — shorthand for 'the aggregation function': how a SET of facts is priced from individual fact costs. max → hmax, sum → hadd.">AGG</dfn></b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>
         </section>
 
@@ -276,7 +276,7 @@ repeat until nothing improves — then price the goal set:
           <p class="intro"><span class="say-lead">say:</span> “The simplest abstraction is a projection: keep a few SAS variables — the pattern — and ignore the rest.”</p>
           <ul>
             <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
-            <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
+            <li><b><dfn class="tip" tabindex="0" data-tip="Pattern DataBase: 'pattern' = the kept variable subset, 'database' = the stored table of all abstract goal distances.">PDB</dfn></b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
             <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the heuristics that count it, so their SUM stays admissible.">cost partitioning</dfn>)</li>
           </ul>
           <div class="sketch">

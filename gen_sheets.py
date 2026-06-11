@@ -66,7 +66,7 @@ push costs forward: a fact costs its cheapest achiever
 repeat until nothing improves — then price the goal set:
    <b>max</b> over goals → hmax · <b>sum</b> over goals → hadd</div>
           <ul>
-            <li>heuristic value = <b>AGG</b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
+            <li>heuristic value = <b><dfn class="tip" tabindex="0" data-tip="Not a standard term — shorthand for 'the aggregation function': how a SET of facts is priced from individual fact costs. max → hmax, sum → hadd.">AGG</dfn></b> over the goal set: \( h^{\max} = \max_{f \in G} \mathit{cost}(f) \) · \( h^{\mathit{add}} = \sum_{f \in G} \mathit{cost}(f) \)</li>
           </ul>
         </section>
 
@@ -120,7 +120,7 @@ col2_2 = r'''        <section>
           <p class="intro"><span class="say-lead">say:</span> “The simplest abstraction is a projection: keep a few SAS variables — the pattern — and ignore the rest.”</p>
           <ul>
             <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
-            <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
+            <li><b><dfn class="tip" tabindex="0" data-tip="Pattern DataBase: 'pattern' = the kept variable subset, 'database' = the stored table of all abstract goal distances.">PDB</dfn></b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
             <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the heuristics that count it, so their SUM stays admissible.">cost partitioning</dfn>)</li>
           </ul>
           <div class="sketch">
@@ -216,13 +216,13 @@ col2_3 = r'''        <section>
           <h2><span class="n">3</span>Landmark heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
           <ul>
-            <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — LAMA)</li>
+            <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — <dfn class="tip" tabindex="0" data-tip="A famous satisficing planner, named for its LAndMArk-counting heuristic — the standard example of landmark counting in practice.">LAMA</dfn>)</li>
             <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the landmarks it achieves, so charging all of them sums to at most the real cost."><b>cost partitioning</b></dfn> splits each action's cost among them, restoring admissibility</li>
           </ul>
         </section>
 
         <section>
-          <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
+          <h2><span class="n">5</span><dfn class="tip" tabindex="0" data-tip="LM = LandMark; Cut = the graph cut it finds each round. A landmark heuristic computed via cuts.">LM-Cut</dfn> <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <div class="pseudo"><b>while</b> the relaxed task still costs something (hmax &gt; 0):
    find a <b>cut</b>: a set of actions every relaxed plan must use
@@ -289,7 +289,7 @@ col1_4 = r'''        <section>
           <span class="formula">\( Y_a \ge 0 \) = how often the plan uses \( a \); \( \; h(s) = \min \sum_a c(a)\, Y_a \) s.t. necessary constraints</span>
           <ul>
             <li>constraints must hold for <b>every</b> plan from \( s \) — necessity is the whole trick</li>
-            <li>solve the <dfn class="tip" tabindex="0" data-tip="Allow fractional action counts (use 'half an action'). Solvable in polynomial time; the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
+            <li>solve the <dfn class="tip" tabindex="0" data-tip="IP = Integer Program (whole-number action counts — NP-hard). The LP relaxation allows fractional counts: polynomial time, and the optimum can only drop — still a valid lower bound."><b>LP relaxation</b></dfn>, not the IP: <span class="hl">still admissible, polynomial time</span></li>
             <li>unifying framework: landmark constraints (\( \sum_{a \in L} Y_a \ge 1 \)) drop into the same LP</li>
           </ul>
         </section>
@@ -424,7 +424,7 @@ col1_5 = r'''        <section>
         </section>
 
         <section>
-          <h2><span class="n">2</span>MDP + value iteration</h2>
+          <h2><span class="n">2</span><dfn class="tip" tabindex="0" data-tip="Markov Decision Process. 'Markov' = the next state depends only on the current state and action, never on the history.">MDP</dfn> + value iteration</h2>
           <p class="intro"><span class="say-lead">say:</span> “Attach probabilities to the outcomes and we are in an MDP — instead of guaranteeing, we optimize expected discounted reward.”</p>
           <span class="formula">\( (S, A, P(s' \mid s,a), r, \gamma) \), policy \( \pi \), \( V^\pi(s) = \mathbb{E} \big[ \sum_t \gamma^t r_t \big] \)</span>
           <div class="pseudo">start V = 0 everywhere
@@ -460,7 +460,7 @@ read off the policy: in each state, take the best-looking action</div>
         </section>'''
 
 col2_5 = r'''        <section>
-          <h2><span class="n">4</span>MCTS <span class="say">draw the 4 phases!</span></h2>
+          <h2><span class="n">4</span><dfn class="tip" tabindex="0" data-tip="Monte-Carlo Tree Search. 'Monte-Carlo' = estimate values by random sampling instead of exact computation.">MCTS</dfn> <span class="say">draw the 4 phases!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “When the model is only a simulator or the space is huge, we sample: MCTS grows a lopsided tree from repeated simulated episodes — four phases per iteration.”</p>
           <div class="pseudo"><b>repeat:</b> descend the tree by UCT → add one new node
         → random rollout from there → push the result
@@ -501,7 +501,7 @@ col2_5 = r'''        <section>
         </section>
 
         <section>
-          <h2><span class="n">5</span>UCT</h2>
+          <h2><span class="n">5</span><dfn class="tip" tabindex="0" data-tip="Upper Confidence bounds applied to Trees — the bandit UCB selection rule reused as the tree policy of MCTS.">UCT</dfn></h2>
           <p class="intro"><span class="say-lead">say:</span> “UCT decides where to descend: take the action that maximizes mean value plus an exploration bonus that shrinks with visits.”</p>
           <span class="formula">\( \mathit{UCT}(i) = \bar{Q}_i + C \sqrt{\dfrac{\ln N}{n_i}} \)</span>
           <ul>

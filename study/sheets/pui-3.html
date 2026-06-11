@@ -245,13 +245,13 @@
           <h2><span class="n">3</span>Landmark heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
           <ul>
-            <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — LAMA)</li>
+            <li>\( h^{LM}(s) \) = number / cost of landmarks not achieved yet (path-dependent — <dfn class="tip" tabindex="0" data-tip="A famous satisficing planner, named for its LAndMArk-counting heuristic — the standard example of landmark counting in practice.">LAMA</dfn>)</li>
             <li>naive counting is <span class="hl">not admissible</span> — one action may achieve several landmarks → <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the landmarks it achieves, so charging all of them sums to at most the real cost."><b>cost partitioning</b></dfn> splits each action's cost among them, restoring admissibility</li>
           </ul>
         </section>
 
         <section>
-          <h2><span class="n">4</span>LM-Cut <span class="say">walk the rounds!</span></h2>
+          <h2><span class="n">4</span><dfn class="tip" tabindex="0" data-tip="LM = LandMark; Cut = the graph cut it finds each round. A landmark heuristic computed via cuts.">LM-Cut</dfn> <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <div class="pseudo"><b>while</b> the relaxed task still costs something (hmax &gt; 0):
    find a <b>cut</b>: a set of actions every relaxed plan must use
