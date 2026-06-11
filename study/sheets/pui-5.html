@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.2px;
+      font-size: 13.0px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -230,10 +230,6 @@ read off the policy: in each state, take the best-looking action</div>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
             <li>greedy policy is typically optimal <b>before</b> values fully converge</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>Drawing 1 — one Bellman backup</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 100">
               <defs><marker id="d1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -260,7 +256,7 @@ read off the policy: in each state, take the best-looking action</div>
 
       <div class="col">
         <section>
-          <h2><span class="n">4</span>MCTS <span class="say">draw the 4 phases!</span></h2>
+          <h2><span class="n">3</span>MCTS <span class="say">draw the 4 phases!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “When the model is only a simulator or the space is huge, we sample: MCTS grows a lopsided tree from repeated simulated episodes — four phases per iteration.”</p>
           <div class="pseudo"><b>repeat:</b> descend the tree by UCT → add one new node
         → random rollout from there → push the result
@@ -269,22 +265,6 @@ read off the policy: in each state, take the best-looking action</div>
           <ul>
             <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">5</span>UCT</h2>
-          <p class="intro"><span class="say-lead">say:</span> “UCT decides where to descend: take the action that maximizes mean value plus an exploration bonus that shrinks with visits.”</p>
-          <span class="formula">\( \mathit{UCT}(i) = \bar{Q}_i + C \sqrt{\dfrac{\ln N}{n_i}} \)</span>
-          <ul>
-            <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
-            <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
-            <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
-            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">6</span>Drawing 2 — the four phases</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 132">
               <defs><marker id="d2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -314,6 +294,18 @@ read off the policy: in each state, take the best-looking action</div>
             </svg>
             <p class="cap">the picture they expect — label all four phases while drawing</p>
           </div>
+        </section>
+
+        <section>
+          <h2><span class="n">4</span>UCT</h2>
+          <p class="intro"><span class="say-lead">say:</span> “UCT decides where to descend: take the action that maximizes mean value plus an exploration bonus that shrinks with visits.”</p>
+          <span class="formula">\( \mathit{UCT}(i) = \bar{Q}_i + C \sqrt{\dfrac{\ln N}{n_i}} \)</span>
+          <ul>
+            <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
+            <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
+            <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
+            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
+          </ul>
         </section>
       </div>
     </div>

@@ -34,7 +34,12 @@ def build(num, title, h1, bullet, anchor, col1, col2, traps, flow_rows, font):
     html = re.sub(r'(<div class="traps">\s*<strong>⚠ TRAPS</strong>\s*)<p>.*?</p>', lambda m: m.group(1) + "<p>" + traps + "</p>", html, flags=re.S)
     flow_table = '<table class="mini-table">\n' + "\n".join(f"            <tr><td><b>{t}</b></td><td>{d}</td></tr>" for t, d in flow_rows) + "\n          </table>"
     html = re.sub(r'(<aside class="flow-panel no-print">.*?</h3>\s*)<table class="mini-table">.*?</table>', lambda m: m.group(1) + flow_table, html, flags=re.S)
-    html = re.sub(r"      font-size: 12\.1px;\n    \}", f"      font-size: {font}px;\n    }}", html, count=1)
+    html = re.sub(r"      font-size: [\d.]+px;\n    \}", f"      font-size: {font}px;\n    }}", html, count=1)
+    counter = [0]
+    def _renum(m):
+        counter[0] += 1
+        return f'<span class="n">{counter[0]}</span>'
+    html = re.sub(r'<span class="n">\d+</span>', _renum, html)
     (SHEETS / f"pui-{num}.html").write_text(html)
     print(f"pui-{num}.html written")
 
@@ -74,10 +79,6 @@ repeat until nothing improves — then price the goal set:
           <ul>
             <li>hff extraction: walk <b>backward</b> from goals via <dfn class="tip" tabindex="0" data-tip="For each fact, the achiever that determined its cost during propagation — the cheapest way it became reachable.">best supporters</dfn>; shared actions collected <span class="hl">once</span> → fixes hadd's double count</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">4</span>Drawing 1 — the splitting example</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 112">
               <defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -120,20 +121,6 @@ col2_2 = r'''        <section>
             <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
             <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the heuristics that count it, so their SUM stays admissible.">cost partitioning</dfn>)</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">7</span>Merge &amp; Shrink</h2>
-          <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
-          <ul>
-            <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
-            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. <dfn class="tip" tabindex="0" data-tip="Merge only abstract states that behave identically under every action — coarser, but loses no information.">bisimulation</dfn> — exact if it fits)</li>
-            <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">8</span>Drawing 2 — projection</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 108">
               <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -157,6 +144,16 @@ col2_2 = r'''        <section>
             </svg>
             <p class="cap">PDB: solve the small space exactly once, look distances up during search</p>
           </div>
+        </section>
+
+        <section>
+          <h2><span class="n">7</span>Merge &amp; Shrink</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
+          <ul>
+            <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
+            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. <dfn class="tip" tabindex="0" data-tip="Merge only abstract states that behave identically under every action — coarser, but loses no information.">bisimulation</dfn> — exact if it fits)</li>
+            <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
+          </ul>
         </section>'''
 
 build(2, "Delete relaxation & abstraction heuristics",
@@ -190,9 +187,30 @@ col1_3 = r'''        <section>
             <li>relaxation test: <span class="hl">delete all achievers of \( f \)</span>; if relaxed task becomes unsolvable ⇒ \( f \) is a landmark</li>
             <li>backchaining: if every achiever of landmark \( l \) shares precondition \( p \) ⇒ \( p \) is a landmark too (drawing 1)</li>
           </ul>
-        </section>
+          <div class="sketch">
+            <svg viewBox="0 0 340 96">
+              <defs><marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g font-family="Inter" font-size="9" fill="#1a2236">
+                <circle cx="60" cy="48" r="14" fill="none" stroke="#3a5bd0" stroke-width="2"/><text x="60" y="51" text-anchor="middle">p</text>
+                <rect x="150" y="10" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="25" text-anchor="middle">o₁</text>
+                <rect x="150" y="62" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="77" text-anchor="middle">o₂</text>
+                <circle cx="290" cy="48" r="14" fill="none" stroke="#c23636" stroke-width="2"/><text x="290" y="51" text-anchor="middle">g</text>
+                <line x1="74" y1="41" x2="146" y2="24" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="74" y1="55" x2="146" y2="71" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="204" y1="22" x2="277" y2="42" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="204" y1="72" x2="277" y2="55" stroke="#4a5468" marker-end="url(#b1)"/>
+              </g>
+              <g font-family="Caveat" font-size="12">
+                <text x="120" y="50" fill="#4a5468">pre</text>
+                <text x="228" y="20" fill="#4a5468">achievers of g</text>
+                <text x="22" y="88" fill="#3a5bd0">all achievers need p  ⇒  p is a landmark (greedy-necessary before g)</text>
+              </g>
+            </svg>
+            <p class="cap">walk backward from the goal; shared preconditions become landmarks</p>
+          </div>
+        </section>'''
 
-        <section>
+col2_3 = r'''        <section>
           <h2><span class="n">3</span>Landmark heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
           <ul>
@@ -202,15 +220,6 @@ col1_3 = r'''        <section>
         </section>
 
         <section>
-          <h2><span class="n">4</span>Properties &amp; relations</h2>
-          <ul>
-            <li>LM-Cut dominates \( h^{\max} \): every round starts from it and adds more</li>
-            <li>cuts <b>are</b> disjunctive action landmarks — LM-Cut is landmark discovery with optimal charging</li>
-            <li>cost of one evaluation: several \( h^{\max} \) passes — pricier than PDB lookup, far better informed</li>
-          </ul>
-        </section>'''
-
-col2_3 = r'''        <section>
           <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <div class="pseudo"><b>while</b> the relaxed task still costs something (hmax &gt; 0):
@@ -222,10 +231,6 @@ answer = total charged</div>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
             <li>guarantees: admissible, \( h^{\text{LM-Cut}} \le h^+ \le h^* \); often near \( h^+ \) in practice</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">6</span>Drawing 2 — LM-Cut rounds</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 128">
               <defs><marker id="b2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -253,29 +258,14 @@ answer = total charged</div>
         </section>
 
         <section>
-          <h2><span class="n">4</span>Drawing 1 — backchaining</h2>
-          <div class="sketch">
-            <svg viewBox="0 0 340 96">
-              <defs><marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
-              <g font-family="Inter" font-size="9" fill="#1a2236">
-                <circle cx="60" cy="48" r="14" fill="none" stroke="#3a5bd0" stroke-width="2"/><text x="60" y="51" text-anchor="middle">p</text>
-                <rect x="150" y="10" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="25" text-anchor="middle">o₁</text>
-                <rect x="150" y="62" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="77" text-anchor="middle">o₂</text>
-                <circle cx="290" cy="48" r="14" fill="none" stroke="#c23636" stroke-width="2"/><text x="290" y="51" text-anchor="middle">g</text>
-                <line x1="74" y1="41" x2="146" y2="24" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="74" y1="55" x2="146" y2="71" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="204" y1="22" x2="277" y2="42" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="204" y1="72" x2="277" y2="55" stroke="#4a5468" marker-end="url(#b1)"/>
-              </g>
-              <g font-family="Caveat" font-size="12">
-                <text x="120" y="50" fill="#4a5468">pre</text>
-                <text x="228" y="20" fill="#4a5468">achievers of g</text>
-                <text x="22" y="88" fill="#3a5bd0">all achievers need p  ⇒  p is a landmark (greedy-necessary before g)</text>
-              </g>
-            </svg>
-            <p class="cap">walk backward from the goal; shared preconditions become landmarks</p>
-          </div>
-        </section>'''
+          <h2><span class="n">4</span>Properties &amp; relations</h2>
+          <ul>
+            <li>LM-Cut dominates \( h^{\max} \): every round starts from it and adds more</li>
+            <li>cuts <b>are</b> disjunctive action landmarks — LM-Cut is landmark discovery with optimal charging</li>
+            <li>cost of one evaluation: several \( h^{\max} \) passes — pricier than PDB lookup, far better informed</li>
+          </ul>
+        </section>
+'''
 
 build(3, "Landmarks & LM-Cut",
       "PUI · 3 — Landmarks: what every plan must do",
@@ -288,7 +278,7 @@ build(3, "Landmarks & LM-Cut",
        ("4.5–7.5′", "LM-Cut round mechanics on drawing 2"),
        ("7.5–9′", "why admissible: cuts are landmarks, subtraction"),
        ("9–10′", "h ≤ h⁺ ≤ h*, practical strength")],
-      14.9)
+      14.5)
 
 # ============================== SHEET 4 ==============================
 col1_4 = r'''        <section>
@@ -310,10 +300,6 @@ col1_4 = r'''        <section>
             <li>produced = \( f \in \mathit{add}(a) \), consumed = \( f \in \mathit{pre}(a) \cap \mathit{del}(a) \)</li>
             <li>ignores <b>ordering</b> of actions — that's the relaxation (can undercount, never overcounts)</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>Drawing 1 — fact flow</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 104">
               <defs><marker id="c1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -355,10 +341,6 @@ col2_4 = r'''        <section>
             <li>objective: e.g. maximize \( h_{\mathit{pot}}(I) \) (or expected value over states)</li>
             <li>LP solved <b>once before search</b>; per-state evaluation = <span class="hl">one sum — fastest admissible h around</span></li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">5</span>Drawing 2 — consistency staircase</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 112">
               <defs><marker id="c2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -452,10 +434,6 @@ read off the policy: in each state, take the best-looking action</div>
             <li>stop when \( \lVert V_{k+1} - V_k \rVert < \varepsilon \); extract greedy policy \( \pi(s) = \arg\max_a Q(s,a) \)</li>
             <li>greedy policy is typically optimal <b>before</b> values fully converge</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>Drawing 1 — one Bellman backup</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 100">
               <defs><marker id="d1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -489,22 +467,6 @@ col2_5 = r'''        <section>
           <ul>
             <li><dfn class="tip" tabindex="0" data-tip="You can stop the algorithm at any moment and still get the best answer found so far — more time just improves it."><b>anytime</b></dfn>: stop whenever, act on most-visited root action; tree grows <span class="hl">asymmetrically</span> toward promising lines</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">5</span>UCT</h2>
-          <p class="intro"><span class="say-lead">say:</span> “UCT decides where to descend: take the action that maximizes mean value plus an exploration bonus that shrinks with visits.”</p>
-          <span class="formula">\( \mathit{UCT}(i) = \bar{Q}_i + C \sqrt{\dfrac{\ln N}{n_i}} \)</span>
-          <ul>
-            <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
-            <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
-            <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
-            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">6</span>Drawing 2 — the four phases</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 132">
               <defs><marker id="d2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -534,6 +496,18 @@ col2_5 = r'''        <section>
             </svg>
             <p class="cap">the picture they expect — label all four phases while drawing</p>
           </div>
+        </section>
+
+        <section>
+          <h2><span class="n">5</span>UCT</h2>
+          <p class="intro"><span class="say-lead">say:</span> “UCT decides where to descend: take the action that maximizes mean value plus an exploration bonus that shrinks with visits.”</p>
+          <span class="formula">\( \mathit{UCT}(i) = \bar{Q}_i + C \sqrt{\dfrac{\ln N}{n_i}} \)</span>
+          <ul>
+            <li>\( \bar{Q}_i \) exploitation · bonus = uncertainty; unvisited child ⇒ bonus \( = \infty \) → <span class="hl">try everything once</span></li>
+            <li>\( \ln N \) grows ⇒ every action retried infinitely often (no starvation)</li>
+            <li>\( C = 0 \): greedy lock-in · large \( C \): near-uniform; \( C \approx \sqrt{2} \) classic</li>
+            <li>needs only a <dfn class="tip" tabindex="0" data-tip="A black box you can sample: feed it state + action, it returns one successor — no probability tables required."><b>generative model</b></dfn> (simulator), not \( P(s'\mid s,a) \) tables</li>
+          </ul>
         </section>'''
 
 build(5, "Nondeterministic & probabilistic planning, MDP/VI, MCTS/UCT",

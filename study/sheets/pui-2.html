@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.2px;
+      font-size: 13.5px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -233,10 +233,6 @@ repeat until nothing improves — then price the goal set:
           <ul>
             <li>hff extraction: walk <b>backward</b> from goals via <dfn class="tip" tabindex="0" data-tip="For each fact, the achiever that determined its cost during propagation — the cheapest way it became reachable.">best supporters</dfn>; shared actions collected <span class="hl">once</span> → fixes hadd's double count</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">4</span>Drawing 1 — the splitting example</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 112">
               <defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -265,7 +261,7 @@ repeat until nothing improves — then price the goal set:
 
       <div class="col">
         <section>
-          <h2><span class="n">5</span>Abstraction heuristics</h2>
+          <h2><span class="n">4</span>Abstraction heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Second family: map states into a smaller abstract space, solve that space exactly, and use the abstract goal distance as the heuristic.”</p>
           <span class="formula">\( \alpha : S \to S_\alpha \), edge \( \alpha(s) \to \alpha(s') \) whenever \( s \to s' \); \( h_\alpha(s) = \mathit{dist}_\alpha(\alpha(s), G_\alpha) \)</span>
           <ul>
@@ -274,27 +270,13 @@ repeat until nothing improves — then price the goal set:
         </section>
 
         <section>
-          <h2><span class="n">6</span>Projection → pattern databases</h2>
+          <h2><span class="n">5</span>Projection → pattern databases</h2>
           <p class="intro"><span class="say-lead">say:</span> “The simplest abstraction is a projection: keep a few SAS variables — the pattern — and ignore the rest.”</p>
           <ul>
             <li>pattern \( P \subseteq V \); abstract state space = assignments of \( P \) only</li>
             <li><b>PDB</b> = solve the projected task <b>exhaustively offline</b>, store all abstract distances → \( O(1) \) lookup during search</li>
             <li>several PDBs: <span class="hl">sum is admissible only if no action affects two patterns</span> — otherwise take max (or <dfn class="tip" tabindex="0" data-tip="Split each action's cost among the heuristics that count it, so their SUM stays admissible.">cost partitioning</dfn>)</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">7</span>Merge &amp; Shrink</h2>
-          <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
-          <ul>
-            <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
-            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. <dfn class="tip" tabindex="0" data-tip="Merge only abstract states that behave identically under every action — coarser, but loses no information.">bisimulation</dfn> — exact if it fits)</li>
-            <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">8</span>Drawing 2 — projection</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 108">
               <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -318,6 +300,16 @@ repeat until nothing improves — then price the goal set:
             </svg>
             <p class="cap">PDB: solve the small space exactly once, look distances up during search</p>
           </div>
+        </section>
+
+        <section>
+          <h2><span class="n">6</span>Merge &amp; Shrink</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Merge &amp; Shrink generalizes PDBs: build the abstraction incrementally, and compress whenever it grows past a size budget.”</p>
+          <ul>
+            <li><b>merge</b>: <dfn class="tip" tabindex="0" data-tip="Combine two abstractions into one that tracks both at once: states are pairs, and a transition exists only if both agree on the action.">synchronized product</dfn> of two abstractions (start: one per variable)</li>
+            <li><b>shrink</b>: aggregate abstract states to respect the size bound (e.g. <dfn class="tip" tabindex="0" data-tip="Merge only abstract states that behave identically under every action — coarser, but loses no information.">bisimulation</dfn> — exact if it fits)</li>
+            <li>repeat until one abstraction remains; can represent every projection <span class="hl">and more</span></li>
+          </ul>
         </section>
       </div>
     </div>

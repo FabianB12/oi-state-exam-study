@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.2px;
+      font-size: 13.8px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -218,10 +218,6 @@
             <li>produced = \( f \in \mathit{add}(a) \), consumed = \( f \in \mathit{pre}(a) \cap \mathit{del}(a) \)</li>
             <li>ignores <b>ordering</b> of actions — that's the relaxation (can undercount, never overcounts)</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>Drawing 1 — fact flow</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 104">
               <defs><marker id="c1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -245,7 +241,7 @@
         </section>
 
         <section>
-          <h2><span class="n">7</span>Why admissible — say the argument</h2>
+          <h2><span class="n">3</span>Why admissible — say the argument</h2>
           <p class="intro"><span class="say-lead">say:</span> “Take any real plan: its action counts satisfy every necessary constraint, so they are a feasible LP point with objective = plan cost. The LP minimum is therefore ≤ every plan's cost — in particular ≤ h*.”</p>
           <ul>
             <li>real plan \( \pi \) → counts \( Y_a = \#_a(\pi) \) feasible, objective \( = c(\pi) \)</li>
@@ -265,10 +261,6 @@
             <li>objective: e.g. maximize \( h_{\mathit{pot}}(I) \) (or expected value over states)</li>
             <li>LP solved <b>once before search</b>; per-state evaluation = <span class="hl">one sum — fastest admissible h around</span></li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">5</span>Drawing 2 — consistency staircase</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 112">
               <defs><marker id="c2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -296,7 +288,7 @@
         </section>
 
         <section>
-          <h2><span class="n">6</span>How the family fits together</h2>
+          <h2><span class="n">5</span>How the family fits together</h2>
           <table class="mini-table">
             <tr><th>heuristic</th><th>LP solved</th><th>per-state cost</th></tr>
             <tr><td>state equation</td><td>per evaluated state</td><td>one LP solve</td></tr>
@@ -309,7 +301,7 @@
         </section>
 
         <section>
-          <h2><span class="n">8</span>Micro-example to write</h2>
+          <h2><span class="n">6</span>Micro-example to write</h2>
           <p class="intro"><span class="say-lead">say:</span> “One fact makes it concrete.” Goal needs \( g \) (not in \( s \)); achievers \( a_1 \) (cost 4), \( a_2 \) (cost 3), nothing consumes \( g \).</p>
           <span class="formula">\( \min\; 4Y_{a_1} + 3Y_{a_2} \;\;\text{s.t.}\;\; Y_{a_1} + Y_{a_2} \ge 1,\; Y \ge 0 \;\;\Rightarrow\; h = 3 \)</span>
           <ul>

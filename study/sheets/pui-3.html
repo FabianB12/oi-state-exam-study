@@ -32,7 +32,7 @@
       padding: 9mm 10mm;
       display: flex;
       flex-direction: column;
-      font-size: 11.2px;
+      font-size: 14.5px;
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -216,8 +216,31 @@
             <li>relaxation test: <span class="hl">delete all achievers of \( f \)</span>; if relaxed task becomes unsolvable ⇒ \( f \) is a landmark</li>
             <li>backchaining: if every achiever of landmark \( l \) shares precondition \( p \) ⇒ \( p \) is a landmark too (drawing 1)</li>
           </ul>
+          <div class="sketch">
+            <svg viewBox="0 0 340 96">
+              <defs><marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
+              <g font-family="Inter" font-size="9" fill="#1a2236">
+                <circle cx="60" cy="48" r="14" fill="none" stroke="#3a5bd0" stroke-width="2"/><text x="60" y="51" text-anchor="middle">p</text>
+                <rect x="150" y="10" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="25" text-anchor="middle">o₁</text>
+                <rect x="150" y="62" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="77" text-anchor="middle">o₂</text>
+                <circle cx="290" cy="48" r="14" fill="none" stroke="#c23636" stroke-width="2"/><text x="290" y="51" text-anchor="middle">g</text>
+                <line x1="74" y1="41" x2="146" y2="24" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="74" y1="55" x2="146" y2="71" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="204" y1="22" x2="277" y2="42" stroke="#4a5468" marker-end="url(#b1)"/>
+                <line x1="204" y1="72" x2="277" y2="55" stroke="#4a5468" marker-end="url(#b1)"/>
+              </g>
+              <g font-family="Caveat" font-size="12">
+                <text x="120" y="50" fill="#4a5468">pre</text>
+                <text x="228" y="20" fill="#4a5468">achievers of g</text>
+                <text x="22" y="88" fill="#3a5bd0">all achievers need p  ⇒  p is a landmark (greedy-necessary before g)</text>
+              </g>
+            </svg>
+            <p class="cap">walk backward from the goal; shared preconditions become landmarks</p>
+          </div>
         </section>
+      </div>
 
+      <div class="col">
         <section>
           <h2><span class="n">3</span>Landmark heuristics</h2>
           <p class="intro"><span class="say-lead">say:</span> “Count what's still missing: the landmarks not yet achieved on this path are a to-do list — its size or cost estimates distance.”</p>
@@ -228,18 +251,7 @@
         </section>
 
         <section>
-          <h2><span class="n">4</span>Properties &amp; relations</h2>
-          <ul>
-            <li>LM-Cut dominates \( h^{\max} \): every round starts from it and adds more</li>
-            <li>cuts <b>are</b> disjunctive action landmarks — LM-Cut is landmark discovery with optimal charging</li>
-            <li>cost of one evaluation: several \( h^{\max} \) passes — pricier than PDB lookup, far better informed</li>
-          </ul>
-        </section>
-      </div>
-
-      <div class="col">
-        <section>
-          <h2><span class="n">5</span>LM-Cut <span class="say">walk the rounds!</span></h2>
+          <h2><span class="n">4</span>LM-Cut <span class="say">walk the rounds!</span></h2>
           <p class="intro"><span class="say-lead">say:</span> “LM-Cut discovers disjunctive action landmarks round by round and charges each its cheapest member — the sum is an admissible estimate of h⁺.”</p>
           <div class="pseudo"><b>while</b> the relaxed task still costs something (hmax &gt; 0):
    find a <b>cut</b>: a set of actions every relaxed plan must use
@@ -250,10 +262,6 @@ answer = total charged</div>
             <li><span class="hl">subtraction prevents double-charging</span> — the paid cost is "used up"</li>
             <li>guarantees: admissible, \( h^{\text{LM-Cut}} \le h^+ \le h^* \); often near \( h^+ \) in practice</li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">6</span>Drawing 2 — LM-Cut rounds</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 128">
               <defs><marker id="b2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
@@ -281,29 +289,14 @@ answer = total charged</div>
         </section>
 
         <section>
-          <h2><span class="n">4</span>Drawing 1 — backchaining</h2>
-          <div class="sketch">
-            <svg viewBox="0 0 340 96">
-              <defs><marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#4a5468"/></marker></defs>
-              <g font-family="Inter" font-size="9" fill="#1a2236">
-                <circle cx="60" cy="48" r="14" fill="none" stroke="#3a5bd0" stroke-width="2"/><text x="60" y="51" text-anchor="middle">p</text>
-                <rect x="150" y="10" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="25" text-anchor="middle">o₁</text>
-                <rect x="150" y="62" width="52" height="22" fill="none" stroke="#1a2236"/><text x="176" y="77" text-anchor="middle">o₂</text>
-                <circle cx="290" cy="48" r="14" fill="none" stroke="#c23636" stroke-width="2"/><text x="290" y="51" text-anchor="middle">g</text>
-                <line x1="74" y1="41" x2="146" y2="24" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="74" y1="55" x2="146" y2="71" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="204" y1="22" x2="277" y2="42" stroke="#4a5468" marker-end="url(#b1)"/>
-                <line x1="204" y1="72" x2="277" y2="55" stroke="#4a5468" marker-end="url(#b1)"/>
-              </g>
-              <g font-family="Caveat" font-size="12">
-                <text x="120" y="50" fill="#4a5468">pre</text>
-                <text x="228" y="20" fill="#4a5468">achievers of g</text>
-                <text x="22" y="88" fill="#3a5bd0">all achievers need p  ⇒  p is a landmark (greedy-necessary before g)</text>
-              </g>
-            </svg>
-            <p class="cap">walk backward from the goal; shared preconditions become landmarks</p>
-          </div>
+          <h2><span class="n">5</span>Properties &amp; relations</h2>
+          <ul>
+            <li>LM-Cut dominates \( h^{\max} \): every round starts from it and adds more</li>
+            <li>cuts <b>are</b> disjunctive action landmarks — LM-Cut is landmark discovery with optimal charging</li>
+            <li>cost of one evaluation: several \( h^{\max} \) passes — pricier than PDB lookup, far better informed</li>
+          </ul>
         </section>
+
       </div>
     </div>
 

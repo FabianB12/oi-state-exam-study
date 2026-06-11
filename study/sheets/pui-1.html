@@ -214,76 +214,6 @@
             <li>plan \( \pi = a_1 \ldots a_n \): sequentially applicable from \( I \), ends in \( s \supseteq G \); &nbsp; \( c(\pi) = \sum_i c(a_i) \)</li>
             <li>classical assumptions: <b>finite · deterministic · fully observable · static</b></li>
           </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
-          <p class="intro"><span class="say-lead">say:</span> “SAS⁺ is the same task over multi-valued variables — mutually exclusive STRIPS facts become one variable with a finite domain.”</p>
-          <ul>
-            <li>world = variables \( V \); each \( v \) holds <b>one value</b> from a finite domain \( D(v) \) — e.g. \( \mathit{pos}(p) \) with \( D = \{A, B, \mathit{truck}\} \)</li>
-            <li>a state is a <dfn class="tip" tabindex="0" data-tip="Every variable gets exactly one value — like filling in every field of a form. (A partial assignment fills only some fields, leaving the rest open.)">total assignment</dfn> — every variable has exactly one value</li>
-            <li>preconditions / effects are <dfn class="tip" tabindex="0" data-tip="They mention only the variables they care about: drive needs pos(truck)=A and sets pos(truck)=B — pos(pkg) is left untouched.">partial assignments</dfn> — they touch only the variables they care about</li>
-            <li>idea: mutually exclusive facts → one variable</li>
-          </ul>
-          <table class="mini-table">
-            <tr><th>STRIPS (3 facts, mutex)</th><th>SAS⁺ (1 variable)</th></tr>
-            <tr><td>\( \mathit{at}(p,A),\; \mathit{at}(p,B),\; \mathit{in}(p,t) \)</td><td>\( \mathit{pos}(p) \in \{A,\, B,\, \mathit{truck}\} \)</td></tr>
-          </table>
-          <ul>
-            <li>same expressiveness; <span class="hl">compact + structure for free</span> → projections / PDBs drop variables naturally</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">3</span>Satisficing vs optimal</h2>
-          <p class="intro"><span class="say-lead">say:</span> “Satisficing = any valid plan, fast; optimal = the cheapest plan, plus an implicit proof none cheaper exists.”</p>
-          <table class="mini-table">
-            <tr><th></th><th>satisficing</th><th>optimal</th></tr>
-            <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
-            <tr><td><b>search</b></td><td><dfn class="tip" tabindex="0" data-tip="Greedy best-first search: always expand the state that looks closest to the goal (smallest h), ignoring cost paid so far.">GBFS</dfn> — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
-            <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
-          </table>
-          <ul>
-            <li><dfn class="tip" tabindex="0" data-tip="Uninformed search: no heuristic, only path costs guide the expansion. What you fall back to when h is unavailable — and what A* reduces to with h≡0.">blind</dfn> baselines (no \( h \)): <b>BFS</b> — fewest actions, optimal only if all costs equal · <b>UCS</b> = Dijkstra — expands cheapest \( g \) first, optimal for any positive costs</li>
-          </ul>
-        </section>
-
-      </div>
-
-      <div class="col">
-        <section>
-          <h2><span class="n">4</span>A* — what I'd implement <span class="say">they ask this!</span></h2>
-          <p class="intro"><span class="say-lead">say:</span> “Once the task is fixed, finding a plan = finding a cheapest path in the state graph. A* does that by always expanding the most promising state: \( f = g + h \), cost already paid + cost still estimated.”</p>
-          <div class="pseudo">keep a queue of states, ordered by f = g + h
-take the cheapest → goal? <b>done</b> (walk parents back)
-otherwise: apply every action → queue the successors
-seen a state before? <b>keep the cheaper path</b>; repeat</div>
-          <ul>
-            <li><b>re-expansion:</b> with <b>consistent</b> \( h \), the first pop of a state already has its cheapest \( g \) — once closed, never touch it again; with merely <b>admissible</b> \( h \), a cheaper route to a closed state can still appear → <span class="hl">re-queue ("reopen") it, or the plan may be suboptimal</span></li>
-            <li>the state graph is <b>never stored</b> (it is exponential) — only the successors of the state being expanded are ever materialized; that is the "apply every action" line</li>
-            <li><b>IDA*</b> — when A*'s queue eats all memory: run <dfn class="tip" tabindex="0" data-tip="Like iterative deepening DFS, but the depth limit is replaced by an f = g + h limit.">depth-first passes with an f-cutoff</dfn>, raising the cutoff each pass to the smallest \( f \) that exceeded it — <span class="hl">stores only the current path</span> (linear memory), pays with repeated re-expansion</li>
-          </ul>
-        </section>
-        <section>
-          <h2><span class="n">5</span>Heuristic properties</h2>
-          <p class="intro"><span class="say-lead">say:</span> “A heuristic estimates remaining cost; its properties set the guarantees — admissibility buys optimality, consistency buys efficiency.”</p>
-          <ul>
-            <li>\( h^*(s) \) = true optimal cost-to-goal from \( s \)</li>
-            <li><b>admissible:</b> \( h(s) \le h^*(s) \;\; \forall s \) — never overestimate</li>
-            <li><b>consistent:</b> \( h(s) \le c(a) + h(s') \) for every edge, and \( h(s) = 0 \) for goal states</li>
-            <li><b>goal-aware:</b> \( h(s) = 0 \) when \( s \models G \) &nbsp;·&nbsp; <b>safe:</b> \( h = \infty \) only on dead ends</li>
-          </ul>
-          <span class="formula">consistent + goal-aware \( \Rightarrow \) admissible &nbsp;&nbsp; [induction on plan length]</span>
-          <ul>
-            <li>A* + admissible \( h \) ⇒ <span class="hl">optimal solution</span></li>
-            <li>consistent ⇒ \( f \) nondecreasing along paths ⇒ no reopening</li>
-            <li><b>dominance:</b> \( h_2 \ge h_1 \) (both admissible) ⇒ \( h_2 \) better informed, expands a subset (up to tie-breaking)</li>
-            <li>extremes: \( h \equiv 0 \) → UCS &nbsp;·&nbsp; \( h = h^* \) → expands only the optimal path</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="n">6</span>Drawing 1 — implicit state graph</h2>
           <div class="sketch">
             <svg viewBox="0 0 340 120">
               <defs>
@@ -325,12 +255,75 @@ seen a state before? <b>keep the cheaper path</b>; repeat</div>
                 <text x="186" y="70">g=2, h=1 → f=3</text>
               </g>
             </svg>
-            <p class="cap">states = fact sets, edges = applicable actions; mark I, G, one f = g + h</p>
+            <p class="cap">nodes = states (fact sets) · edge = action whose pre holds (no pre, no edge) · plan = path I→G · the branch = a wasted move: a graph, not a corridor · A* ranks frontier by f = g + h</p>
           </div>
         </section>
 
         <section>
-          <h2><span class="n">7</span>Drawing 2 — consistency triangle</h2>
+          <h2><span class="n">2</span>SAS⁺ — same world, fewer symbols</h2>
+          <p class="intro"><span class="say-lead">say:</span> “SAS⁺ is the same task over multi-valued variables — mutually exclusive STRIPS facts become one variable with a finite domain.”</p>
+          <ul>
+            <li>world = variables \( V \); each \( v \) holds <b>one value</b> from a finite domain \( D(v) \) — e.g. \( \mathit{pos}(p) \) with \( D = \{A, B, \mathit{truck}\} \)</li>
+            <li>a state is a <dfn class="tip" tabindex="0" data-tip="Every variable gets exactly one value — like filling in every field of a form. (A partial assignment fills only some fields, leaving the rest open.)">total assignment</dfn> — every variable has exactly one value</li>
+            <li>preconditions / effects are <dfn class="tip" tabindex="0" data-tip="They mention only the variables they care about: drive needs pos(truck)=A and sets pos(truck)=B — pos(pkg) is left untouched.">partial assignments</dfn> — they touch only the variables they care about</li>
+            <li>idea: mutually exclusive facts → one variable</li>
+          </ul>
+          <table class="mini-table">
+            <tr><th>STRIPS (3 facts, mutex)</th><th>SAS⁺ (1 variable)</th></tr>
+            <tr><td>\( \mathit{at}(p,A),\; \mathit{at}(p,B),\; \mathit{in}(p,t) \)</td><td>\( \mathit{pos}(p) \in \{A,\, B,\, \mathit{truck}\} \)</td></tr>
+          </table>
+          <ul>
+            <li>same expressiveness; <span class="hl">compact + structure for free</span> → projections / PDBs drop variables naturally</li>
+          </ul>
+        </section>
+
+
+      </div>
+
+      <div class="col">
+        <section>
+          <h2><span class="n">3</span>Satisficing vs optimal</h2>
+          <p class="intro"><span class="say-lead">say:</span> “Satisficing = any valid plan, fast; optimal = the cheapest plan, plus an implicit proof none cheaper exists.”</p>
+          <table class="mini-table">
+            <tr><th></th><th>satisficing</th><th>optimal</th></tr>
+            <tr><td><b>returns</b></td><td>any valid plan</td><td>min-cost plan (+ implicit proof)</td></tr>
+            <tr><td><b>search</b></td><td><dfn class="tip" tabindex="0" data-tip="Greedy best-first search: always expand the state that looks closest to the goal (smallest h), ignoring cost paid so far.">GBFS</dfn> — orders by \( h \) only</td><td>A* — orders by \( g + h \)</td></tr>
+            <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
+          </table>
+          <ul>
+            <li><dfn class="tip" tabindex="0" data-tip="Uninformed search: no heuristic, only path costs guide the expansion. What you fall back to when h is unavailable — and what A* reduces to with h≡0.">blind</dfn> baselines (no \( h \)): <b>BFS</b> — fewest actions, optimal only if all costs equal · <b>UCS</b> = Dijkstra — expands cheapest \( g \) first, optimal for any positive costs</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="n">4</span>A* — what I'd implement <span class="say">they ask this!</span></h2>
+          <p class="intro"><span class="say-lead">say:</span> “Once the task is fixed, finding a plan = finding a cheapest path in the state graph. A* does that by always expanding the most promising state: \( f = g + h \), cost already paid + cost still estimated.”</p>
+          <div class="pseudo">keep a queue of states, ordered by f = g + h
+take the cheapest → goal? <b>done</b> (walk parents back)
+otherwise: apply every action → queue the successors
+seen a state before? <b>keep the cheaper path</b>; repeat</div>
+          <ul>
+            <li><b>re-expansion:</b> with <b>consistent</b> \( h \), the first pop of a state already has its cheapest \( g \) — once closed, never touch it again; with merely <b>admissible</b> \( h \), a cheaper route to a closed state can still appear → <span class="hl">re-queue ("reopen") it, or the plan may be suboptimal</span></li>
+            <li>the state graph is <b>never stored</b> (it is exponential) — only the successors of the state being expanded are ever materialized; that is the "apply every action" line</li>
+            <li><b>IDA*</b> — when A*'s queue eats all memory: run <dfn class="tip" tabindex="0" data-tip="Like iterative deepening DFS, but the depth limit is replaced by an f = g + h limit.">depth-first passes with an f-cutoff</dfn>, raising the cutoff each pass to the smallest \( f \) that exceeded it — <span class="hl">stores only the current path</span> (linear memory), pays with repeated re-expansion</li>
+          </ul>
+        </section>
+        <section>
+          <h2><span class="n">5</span>Heuristic properties</h2>
+          <p class="intro"><span class="say-lead">say:</span> “A heuristic estimates remaining cost; its properties set the guarantees — admissibility buys optimality, consistency buys efficiency.”</p>
+          <ul>
+            <li>\( h^*(s) \) = true optimal cost-to-goal from \( s \)</li>
+            <li><b>admissible:</b> \( h(s) \le h^*(s) \;\; \forall s \) — never overestimate</li>
+            <li><b>consistent:</b> \( h(s) \le c(a) + h(s') \) for every edge, and \( h(s) = 0 \) for goal states</li>
+            <li><b>goal-aware:</b> \( h(s) = 0 \) when \( s \models G \) &nbsp;·&nbsp; <b>safe:</b> \( h = \infty \) only on dead ends</li>
+          </ul>
+          <span class="formula">consistent + goal-aware \( \Rightarrow \) admissible &nbsp;&nbsp; [induction on plan length]</span>
+          <ul>
+            <li>A* + admissible \( h \) ⇒ <span class="hl">optimal solution</span></li>
+            <li>consistent ⇒ \( f \) nondecreasing along paths ⇒ no reopening</li>
+            <li><b>dominance:</b> \( h_2 \ge h_1 \) (both admissible) ⇒ \( h_2 \) better informed, expands a subset (up to tie-breaking)</li>
+            <li>extremes: \( h \equiv 0 \) → UCS &nbsp;·&nbsp; \( h = h^* \) → expands only the optimal path</li>
+          </ul>
           <div class="sketch">
             <svg viewBox="0 0 340 78">
               <defs>
@@ -358,6 +351,8 @@ seen a state before? <b>keep the cheaper path</b>; repeat</div>
             <p class="cap">one step can't drop the estimate by more than its cost</p>
           </div>
         </section>
+
+
 
       </div>
     </div>
