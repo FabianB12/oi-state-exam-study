@@ -228,7 +228,7 @@
             <tr><td><b>heuristic</b></td><td>inadmissible OK → \( h^{\mathit{ff}} \), \( h^{\mathit{add}} \)</td><td><span class="hl">admissible required</span> → \( h^{\max} \), LM-Cut, PDB</td></tr>
           </table>
           <ul>
-            <li>blind baselines: BFS (unit costs) · UCS/Dijkstra (any positive costs)</li>
+            <li><dfn class="tip" tabindex="0" data-tip="Uninformed search: no heuristic, only path costs guide the expansion. What you fall back to when h is unavailable — and what A* reduces to with h≡0.">blind</dfn> baselines (no \( h \)): <b>BFS</b> — fewest actions, optimal only if all costs equal · <b>UCS</b> = Dijkstra — expands cheapest \( g \) first, optimal for any positive costs</li>
           </ul>
         </section>
 
