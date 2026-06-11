@@ -47,11 +47,13 @@ def build(num, title, h1, bullet, anchor, col1, col2, traps, flow_rows, font):
 # ============================== SHEET 2 ==============================
 col1_2 = r'''        <section>
           <h2><span class="n">1</span>Delete relaxation \( \Pi^+ \) <span class="say">open with this!</span></h2>
-          <p class="intro"><span class="say-lead">say:</span> “Heuristics come from solving an easier task exactly. The delete relaxation erases delete effects — facts only accumulate, so what was achieved once stays true.”</p>
-          <span class="formula">\( \Pi^+ \): set \( \mathit{del}(a) = \varnothing \) for every action \( \Rightarrow s \subseteq s' \) along any path</span>
+          <p class="intro"><span class="say-lead">say:</span> “To estimate remaining cost, make the task easier and solve the easy version — an easier task has a cheaper optimum, so the estimate never overshoots: admissibility by construction.”</p>
+          <span class="formula">\( \Pi^+ \): set \( \mathit{del}(a) = \varnothing \) for every action</span>
           <ul>
-            <li>\( h^+(s) \) = cost of an <b>optimal relaxed plan</b> — admissible, dominates everything below</li>
-            <li>but computing \( h^+ \) is <span class="hl">NP-hard</span> → hmax / hadd / hff approximate it</li>
+            <li>delete effects are how actions make facts <b>false</b> (drive deletes \( \mathit{at}(\mathit{truck},A) \)) — the relaxation simply <span class="hl">ignores them</span></li>
+            <li>so nothing ever becomes false → states only grow (\( s \subseteq s' \)): <b>achieved once = achieved forever</b>, no undoing, no subgoal conflicts</li>
+            <li>every real plan still works in \( \Pi^+ \) (we only removed obstacles) ⇒ \( h^+(s) \le h^*(s) \): <span class="hl">admissible lower bound</span></li>
+            <li>\( h^+ \) = cost of the <b>cheapest</b> relaxed plan — still <dfn class="tip" tabindex="0" data-tip="Finding SOME relaxed plan is easy (polynomial). Finding the CHEAPEST one is the hard part.">NP-hard</dfn> → hmax / hadd / hff are cheap approximations of it</li>
           </ul>
         </section>
 
@@ -167,7 +169,7 @@ build(2, "Delete relaxation & abstraction heuristics",
        ("5–6′", "hff backward extraction fixes the double count"),
        ("6–8.5′", "abstractions: projection → PDB, drawing 2"),
        ("8.5–10′", "Merge & Shrink + when each is used")],
-      13.5)
+      12.9)
 
 # ============================== SHEET 3 ==============================
 col1_3 = r'''        <section>
